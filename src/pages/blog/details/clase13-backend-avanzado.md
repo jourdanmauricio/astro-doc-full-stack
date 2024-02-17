@@ -7,7 +7,7 @@ image: { src: '/images/henry-index.jpg', alt: 'A picture of a coder' }
 icon: { src: '/images/m2/icon/icon-express.png', alt: 'Logo express' }
 description: Mongoose. Segunda parte.
 draft: false
-category: Mongo - Mongoose - Base de datos
+category: Mongo - Mongoose - Base de datoss
 ---
 
 ## Responsabilidad y modularización
