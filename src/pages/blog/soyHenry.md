@@ -23,7 +23,7 @@ category: Reference Docs HTML CSS JS
 
 ### Módulo 2
 
-- [Clase 1 Proyecto Full Stack](./details/clase1-proyecto-full-stack)
+- [Clase 1 Proyecto Full Stack](/astro-doc-full-stack/blog/details/clase1-proyecto-full-stack)
 - [Clase 2 AJAX](./details/clase2-ajax)
 - [Clase 3 Framworks CSS](./details/clase3-frameworks-css)
 - [Clase 4 Node](./details/clase4-node)
