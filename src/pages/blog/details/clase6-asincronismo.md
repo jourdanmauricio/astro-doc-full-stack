@@ -5,12 +5,12 @@ date: 11-02-2024
 author: Mauricio Jourdán
 image:
   {
-    src: '/images/m2/back/back-clase6.jpeg',
+    src: '/astro-doc-full-stack/images/m2/back/back-clase6.jpeg',
     alt: 'Background clase 6 - Aincronismo',
   }
 icon:
   {
-    src: '/images/m2/icon/icon-asincronismo.avif',
+    src: '/astro-doc-full-stack/images/m2/icon/icon-asincronismo.avif',
     alt: 'Logo for Asincronismo',
   }
 description: Asincronismo
@@ -67,7 +67,7 @@ Para ilustrar este concepto, imagina que eres cliente de una máquina expendedor
 
 Por lo que oprimes el botón y cae el producto de la máquina para que lo recojas. Puedes incluso seleccionar uno nuevo mientras se termina de preparar tu café y la máquina te lo dará inmediatamente. Si te das cuenta, la máquina no esperó que el café estuviera listo para darte las galletitas o los demás productos que escogiste. La tarea de preparar el café no bloquea la ejecución de otras tareas.
 
-![Sincronismo vs Asincronismo.](/images/m2/asincronismo.png)
+![Sincronismo vs Asincronismo.](/astro-doc-full-stack/images/m2/asincronismo.png)
 
 JavaScript cuenta con diversas herramientas y metodologías que le permiten dejar de lado su naturaleza síncrona y trabajar con operaciones asincrónicas como el uso de las funciones callback. Una forma más actual para manejar dichas operaciones es mediante el uso de .promesas  que permiten encadenar operaciones asíncronas y manejar errores de una forma más estructurada. Conozcamos este concepto...
 
@@ -105,7 +105,7 @@ Por ahora no estamos realizando ninguna tarea, pero, ¿de dónde proviene ese va
 
 Una vez una promesa haya sido resuelta o rechazada, ya no estará en pending ni tampoco será posible pasar de “fulfilled” a “rejected” o viceversa.
 
-![Promesas.](/images/m2/promesas.png)
+![Promesas.](/astro-doc-full-stack/images/m2/promesas.png)
 
 Por otro lado, la gran utilidad de las promesas no es solamente informar sobre el estado de la resolución o rechazo, lo que necesitamos es conocer el valor o la razón que nos retorna para poder utilizarlo en el código.
 
@@ -305,7 +305,7 @@ Pusimos en práctica el concepto de promesas para representar el resultado de un
 
 Finalmente, realizamos algunas operaciones asincrónicas como lectura/escritura de archivos y conexiones a servicios.
 
-![Mapa de conceptos asinconismo.](/images/m2/mapa-conceptos/clase6.png)
+![Mapa de conceptos asinconismo.](/astro-doc-full-stack/images/m2/mapa-conceptos/clase6.png)
 
 ## Homework
 

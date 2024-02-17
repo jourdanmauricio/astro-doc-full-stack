@@ -3,8 +3,16 @@ layout: '../../../layouts/SubBlogPostLayout.astro'
 title: Módulo 2 - Clase 2. AJAX
 date: 11-02-2024
 author: Mauricio Jourdán
-image: { src: '/images/m2/back/back-clase2.jpg', alt: 'Ajax background' }
-icon: { src: '/images/m2/icon-ajax.jpg', alt: 'Logo for Ajax' }
+image:
+  {
+    src: '/astro-doc-full-stack/images/m2/back/back-clase2.jpg',
+    alt: 'Ajax background',
+  }
+icon:
+  {
+    src: '/astro-doc-full-stack/images/m2/icon/icon-ajax.jpg',
+    alt: 'Logo for Ajax',
+  }
 description: Proyecto Full Stack
 draft: false
 category: Full Stack
@@ -30,7 +38,7 @@ En los procesos **asincrónicos** se distinguen varias características:
 - **Continuación inmediata**: luego de iniciar la tarea, el programa continúa ejecutando otras tareas sin esperar a que la tarea asíncrona se complete.
 - **Manejo del resultado:** cuando la tarea asíncrona se completa, se maneja el resultado o se ejecuta una función de retorno (_callback_) para procesar el resultado. Lo veremos al final de la clase 💪.
 
-![Asincronismo](/images/m2/asincronismo.png)
+![Asincronismo](/astro-doc-full-stack/images/m2/asincronismo.png)
 
 El objetivo del enfoque asincrónico es simplemente que un programa pueda mejorar su eficiencia y capacidad de respuesta, evitando que se generen procesos bloqueantes a partir de operaciones que toman mucho tiempo (como la lectura de archivos, las solicitudes de red o las operaciones de entrada/salida) y continuar realizando otros procesos en un “segundo plano”, en lugar de quedarse inactivo.
 
@@ -132,7 +140,7 @@ Para que te hagas una idea de este formato, el equivalente en JSON del ejemplo a
 
 Las aplicaciones web tradicionales solían requerir una recarga completa de la página cada vez que se realizaba una solicitud al servidor. **AJAX permite enviar y recibir datos del servidor en segundo plano**, sin interferir con la interacción del usuario en la página. Esto mejora la experiencia del usuario al proporcionar respuestas más rápidas y fluidas.
 
-![Ciclo de vida web tradicional vs SPA](/images/m2/ciclo-de-vida.png)
+![Ciclo de vida web tradicional vs SPA](/astro-doc-full-stack/images/m2/ciclo-de-vida.png)
 
 AJAX es una técnica de desarrollo que nos permite pedir información puntual al servidor para modificar una parte de nuestra página Web. Antes de Ajax no era posible modificar una parte de la Web con nueva información solicitada al servidor.
 
@@ -140,11 +148,11 @@ Ejemplo: al ingresar a un ecommerce el navegador realizar un petición HTTP al s
 
 Supongamos que estamos en la página relacionada a la categoría “Muebles y jardín” y deseamos ir a la categoría “Baños y cocina”. En este caso, el navegador vuelve a enviar un solicitud HTTP al servidor, repitiendo el ciclo. Es decir, que el proceso comienza de nuevo. Se reciben los archivos y se renderizan los archivos completamente.
 
-![Web tradicional](/images/m2/tradicional-ajax-1.png)
+![Web tradicional](/astro-doc-full-stack/images/m2/tradicional-ajax-1.png)
 
 Pero, los cambios entre las distintas “páginas” solo era la información de las “tarjetas”, solo cambian los productos. El resto del documento (menu, footer, barras laterales, etc) es exactamente igual.
 
-![Web ajax](/images/m2/tradicional-ajax-2.png)
+![Web ajax](/astro-doc-full-stack/images/m2/tradicional-ajax-2.png)
 
 **AJAX →Asynchronous JavaScript And XML**
 

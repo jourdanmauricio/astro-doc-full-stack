@@ -3,8 +3,16 @@ layout: '../../../layouts/SubBlogPostLayout.astro'
 title: Módulo 2 - Clase 13. Backend Avanzado
 date: 13-02-2024
 author: Mauricio Jourdán
-image: { src: '/images/henry-index.jpg', alt: 'A picture of a coder' }
-icon: { src: '/images/m2/icon/icon-express.png', alt: 'Logo express' }
+image:
+  {
+    src: '/astro-doc-full-stack/images/henry-index.jpg',
+    alt: 'A picture of a coder',
+  }
+icon:
+  {
+    src: '/astro-doc-full-stack/images/m2/icon/icon-express.png',
+    alt: 'Logo express',
+  }
 description: Mongoose. Segunda parte.
 draft: false
 category: Mongo - Mongoose - Base de datoss
@@ -86,7 +94,7 @@ En este caso, el auto sería un componente abstraído con herramientas mediante 
 
 Este concepto puede parecer complejo, pero en la práctica es fácil de aplicar😉. De hecho lo hemos utilizado en diferentes ocasiones sin darnos cuenta.
 
-![Abstracción.](/images/m2/clase13-abstraccion.png)
+![Abstracción.](/astro-doc-full-stack/images/m2/clase13-abstraccion.png)
 
 Volvamos por un momento a la aplicación de ejemplo que creamos en la clase de mongoose.
 
@@ -96,7 +104,7 @@ Pero, ¿De dónde sale esta clase? ¿Cómo se construye el schema dentro de esta
 
 Probemos haciendo **ctrl+click** en la palabra **Schema**, lo cual nos llevará al módulo que se encarga de definir esta clase y veremos la siguiente información.
 
-![Abstracción II.](/images/m2/clase13-abstraccion2.png)
+![Abstracción II.](/astro-doc-full-stack/images/m2/clase13-abstraccion2.png)
 
 ## Manejo de errores
 
@@ -338,7 +346,7 @@ Pasamos luego a descubrir algunas **herramientas** para el manejo de los distint
 
 Finalmente, exploramos el uso de los llamados **helpers y utils**; carpetas que contendrán funciones que nos permiten trabajar con tareas específicas en partes de código concretos o tareas más generales que pueden llevarse a cabo en cualquier lugar de nuestra aplicación, respectivamente.
 
-![Mapa backend Avanzado.](/images/m2/mapa-conceptos/clase13.png)
+![Mapa backend Avanzado.](/astro-doc-full-stack/images/m2/mapa-conceptos/clase13.png)
 
 ## Homework
 

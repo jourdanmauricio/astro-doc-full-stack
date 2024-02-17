@@ -3,8 +3,16 @@ layout: '../../../layouts/SubBlogPostLayout.astro'
 title: Módulo 2 - Clase 9. Database Fundamentals
 date: 11-02-2024
 author: Mauricio Jourdán
-image: { src: '/images/m2/back/back-clase9.webp', alt: 'Bases de datos' }
-icon: { src: '/images/m2/icon/icon-database.jpg', alt: 'Logo Base de datos' }
+image:
+  {
+    src: '/astro-doc-full-stack/images/m2/back/back-clase9.webp',
+    alt: 'Bases de datos',
+  }
+icon:
+  {
+    src: '/astro-doc-full-stack/images/m2/icon/icon-database.jpg',
+    alt: 'Logo Base de datos',
+  }
 description: Fundamentos de Base de Datos
 draft: false
 category: Databases

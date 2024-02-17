@@ -3,8 +3,16 @@ layout: '../../../layouts/SubBlogPostLayout.astro'
 title: Módulo 2 - Clase 11. Mongoose
 date: 13-02-2024
 author: Mauricio Jourdán
-image: { src: '/images/m2/back/back-clase11.jpg', alt: 'Mongoose' }
-icon: { src: '/images/m2/icon/icon-logo.png', alt: 'Mongoose logo' }
+image:
+  {
+    src: '/astro-doc-full-stack/images/m2/back/back-clase11.jpg',
+    alt: 'Mongoose',
+  }
+icon:
+  {
+    src: '/astro-doc-full-stack/images/m2/icon/icon-logo.png',
+    alt: 'Mongoose logo',
+  }
 description: Conectando nuestra la base de datos
 draft: false
 category: Mongo - Mongoose - Base de datos
@@ -183,7 +191,7 @@ Ya sabemos inicializar su configuración dentro de node así como también defin
 
 Por último, realizamos la integración de mongoose con express para poder gestionar la información de la base de datos en nuestro servidor por medio de solicitudes de HTTP.
 
-![Mapa de conceptos mongoose.](/images/m2/mapa-conceptos/clase11.png)
+![Mapa de conceptos mongoose.](/astro-doc-full-stack/images/m2/mapa-conceptos/clase11.png)
 
 ## Homework
 

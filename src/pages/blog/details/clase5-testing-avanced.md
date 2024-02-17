@@ -5,12 +5,12 @@ date: 11-02-2024
 author: Mauricio Jourdán
 image:
   {
-    src: '/images/m2/back/back-clase5.jpeg',
+    src: '/astro-doc-full-stack/images/m2/back/back-clase5.jpeg',
     alt: 'Background clase 5 - Testing Avanced',
   }
 icon:
   {
-    src: '/images/m2/icon/icon-testing-avanced.jpg',
+    src: '/astro-doc-full-stack/images/m2/icon/icon-testing-avanced.jpg',
     alt: 'Logo for Testing Avanced',
   }
 description: Testing Avanced

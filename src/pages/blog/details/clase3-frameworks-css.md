@@ -4,8 +4,15 @@ title: Módulo 2 - Clase 3. Frameworks CSS
 date: 11-02-2024
 author: Mauricio Jourdán
 image:
-  { src: '/images/m2/back/back-clase3.jpg', alt: 'Frameworks CSS background' }
-icon: { src: '/images/m2/icon/icon-bootstrap.png', alt: 'Logo for Bootstrap' }
+  {
+    src: '/astro-doc-full-stack/images/m2/back/back-clase3.jpg',
+    alt: 'Frameworks CSS background',
+  }
+icon:
+  {
+    src: '/astro-doc-full-stack/images/m2/icon/icon-bootstrap.png',
+    alt: 'Logo for Bootstrap',
+  }
 description: Frameworks CSS
 draft: false
 category: Frameworks CSS

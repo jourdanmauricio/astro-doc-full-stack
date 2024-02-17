@@ -5,10 +5,14 @@ date: 11-02-2024
 author: Mauricio Jourdán
 image:
   {
-    src: '/images/m2/back/back-clase4.jpeg',
+    src: '/astro-doc-full-stack/images/m2/back/back-clase4.jpeg',
     alt: 'Background clase 4 - Node js',
   }
-icon: { src: '/images/m2/icon/icon-node.png', alt: 'Logo for Node js' }
+icon:
+  {
+    src: '/astro-doc-full-stack/images/m2/icon/icon-node.png',
+    alt: 'Logo for Node js',
+  }
 description: Node js
 draft: false
 category: Node js

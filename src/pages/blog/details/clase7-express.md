@@ -3,8 +3,16 @@ layout: '../../../layouts/SubBlogPostLayout.astro'
 title: Módulo 2 - Clase 7. Express
 date: 11-02-2024
 author: Mauricio Jourdán
-image: { src: '/images/henry-index.jpg', alt: 'A picture of a coder' }
-icon: { src: '/images/m2/icon/icon-express.png', alt: 'Logo express' }
+image:
+  {
+    src: '/astro-doc-full-stack/images/henry-index.jpg',
+    alt: 'A picture of a coder',
+  }
+icon:
+  {
+    src: '/astro-doc-full-stack/images/m2/icon/icon-express.png',
+    alt: 'Logo express',
+  }
 description: Backend con Express
 draft: false
 category: Express Node
@@ -251,7 +259,7 @@ Hemos dado pasos significativos en el mundo de express. Desde la creación de nu
 
 Recuerda, cada bloque de código es una pieza del rompecabezas, y hoy hemos encajado muchas de ellas.
 
-![Estructura del proyecto.](/images/m2/mapa-conceptos/clase7.png)
+![Estructura del proyecto.](/astro-doc-full-stack/images/m2/mapa-conceptos/clase7.png)
 
 ## Homework
 

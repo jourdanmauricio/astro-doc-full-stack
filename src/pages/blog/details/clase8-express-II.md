@@ -3,8 +3,16 @@ layout: '../../../layouts/SubBlogPostLayout.astro'
 title: Módulo 2 - Clase 8. Express II
 date: 11-02-2024
 author: Mauricio Jourdán
-image: { src: '/images/henry-index.jpg', alt: 'A picture of a coder' }
-icon: { src: '/images/m2/icon/icon-express.png', alt: 'Logo express' }
+image:
+  {
+    src: '/astro-doc-full-stack/images/henry-index.jpg',
+    alt: 'A picture of a coder',
+  }
+icon:
+  {
+    src: '/astro-doc-full-stack/images/m2/icon/icon-express.png',
+    alt: 'Logo express',
+  }
 description: Backend con Express
 draft: false
 category: Express Node

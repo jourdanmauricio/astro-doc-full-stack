@@ -3,8 +3,16 @@ layout: '../../../layouts/SubBlogPostLayout.astro'
 title: Módulo 2 - Clase 10. Mongodb
 date: 11-02-2024
 author: Mauricio Jourdán
-image: { src: '/images/m2/back/back-clase9.webp', alt: 'Mongodb' }
-icon: { src: '/images/m2/icon/icon-mongodb.png', alt: 'Logo Mongodb' }
+image:
+  {
+    src: '/astro-doc-full-stack/images/m2/back/back-clase9.webp',
+    alt: 'Mongodb',
+  }
+icon:
+  {
+    src: '/astro-doc-full-stack/images/m2/icon/icon-mongodb.png',
+    alt: 'Logo Mongodb',
+  }
 description: Base de Datos Mongo
 draft: false
 category: Databases MongoDB
@@ -42,7 +50,7 @@ A pesar de ser una herramienta con costo, tiene opciones para trabajar sin neces
 
 > Ten en cuenta que la serialización no se ve así realmente. Es solo par hacernos una idea de la diferencia entre BSON y JSON.
 
-![Diferecia entre Bson y Json.](/images/m2/bson.jpg)
+![Diferecia entre Bson y Json.](/astro-doc-full-stack/images/m2/bson.jpg)
 
 ### Elementos principales
 
@@ -85,7 +93,7 @@ Otro de los elementos principales de MongoDB son las colecciones. Una colección
 
 En muchas situaciones vamos a querer crear algo llamado referencia entre documentos. Las referencias son una "conexión" que hay entre dos documentos que dice que uno de ellos puede abarcar la información del otro. Veamos esto en un ejemplo...
 
-![Referencias.](/images/m2/referencias.jpg)
+![Referencias.](/astro-doc-full-stack/images/m2/referencias.jpg)
 
 ## MongoDB Atlas
 
@@ -121,7 +129,7 @@ En esta clase, hemos conocido las bases de datos NoSQL, con enfoque especial en 
 
 Conocimos los elementos principales de MongoDB: documentos, colecciones y referencias, y cómo estos se relacionan entre sí. Aprendimos a utilizar MongoDB Atlas, la plataforma en la nube de MongoDB, para gestionar y desplegar nuestras bases de datos en entornos en la nube. Además descargamos e instalamos MongoDB Compass, una interfaz gráfica que nos permite explorar y manipular datos de manera visual. Conectamos Compass a nuestro cluster en MongoDB Atlas.
 
-![Mapa de conceptos mongodb.](/images/m2/mapa-conceptos/clase10.png)
+![Mapa de conceptos mongodb.](/astro-doc-full-stack/images/m2/mapa-conceptos/clase10.png)
 
 ## Homework
 

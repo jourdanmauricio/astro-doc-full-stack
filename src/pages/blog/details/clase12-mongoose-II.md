@@ -3,8 +3,16 @@ layout: '../../../layouts/SubBlogPostLayout.astro'
 title: Módulo 2 - Clase 12. Mongoose II
 date: 13-02-2024
 author: Mauricio Jourdán
-image: { src: '/images/m2/back/back-clase11.jpg', alt: 'Mongoose' }
-icon: { src: '/images/m2/icon/icon-logo.png', alt: 'Mongoose logo' }
+image:
+  {
+    src: '/astro-doc-full-stack/images/m2/back/back-clase11.jpg',
+    alt: 'Mongoose',
+  }
+icon:
+  {
+    src: '/astro-doc-full-stack/images/m2/icon/icon-logo.png',
+    alt: 'Mongoose logo',
+  }
 description: Mongoose. Segunda parte.
 draft: false
 category: Mongo - Mongoose - Base de datos
@@ -396,7 +404,7 @@ Conocimos el método **populate** que permite reemplazar referencias a documento
 
 Finalmente, descubrimos el método **lean**, que proporciona documentos como objetos de JavaScript, en lugar de instancias de modelos Mongoose. Introdujimos los **métodos estáticos**, que afectan a todas las instancias del modelo, y los **dinámicos**, que solo alteran instancias concretas que nosotros escojamos.
 
-![Mapa de conceptos mongoose II.](/images/m2/mapa-conceptos/clase12.png)
+![Mapa de conceptos mongoose II.](/astro-doc-full-stack/images/m2/mapa-conceptos/clase12.png)
 
 ## Homework
 
