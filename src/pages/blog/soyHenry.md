@@ -3,7 +3,6 @@ layout: '../../layouts/BlogPostLayout.astro'
 title: Henry - Apuntes Bootcamp - 4 módulos
 date: 11-02-2024
 author: Mauricio Jourdán
-url: '/astro-doc-full-stack/images/henry-index.jpg',
 image:
   {
     src: '/astro-doc-full-stack/images/henry-index.jpg',
