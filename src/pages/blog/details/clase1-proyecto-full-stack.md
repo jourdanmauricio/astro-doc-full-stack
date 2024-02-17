@@ -3,8 +3,16 @@ layout: '../../../layouts/SubBlogPostLayout.astro'
 title: Módulo 2 - Clase 1. Proyecto Full Stack
 date: 11-02-2024
 author: Mauricio Jourdán
-image: { src: '/images/m2/back/back-clase1.jpg', alt: 'Aldrin on the moon' }
-icon: { src: '/images/m2/icon/icon-code.png', alt: 'Logo for code' }
+image:
+  {
+    src: '/astro-doc-full-stack/images/m2/back/back-clase1.jpg',
+    alt: 'Aldrin on the moon',
+  }
+icon:
+  {
+    src: '/astro-doc-full-stack/images/m2/icon/icon-code.png',
+    alt: 'Logo for code',
+  }
 description: Proyecto Full Stack
 draft: false
 category: Full Stack
@@ -78,11 +86,11 @@ Frontend y Backend son dos aplicaciones separadas. Estas aplicaciones pueden viv
 
 El concepto de API no necesariamente se encuentra relacionado a frontend o backend. Una API nos brinda un serie de recursos, herramientas, protocolos, reglas para la comunicación entre dos sistemas independientes. Ej: La API del DOM que nos brinda métodos para interactuar con el DOM. Nuestra app no conoce la implementación de los métodos pero podemos interactuan con ellos.
 
-![Definición API](/images/m2/full-stack-1.png)
+![Definición API](/astro-doc-full-stack/images/m2/full-stack-1.png)
 
 API Rest → Son un tipo especial de API que se utilizan entre front y back. La comunicación se realiza a través del protocolo HTTP, que no solo sirve para esta comunicación.
 
-![Definición Rest API](/images/m2/full-stack-2.png)
+![Definición Rest API](/astro-doc-full-stack/images/m2/full-stack-2.png)
 
 Las implementaciones de APIs no son completamente al azar. Estas están ligadas a unos patrones/reglas que debe conocer el equipo de trabajo para desarrollar proyectos de manera conjunta.
 
@@ -104,7 +112,7 @@ Anteriormente hemos mencionado que las APIs establecen un protocolo de comunica
 
 **Protocolo de Red** → Primero es necesario entender qué es un protocolo de red. La **red**, en términos simples, se refiere a un entorno donde las computadoras comparten recursos e información utilizando protocolos que facilitan la comunicación entre ellas.
 
-![Protocolo http](/images/m2/protocolo-http.png)
+![Protocolo http](/astro-doc-full-stack/images/m2/protocolo-http.png)
 
 💪Existe una organización que creó un modelo llamado OSI (Open System Interconnection). Este modelo permite que estos protocolos de comunicación se organicen según su funcionalidad.
 
@@ -136,7 +144,7 @@ Dentro del request incluye el método para indicar al servidor que acción debe 
 
 La siguiente imagen muestra el flujo completo de una solicitud HTTP, desde su emisión por el navegador, hasta la devolución de una respuesta por parte del servidor:
 
-![Metodos http](/images/m2/metodos-http.png)
+![Metodos http](/astro-doc-full-stack/images/m2/metodos-http.png)
 
 ## Cierre
 

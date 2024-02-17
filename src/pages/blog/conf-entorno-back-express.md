@@ -3,7 +3,11 @@ layout: '../../layouts/BlogPostLayout.astro'
 title: Configurando el entorno de desarrollo para Express js
 date: 12-02-2024
 author: Mauricio Jourdán
-image: { src: '/images/post-3.jpg', alt: 'A picture of a coder' }
+image:
+  {
+    src: '/astro-doc-full-stack/images/post-3.jpg',
+    alt: 'A picture of a coder',
+  }
 description: Configurando el entorno de desarrollo para trabajar con node js - Express js
 draft: false
 category: Configuración Express Node

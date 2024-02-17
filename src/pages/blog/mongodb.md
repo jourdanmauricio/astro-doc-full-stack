@@ -3,7 +3,8 @@ layout: '../../layouts/BlogPostLayout.astro'
 title: Conociendo Mongodb
 date: 2024-02-12
 author: Mauricio Jourdán
-image: { src: '/images/mongo-1200_600.png', alt: Logo mongodb' }
+image:
+  { src: '/astro-doc-full-stack/images/mongo-1200_600.png', alt: Logo mongodb' }
 description: Introducción a Mondodb.
 draft: false
 category: Bases de datos Mongodb
