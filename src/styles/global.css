@@ -1,0 +1,46 @@
+:root {
+  --bkg: #020617;
+  --font: #f8fafc;
+  --accent: #cbd5e1;
+  --muted: #0f172a;
+  --space-2xs: clamp(0.31rem, calc(0.18rem + 0.65vw), 0.69rem);
+  --space-xs: clamp(0.56rem, calc(0.39rem + 0.87vw), 1.06rem);
+  --space-sm: clamp(0.88rem, calc(0.7rem + 0.87vw), 1.38rem);
+  --space-md: clamp(1.13rem, calc(0.8rem + 1.63vw), 2.06rem);
+  --space-lg: clamp(1.69rem, calc(1.32rem + 1.85vw), 2.75rem);
+  --space-xl: clamp(2.25rem, calc(1.6rem + 3.26vw), 4.13rem);
+  --space-2xl: clamp(3.38rem, calc(2.64rem + 3.7vw), 5.5rem);
+  --space-3xl: clamp(4.5rem, calc(3.2rem + 6.52vw), 8.25rem);
+}
+
+html {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  max-width: 1600px;
+}
+body {
+  margin: 0 auto;
+  min-height: 100vh;
+
+  /* background-color: var(--bkg); */
+  /* color: var(--font); */
+  background-color: var(--font);
+  color: var(--back);
+
+  /* font-size: var(--fs-md);
+  line-height: var(--lh-1-4);  */
+  font-family: 'Atkinson Hyperlegible', sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+.container {
+  max-width: 1600px;
+  padding: 0 1rem;
+  margin: 0 auto;
+}
+
+a {
+  text-decoration: none;
+}

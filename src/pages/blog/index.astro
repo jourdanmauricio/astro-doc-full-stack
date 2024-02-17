@@ -1,0 +1,47 @@
+---
+// component imports
+import MainLayout from '../../layouts/MainLayout.astro';
+import PostCard from '../../components/PostCard.astro';
+
+const allPosts = await Astro.glob('./*.md');
+---
+
+<MainLayout title="Mi Blog">
+  <section
+    class="container"
+    aria-label="Mis apuntess"
+  >
+    <h1 class="title">Mis apuntes</h1>
+    <div class="post-container">
+      {
+        allPosts.map((post) => (
+          <PostCard
+            frontmatter={post.frontmatter}
+            url={post.url}
+            tagType="h3"
+          />
+        ))
+      }
+    </div>
+  </section>
+</MainLayout>
+
+<style>
+  .post-container {
+    margin-block: var(--space-md);
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    height: 100%;
+  }
+
+  .title {
+    text-align: center;
+    color: rebeccapurple;
+    margin-bottom: 3rem;
+    font-size: 2.5em;
+    font-weight: 600;
+  }
+</style>

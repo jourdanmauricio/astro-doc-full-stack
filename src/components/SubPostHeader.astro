@@ -1,0 +1,54 @@
+---
+const { category, title, author, date, image, icon } = Astro.props;
+---
+
+<header>
+  <div class="header">
+    <img
+      class="image"
+      src={image.src}
+      alt={image.alt}
+    />
+    <img
+      class="icon"
+      src={icon.src}
+      alt={icon.alt}
+    />
+  </div>
+  <div class="container">
+    <h1 class="title">{title}</h1>
+  </div>
+</header>
+
+<style>
+  .header {
+    position: relative;
+    width: 100%;
+    max-width: 1600px;
+  }
+  .image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    max-height: 200px;
+  }
+  .icon {
+    position: absolute;
+    left: 10%;
+    bottom: -3rem;
+    width: 6rem;
+    height: 6rem;
+    border-radius: 50%;
+  }
+
+  .title {
+    padding: 0;
+    margin-top: 4rem;
+    font-size: 2em;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+</style>

@@ -1,0 +1,26 @@
+{
+  "name": "astro-henry-docs",
+  "type": "module",
+  "version": "0.0.1",
+  "browserslist": [
+    "defaults"
+  ],
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.5.2",
+    "astro": "^4.3.5",
+    "astro-icon": "^1.1.0",
+    "postcss": "^8.4.35",
+    "postcss-preset-env": "^9.3.0",
+    "typescript": "^5.3.3"
+  },
+  "devDependencies": {
+    "@iconify-json/mdi": "^1.1.64"
+  }
+}
