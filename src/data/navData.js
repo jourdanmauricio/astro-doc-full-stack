@@ -1,11 +1,11 @@
 const navData = [
   {
     name: 'About',
-    path: '/about/',
+    path: '/mi-repo/about/',
   },
   {
     name: 'Blog',
-    path: '/blog/',
+    path: '/mi-repo/blog/',
   },
 ];
 
