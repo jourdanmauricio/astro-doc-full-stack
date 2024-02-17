@@ -1,11 +1,11 @@
 const navData = [
   {
     name: 'About',
-    path: '/mi-repo/about/',
+    path: '/astro-doc-full-stack/about/',
   },
   {
     name: 'Blog',
-    path: '/mi-repo/blog/',
+    path: '/astro-doc-full-stack/blog/',
   },
 ];
 
