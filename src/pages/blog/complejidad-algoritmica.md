@@ -207,6 +207,196 @@ En el gráfico podemos ver como el tamaño del input afecta a la perfomance.
 
 O(1) O(log n) con muy buenos y O(!), O(2<sup>n</sup>) son malos en Time Complexity (debemos evitarlos tanto como sea posible).
 
+## Objectos y Arrays Big-O
+
+### Objetos
+
+Un **objeto** es una colección de pares calve - valor.
+
+```javascript
+const person = {
+  firstName: "Mauricio",
+  lastName "Jourdán"
+}
+```
+
+- Insert - O(1) Ej: person.age = 30
+- Remove - O(1) Ej: delete person.age
+- Access - O(1) Ej: console.log(person.firstName)
+- Search - O(n)
+- Object.keys - O(n)
+- Object.values - O(n)
+- Object.entries - O(n)
+
+### Arrays
+
+Un **array** es una colección ordenada de valores. Comienzan por el índice 0 y se incrementa en 1.
+
+- Insert or remove al final - O(1)
+- Insert or remove al principio - O(n)
+- Access - O(1)
+- Search - O(n)
+- Push / Pop - O(1)
+- Shift / Unshift /concat / slice / splice - O(n)
+- forEach / map / filter / reduce - O(n)
+
+Al resolver un problema, puede usar foreach o filter y la función callback también contendrá un bucle for. En tal escenario, la complejidad de su tiempo es cuadrática y es posible que no estemos contentos con eso.
+
+## Math Algorithms
+
+Comencemos a resolver algunos algoritmos matemáticos básicos. Problemas relacionados con:
+
+- Fibonacci sequence
+- Factorial of a number
+- Prome number
+- Power of two
+- Recursion
+- Fibonacci sequence with recursion
+- Factorial of a number with recursion
+
+## Big-O guide
+
+- Si el cálculo no depende del tamaño del input es constante - O(1)
+- 1 loop - O(n)
+- 2 loops anidados - O(n<sup>2</sup>)
+- El tamaño del input reducido por la mitad - O(log n)
+
+### Fibonacci Sequence
+
+**Problem**: give a number 'n', find the frist 'n' elements of the Fibonacci sequence
+
+<mark>En matemáticas, la secuencia de Fibonacci es una secuencia en la que cada número es la suma de los dos precedentes. Los primeros dos números en la secuencia son 0 y 1.</mark>
+
+Por ejemplo:
+
+- fibonacci(2) = [0, 1]
+- fibonacci(3) = [0, 1, 1]
+- fibonacci(7) = [0, 1, 1, 2, 3, 5, 8]
+
+```javascript
+function fibonacci(n) {
+  const fib = [0, 1];
+
+  for (let i = 2; i < n; i++) {
+    fib[i] = fib[i - 1] + fib[i - 2];
+  }
+
+  return fib;
+}
+
+console.log(fibonacci(2)); // [0, 1]
+console.log(fibonacci(3)); // [0, 1, 1]
+console.log(fibonacci(7)); // [0, 1, 1, 2, 3, 5, 8]
+
+// Big-O = O(n)
+```
+
+La función contiene un for (loop), por lo tanto, posee una complejidad lineal O(n)
+
+### Factorial of a Number
+
+**Problem**: Given an integer 'n', find the factorial of that integer.
+
+<mark>En matemáticas, el factorial de un entero no negativo 'n', denotado n!, es el producto de todos los enteros positivos menores o iguales que 'n'.
+
+- Factorial de 0 es 1
+- factorial(4) = 4 \* 3 \* 2 \* 1 = 24
+- factorial(5) = 5 \* 4 \* 3 \* 2 \* 1 = 120
+
+```javascript
+function factorial(n) {
+  let result = 1;
+
+  for (let i = 2; i <= n; i++) {
+    result = result * i;
+  }
+
+  return result;
+}
+
+console.log(factorial(0)); // 1
+console.log(factorial(1)); // 1
+console.log(factorial(5)); // 120
+
+// Big-O = O(n)
+```
+
+La función contiene un for (loop), por lo tanto, posee una complejidad lineal O(n)
+
+### Prime Number
+
+**Problem**: Given a natural number 'n', determine if the number is prime or not.
+
+<mark>Un número primo es un número natural mayor que 1 que no es producto de dos números naturales menores.</mark>
+
+- isPrime(5) = true (1\*5 or 5\*1)
+- isPrime(4) = false (1\*4 or 2\*2 or 4\*1)
+
+```javascript
+function isPrime(n) {
+  if (n < 2) return false;
+
+  for (let i = 2; i < n; i++) {
+    if (n % i === 0) return false;
+  }
+  return true;
+}
+
+console.log(isPrime(1)); // false
+console.log(isPrime(4)); // false
+console.log(isPrime(5)); // true
+
+// Big-O = O(n)
+```
+
+La función contiene un for (loop), por lo tanto, posee una complejidad lineal O(n).
+
+## Optimized Primality Test
+
+Los números enteros mayores que la raíz cuadrada no necesitan ser chequeados, porque cuando sea 'n = a \* b' uno de los dos factores 'a' y 'b' es menor o igual que la raíz cuadrada de n.
+
+Ejemplos para validar la hipótesis:
+
+- n=24, a=4 y b=6
+
+La raíz cuadrada de 24 es 4.89 <br>
+4 es menor que 4.89 <br>
+a es menor que la raíz cuadrada de n
+
+- n=35, a=5 y b=7
+
+La raíz cuadrada de 35 es 5.91 <br>
+5 es menor que 5.91 <br>
+a es menor que la raíz cuadrada de n
+
+Ahora podemos **optimizar nustra función**:
+
+```javascript
+function isPrime(n) {
+  if (n < 2) return false;
+
+  // for (let i = 2; i < n; i++) {
+  for (let i = 2; i <= Math.sqrt(n); i++) {
+    if (n % i === 0) return false;
+  }
+  return true;
+}
+
+console.log(isPrime(1)); // false
+console.log(isPrime(4)); // false
+console.log(isPrime(5)); // true
+
+// Big-O = O(sqtr(n))
+```
+
+Observamos que si n es 100, la raíz cuadrada de 100 es 10. Por lo tanto, el for irá desde 2 a 10 en lugar de a 100.
+
+<mark>Si el n crece, el número de ejecuciones del loop crecerá pero no en la mismo proporción.</mark>
+
+### Power of Two
+
+**Problem**: Give a positive integer 'n', determine if the number is a power of 2 or not.
+
 <style>
   h1 { color: #713f12; }
   h2 { color: #2563eb; }
