@@ -36,6 +36,7 @@ category: Reference Docs HTML CSS JS
 - [Clase 11 Mongoose](/astro-doc-full-stack/blog/details/clase11-mongoose)
 - [Clase 12 Mongoose II](/astro-doc-full-stack/blog/details/clase12-mongoose-II)
 - [Clase 13 Backend Avanzado](/astro-doc-full-stack/blog/details/clase13-backend-avanzado)
+- [Clase 14 JavaScript Avanzado I](/astro-doc-full-stack/blog/details/clase14-js-avanzadoI)
 
 ### Módulo 3
 

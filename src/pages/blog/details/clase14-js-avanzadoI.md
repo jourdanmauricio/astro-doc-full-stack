@@ -1,10 +1,18 @@
 ---
 layout: '../../../layouts/SubBlogPostLayout.astro'
-title: Módulo 2 - Clase 11. JavaScript Avanzado II
+title: Módulo 2 - Clase 14. JavaScript Avanzado I
 date: 11-02-2024
 author: Mauricio Jourdán
-image: { src: '/images/m2/javascript.avif', alt: 'javascript-avanzado' }
-icon: { src: '/images/m2/JavaScript-logo.png', alt: 'Logo javascript' }
+image:
+  {
+    src: '/astro-doc-full-stack/images/m2/back/back-clase14.webp',
+    alt: 'javascript-avanzado',
+  }
+icon:
+  {
+    src: '/astro-doc-full-stack/images/m2/icon/icon-javascript.png',
+    alt: 'Logo javascript',
+  }
 description: JavaScript Avanzado II
 draft: false
 category: JavasScript
@@ -76,7 +84,7 @@ A pesar de que el hoisting parece ser de gran utilidad, y en algunas situaciones
 
 Con todas estas ideas en mente (hoisting, contextos de ejecución y ámbito léxico), introducimos un nuevo término que nos permitirá acceder a la información de contextos así estos ya no estén presentes en el call stack: closures.
 
-![Hoisting](/images/m2/hoisting.png)
+![Hoisting](/astro-doc-full-stack/images/m2/hoisting.png)
 
 ## Closures
 
@@ -120,9 +128,12 @@ El **contexto** se refiere al entorno en el que se ejecuta el código y los hay 
 
 Finalmente, las **closures** son funciones que tienen acceso a variables de un contexto externo, incluso después de que la función externa haya finalizado su ejecución.
 
-![Resumen de Conceptos](/images/m2/conceptos-js-avanzado.png)
+![Resumen de Conceptos](/astro-doc-full-stack/images/m2/mapa-conceptos/clase14.png)
 
 ## Homework
+
+<details>
+<summary>Actividades</summary>
 
 **ACTIVIDAD 01**
 (Creación de una vista de formulario para la creación de películas)
@@ -163,13 +174,18 @@ Implementar una función que maneje el evento de envío de formulario, que por e
 
 Si todo el proceso ha salido correctamente, luego de la creación deberías poder ver en el HOME la nueva película que has creado.
 
+</details>
+
 <style>
-  h1 { color: orange; }
+  h1 { color: #713f12; }
   h2 { color: #2563eb; }
   h3 { color: #a855f7; }
   img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+  pre {
+    padding: 10px;
   }
 </style>
