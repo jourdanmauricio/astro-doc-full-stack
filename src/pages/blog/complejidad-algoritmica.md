@@ -397,6 +397,34 @@ Observamos que si n es 100, la raíz cuadrada de 100 es 10. Por lo tanto, el for
 
 **Problem**: Give a positive integer 'n', determine if the number is a power of 2 or not.
 
+<mark>Un entero es potencia de 2 si existe un entero 'x' tal que 'n' === 2<sup>x</sup></mark>
+
+- isPowerOfTwo(1) = true (2<sup>0</sup>)
+- isPowerOfTwo(2) = true (2<sup>1</sup>)
+- isPowerOfTwo(5) = false
+
+```javascript
+function isPowerOfTwo(n) {
+  /* if (n < 1) return false;
+  while (n > 1) {
+    if (n % 2 !== 0) return false;
+    n = n / 2;
+  }
+  return true; */
+  // Big-O = O(log n)
+
+  // ---------- //
+  if (n < 1) return false;
+  return (n & (n - 1)) === 0;
+}
+
+console.log(isPowerOfTwo(1)); // true
+console.log(isPowerOfTwo(2)); // true
+console.log(isPowerOfTwo(5)); // false
+
+// Big-O = O(1)
+```
+
 <style>
   h1 { color: #713f12; }
   h2 { color: #2563eb; }
