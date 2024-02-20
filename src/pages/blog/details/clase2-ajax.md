@@ -13,9 +13,9 @@ icon:
     src: '/astro-doc-full-stack/images/m2/icon/icon-ajax.jpg',
     alt: 'Logo for Ajax',
   }
-description: Proyecto Full Stack
+description: Ajax (Asynchronous JavaScript and XML)
 draft: false
-category: Full Stack
+category: Ajax Asincronismo
 ---
 
 ## Introducción
@@ -43,6 +43,9 @@ En los procesos **asincrónicos** se distinguen varias características:
 El objetivo del enfoque asincrónico es simplemente que un programa pueda mejorar su eficiencia y capacidad de respuesta, evitando que se generen procesos bloqueantes a partir de operaciones que toman mucho tiempo (como la lectura de archivos, las solicitudes de red o las operaciones de entrada/salida) y continuar realizando otros procesos en un “segundo plano”, en lugar de quedarse inactivo.
 
 ## Manejo de asincronía en JavaScript
+
+- Se utliza para crear app dinámicas e interactivas
+- Permite realizar solicitudes y recibir respuestas del servidor
 
 Como mencionamos anteriormente, JavaScript es un lenguaje naturalmente sincrónico. Sin embargo, **podemos darle un comportamiento asincrónico** mediante el uso de algunas herramientas (callbacks, promesas y async/await) que permiten gestionar estos procesos. ¡Veamos!
 
@@ -138,7 +141,7 @@ Para que te hagas una idea de este formato, el equivalente en JSON del ejemplo a
 | Legibilidad | Más difícil de leer debido a su estructura de etiquetas | Más legible debido a la simpleza de su estructura                         |
 | Anidamiento | Permite anidamiento profundo de elementos               | También permite anidamiento siendo más fácil de leer debido a su sintaxis |
 
-Las aplicaciones web tradicionales solían requerir una recarga completa de la página cada vez que se realizaba una solicitud al servidor. **AJAX permite enviar y recibir datos del servidor en segundo plano**, sin interferir con la interacción del usuario en la página. Esto mejora la experiencia del usuario al proporcionar respuestas más rápidas y fluidas.
+<mark>Las aplicaciones web tradicionales solían requerir una recarga completa de la página cada vez que se realizaba una solicitud al servidor. **AJAX permite enviar y recibir datos del servidor en segundo plano**, sin interferir con la interacción del usuario en la página. Esto mejora la experiencia del usuario al proporcionar respuestas más rápidas y fluidas.</mark>
 
 ![Ciclo de vida web tradicional vs SPA](/astro-doc-full-stack/images/m2/ciclo-de-vida.png)
 
@@ -186,7 +189,7 @@ En el ejemplo anterior la segunda respuesta del servidor podría ser un JSON
 
 Vamos a desarrollar una página demo para solicitar usuarios “Fake” a laAPI pública de **JSON PLACEHOLDER (https://jsonplaceholder.typicode.com/)**
 
-Nuestro ejemplo solo contendrá un título y un botón mediante el que solicitaremos información a la API a través de AJAX utilizando la líbrería JQuery. Cuando recibamos la información del servidor incorporaremos el usuario a un contenedor.
+Nuestro ejemplo solo contendrá un título y un botón mediante el que solicitaremos información a la API a través de AJAX <mark>**utilizando la líbrería JQuery**</mark>. Cuando recibamos la información del servidor incorporaremos el usuario a un contenedor.
 
 Antes de planificar la forma en que deseamos traer la información, primero es necesario entender **qué** recibiremos como resultado de la consulta. Si visitamos la página web encontraremos una API pública que contiene recursos relacionados con usuarios, posts, etc.
 
@@ -229,6 +232,14 @@ Si quieres visualizar la información JSON de tu navegador de una forma más ami
 Ahora es momento de realizar una solicitud AJAX utilizando el signo **$** que nos proporciona **JQuery**. Es importante mencionar que este signo nos proporciona las funcionalidades necesarias para realizar peticiones asíncronas desde nuestro código, en este caso, utilizando el método **GET**.
 
 Podemos ver un ejemplo básico del funcionamiento de AJAX sobre la API de JSONPlaceHolder en el siguiente repositorio: https://github.com/jourdanmauricio/henry-ajax-example
+
+```javascript
+// $.get(url, callback )
+$.get('https://rickandmortyapi.com/api/character/1', (data, status) => {
+  console.log(data);
+  console.log(status); //success
+});
+```
 
 ## Callbacks
 

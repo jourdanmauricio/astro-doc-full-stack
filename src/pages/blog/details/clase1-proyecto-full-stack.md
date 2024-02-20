@@ -20,15 +20,36 @@ category: Full Stack
 
 ## Frontend
 
-Dentro de los proyectos full stack, nos referimos a **frontend** a un pedazo de la aplicación que solo se enfoca en la interacción con lo usuarios. De este lado, el objetivo es presentar información útil, definir la visualización de datos y gestionar las interacciones de este con la aplicación.
+Dentro de los proyectos full stack, nos referimos a **frontend** a un <mark>pedazo de la aplicación que solo se enfoca en la interacción con lo usuarios</mark>. De este lado, el objetivo es presentar información útil, definir la visualización de datos y gestionar las interacciones de este con la aplicación.
 
 **Por ejemplo, mientras ves esta clase estas interactuando con el frontend de Henry. Es decir, estás  leyendo  información,  clickeando  sobre botones y  recorriendo  distintas vistas. Esto es el frontend de una aplicación.**
 
+- Interacción con los usuarios
+- Presenta información, vusualización de datos y gestionar las interacciones
+
 La rama del desarrollo del frontend se encarga de:
 
-1. **La interfaz de usuario** → que tenga todos elementos que la funcionalidad requiere, que muestre las imágenes, información, botones que al presionarlos disparen las acciones correspondientes. Todo aquello que el usuario necesita para interactuar.
+1. **La interfaz de usuario UI** → Todos los elementos que **forman parte visible de la aplicación** que estructura la página web de manera gráfica. Pueder ser botones, formularios, menus, etc.
 
-2. **Experiencia de usuario** → los elementos no solo deben funcionar sino que deben tener un diseño atractivo, deben estar posicionados de manera que para el usuario tengan sentido, considerar tamaño de fuente e imágenes, se debe resaltar el contenido más importante, que el usuario pueda encontrar las cosas facilmente, que sepa los pasos para cumplir un objetivo
+Que tenga todos elementos que la funcionalidad requiere, que muestre las imágenes, información, botones que al presionarlos disparen las acciones correspondientes. Todo aquello que el usuario necesita para interactuar.
+
+2. **Experiencia de usuario UX** → conjunto de elementos estratégicos para **proporcionar un flujo efectivo y positivo para los usuarios**. El objetivo es garantizar una interfaz intuitiva, accesible y atractiva.
+
+Los elementos no solo deben funcionar sino que deben tener un diseño atractivo, deben estar posicionados de manera que para el usuario tengan sentido, considerar tamaño de fuente e imágenes, se debe resaltar el contenido más importante, que el usuario pueda encontrar las cosas facilmente, que sepa los pasos para cumplir un objetivo
+
+### Desarrollo Frontend
+
+Se logra a partir de una relación UI/UX impecable.
+
+- Metodología:
+
+  - Uso de herramientas especializadas.
+  - Profesionales en equipos interdisciplinarios.
+
+- Profesionales involucrados:
+  - Diseñador UX
+  - Desarrolador especilizado
+  - Experto en UI, etc
 
 ### Tecnologías comunes
 
@@ -36,19 +57,30 @@ Al ser el frontend un fragmento de una aplicación, este viene acompañado de te
 
 1. **Lenguajes** → sintaxis de código que nos permite escribir instrucciones que pueden ser ejecutadas por una computadora. Podemos encontrar lenguajes como JavaScript, Python, TypeScript, entre otros
 
-2. **Frameworks** → grupo de herramientas que proporcionan una estructura para desarrollo de software. Simplifican el desarrollo al ofrecer soluciones predefinidas para tareas comunes. Ej: Angular, Vue, etc.
+2. **Frameworks** → grupo de herramientas que proporcionan una estructura para desarrollo de software. Simplifican el desarrollo al ofrecer soluciones predefinidas para tareas comunes. Soluciones para tareas comunes. Ej: Angular, Vue, etc.
 
-3. **Librerías** → a diferencia de los frameworks, las librerías no nos dictan una estructura general de la app, sino que proporciona herramientas específicas. Dentro de las más utilizadas podemos encontrar a JQuery o React
+3. **Librerías** → a diferencia de los frameworks, las librerías no nos dictan una estructura general de la app, sino que proporciona herramientas específicas. Funciones predefinidas. Dentro de las más utilizadas podemos encontrar a JQuery o React
 
-4. **Preprocesadores** → facilitan la escritura del diseño y estilos de una app. Ej: Sass, Less.
+4. **Preprocesadores** → facilitan la escritura del diseño y estilos de una app. Gestión de código. Ej: Sass, Less.
 
 Estas son solo algunas de las muchas librerías y frameworks disponibles en el ecosistema del desarrollo frontend. La elección de las herramientas adecuadas dependerá de los requisitos específicos del proyecto, así como de su alcance y estructura general.
 
 ## Backend
 
-El **backend** es otro fragmento que puede tener una aplicación. Es la parte encargada de la lógica que hace foco en las funcionalidades de una página y la gestión de bases de datos. El backend es responsable de que una aplicación funcione correctamente (detrás de cámaras), manipulando y disponiendo la información necesaria para ser consumida por el cliente.
+El **backend** es otro fragmento que puede tener una aplicación. Es la <mark>parte encargada de la lógica que hace foco en las funcionalidades de una página y la gestión de bases de datos</mark>. El backend es responsable de que una aplicación funcione correctamente (detrás de cámaras), manipulando y disponiendo la información necesaria para ser consumida por el cliente.
 
 > **[NOTA]:** no confundir **servidor** con **backend**. El primero es una porción del backend que se encarga de operar solicitudes de un cliente (u otra aplicación). En cambio el backend es un conjunto de piezas como el servidor, base de datos, lógica de negocio, etc.
+
+- Servidor
+- Ejecución de la lógica para garantizar el funcionamiento.
+- Manipulación y presamiento de los datos.
+- Dispone información para el Frontend.
+
+#### Elementos destacados
+
+1. Lógica del servidor: Procesa datos y gestión de las operaciones.
+2. Bases de datos: Manipula información mediante DBMS.
+3. Seguridad: Gestiona los permisos de acceso, solicitudes y respuestas del lado del cliente.
 
 ### ¿Cómo funciona?
 
@@ -74,11 +106,27 @@ Existe una amplia variedad de tecnologías **enfocadas al desarrollo backend**.
 
 **ORM / ODM** → Los **ORMS** y **ODMS** serán los tarros etiquetados que guardan ciertos ingredientes que usarás para la preparación de cada plato. Al finalizar, la cena será tu aplicación completa desarrollada del lado backend.
 
+## Cominucación entre front y back
+
+- ¿Cómo se realiza la comunicación entre estas en un proyecto?
+- ¿Cómo solicitamos información a un servidor paraque la consuma el cliente?
+
 ## API
 
-Una **API (Application Programming Interface)** define el conjunto de reglas y protocolos que permiten que dos sistemas se comuniquen entre sí, independientemente de las tecnologías utilizadas en cada uno de ellas. En otras palabras, es una forma de estructurar el código para estandarizar la comunicación entre dos o sistemas.
+Una **API (Application Programming Interface)** <mark>define el conjunto de reglas y protocolos que permiten que dos sistemas se comuniquen entre sí</mark>, independientemente de las tecnologías utilizadas en cada uno de ellas. En otras palabras, es una forma de estructurar el código para estandarizar la comunicación entre dos o sistemas.
 
 **Las APIs dictan cómo debe realizarse la solicitud de información de un cliente a un servidor, y cómo este deberá estructurar las respuestas.**
+
+- Define las reglas y protocolos para una comunicación
+- Define cómo realizar solicitudes de información
+- Establece la estructurade las respuestas a las peticiones
+
+Del lado del servidor, la API se encarga de:
+
+- Gestionar la autenticación y autorización
+  Del lado del cliente es responsable de:
+- Consumir la API
+- Manejar las respuestas
 
 ### ¿Cómo funcionan?
 
@@ -97,6 +145,10 @@ Las implementaciones de APIs no son completamente al azar. Estas están ligadas 
 Las APIs pueden seguir distintos **patrones y diseños** dependiendo de las necesidades que detecte el equipo de desarrollo. A continuación veremos uno de ellos.
 
 **API Restful** → El patrón **RESTful (Representational State Transfer)** es un estilo de arquitectura para diseñar una API. Se basa en principios fundamentales, simplicidad y escalabilidad de la API.
+
+- Representational State Transfer diseñar servicios web
+- Se basa en los principios fundamentales de la transferencia de información en internet
+- Se centra en la simplicidad y escalabilidad de la API
 
 <mark>Principios de API RESTFull</mark>
 
@@ -120,9 +172,13 @@ Este modelo define **siete capas de encapsulamiento** y es probable que hayas 
 
 ¿**Es necesario**conocer a fondo cada uno de estos protocolos? ¡Para nada! Aunque...👉👈 aquellos quienes quieran dedicarse al desarrollo backend podrían profundizar más en este punto en algún momento. Por ahora es suficiente comprender que son lenguajes estandarizados (protocolos) que posibilitan la conexión a través de redes de información, siguiendo la estructura definida del Modelo OSI.
 
-<mark>El **HTTP** (Hypertext Transfer Protocol).</mark> Es el principal protocolo para transferencia de información en internet. Este, a su vez, opera sobre el conjunto de protocolos TCP/IP, los cuales, a grandes rasgos, se permiten la transmisión de datos entre dispositivos conectados a la red.
+<mark>El **HTTP** (Hypertext Transfer Protocol). Es el principal protocolo para transferencia de información en internet</mark>. Este, a su vez, opera sobre el conjunto de protocolos TCP/IP, los cuales, a grandes rasgos, se permiten la transmisión de datos entre dispositivos conectados a la red.
 
 La pregunta que nos podríamos hacer es... ¿Cómo indicamos el tipo de *request* que queremos hacer en este protocolo? Para esto, el protocolo HTTP define un "status" del proceso que queremos procesar en el servidor. Esto se llama: **Métodos HTTP**.
+
+- Transferencia de información en internet
+- Opera sobre el conjunto de protocolos TCP/IP
+- Permite la transmisión de datos entre dispositivos conectados a la red
 
 ## Métodos HTTP
 
