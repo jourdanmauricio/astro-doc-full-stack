@@ -18,9 +18,7 @@ draft: false
 category: Frameworks CSS
 ---
 
-## Inicio
-
-### Frameworks CSS
+## Frameworks CSS
 
 **CSS (Cascading Style Sheets)**
 
@@ -28,7 +26,7 @@ Es el lenguaje que define el aspecto y la presentación de las páginas. Funcion
 
 **Frameworks de CSS**
 
-Ya hemos desarrollado anteriormente el concepto de framework. En términos generales, un framework es un conjunto de código que proporciona una estructura para facilitar el desarrollo de software.
+Ya hemos desarrollado anteriormente el concepto de framework. En términos generales, <mark>un framework es un conjunto de código que proporciona una estructura para facilitar el desarrollo de software.</mark>
 
 Este conjunto favorece al desarrollo porque ofrece componentes reutilizables, estilos predefinidos y una serie de utilidades que agilizan el proceso de construcción de interfaces de usuario.
 
@@ -82,7 +80,7 @@ Documentación: https://getbootstrap.com/docs/5.3/getting-started/introduction/
 4. Plugin Js → Existen componentes dinámicos que tienen integrada una funcionalidad desarrollada con JS (modales, carruseles, dropdowns), pero puede trabar con o sin ese lenguaje
 5. Personalizable → Los componentes predefinidos pueden personalizarse con el procesador Saas que agrega nuevas características y funcionalidades
 
-### Implementar Bootstrap en nuestros propios proyectos
+## Implementar Bootstrap en nuestros propios proyectos
 
 ### Configuración inicial
 
@@ -210,7 +208,7 @@ Para probar la vinculación de la CDN podemos incluir en nuestro Html:
 
 Aunque esta es la forma más sencilla de incorporar Bootstrap (y la ideal para aplicaciones simples), tiene la desventaja de limitar la personalización de los componentes utilizados.
 
-### Utilidades y componentes en **Broostrap**
+## Utilidades y componentes en **Broostrap**
 
 Dentro de Bootstrap existen muchos tipos de componentes que pueden ser utilizados para definir la estructura y diseño de nuestra página.
 
@@ -246,7 +244,7 @@ Véalos en acción y compárelos en nuestro [ejemplo de Grid](https://getbootst
 | .container-xxl      | 100%                | 100%              | 100%         | 100%            | 100%       |
 | .container-fluid    | 100%                | 100%              | 100%         | 100%            | 100%       |
 
-### Utilidades de texto
+## Utilidades de texto
 
 Las **utilidades de texto** son herramientas que nos permiten ajustar el tamaño de letra, la alineación, el ancho, estilo, etc.
 
