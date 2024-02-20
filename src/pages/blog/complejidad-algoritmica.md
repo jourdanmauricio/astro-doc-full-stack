@@ -425,6 +425,24 @@ console.log(isPowerOfTwo(5)); // false
 // Big-O = O(1)
 ```
 
+## Recursion
+
+<mark>Rescursión es una técnica para resolver problemas donde la solución depende de soluciones a instancias más pequeñas del mismo problema.</mark>
+
+Recursión es cuando una función se llama a sí misma. Es una gran técnica para simplificar la solución.
+
+Si te encuentras dividiendo tu problema en una versión más pequeña del mismo problema, la recursividad es muy útil.
+
+### Algunos puntos sobre recursion
+
+1. <mark>Toda solución recursiva necesita tener un caso base (una condición que finalice la recursión). </mark> Sino entraríamos en un loop infinito.
+
+2. <mark>La recursion puede simplificar un problema pero no siempre se traslada en una solución más rápida.</mark> La solución recursiva puede ser peor comparada con una solución iterativa.
+
+3. <mark>La recursividad es un tema que no es el más sencillo de entender.</mark> No te rindas si tienes dificultades con el concepto.
+
+## Secuencia recursiva de Fibonacci
+
 <style>
   h1 { color: #713f12; }
   h2 { color: #2563eb; }
