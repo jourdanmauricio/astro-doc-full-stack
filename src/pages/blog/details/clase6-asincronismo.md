@@ -49,7 +49,7 @@ Ahora probaremos algo un poco más interesante. Seguro recuerdas que en la clase
 
 De manera similar, existen herramientas que permiten enviar solicitudes HTTP a un servidor a través de una API para determinar qué respuestas funcionan correctamente. Sabremos así qué información estamos obteniendo desde el servidor y de qué manera la usamos en el lado cliente.
 
-Herramientas para realizar peticiones HTTP → Insomnia, Postman, ThunderClient
+**Herramientas para realizar peticiones HTTP → Insomnia, Postman, ThunderClient**
 
 Postman, Insomnia y ThunderClient, hacen parte de dichas herramientas que, además de ser gratuitas, poseen ciertas características particulares para trabajar las consultas de una forma más eficiente. En el siguiente video haremos una demo de estas herramientas.
 
@@ -61,7 +61,7 @@ A ontinuación, conoceremos una sintaxis mucho más simple y directa que puede m
 
 ### **¿Qué son?**
 
-Ahora, dado que conocemos ya el término de asincronismo de la clase de AJAX, introducimos el concepto de operaciones asíncronas. Las **operaciones asíncronas** en JavaScript son aquellas en las que el script no espera a que una tarea se complete antes de pasar a la siguiente, sino que, en lugar de bloquear la ejecución del código, el script continúa ejecutando otras tareas.
+Ahora, dado que conocemos ya el término de asincronismo de la clase de AJAX, introducimos el concepto de operaciones asíncronas. Las **operaciones asíncronas** en JavaScript <mark>son aquellas en las que el script no espera a que una tarea se complete antes de pasar a la siguiente, sino que, en lugar de bloquear la ejecución del código, el script continúa ejecutando otras tareas</mark>.
 
 Para ilustrar este concepto, imagina que eres cliente de una máquina expendedora de café y snacks. Supongamos que insertas el dinero en la máquina y seleccionas “cappuccino”. Mientras la máquina baja el vaso, sirve la leche, el café, la canela, etc., consideras comprar unas galletitas.
 
@@ -69,7 +69,7 @@ Por lo que oprimes el botón y cae el producto de la máquina para que lo recoja
 
 ![Sincronismo vs Asincronismo.](/astro-doc-full-stack/images/m2/asincronismo.png)
 
-JavaScript cuenta con diversas herramientas y metodologías que le permiten dejar de lado su naturaleza síncrona y trabajar con operaciones asincrónicas como el uso de las funciones callback. Una forma más actual para manejar dichas operaciones es mediante el uso de .promesas  que permiten encadenar operaciones asíncronas y manejar errores de una forma más estructurada. Conozcamos este concepto...
+<mark>JavaScript cuenta con diversas herramientas y metodologías que le permiten dejar de lado su naturaleza síncrona y trabajar con operaciones asincrónicas como el uso de las funciones **callback**. Una forma más actual para manejar dichas operaciones es mediante el uso de **promesas** que **permiten encadenar operaciones asíncronas y manejar errores de una forma más estructurada**</mark>. Conozcamos este concepto...
 
 ## Promesas
 
@@ -84,6 +84,11 @@ Ahora, hablando en términos de programación,  **una promesa va a reservar u
 En JavaScript las promesas son estructuras de datos. Es decir, un objeto que representa el resultado eventual de una operación asincrónica. Dicho resultado puede ser evaluado con éxito o como un fracaso y, dependiendo de ese resultado, se podrá decidir qué hacer a continuación. Veamos una promesa dentro de nuestro editor de código.
 
 Para generar promesas contamos con una estructura nativa llamada **Promise** de la cual podemos instanciar promesas utilizando la palabra clave **new**. Esta promesa recibe como argumento una función la cual a su vez toma dos funciones como parámetros...
+
+- En javascript una promesa es un objeto
+- Resultado eventual de una operación asíncrona
+- Puede ser evaluado como éxito o fracaso
+- Se decidirá que hacer de acuerdo al resultado
 
 ### Estados de una promesa
 
@@ -109,6 +114,8 @@ Una vez una promesa haya sido resuelta o rechazada, ya no estará en pending ni 
 
 Por otro lado, la gran utilidad de las promesas no es solamente informar sobre el estado de la resolución o rechazo, lo que necesitamos es conocer el valor o la razón que nos retorna para poder utilizarlo en el código.
 
+### Métodos de promesas
+
 Para poder manejar el valor al que se resuelve o se rechaza una promesa, hacemos uso de dos métodos: **then** y **catch**.
 
 **THEN** → Maneja la lógica en caso de que una promesa haya sido resulta. Se le proporciona una función que recibe el valor de una resolución como argumento y se ejecuta cuando la promesa se complete exitosamente.
@@ -117,7 +124,14 @@ Para poder manejar el valor al que se resuelve o se rechaza una promesa, hacemos
 
 **Resumen** → la promesa es el eventual resultado de la ejecución de una operación asíncrona.
 
-TODO: VER VIDEO
+```javascript
+const getPersonaje = () => {
+  fetch('https://...')
+    .then((response) => response.json())
+    .catch((err) => console.log(err));
+};
+getPersonaje();
+```
 
 ## Async/ Await
 
@@ -134,6 +148,11 @@ async function miFuncionAsync() {
 Dentro del bloque de la función asíncrona tendremos acceso a un operador especial llamado await que le indicará al intérprete que debe esperar a que se resuelva la promesa antes de continuar con la ejecución.
 
 Podrías preguntarte: ¿Y qué pasó con el manejo de errores si ya no encadenamos el método catch? Para ello, hacemos uso del try/catch.
+
+- Para simplificar y mejorar la legibilidad del código asíncrono
+- Construida sobre las promesas de JS
+- Proporciona una forma resumida de procesar su resolución
+- Evita la encadenación de métodos para el manejo del resultado
 
 ### Try/catch
 

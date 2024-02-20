@@ -25,13 +25,34 @@ category: Testing Avanced
 El testing es un área de la programación que se enfoca en evaluar el comportamiento del código de forma aislada y controlada, a partir de metodologías como el TDD (Test Driven Development).
 
 > **[Recordemos]**
-> El TDD consiste en el desarrollo de código a partir de tests, y no al revés. Es decir, primero diseño el testing de la aplicación y luego desarrollo el código.
+> El **TDD** consiste en el desarrollo de código a partir de tests, y no al revés. Es decir, primero diseño el testing de la aplicación y luego desarrollo el código.
 
 De momento conocemos a Jasmine como una introducción al testing. Pero existen muchas otras tecnologías que podemos implementar con otras particularidades. Una de ellas es...
+
+### 3 niveles de testing:
+
+1. **Test unitarios**: testeamos funcionalidades concretas, una función, una clase, métodos, modelos, cosas muy puntuales.
+
+2. **Test de integración**: testean multiples clases, bases de datos, servicios de terceros, integran viarias fucionalidades.
+
+3. **UI - E2E - Funcionales**: estos test no son automáticos, los suelen realizar personas, evaluaciones a nivel de aplicación.
+
+### TDD - Test Driven Development
+
+1. Escribimos el test
+2. Test fails
+3. Write code
+4. Test Passes
+5. Refactor
 
 ### ¿Qué es Jest?
 
 **Jest** es un framework de testing diseñado para brindar un conjunto de tests (a los que llamaremos suites) para proyectos de JavaScript. Puede pensarse como un kit de herramientas y reglas que permiten testear nuestro código de una manera simple y eficiente. Además, cuenta con funciones integradas llamadas mocks que permiten imitar la conducta de nuestro código de manera controlada y de las que hablaremos al final de la clase.
+
+- Framework de testing, facil de usar y configurar
+- Brinda un conjunto de pruebas
+- Brinda funciones que permiten testear el código de manera simple y eficiente
+- Cuenta con funciones integradas llamadas mocks
 
 ### Características
 
@@ -55,7 +76,7 @@ La forma de generar tests con Jest es muy similar a como lo trabajamos con Jas
 
 Instalamos Jest como dependencia de desarrollo
 
-```json
+```bash
 npm install -D jest
 ```
 
@@ -69,7 +90,9 @@ Agregamos un script al packege.json para correr los test
 
 Ejecutamos los test
 
-### npm test
+```bash
+npm test
+```
 
 ### WatchAll
 
@@ -79,7 +102,7 @@ _¿Acaso no te recuerda a nodemon?_ 🤓
 
 Sí, trabaja de la misma manera, pero en este caso para testing. Esta opción debe ser integrada dentro del script de test del archivo **package.json**. Donde esta el script "test" deberemos igualarlo de la siguiente manera...
 
-```json
+```javascript
 "scripts": {
 	"test": "jest --watchAll"
 }
@@ -99,11 +122,11 @@ Dentro del proyecto:
 - Creamos una carpeta llamada tests
 - Adentro de la carpeta creamos un archivo llamado prueba.test.js o prueba prueba.spec.js
 
-```json
-describe("Una prueba de test que pasa siempre", () => {
-	it("Este test debe pasar siempre", () => {
-		expect(true).toBe(true);
-	});
+```javascript
+describe('Una prueba de test que pasa siempre', () => {
+  it('Este test debe pasar siempre', () => {
+    expect(true).toBe(true);
+  });
 });
 ```
 
@@ -116,7 +139,7 @@ Como vemos Jest busca en todo el proyecto módulos que posean la palabra .spec o
 
 Para realizar el test de nuestros módulos debemos exportar y requerir desde nuestros tests
 
-```jsx
+```javascript
 // sumar.js
 function sumar() {
 	...
@@ -129,8 +152,6 @@ const {sumar} = requiere('./sumar');
 
 ## Mock Functions
 
-### Mock Functions
-
 **Mock** significa "imitación". Es una manera de simular ciertos comportamientos en nuestro código durante los tests. Por ejemplo, imitar el comportamiento de una función, clase o módulo. Imagina que un mock es un actor doble que suple al protagonista de una película de acción. Al momento de rodar una escena muy peligrosa, como director, decidirás enviar al doble antes que al protagonista
 
 **Los mocks son útiles cuando estamos probando código y queremos asegurarnos de que ciertas partes funcionen correctamente sin ejecutar todo código completo**
@@ -139,7 +160,7 @@ const {sumar} = requiere('./sumar');
 
 Para realizar los test de funciones necesitamos aislarlas, que no dependan de otros resultados o generar una copia de la función que recrea el comportamiento de la función original y podemos obtener más información sobre los resultados. La idea es testear una función sin ejecutar la original
 
-```jsx
+```javascript
 const { sumar } = require('./sumar');
 const mockSumar = jest.fn(suamr);
 
