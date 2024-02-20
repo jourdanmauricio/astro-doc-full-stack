@@ -33,13 +33,18 @@ Imaginemos este **motor** del navegador como un motor de un coche. Tu coche pu
 
 <mark>**¿Qué sucede cuando no estamos trabajando dentro de un navegador y debemos ejecutar scripts? Es aquí donde nace Node.**</mark>
 
-<mark>>Node es un **entorno de ejecución de JavaScript**, también llamado *runtime*</mark>. Imagnia a node como una especie de contenedor que tiene todo lo necesario para ejecutar código JavaScript: APIs propias, funciones integradas, etc. De esta manera, podemos trabajar con JavaScript sin depender de los navegadores y sus motores, ya que node trabaja como un motor en nuestra computadora.
+<mark>Node es un **entorno de ejecución de JavaScript**, también llamado *runtime*</mark>. Imagina a node como una especie de contenedor que tiene todo lo necesario para ejecutar código JavaScript: APIs propias, funciones integradas, etc. De esta manera, podemos trabajar con JavaScript sin depender de los navegadores y sus motores, ya que node trabaja como un motor en nuestra computadora.
 
 ### Elementos
 
-Node fue desarrollado a partir del motor V8 de Chrome. Este utiliza el lenguaje *C++* y una librería llamada *libuv* escrita en C. En otras palabras, estamos utilizando un lenguaje para ejecutar otro lenguaje... (¿lenguaje al cuadrado? xD).
+<mark>Node fue desarrollado a partir del motor V8 de Chrome. Este utiliza el lenguaje *C++* y una librería llamada *libuv* escrita en C</mark>. En otras palabras, estamos utilizando un lenguaje para ejecutar otro lenguaje... (¿lenguaje al cuadrado? xD).
 
 Esto hace posible la creación de servidores y la construcción de APIs de forma rápida y escalable, así como el uso de un solo lenguaje tanto para el desarrollo de software. Este entorno de ejecución es utilizado por grandes empresas...
+
+- Motor V8
+- C++
+- Librería Libuv
+- Código asíncrono
 
 ## Inicialización de proyecto
 
@@ -77,7 +82,7 @@ A partir de ahora, a cada archivo o carpeta que contenga código lo llamaremos m
 
 ### ¿Qué es un módulo?
 
-Este concepto se refiere a un conjunto de código **organizado** y **encapsulado** que se puede reutilizar en otras partes de un programa. Estos ayudan a estructurar y mantener proyectos ya que dividen el código en piezas más pequeñas y manejables.
+<mark>Este concepto se refiere a un conjunto de código **organizado** y **encapsulado** que se puede reutilizar en otras partes de un programa. Estos ayudan a estructurar y mantener proyectos ya que dividen el código en piezas más pequeñas y manejables.</mark>
 
 > Imaginemos que nuestro código completo es un automóvil. Los módulos serán las partes que lo componen como el motor, los frenos, la transmisión, etc. Cada componente del auto tiene una tarea específica y opera independientemente, pero contribuye a que el automóvil funcione de manera adecuada. Además, puedes utilizar cada componente en otro automóvil.
 
@@ -156,7 +161,18 @@ De la misma manera que descubrimos cómo conectar distintos módulos dentro de n
 
 ### NPM (node package modules)
 
-Node cuenta con una librería *open source* gigante con muchos módulos que nos ayudarán a desarrollar nuestros proyectos reduciendo la cantidad de lógica y código que debe implementarse. Esto es gracias a que, en lugar de nosotros construir este código, utilizaremos el que otras personas ya han hecho. ¿Qué beneficios trae esto?
+Node cuenta con una librería *open source* gigante con muchos módulos que nos ayudarán a desarrollar nuestros proyectos reduciendo la cantidad de lógica y código que debe implementarse. Esto es gracias a que, en lugar de nosotros construir este código, utilizaremos el que otras personas ya han hecho.
+
+- Librería Open Source
+- La librería incluye muchos módulos
+- Los módulos estan diseñados para ayudar en la construcción de la app
+- Reduce la cantidad de código y lógica
+- Reutilización de módulos escritos por terceros
+
+Módulo -> Fragmento de código independiente.
+Paquete -> módulo mantenido y gestionado por un gestor de paquetes
+
+¿Qué beneficios trae esto?
 
 **Beneficios de utilizar módulos externos**
 

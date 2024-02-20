@@ -32,6 +32,9 @@ Este conjunto favorece al desarrollo porque ofrece componentes reutilizables, es
 
 No es necesario que utilices siempre un framework de CSS para darle estilos a tu página web, pero es recomendable ya que serán una gran ayuda para hacerlo de forma rápida.
 
+- Conjunto preestablecido de reglas
+- Estilos que brindan un esquema y una base para el diseño de aplicaciones
+
 **¿Por qué utilizar frameworks?**
 
 1. **Componentes reutilizables** → Los frameworks de CSS suelen incluir una variedad de componentes predefinidos, como botones, barras de navegación, tarjetas, formularios y más. Los desarrolladores pueden utilizar estos componentes directamente en sus proyectos sin la necesidad de escribir todo el código desde cero
@@ -43,6 +46,14 @@ No es necesario que utilices siempre un framework de CSS para darle estilos a tu
 4. **Responsiveness** → Muchos frameworks están diseñados con la responsividad en mente, utilizando técnicas como clases específicas y medias queries. Estas últimas permiten cambiar los estilos en un HTML a partir del tamaño de la pantalla de un dispositivo
 
 5. **Personalización** → Aunque los frameworks ofrecen estilos predeterminados, la mayoría permite la personalización de los mismos. Los desarrolladores pueden ajustar colores, tipografía y otros estilos para que se alineen con la identidad visual única del proyecto
+
+## Ventajas de uso de los framworks
+
+- Componentes reutilizables
+- Grid System
+- Tipografía y estilos básicos
+- Responsive
+- Personalización
 
 ## Frameworks más utilizados
 
