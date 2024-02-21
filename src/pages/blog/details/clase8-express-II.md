@@ -13,7 +13,7 @@ icon:
     src: '/astro-doc-full-stack/images/m2/icon/icon-express.png',
     alt: 'Logo express',
   }
-description: Backend con Express
+description: Backend con Express segunda clase
 draft: false
 category: Express Node
 ---
@@ -26,26 +26,40 @@ Podemos pensar a nuestra aplicación como una cebolla, y a los servicios como la
 
 A menudo, surge la pregunta: **¿Cómo se diferencian los servicios de los controladores?** Si bien los controladores manejan la lógica de manejo de solicitudes y respuestas, los servicios se centran en tareas más amplias y especializadas. Mientras que un controlador puede ocuparse de responder a una solicitud específica, un servicio manejará una funcionalidad completa, desde la autenticación hasta la gestión de bases de datos.
 
+- Segmentos especilizados de lógica de negocio
+- Busca asegurar la cohesión y eficiencia del sistema
+- Gestionan solicitudes de usuarios
+- Se encargan de la autenticación
+- Se centran en tareas más amplias y especializadas
+- Meneja una funcionalidad completa
+
 **Los servicios encapsulan lógica específica y cómo los controladores utilizan estos servicios para realizar acciones más amplias.**
 
 ## Middlewares
 
-En el contexto de Express, un middleware es una función que tiene acceso a los objetos de solicitud (req), respuesta (res), y a la siguiente función en el ciclo de solicitud-respuesta de la aplicación (next). Se usan para realizar diversas acciones en el flujo de solicitud y respuesta. Ilustremos esta idea con la vida cotidiana.
+- Funciones que tienen acceso a los objetos de:
+  - Solicitud (req)
+  - Respuesta (res)
+  - a la siguiente función en el ciclo de solicitud-respuesta (next)
+- Pueden realizar acciones globales antes de llegar a las rutas específicas
+- Permite una modularidad y reutilización efectiva del código
+
+En el contexto de Express, un middleware es una función que tiene acceso a los objetos de solicitud (req), respuesta (res), y a la siguiente función en el ciclo de solicitud-respuesta de la aplicación (next). Se usan para realizar diversas acciones en el flujo de solicitud y respuesta.
 
 Imagina que vas de viaje a Europa. Llegas al aeropuerto y a partir de allí debes pasar por varias etapas una seguida de la otra donde se realizan ciertas acciones. Por ejemplo, al llegar debes pasar por el puesto de registro en donde entregas tu maleta de bodega y recibes tu pase de abordar, luego de esto, debes pasar por el punto de detección de elementos prohibidos, a continuación te diriges a tu puerta de abordaje y finalmente abordas el avión cuando sea el momento indicado. Como puedes ver, cada punto de control (middleware) poseen una función específica y están en medio de tu llegada (solicitud) y salida (respuesta) del aeropuerto.
 
-Los middlewares pueden realizar acciones globales antes de llegar a rutas específicas, permitiendo una modularidad y reutilización efectiva del código.
+**Los middlewares pueden realizar acciones globales antes de llegar a rutas específicas, permitiendo una modularidad y reutilización efectiva del código.**
 
 En general, los middlewares se utilizan cuando deseamos agregar funcionalidades específicas, manipular datos de solicitud o respuesta, o realizar acciones antes o después de que la solicitud llegue a su destino.
 
-Estos se pueden dividir en dos categorías principales:
+<mark>Estos se pueden dividir en dos categorías principales:</mark>
 
-- Pre-built
-- Personalizados
+- **Pre-built**
+- **Personalizados**
 
 ### MIDDLEWARES PRE-BUILT MÁS UTILIZADOS
 
-Podemos ver a los middlewares pre-built como componentes listos para usar que ofrecen distintas funcionalidades que son específicas para cada tarea en Express. Entre los más utilizados se encuentran:
+Podemos ver a los **middlewares pre-built** como componentes listos para usar que ofrecen distintas funcionalidades que son específicas para cada tarea en Express. Entre los más utilizados se encuentran:
 
 <mark>**Morgan**</mark>
 
@@ -61,7 +75,7 @@ Permite o restringe el acceso a recursos, un aspecto esencial para la seguridad 
 
 ### Middlewares personalizados
 
-Un middleware personalizado se refiere a funciones o conjuntos de funciones que tú mismo creas para adaptar el flujo de manejo de solicitudes según las necesidades específicas de tu aplicación. Estos middlewares se insertan en la cadena de manejo de solicitudes entre el momento en que se recibe la solicitud y el momento en que se envía la respuesta. Se usan para realizar tareas adicionales, manipular datos, validar información, entre otros.
+Un **middleware personalizado** se refiere a funciones o conjuntos de funciones que tú mismo creas para adaptar el flujo de manejo de solicitudes según las necesidades específicas de tu aplicación. Estos middlewares se insertan en la cadena de manejo de solicitudes entre el momento en que se recibe la solicitud y el momento en que se envía la respuesta. Se usan para realizar tareas adicionales, manipular datos, validar información, entre otros.
 
 ¿Cuándo usar middleware personalizado? En situaciones donde los middlewares pre-built no cubren exactamente lo que necesitas o cuando deseas una lógica de manejo de solicitudes específica para tu aplicación.
 
@@ -83,6 +97,12 @@ Ya vimos cómo los middlewares, en general, optimizan el flujo de solicitudes y 
 
 ## Validaciones
 
+- Garantizan la integridad, seguridad y eficiencia del sistema
+- Aseguran la fiabilidad y consistencia general de la aplicación
+- Evita errores
+- Protege tu aplicación contra posibles vulnerabilidades
+- Brinda una buena experiencia de usuario
+
 **Importancia de las validaciones en la app de backend**
 
 En un servidor, las validaciones son esenciales para garantizar la integridad, seguridad y eficiencia del sistema, asegurando la fiabilidad y consistencia general de la aplicación.
@@ -91,7 +111,12 @@ Al validar los datos de entrada, puedes verificar que cumplen con las condicione
 
 ### Estrategias de validación utilizando middlewares
 
-En cuanto a las estrategias de validación utilizando middlewares, existen varias maneras de implementar validaciones en Express. Puedes crear middlewares personalizados que verifiquen los datos de entrada, asegurándote de que cumplan con ciertos criterios antes de pasarlos a la lógica principal de la aplicación. Además, también puedes aprovechar middlewares pre-construidos o bibliotecas especializadas en validaciones para simplificar este proceso.
+- Puedes crear middlewares personalizados que verifiquen los datos de entrada
+- Asegura de que cumplan con ciertos criterios antes de pasarlos a la lógica principal de la aplicación
+- Puedes aprovechar middlewares pre-construidos
+- Puedes utilizar bibliotecas especializadas en validaciones para simplificar el proceso
+
+En cuanto a las estrategias de validación utilizando middlewares, existen varias maneras de implementar validaciones en Express. Puedes crear middlewares personalizados que verifiquen los datos de entrada, asegurándote de que cumplan con ciertos criterios antes de pasarlos a la lógica principal de la aplicación. Además, también puedes aprovechar middlewares pre-construidos o bibliotecas especializadas en validaciones para simplificar este proceso. <mark>Ej: express-validator</mark>
 
 Puedes implementar validaciones en Express. No obstante, hay muchas más implementaciones posibles como: validación de números enteros, validación de longitud de cadena o lo que necesites validar, sea con una librería externa o con un middleware personalizado. Ahora sí, tienes todas las herramientas de Express que necesitas para crear aplicaciones robustas, sólidas y eficientes.
 
