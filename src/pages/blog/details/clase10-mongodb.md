@@ -24,6 +24,47 @@ Antes de comenzar a describir las bases de datos NoSQL vamos a aprovechar la opo
 
 SQL (Structured Query Language) es el lenguaje que se utiliza para trabajar en bases de datos. Ahora, cuando nos referimos a que estamos trabajando con NoSQL, estamos hablando de bases de datos que no utilizan este lenguaje.
 
+- SQL es el lenguaje que utilizan las bases de datos para comunicarse
+- NoSQL no siguen todas las reglas del lenguaje SQL tradicional
+- Les permite tener más libertad al no seguir un patrón estructurado
+
+**¿Cuándo utilizar bases de datos NoSql?**
+
+- Cuando tengas datos flexibles
+- Cuando tus datos no siguen un formato estricto como una hoja de cálculo
+- Escalabilidad sin límites
+- Necesitas más espacio (o datos)
+- Adaptación rápida
+- Permite agregar má servidores (nodos) al sistema fácilmente
+- Distribuye la carga de trabajo y el tráfico entre los nuevos servidores
+
+**Ventajas**
+
+- Flexibilidad de esquemas
+- Escalabilidad horizontal
+- Manejo de datos no estructurados o semi estructurados
+- Alto rendimiento en operaciones específicas
+
+**MongoDB**
+
+- es un sistema de bases de datos NoSQL
+- orientado al almacenamiento de datos en forma de documentos
+- almacena los datos en formato BSON (Binary JSON)
+- simplifica el proceso de creación de bases de datos
+- cuenta con diferentes interfaces de usuario y aplicaciones
+- permite ver la información dentro de la base de datos de forma sencilla
+
+**Características principales**
+
+- Utiliza un esquema dinámico
+- No requiere un esquema definido de tablas con relaciones predefinidas
+- Trabaja con documentos y colecciones
+- Pueden ser modificadas según las necesidades de la información
+- Utiliza un formato BSON (creado por MongoDB)
+- Mejora la eficiencia en la transferencia de datos
+- Serialización binaria de los documentos en formato JSON
+- Indexación para mejorar la velocidad de consulta y búsqueda de datos
+
 **Entonces... ¿Cómo nos comunicamos en una base de datos No SQL?**
 
 Imaginemos que tienes una base de datos de libros y quieres encontrar información específica sobre 'El Principito'. En una base de datos SQL deberías realizar una consulta estructurada con ese lenguaje donde hagas referencia a las columnas correspondientes para solicitar información. En cambio, al trabajar con una base de datos NoSQL, podrías utilizar una consulta simple y entenderla incluso si no eres programador.
@@ -58,7 +99,7 @@ A pesar de ser una herramienta con costo, tiene opciones para trabajar sin neces
 
 **<mark>Documentos</mark>**
 
-Un documento es la unidad básica de almacenamiento. Por ejemplo, si guardamos la información específica de un sólo usuario o un producto, ese conjunto de datos sería considerado un documento. Está representado en formato BSON y contiene pares de campos (clave-valor) similares a los objetos JavaScript.
+<mark>Un documento es la unidad básica de almacenamiento</mark>. Por ejemplo, si guardamos la información específica de un sólo usuario o un producto, ese conjunto de datos sería considerado un documento. Está representado en formato BSON y contiene pares de campos (clave-valor) similares a los objetos JavaScript.
 
 Los valores de las claves pueden ser cualquier tipo de dato como strings, arrays, objetos, números, etc. Un ejemplo de cómo luciría un documento de “usuario” sería...
 
@@ -91,11 +132,26 @@ Otro de los elementos principales de MongoDB son las colecciones. Una colección
 
 ## Referencias
 
+- Vinculan documentos de distintas colecciones
+- Sin duplicar la información
+- Maneja grandes cantidades de datos y evitar redundancias
+- Si los datos cambian, la referencia realiza cambios en un solo lugar
+- Permite acceder a la información completa del usuario si es necesario
+- Evita duplicar toda la información del usuario si es necesario
+- Facilita la organización y gestión eficiente de datos
+
 En muchas situaciones vamos a querer crear algo llamado referencia entre documentos. Las referencias son una "conexión" que hay entre dos documentos que dice que uno de ellos puede abarcar la información del otro. Veamos esto en un ejemplo...
 
 ![Referencias.](/astro-doc-full-stack/images/m2/referencias.jpg)
 
 ## MongoDB Atlas
+
+- Es un servicio de nube para el manejo de base de datos de MongoDB
+- Despliega nuestra base de datos para elegir un proveedor de la nube y la región de implementación
+- Ofrece la capacidad de escalamiento horizontal automáticamente
+- Atlas incorpora características de seguridad avanzadas
+- Realiza respaldos automáticos regulares
+- Permite la recuperación de datos en caso de pérdida o errores
 
 Hasta el momento, en la teoría, estuvimos aprendiendo MongoDB como si lo fuésemos a utilizar de forma local en nuestra computadora. Pero esto no será así en el futuro. Utilizaremos esta base de manera online, para que la gestión de información sea mucho más sencilla y accesible. Para esto traemos una nueva herramienta...
 
@@ -112,6 +168,9 @@ Una de sus características fundamentales es que permite deployar (veremos esto 
 2. Completa el formulario con los datos solicitados, o bien ingresar con Google. Luego tendrás que aceptar los términos y condiciones.
 
 ## MongoDB Compass
+
+- Es útil para quienes deseen trabajar con bases de datos MongoDB de manera visual en lugar de usar comandos
+- Proporciona gráficas que facilitan la organización y edición de las bases de datos
 
 Con las computadoras tenemos dos formas principales de comunicarnos. Interactuando mediante el mouse y haciendo clicks, o también mediante comandos por la terminal. Veremos que con las bases de datos sucede lo mismo. Podremos pedirle cosas con comandos, o tambipen utilizando una interfaz.
 
