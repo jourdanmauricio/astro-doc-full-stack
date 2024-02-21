@@ -62,7 +62,7 @@ const mongoose = require('mongoose');
 const dbCon = async () => {
   // Realizar la conexión con la Base de datos
   await mongoose.connect(
-    'mongodb+srv://jourdanmauricio:wd46o6q7KQSeebAj@prueba.yymc8ps.mongodb.net/movies'
+    'mongodb+srv://jourdanmauricio:<password>@prueba.yymc8ps.mongodb.net/movies'
   );
 };
 
