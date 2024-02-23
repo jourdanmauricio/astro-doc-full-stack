@@ -443,6 +443,12 @@ En general, estos términos se refieren a funciones o grupo de funciones que pro
 
 ### Casos de uso y ejemplo
 
+- Manipular strings
+- Operaciones matemáticas
+- Formateo de datos
+- Manejo de fechas
+- Manejo de errores
+
 En general los utils y helpers pueden utilizarse para manipulación de strings, operaciones matemáticas, formateo de datos, manejo de fechas y en particular en el manejo de errores.
 
 **Util** → función pequña que hace algo muy específica que segurmanete reutilicemos desde distintos lugares de nuestra App. Podría llevarme el módulo así como está a otro proyecto y funcionaría exactamente igual.
