@@ -443,6 +443,83 @@ Si te encuentras dividiendo tu problema en una versión más pequeña del mismo 
 
 ## Secuencia recursiva de Fibonacci
 
+**Problem**: give a number 'n', find the frist 'n' elements of the Fibonacci sequence
+
+<mark>En matemáticas, la secuencia de Fibonacci es una secuencia en la que cada número es la suma de los dos precedentes. Los primeros dos números en la secuencia son 0 y 1.</mark>
+
+Por ejemplo:
+
+- fibonacci(0) = 0
+- fibonacci(1) = 1
+- fibonacci(6) = 8
+
+Si F representa una función para calcular el número Fibonacci, entonces
+
+F<sub>n</sub> = F<sub>n-1</sub> + F<sub>n-2</sub>
+
+El caso base es:
+
+F<sub>0</sub> = 0, y F<sub>1</sub> = 1
+
+Ejemplo:
+
+F<sub>2</sub> = F<sub>1</sub> + F<sub>0</sub> <br>
+F<sub>2</sub> = 1 + 0 <br>
+F<sub>2</sub> = 1 <br>
+
+```javascript
+const recursiveFibonacci = (n) => {
+  if (n < 2) return n;
+  return recursiveFibonacci(n - 1) + recursiveFibonacci(n - 2);
+};
+
+console.log(recursiveFibonacci(0)); // 0
+console.log(recursiveFibonacci(1)); // 1
+console.log(recursiveFibonacci(6)); // 8
+
+// Big-O (socución iterativa) = O(n)
+// Big-O (socución recursiva) = O(2^n)
+```
+
+La socución iterativa es por lejos más optima que la recursiva. La solcuión recursiva invoca muchas veces a la fución.
+
+### Recursive Factorial of a Number
+
+**Problem**: Given an integer 'n', find the factorial of that integer.
+
+<mark>En matemáticas, el factorial de un entero no negativo 'n', denotado n!, es el producto de todos los enteros positivos menores o iguales que 'n'.
+
+- factorial de 0 es 1
+- factorial(4) = 4 \* 3 \* 2 \* 1 = 24
+- factorial(5) = 5 \* 4 \* 3 \* 2 \* 1 = 120
+
+```javascript
+function recursiveFactorial(n) {
+  if (n === 0) return 1;
+  return n * recursiveFactorial(n - 1);
+}
+
+console.log(recursiveFactorial(0)); // 1
+console.log(recursiveFactorial(4)); // 24
+console.log(recursiveFactorial(5)); // 120
+
+// Big-O = O(n)
+```
+
+n! = n \* (n-1)!
+
+Cuando n es 3 se llama a la función 3 veces, cuando es 4 se llama 4 veces.
+
+## Algoritmos de búsqueda
+
+Solo analizaremos dos algoritmos:
+
+- Linear search
+- Binary search
+- Recursive binary search
+
+Algoritmos de búsqueda https://www.youtube.com/watch?v=jktVSpNwVT8
+
 <style>
   h1 { color: #713f12; }
   h2 { color: #2563eb; }

@@ -20,6 +20,11 @@ category: Mongo - Mongoose - Base de datos
 
 ## Queries
 
+- Es una solicitud de información específica a la BD
+- Busca, crea, actualiza o elimina datos de acuerdo a ciertos criterios
+- Instrucción para realizar una acción en la base de datos
+- Mongoose nos **provee de algunos métodos** que nos facilitarán dichas solicitudes/queries para trabajar desde nuestro servidor
+
 En el contexto de las bases de datos, **una query** es una solicitud de información específica a la base de datos.
 
 Dicha query se utiliza para buscar, crear, actualizar o eliminar datos de acuerdo a ciertos criterios que pueden estar definidos dentro de la misma query. En otras palabras, es una instrucción para realizar una acción en la base de datos.
@@ -154,6 +159,12 @@ app.put('/forceUpdate', async (res, req) => {
 
 ## Relaciones (referencias)
 
+- Las relaciones se generan por referencia
+- Establece conexiones entre documentos de diferentes colecciones
+- Almacenamos una referencia al documento relacionado
+- Esto optimiza la estructura de nuestra base de datos. Evita la redundancia
+- Facilita el manejo de datos relacionados
+
 Cuando trabajamos en MongoDB podemos combinar los datos de diferentes colecciones para generar una estructura de datos que unifique la información.
 
 Estas relaciones se generan por referencia. En lugar de almacenar toda la información relacionada en un solo documento, almacenamos una referencia al documento relacionado.
@@ -188,10 +199,12 @@ const userSchema = new mongoose.Schema({
   age: Number,
   // Hacemos referencia al vehiculo
   // el campo vehicle será un objectId, una referencia al modelo vehicle
-  vehicle: {
-    type: mongoose.Schema.Types.ObjetId,
-    ref: 'vehicle',
-  },
+  vehicle: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Vehicle',
+    },
+  ],
 });
 
 const User = mongoose.model('User', userSchema);

@@ -1,26 +1,26 @@
-const isPalindrome = (x) => {
-  const number = x.toString();
-  let res = true;
-  for (let i = 0; i < number.length; i++) {
-    if (number[i] !== number[number.length - i - 1]) res = false;
-  }
-  return res;
-};
+// const isPalindrome = (x) => {
+//   const number = x.toString();
+//   let res = true;
+//   for (let i = 0; i < number.length; i++) {
+//     if (number[i] !== number[number.length - i - 1]) res = false;
+//   }
+//   return res;
+// };
 
-const isPalindrome2 = (x) => {
-  const cadena = x.toString();
-  const array = cadena.split('');
-  const reverse = array.reverse();
-  return cadena === reverse.join('');
-};
+// const isPalindrome2 = (x) => {
+//   const cadena = x.toString();
+//   const array = cadena.split('');
+//   const reverse = array.reverse();
+//   return cadena === reverse.join('');
+// };
 
-console.time('dos');
-console.log(isPalindrome2(100000000000000000000001));
-console.timeEnd('dos');
+// console.time('dos');
+// console.log(isPalindrome2(100000000000000000000001));
+// console.timeEnd('dos');
 
-console.time('uno');
-console.log(isPalindrome(100000000000000000000001));
-console.timeEnd('uno');
+// console.time('uno');
+// console.log(isPalindrome(100000000000000000000001));
+// console.timeEnd('uno');
 
 /* 
 Comencé a ejercitar sobre Leetcode. Empecé por el más simple: isPalidrome
@@ -121,3 +121,38 @@ Memoria: 100 caracteres + 100 elementos de array + 1 booleano
 
 En resumen, la función isPalindrome es la mejor opción si se busca una solución eficiente en cuanto a tiempo y memoria.
 */
+
+// function twoSum(nums, target) {
+//   const numToIndex = new Map();
+//   for (let i = 0; i < nums.length; i++) {
+//     const complement = target - nums[i];
+//     if (numToIndex.has(complement)) {
+//       return [numToIndex.get(complement), i];
+//     }
+//     numToIndex.set(nums[i], i);
+//   }
+//   return [];
+// }
+// console.log(twoSum([3, 2, 4], 6));
+
+// function twoSum(nums, target) {
+//   const numMap = {};
+//   for (let i = 0; i < nums.length; i++) {
+//     const complement = target - nums[i];
+//     if (complement in numMap) {
+//       return [numMap[complement], i];
+//     }
+//     numMap[nums[i]] = i;
+//   }
+//   return [];
+// }
+// console.log(twoSum([3, 2, 4], 6));
+// console.log(twoSum([2, 7, 11, 15], 9));
+
+var mergeTwoLists = function (list1, list2) {
+  console.log(typeof list1);
+  const list = [...list1, ...list2];
+  return list.sort();
+};
+
+console.log(mergeTwoLists([(1, 2, 4)], [1, 3, 4]));

@@ -22,11 +22,19 @@ category: Mongo - Mongoose - Base de datoss
 
 ### Responsabilidades
 
+**Modularización**
+
+- Se refiere a la forma en que el código se organiza
+- Se divide en carpetas y archivos independientes
+- Facilita su desarrollo, mantenimiento y escalabilidad
+- Cada módulo encapsula una parte del sistema
+- Cada archivo desempeña una única responsabilidad
+
 Cuando trabajamos en un proyecto, **una de las principales tareas del desarrollador es mantener el código ordenado y legible** sin importar la extensión de la aplicación.
 
 Esto puede sonar a una tarea sencilla, pero en realidad puede llegar a ser todo un reto y más aún cuando no se planifica una modularización adecuada al inicio de un proyecto, así como la responsabilidad de las carpetas y archivos que componen la aplicación.
 
-El proceso de **modularización** y división de responsabilidades es la forma en la que el **código se organiza** y se divide en carpetas y archivos independientes, para facilitar su desarrollo, mantenimiento y escalabilidad.
+<mark>El proceso de **modularización** y división de responsabilidades es la forma en la que el **código se organiza** y se divide en carpetas y archivos independientes, para facilitar su desarrollo, mantenimiento y escalabilidad.</mark>
 
 Cada **módulo** encapsula una parte de la aplicación y, cada **archivo**, tendrá una única responsabilidad bien definida.
 
@@ -36,29 +44,70 @@ Para ello, es necesario realizar una **planificación del proyecto** que nos per
 
 Conozcamos algunas estrategias que podemos seguir para simplificar este proceso...
 
-- **Diseñar modular desde el principio** → Identifica los componentes principales del sistema y cómo se relacionan entre sí.
+1. **Diseñar modular desde el principio**
 
-😉 Esto te ayudará a definir los módulos y archivos necesarios.
+- Identifica los componentes principales del sistema y cómo se relacionan entre sí.
+- 😉 Esto te ayudará a definir los módulos y archivos necesarios.
 
 👉 Por ejemplo, si vamos a crear un servidor que trabaje como API Rest de una aplicación, dividiremos el proyecto en carpetas asociadas a la configuración del servidor, enrutadores, controllers y handlers como mínimo.
 
-- **Separación de preocupaciones** → Divide tu código en módulos que se ocupen de preocupaciones específicas.
+> Recodemos que existe el modelo:
+>
+> - <mark>Modular</mark>
+>   - Divide por responsabilidades (MVC)
+>   ```
+>   /
+>   |-> index.js
+>   |
+>   |-> src
+>   |    |-> routes
+>   |    |-> controllers
+>   |    |-> services
+>   |
+>   |-> middlewares
+>   |
+>   |- package.json
+>   ```
+> - <mark>Funcional</mark>
+>   - Las carpetas representan características específicas del proyecto, como 'usuarios', 'publicaciones'
+>   ```
+>   /
+>   |
+>   |-> users
+>   |     |-> UsersRoutes
+>   |     |-> UsersColtroller
+>   |     |-> UsersService
+>   |
+>   |-> post
+>   |     |-> PostsRoutes
+>   |     |-> PostsColtroller
+>   |     |-> PostsService
+>   |
+>   -> App.js
+>   ```
+
+2. **Separación de preocupaciones**
+
+- Divide tu código en módulos que se ocupen de preocupaciones específicas.
+- 😉 Esto facilita la comprensión y el mantenimiento del código. Es decir que, dentro de cada una de estas carpetas y archivos, se desarrollará la lógica específica para trabajar con un elemento de mi aplicación.
 
 👉 Por ejemplo, puedes tener módulos separados para la lógica de negocio, acceso a datos, autenticación, manejo de errores, etcétera.
 
-😉 Esto facilita la comprensión y el mantenimiento del código. Es decir que, dentro de cada una de estas carpetas y archivos, se desarrollará la lógica específica para trabajar con un elemento de mi aplicación.
-
 👉 Por ejemplo, dentro de la carpeta controllers puedo crear un módulo donde almacenar la lógica para cada uno de los recursos de mi API.
 
-- **Principio de responsabilidad única** → Como ya mencionamos en múltiples oportunidades, cada archivo o módulo debe tener una responsabilidad única y bien definida.
+3. **Principio de responsabilidad única**
 
-😉 Evita la sobrecarga de funcionalidades en un solo archivo y asegúrate de que, además, tenga un propósito claro.
+- Como ya mencionamos en múltiples oportunidades, cada archivo o módulo debe tener una responsabilidad única y bien definida.
+
+- 😉 Evita la sobrecarga de funcionalidades en un solo archivo y asegúrate de que, además, tenga un propósito claro.
 
 Así, cada uno de los módulos se encargará de contener la lógica enfocada a gestionar la información de un solo recurso, facilitando su manipulación y mantenimiento.
 
 👉 Por ejemplo, podríamos tener un módulo que únicamente contenga lógica para procesar las solicitudes del recurso usuarios.
 
-- **Jerarquía de archivos y carpetas** → Organiza tus archivos y carpetas de manera lógica y coherente.
+4. **Jerarquía de archivos y carpetas**
+
+- Organiza tus archivos y carpetas de manera lógica y coherente.
 
 👉 Por ejemplo, puedes agrupar archivos relacionados en carpetas según su función o módulo. Utiliza una estructura de carpetas clara y consistente en todo el proyecto.
 
@@ -66,13 +115,15 @@ Cuando el proyecto sea cada vez más grande, será necesario incorporar nuevas h
 
 👉 Por ejemplo, si agrego un ODM para definir los modelos o entidades de mi base de datos, lo ideal sería definirla dentro de los niveles más altos de mi proyecto ya que la configuración del servidor y controladores van a requerir acceso a dicha información.
 
-- **Nombres descriptivos** → Utiliza nombres descriptivos y significativos para tus archivos y módulos.
+5. **Nombres descriptivos**
 
-😉 Esto facilita la comprensión del propósito de cada uno de ellos y su relación con otros archivos en el proyecto.
+- Utiliza nombres descriptivos y significativos para tus archivos y módulos.
+- 😉 Esto facilita la comprensión del propósito de cada uno de ellos y su relación con otros archivos en el proyecto.
 
-- **Acoplamiento mínimo** → Minimiza el acoplamiento entre módulos y archivos. Esto significa que los módulos deben tener la menor dependencia posible entre sí y comunicarse a través de definiciones claras y específicas.
+7. **Acoplamiento mínimo**
 
-En otras palabras, te invitamos a planificar la interacción entre módulos para minimizar las importaciones y exportaciones innecesarias.
+- Minimiza el acoplamiento entre módulos y archivos. Esto significa que los módulos deben tener la menor dependencia posible entre sí y comunicarse a través de definiciones claras y específicas.
+- En otras palabras, te invitamos a planificar la interacción entre módulos para minimizar las importaciones y exportaciones innecesarias.
 
 👉 Por ejemplo, el enrutador de tu aplicación solo debe acceder a los handlers que le corresponden y estos a su vez se encargan de importar los controladores necesarios para que la ruta funcione correctamente.
 
@@ -82,9 +133,12 @@ En ningún momento el enrutador importa al controlador de forma directa.
 
 ## Abstracción
 
-En el contexto de la modularización, la **abstracción** permite interactuar con un módulo sin necesidad de entender todos los detalles internos de su implementación.
+- Permite interactuar con un módulo sin necesidad de entender todos los detalles internos de su implementación
+- Simplifica el uso de una funcionalidad al exponer sólo lo esencial y relevante, ocultando el resto de información máscompleja
 
-🎯 Su principal objetivo es **simplificar** el uso de una funcionalidad al exponer solo lo relevante, ocultando el resto de información más compleja
+En el contexto de la modularización, <mark>la **abstracción** permite interactuar con un módulo sin necesidad de entender todos los detalles internos de su implementación</mark>.
+
+<mark>Su principal objetivo es **simplificar** el uso de una funcionalidad al exponer solo lo relevante, ocultando el resto de información más compleja</mark>.
 
 Hagamos una analogía para entender esto mejor. Imagina que tenemos un coche. Este proporciona distintos elementos para interactuar con él, como el volante, los pedales, la caja de cambios, entre otros.
 
@@ -106,6 +160,59 @@ Probemos haciendo **ctrl+click** en la palabra **Schema**, lo cual nos llevará 
 
 ![Abstracción II.](/astro-doc-full-stack/images/m2/clase13-abstraccion2.png)
 
+## Propuesta en backend
+
+En el backend podemos separar aún más la funcionalidad archivos más mantenibles. Por ejemplo nuestros servicios podían seprarar su funcionalidad de la siguiente manera:
+
+```bash
+|
+|-> services
+|     |-> movies
+|     |     |-> getMovies.js
+|     |     |-> postMovie.js
+|     |-> index.js
+|
+```
+
+```javascript
+// getMovies.js
+const Movie = require('../../models/Movie.js');
+
+module.exports = async () => {
+  const allMovies = await Movie.find();
+  return allMovies;
+};
+```
+
+```javascript
+// postMovie.js
+const Movie = require('../../models/Movie.js');
+
+module.exports = async (movie) => {
+  const newMovie = new Movie(movie);
+  const savedMovie = await newMovie.save();
+  return savedMovies;
+};
+```
+
+```javascript
+// index.js
+const getMovies = requiere('./movies/getMovies');
+const postMovies = requiere('./movies/postMovie');
+
+module.exports = { getMovies, postMovies };
+```
+
+Ahora podemos importar de manera simple. En el ejemplo importamos desde el controlador a los servicios. Cómo solo colocamos la carpeta servicios, Node búscará un archivo llamado index.js
+
+```javascript
+// movieController.js
+// const { getMovies, postMovies } = requiere('../services/movieService');
+const { getMovies, postMovies } = requiere('../services');
+...
+...
+```
+
 ## Manejo de errores
 
 Para garantizar el correcto funcionamiento y eficiencia de una aplicación, debemos **identificar** aquellas tareas susceptibles de provocar errores en algún momento.
@@ -115,6 +222,10 @@ Esta detección permite gestionar de manera adecuada cualquier tipo de error que
 Existen diversas alternativas y estrategias que nos permiten realizar este manejo de errores y pueden trabajar de manera conjunta o de forma independiente.
 
 Estas tienen como objetivo ejecutar una operación, ya sea de forma sincrónica o asincrónica, considerando los posibles casos de error para actuar en consecuencia y devolver información pertinente al cliente.
+
+- Identificar aquellas tareas susceptibles de provocar errores en algún momento
+- Gestionar de manera adecuada cualquier tipo de error que pueda ocurrir durante la ejecución del código
+- Prevenir que una aplicación se bloquee o genere comportamientos inesperados
 
 ### Estategias para el manejo de errores
 
@@ -129,6 +240,11 @@ Esta palabra clave nos permite lanzar errores explícitamente y se utiliza para 
 - **Middlewares** → Como vimos, son funciones que actúan como intermediarios dentro de nuestro servidor, esto es, ocurren antes de llegar al endpoint de destino.
 
 Una de las grandes aplicaciones de los middlewares es en el manejo de errores que pueden presentarse de forma repetitiva dentro del código y que pueden ser validados antes de que la solicitud llegue incluso al handler.
+
+**si gregamos una función para gestionar errores podemos:**
+
+- Evitar la "caida" del servidor
+- Alertar al cliente sobre la respuesta a la solicitud
 
 Hasta el momento no hemmos capturado los errores que sugen en la base de datos. Por ejemplo, si queremos buscar un elemento en paricular y no existe el backend arraja un error y se detiene. Esto ocurre si no gestionamos los errores.
 
@@ -214,6 +330,11 @@ De esta manera, evitamos colocar el try catch en cada controlador, pero aún ten
 
 ## Express error handler
 
+- Express cuenta con un middleware de manejo de errores predeterminado de manera implícita
+- Captura los errores que ocurran dentro de las rutas y otros middlewares de la app
+- Proporciona un mecanismo centralizado para gestionarlos de manera eficiente
+- Para utilizar el error handler de Express solo es necesario agregarlo como middleware a nustras rutas
+
 Express cuenta con un **middleware** de manejo de errores predeterminado de manera implícita que captura los errores que ocurren dentro de las rutas y otros middlewares de la aplicación. El problema es que tiende a ser demasiado extenso, como pudiste ver en la solicitud anterior, pero por suerte podemos sobre-escribir su funcionamiento de una forma muy simple.
 
 Para hacer uso del **error handler de express** solo es necesario agregarlo como middleware a nuestras rutas con la siguiente estructura.
@@ -231,6 +352,16 @@ Este error handler se encarga de recibir los errores de las solicitudes y gestio
 Vamos a agregarlo dentro del archivo **app.js** donde tenemos la configuración de nuestra app y por ahora solo construiremos un objeto con el mensaje de error generado.
 
 ## Funciones de Orden Superior
+
+- Son aquellas funciones que aceptan otras funciones como argumentos
+- Se utilizan en un bloque de lógica adicional
+- Se encarga de procesar los errores de nuestros handlers de forma "genérica"
+- Permite planificar el manejo de errores dentro de una sola función en lugar de hacerlo en cada handler
+- Es una función que recibe como argumento otra función asíncrona
+- Se ejecuta dentro del manejo de errores que definamos, como un try/catch
+- Permite reducir líneas de código al momento de crear los handlers
+- Podemos exportar la versión validada de cada handler asegurándonos que todos reciban el mismo manejo de errores asíncronos
+- Evita la repetición de bloques try/catch que desmpeñan el mismo papel
 
 El concepto de **función de orden superior** se refiere a aquellas funciones que aceptan otras funciones como argumentos para usarlas en un bloque de lógica adicional. En nuestro caso, esa lógica adicional estará enfocada al manejo de errores en los handlers de nuestra aplicación.
 
@@ -306,9 +437,9 @@ En general, estos términos se refieren a funciones o grupo de funciones que pro
 
 > En realidad, **no existe una diferencia definitiva entre ambos conceptos** y en ocasiones se utiliza una sola categoría dependiendo del equipo de desarrollo, ya que ambos términos se refieren a funciones o utilidades genéricas o auxiliares. Pero...
 
-- **HELPERS** → Están enfocados en almacenar funciones auxiliares para una tarea específica dentro de la aplicación.
+- **HELPERS** → </mark>Están enfocados en almacenar funciones auxiliares para una tarea específica dentro de la aplicación.</mark>
 
-- **UTILS** → Estos trabajan con implementaciones más genéricas.
+- **UTILS** → </mark>Estos trabajan con implementaciones más genéricas.</mark>
 
 ### Casos de uso y ejemplo
 

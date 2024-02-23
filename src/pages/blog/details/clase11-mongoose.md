@@ -28,11 +28,15 @@ Cuando vimos Mongo observamos que los documentos pueden no ser coherentes, puedn
 
 ## ODM
 
+- Librerías para mapular y convertir datos que son incompatibles entre dos sistemas.
+- Puede crear elementos dentro de la base de datos de MongoDB sin necesidad de cambiar el lenguaje
+- Puede usarse para modelar datos que serán transformados para coincidir con el formato de la BDD y viceversa
+
 Demos un poco de contexto. Pensemos en los 2 extremos que estaremos trabajando. Por un lado tenemos un servidor, cuya funcionalidad está desarrollada con JavaScript. Por otro lado tenemos una base de datos estructurada en MongoDB que utiliza el formato BSON y funciona mediante querys.
 
 A pesar de que ambos estarán enfocados a trabajar con la misma información, tienen una gran limitante. ¡No hablan el mismo idioma!
 
-Los **ODM (Object Data Modeling)** son librerías que permiten manipular y convertir datos que son incompatibles naturalmente entre dos sistemas. De esta manera, un programador trabajando dentro del código del servidor puede crear elementos en la base de datos de sin necesidad de cambiar el lenguaje.
+<mark>Los **ODM (Object Data Modeling)** son librerías que permiten manipular y convertir datos que son incompatibles naturalmente entre dos sistemas</mark>. De esta manera, un programador trabajando dentro del código del servidor puede crear elementos en la base de datos de sin necesidad de cambiar el lenguaje.
 
 Es importante tener en cuenta que existen muchos ODMs. Unos para algunas bases de datos, y otros para otras bases de datos. Utilizamos mongoose ya que es el que mejor se adapta a MongoBD, pero si investigas podrías encontrar otras.
 
@@ -69,6 +73,13 @@ const dbCon = async () => {
 module.exports = dbCon;
 ```
 
+### Conectarnos a la base de datos
+
+- Utilizamos el método **connect()** el cual recibe un string que indica al URL de la base de datos y un objeto de opciones como segundo argumento
+- La estructura del string de conexión puede variar dependiendo de como estemos realizando la conexión
+- <mark>La conexión es una promesa</mark>
+- la estructura general es: 'mongodb://user:password@127.0.0.1:27017/test'
+
 Ya tenemos la conexión establecida pero debemos requerirla desde nuestro index antes de comenzar a esuchar solicitudes. Creamos a la función de conexión como asíncrona para que el servidor espere que la conxexión se encuentre lista.
 
 ```javascript
@@ -90,7 +101,13 @@ dbCon().then({
 
 ### ¿Qué es un Schema?
 
-En mongoose, un schema es un objeto que podemos crear en nuestro código, el cuál llevará la configuración de una colección. Por ejemplo, si quisiéramos crear una colección en MongoDB para guardar información de distintos perros, primero vamos a tener que crear un schema sobre perros.
+- Es una estructura que podemos crear en nuestro código
+- Lleva la configuración de una colección
+- Le dirá a la colección qué tipo de documento podemos guardar
+- Tendremos que **tipar** los datos que guardamos en la colección
+- Se adjuntará a cada propiedad el tipo de dato que guardaremos
+
+En mongoose, <mark>un schema es un objeto que podemos crear en nuestro código, el cuál llevará la configuración de una colección</mark>. Por ejemplo, si quisiéramos crear una colección en MongoDB para guardar información de distintos perros, primero vamos a tener que crear un schema sobre perros.
 
 ### Configuraciones de un schema
 
@@ -111,23 +128,42 @@ const userSchema = new Schema({
   },
   age: {
     type: Number,
-    unique: true,
+    required: true,
+    min: [1, 'La edad mínima es 1'],
   },
   isActive: {
     type: Boolean,
+  },
+  drink: {
+    tpye: String,
+    enum: {
+      values: ['Cofee', 'tea'],
+      message: '{VALOR} is not supported',
+    },
   },
 });
 ```
 
 **Schema types** -> En la documentación oficial podrás encontrar cuáles son los tipos de datos que se pueden guardar en una colección. https://mongoosejs.com/docs/schematypes.html
 
+### Validaciones de schema
+
+- Podemos incorporar validaciones de datos a cada propiedad
+- Pueden ser verificación de un campo requerido, verificación de valor máximo o mínimo o limitación de valores permitidos
+
 ## Modelos
 
-Un modelo es un objeto basado en un schema que nos permite interactuar con una colección específica en MongoDB. Es una palabra clave que nos ayudará a realizar operaciones CRUD (Create, Read, Update, Delete) en la base de datos.
+- Es un objeto obasado en un schema
+- Permite interactuar con una colección específica en MongoDB
+- Nos ayuda a realizar operaciones CRUD en la base de datos
+
+<mark>Un modelo es un objeto basado en un schema que nos permite interactuar con una colección específica en MongoDB</mark>. Es una palabra clave que nos ayudará a realizar operaciones CRUD (Create, Read, Update, Delete) en la base de datos.
 
 En otras palabras, el modelo sería un objeto que utilizará la planilla creada por el Schema con el que podremos modificar la base de datos. ¿Creemos un modelo?
 
 ### Definición de modelos
+
+- Método **model()** para crear un modelo. Toma como primer argumento el nombre del modelo en forma de string y como segundo argumento el Schema que deseamos utilizar. Nos proporcionará métodos para realizar operaciones en la colección.
 
 Sigamos con el ejemplo de schema de un usuario que vimos anteriormente. Como ya dijimos, el schema es un objeto que simplemente definirá qué propiedades tendrá una colección. Ahora bien, ¿Cómo podemos declarar un modelo a partir de ese schema?
 
