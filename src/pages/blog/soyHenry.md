@@ -41,5 +41,6 @@ category: Reference Docs HTML CSS JS
 ### Módulo 3
 
 - [Clase 1 TypeScript](/astro-doc-full-stack/blog/details/m3/clase1-typescript)
+- [Clase 2 TypeScript](/astro-doc-full-stack/blog/details/m3/clase2-typescriptII)
 
 ### Módulo 4
