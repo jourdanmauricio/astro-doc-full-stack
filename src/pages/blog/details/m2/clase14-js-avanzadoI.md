@@ -5,12 +5,12 @@ date: 11-02-2024
 author: Mauricio Jourdán
 image:
   {
-    src: '/astro-doc-full-stack/images/m2/back/back-clase14.webp',
+    src: '/astro-doc-full-stack/images/m2/clase14/back.webp',
     alt: 'javascript-avanzado',
   }
 icon:
   {
-    src: '/astro-doc-full-stack/images/m2/icon/icon-javascript.png',
+    src: '/astro-doc-full-stack/images/m2/clase14/icon.webp',
     alt: 'Logo javascript',
   }
 description: JavaScript Avanzado II
@@ -73,7 +73,7 @@ Podrías preguntarte en este momento, ¿Y qué pasa si mi código no está dentr
 
 **<mark>LOCAL</mark>** -> Por otro lado, tenemos al contexto de ejecución local, el cual se refiere al entorno en el que se ejecuta un bloque de código específico, generalmente dentro de una función o un bloque delimitado por llaves ({}). Dentro de este contexto local, las variables y funciones declaradas son accesibles solo dentro de ese bloque y no fuera de él.
 
-![Event Loop.](/astro-doc-full-stack/images/m2/event-loop.png)
+![Event Loop.](/astro-doc-full-stack/images/m2/clase14/event-loop.webp)
 
 ## Ámbito léxico
 
@@ -142,7 +142,7 @@ A pesar de que el hoisting parece ser de gran utilidad, y en algunas situaciones
 
 Con todas estas ideas en mente (hoisting, contextos de ejecución y ámbito léxico), introducimos un nuevo término que nos permitirá acceder a la información de contextos así estos ya no estén presentes en el call stack: closures.
 
-![Hoisting](/astro-doc-full-stack/images/m2/hoisting.png)
+![Hoisting](/astro-doc-full-stack/images/m2/clase14/hoisting.webp)
 
 ## Closures
 
@@ -197,7 +197,7 @@ El **contexto** se refiere al entorno en el que se ejecuta el código y los hay 
 
 Finalmente, las **closures** son funciones que tienen acceso a variables de un contexto externo, incluso después de que la función externa haya finalizado su ejecución.
 
-![Resumen de Conceptos](/astro-doc-full-stack/images/m2/mapa-conceptos/clase14.png)
+![Resumen de Conceptos](/astro-doc-full-stack/images/m2/clase14/conceptos.webp)
 
 ## Homework
 
