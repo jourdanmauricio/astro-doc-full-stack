@@ -18,349 +18,341 @@ draft: false
 category: TypeScript JavaScript
 ---
 
-## TypeScript
+## Funciones y tipado
 
-<mark>TypeScript es un lenguaje de programación de código abierto fuertemente tipado que actúa como una extensión de JavaScript. En otras palabras, es JavaScript con esteroides.</mark>
+¿Recuerdas la clase anterior? Uno de los puntos que habíamos visto es la importancia de implementar **tipados estáticos** en nuestras variables. Esto nos permitía definir qué tipo de dato vamos a guardar en una variable. También exploramos el tipado en tipos de **datos primitivos** y de qué manera TypeScript nos proporciona una inferencia sobre estos.
 
-### ¿Fuertemente tipado?
+Ahora vamos a explorar cómo darle un tipado a nuestras funciones, lo que permitirá conocer los posibles errores en el tiempo de compilación.
 
-Pero, ¿Qué significa que sea un lenguaje "fuertemente tipado"? Recordemos que dentro de las características básicas de JavaScript, se menciona que es un lenguaje de programación "débilmente tipado". Esto significa que las variables declaradas en JavaScript pueden cambiar de tipo de dato durante la ejecución de un programa.
-
-Por ejemplo, podríamos definir una variable x que sea inicializada con un valor numérico, y en algún otro lugar del código decidir cambiarla a un string.
+Cuando nos paramos con el puntero sobre una llamada a función VSCode nos muestra un mensaje con los parámetros y el valor de retorno junto a sus tipos de datos.
 
 ```typescript
-let x = 10;
+const nombre: string = 'Mauricio';
 
-x = 'Ahora serás un string';
+// Recibe un string y retorna un string
+const saludar = (nombre: string): string => {
+  // return 10 // Error
+  return `Hola ${nombre}`;
+};
 
-console.log(typeof x); // string
+console.log(saludar(nombre));
+console.log(saludar('Pedro'));
+console.log(saludar(10)); // Error
+
+const calcularTotal = (quantity: number, price: number) => {
+  return quantity * price;
+};
+
+calcularTotal(10, 150);
+calcularTotal(10, 'Hola'); // Error
 ```
 
-En TypeScript esto no sería posible ya que el tipo de dato es estático, lo que significa que está asociado a la variable en el momento de su creación y no permite que sea modificado nunca más, y el tratar de modificarlo conllevará a un error.
+## Interfaces y tipos personalizados
+
+### ¿Qué es una interfaz?
+
+Las interfaces **permiten definir la forma que debe tener los tipos de datos más complejos**.
+
+En el caso de los objetos, por ejemplo, especifican qué propiedades deben contener, así como los tipos de datos asociados a sus valores.
+
+No proporcionan una implementación real. Es decir, solo establece las reglas que deben seguir. Como una especie de "contrato", para que el objeto sea compatible con la interfaz.
 
 ```typescript
-let x = 10;
-
-x = 'Ahora serás un string'; //Type 'string' is not assignable to type 'number'
-```
-
-## ¿Por qué utilizar Typescript?
-
-En realidad, TypeScript nos da las mismas funcionalidades de JavaScript, pero con una capa extra de seguridad gracias a su sistema de tipado. Por esto se dice que son lenguajes “primos”. Esto quiere decir que podemos trabajar código tal como lo haríamos con JavaScript, pero con la ventaja de que podemos supervisar la consistencia en los tipos de datos utilizados para prevenir comportamientos inesperados en el código o bugs.
-
-Consideremos el siguiente caso. Imagina que dentro de un archivo index.js típico existe una función que utiliza como argumento un string para imprimir algo en consola. Al trabajar con JavaScript estamos asumiendo que efectivamente ese argumento recibido será siempre un string.
-
-```typescript
-const usuario = 'Mauricio';
-
-function sayHello(user) {
-  console.log(`Hello ${user.toUppercase()}`);
-}
-sayHello(usuario);
-```
-
-En el mejor escenario esto va a funcionar sin problemas pero, ¿qué ocurre si en lugar de recibir un string la función recibe un número, un array o un objeto?:
-
-```typescript
-const usuario = 'Mauricio';
-
-function sayHello(user) {
-  console.log(`Hello ${user.toUppercase()}`);
-}
-sayHello(usuario);
-sayHello(1); // TypeError: user.toUpperCase is not a function
-sayHello(true); // TypeError: user.toUpperCase is not a function
-sayHello(['no', 'funca']); // TypeError: user.toUpperCase is not a function
-```
-
-En efecto, obtenemos un error dado que el método toUpperCase solo está definido para strings. Este tipo de errores son más frecuentes de lo que creemos.
-
-> 👀 Ejemplo real
-> <mark>Cuando recibimos información de una API asumimos que la información vendrá de determinada manera, pero muchas veces viene con otro formato. Estos errores serían detectados únicamente al momento de ejecutar el código. TypeScript nos permite ahorrarnos estos errores.</mark>
-
-Este lenguaje hace una verificación en tiempo de compilación, ayudándonos a detectar errores **mientras escribimos el código** y no al ejecutarlo.
-
-Continuando con el ejemplo anterior, vamos a hacer una prueba de esto. Primero cambiaremos la extensión del archivo de index.js a index.**ts**. Luego vamos a agregarle a la variable user el tipado (user: string). Al hacer esto nos daremos cuenta que inmediatamente podemos ver los errores en la función sayHello() con los distintos argumentos.
-
-```typescript
-const usuario = 'Mauricio';
-
-function sayHello(user: string) {
-  console.log(`Hello ${user.toUppercase()}`);
-}
-sayHello(usuario);
-sayHello(1); // argument of type 'number' is not assignable to parameter of type 'string'
-sayHello(true); // argument of type 'boolean' is not assignable to parameter of type 'string'
-sayHello(['no', 'funca']); // argument of type 'string[]' is not assignable to parameter of type 'string'
-```
-
-Además de brindarnos información sobre los errores de forma rápida, TypeScript incluye una herramienta nativa de autocompletado de funciones en el editor de texto, lo que lo vuelve más preciso dando opciones compatibles con el tipo de dato asociado.
-
-Es necesario hacer la observación de que los entornos de ejecución como node o los navegadores web **no tienen ni idea de qué es TypeScript** ni su sintaxis para tipar estáticamente, pues solo trabajan con JavaScript. Si intentamos ejecutar el archivo index.ts con node recibiremos errores.
-
-Para poder ejecutar este script es necesario que sea **previamente compilado (traducido) a JavaScript**. Para esto debemos realizar algunas configuraciones en nuestro programa.
-
-## Configuración inicial de entorno
-
-Para poder utilizar TypeScript es necesario instalarlo dentro de nuestro proyecto o de forma global en nuestra computadora. Esto lo podemos hacer con estos comandos...
-
-Con este comando podrás instalar TypeScript de forma global en tu computadora y utilizarlo sin problemas en cualquier proyecto.
-
-```bash
-npm install -g typescript
-```
-
-Este comando creará automáticamente un proyecto local de node con todas las dependencias de este lenguaje ya instaladas.
-
-```bash
-npm install --save-dev typescript ts-node
-```
-
-> Te recomendamos que NO instales TypeScript globalmente, ya que puede traer problemas de compatibilidad de versiones más adelante.
-
-Una vez hecho esto, podremos compilar el código TS a JS utilizando el **comando npx tsc index.ts**.
-
-Al hacerlo, nos daremos cuenta que dentro de nuestro proyecto se crea un archivo de .js. ¡Es un archivo de JavaScript básico!
-
-### Inicio de proyecto
-
-```bash
-mkdir typescript
-cd typescript
-git init
-npm init -y
-npm install --save-dev typescript ts-node
-code .
-```
-
-Creamos un archivo llamado index.ts (extensión .ts)
-
-```typescript
-const num = 5;
-const num2 = 10;
-
-const sumar = (a, b) => a + b;
-
-console.log(sumar(num, num2));
-```
-
-Ejecutamos el programa con:
-
-```bash
-node index.ts
-```
-
-Por el momento, todo se ejecuta OK porque no hay sintaxis typescript en el módulo, pero si incorporamos los typos obtendremos un error. Node no entiende typescript solo puede ejecutar javascript.
-
-```typescript
-const num: Number = 5;
-const num2: Number = 10;
-
-const sumar = (a, b) => a + b;
-
-console.log(sumar(num, num2));
-```
-
-Para ejecutar módulos typescript tenemos que ejcutar:
-
-```bash
-tsc index.tsc
-```
-
-Este comando transpilará el código a javascript (al js más puro posible) creando un archivo llamado index.js. Ahora podemos ejecutar:
-
-```bash
-node index.ts
-```
-
-Para no ejecutar tsc index.tsc por cada módulo que tengamos, podemos:
-
-```bash
-tsc --init
-```
-
-Este comando nos va a generar un archivo llamado tsconfig.json donde podremos configurar el comportamiento de typescript. Ahora ya podemos ejecutar solo con el comando **tsc**.
-
-Pero podemos agregar un script al package.json:
-
-```json
-...
-scripts: {
-  "build": "tsc"
+interface Usuario {
+  nombre: string;
+  edad: number;
 }
 ```
 
-Para que typescript deje el resultado en la carpeta **/dist** (dist es una convención) modificamos la propiedad outdir de la configuración:
+### Ejemplo
 
-```json
-// tsconfig.json
-{
-  "compilerOptions": {
-  ...,
-  "outdir": "./dist",
+Imagina que deseas construir algo con bloques y cada uno de estos es diferente a los demás. Algunos son cuadrados, otros rectangulares y otros circulares. También tienen propiedades como tamaño y color.
+
+Una interfaz sería una especie de plantilla que define cómo deben ser los bloques de cada tipo. Por ejemplo, la interfaz “Cuadrado” podría tener una propiedad “lado” de tipo número, mientras la interfaz “Rectángulo” tendría propiedades “ancho” y “largo” ambas de tipo número
+
+```typescript
+interface Usuario {
+  lado: number;
+  alto: number;
+  color: strong;
+  tamaño: number;
+}
+```
+
+> <mark>Las interfaces ayudan a garantizar la consistencia y facilitan la comunicación entre diferentes partes del programa.</mark>
+
+```typescript
+// Las interfaces no son clases
+interface IAddress {
+  street: string,
+  city: string
+}
+
+// Por comvención llamamos a las interfaces con I mayúscula y la primer letra también en mayúscula
+interface IUser {
+  name: string,
+  age: number,
+  email: string,
+  active: boolean,
+  address: IAddress,
+}
+
+// Typescript nos marcará error hasta que completemos todas las propiedades
+const usuario1: IUser = {
+  name: "Mauricio Jourdan";
+  age: 35;
+  email: "jourdanmauricio@gmail.com";
+  active: true,
+  // otraProp: "Valor" // Error
+  address: {
+    street: "Calle Falsa 123",
+    city: "La Plata"
   }
 }
 ```
 
-Por otro lado, si creamos más módulos .ts serán transpilados a sus correspondientes archivos .js en la carpeta /dist. Pero, si no queremos este comportamiento, podemos modificar la configuracion:
+<mark>Las interfaces nos otorgan seguridad y coherencia</mark>
 
-```json
-// tsconfig.json
-{
-  "compilerOptions": {
-  ...,
-  "outdir": "./dist",
+Ahora sabemos utilizar parámetros según el tipo de dato: strings, numbers o booleanos, e incluso cómo construir aquellos más complejos, como los objetos, a partir de las interfaces. Pero, ya que conocemos las interfaces, vamos a trabajar ahora con una nueva herramienta similar: tipos personalizados.
+
+## Definición de tipos personalizados
+
+Los tipos (**types**), similares a las interfaces, proporcionan reglas que nos permiten definir tipos de datos como objetos, arrays, funciones, etc.
+
+```typescript
+// un enum limita los valores que puede toma la propiedad
+enum UserRole {
+  ADMIN = 'admin',
+  USER = 'user',
+  GUEST = 'guest'
+}
+
+// Podemos crear nuestros porpios tipos
+// Por convención comienzan con U mayúcula, seguido de la primer letra en mayúscula
+type TUser = {
+  name: string,
+  age: number,
+  email: string,
+  active: boolean,
+  address: IAddress,
+  role: UserRole   // "admin", "user", "guest"
+}
+
+// En cuanto tipeamos UserRole nos aparecen las 3 posibilidades,
+// aseguramos que solo contendrá el valor admin, user o guest
+// también evitamos typos al asignar valores
+const user1 = {
+  name: "Mauricio Jourdan";
+  age: 35;
+  email: "jourdanmauricio@gmail.com";
+  active: true,
+  address: {
+    street: "Calle Falsa 123",
+    city: "La Plata"
   },
-  "files": ["index.ts"]
+  // role: "otro role"   // Error
+  role: UserRole.ADMIN
 }
 ```
 
-## ESLint
+### Interfaces | Casos de uso
 
-Antes de empezar con las bases de TypeScript vamos a aprender a cómo configurar un "analizador de código". Por analizador de código nos referimos a una herramienta que permite al lenguaje detectar e informar los errores conforme se escriben líneas de código. Si bien el análisis proporcionado nos permite trabajar en la mayoría de casos, hay ocasiones en las que las necesidades del proyecto requieren opciones más personalizables y de mayor alcance. Para ello, haremos uso de **ESLint**.
+Las interfaces y los types paracen iguales. En términos de sintaxis difiren por la palabra reservada y el operador '=', pero poseen diferencias.
 
-<mark>ESLint es una herramienta para análisis de código de JavaScript, puede ser implementada con TypeScript mediante la adición de algunos plugins con características específicas</mark>. Para incorporarlo a nuestro proyecto, es necesario instalar dependencias que serán utilizadas durante el proceso de desarrollo, a través del comando…
+<mark>Tanto las interfaces como los types permiten ser extendidos por otras interfaces o types. Esto quiere decir que pueden heredar información para usarla en sus propias estructuras. Sin embargo, lo más común es utilizar interfaces, debido a su legibilidad y mejor visualización de errores en compilación.</mark>
 
-```bash
-npm install eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin prettier --save-dev
-```
-
-De esta forma podemos utilizar a ESLint para analizar y darle formato al código, aunque debemos hacer algunas configuraciones. En primera instancia, hay que **crear un archivo de configuración llamado .eslintrc.js** (nótese el punto del inicio) entro del cual configuraremos los plugins necesarios.
+Veamos un ejemplo haciendo uso de la palabra clave **extends**. En este caso, la interfaz IEmpleado podrá utilizar las propiedades de ITrabajo para definir sus propios objetos.
 
 ```typescript
-// eslint.rc
-module.exports = {
-  parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint'],
-  extends: ['eslint:recommended', 'puglin:@typescript-eslint/recommended'],
-  rules: {
-    // reglas
-  },
+inteface ITrabajo {
+  compania: string,
+  posicion: string,
+}
+
+inteface IEmpleado {
+  nombre: string,
+  edad: number,
+}
+
+const empleado: IEmpleado = {
+  compania: "Google",
+  posicion: "Senior Engineer",
+  nombre: "Pedro Perez",
+  edad: 35
+}
+```
+
+Otra característica particular es que cuando creamos dos interfaces con el mismo nombre en distintas partes del código, ambas se comportan como una sola con toda la información.
+
+```typescript
+interface IMascota {
+  nombre: string;
+}
+
+interface IMascota {
+  edad: number;
+}
+
+const miPerro: IMascota = {
+  nombre: 'Bethoven',
+  edad: 2,
 };
 ```
 
-Por último, solo tendrás que asignar en el package.json un nuevo script llamado lint con el valor de la imagen.
+Aquí vemos que, a pesar que la interfaz se reescribió dos veces y con el mismo nombre, se comporta al final como una única con la información de ambas.
 
-```json
-...
-scripts: {
-  "build": "tsc",
-  "start": "node ./dist/index.js",
-  "lint": "eslint . --ext .ts"
+### Tipos | Casos de uso
+
+Hay dos características muy comunes a las que se les da uso en types: **union types** y **alias**.
+
+- **UNION TYPES**: permiten describir valores que pueden ser uno de varios tipos posibles, ya sean primitivos o complejos.
+
+Por ejemplo, podemos definir un tipo con las tallas de camisas para una tienda virtual, con las opciones "S", "M", "L" y “XL”, de manera que únicamente pueda tomar estos valores y valide, por ejemplo, si hay disponibles o no en stock. Para indicar que este será un nuevo tipo de dato debemos inicializarlo con el indicador type.
+
+Al utilizar unión types se proporciona una forma clara y segura de manejar casos en los que una variable puede tener distintos valores.
+
+```typescript
+type tallaCamisa = 'S' | 'M' | 'L' | 'XL';
+function validarTalla(talla: tallaCamisa): string {
+  if (talla === 'XL' || talla === 'S') {
+    return 'Agotado';
+  }
+  return 'Disponible';
 }
+console.log(validarTalla('L')); // Disponible
+console.log(validarTalla('S')); // Agotado
 ```
 
-## Análisis de código estático
+- **ALIAS**: Los alias de tipos son una característica en TypeScript que permiten asignar un nombre personalizado a un tipo existente o complejo. Esto facilita la creación de tipos reutilizables.
 
-Es una característica de typescript que nos indica a medida que tipeamos los errores que cometemos.
+En este caso, Coordenada es un alias para un array de dos números. Al utilizar este alias, estamos haciendo que el código sea más expresivo y fácil de entender.
 
 ```typescript
-const num = 5;
-const num2 = 10;
+type Coordenada = [number, number];
 
-const sumar = (a, b) => a + b;
-
-console.log(sumar(num, num2));
-```
-
-Typescript tiene una opción por defecto llamada **noImplicitAny**. Esta opción le indica a typescript que nos alerte cuando no definamos un tipo de dato. En nuestra función suma los parámetros a y b.
-
-En la definición de las constantes no somos alertados porque typescript posee inferenciade datos, al igualar las variables a un número, typescript infiere el tipo Number.
-
-```json
-// tsconfig.json
-{
-  "compilerOptions": {
-  ...,
-  "outdir": "./dist",
-  "noImplicitAny": true,
-  },
-  "files": ["index.ts"]
+function imprimirCoordenadas(coordenada: Coordenada) {
+  console.log(`Latitud: ${coordenada[0]}, Longitud: ${coordenada[1]}`);
 }
+
+// Uso del alias de tipo
+const ubicacion: Coordenada = [40.7182, -78.0062];
+imprimirCoordenadas(ubicacion); // Latitud: 40.7182, Longitud: -78.0062
 ```
 
-```typescript
-const num = 5;
-const num2 = 10;
+## Tipos vs Interfaces (en objetos)
 
-const sumar = (a: number, b: number) => a + b;
+Tanto las **interfaces** como los **tipos** son herramientas que nos permiten definir la estructura de los tipos de datos en el código. Pero, aunque su funcionamiento sea similar, <mark>¿Cuándo debemos utilizar uno u otro?</mark>
 
-console.log(sumar(num, num2));
-```
-
-Ahora si modificamos el dato num a string obtendremos un alerta por consola ya que la función suma espera dos números y estamos enviando un string y un número.
+- No esta definido en piedra
+- En muchos casos son intercambiables
+- Siempre que tengamos que describir un objeto utilizaremos interface
 
 ```typescript
-const num = 'Holas';
-const num2 = 10;
+interface IUser {
+  name: string;
+  email: string;
+  age: number;
+}
 
-const sumar = (a: number, b: number) => a + b;
+// El tipo Date se escribe con mayúscula porque no es un tipo primitivo
+// Al extender de usuario hereda las propiedades
+interface IAdminUser extends User {
+  // name: string;
+  // email: string;
+  // age: number;
+  adminSince: Date;
+}
 
-console.log(sumar(num, num2));
-```
+// También se puede extender con types pero es más complejo, no es tan cómodo
+interface IGuestUser extends User {
+  // name: string;
+  // email: string;
+  // age: number;
+  active: boolean;
+}
 
-Si bien escribimos un poco más de código, typescript nos ayuda a anticipar errores.
-
-## Tipos de datos básicos
-
-Comenzaremos con los tipos de datos primitivos en TypeScript. El tipado para las variables que contienen estos datos, no necesariamente deben definirse de forma manual, puesto que este lenguaje puede inferir el tipo de forma automática.
-
-<mark>Una de las características</mark> más importantes de typescript es que podemos configurarlo para nos exija indicar los tipos de datos a varibles, funciones, etc.
-
-Javascript posee un tipado dinámico, podemos asignar un valor de un tipo y luego modificar el valor por otro que posee un tipo distinto. Typescript nos alerta sobre esta situación. No puede ser un number y luego un string. Typescript espera que el tipo de dato se mantenga a lo largo de la ejecución del programa.
-
-```typescript
-let num1 = 10;
-num1 = 'Holas'; // Error
-```
-
-> Recordemos que typescript infiere los tipos de datos. Si declamos una variable y le asignamos una cadena de caracteres, inferirá que es un string. Aunque también podemos indicar explícitamente el tipo de dato que tendrá la variable.
-
-<mark>Otra característica de typescritp</mark> es que nos muestra el listado de métodos que posee la variable. Por ejemplo: para una variable nos mostrará el método **toUpperCase()**, pero no lo mostrará para una variable de tipo number.
-
-```typescript
-const nombre: string = 'Mauricio';
-const apellido: string = 'Jourdán';
-const edad: number = 35;
-const alive: boolean = true;
-
-console.log(nombre.toUperCase()); // MAURICIO
-console.log(edad.toUperCase()); // Error -> toUperCase is not a function
-
-const numPares: number[] = [2, 4, 6, 8, 10]; // -> Array de números
-const palabras: string[] = ['hola', 'chau', false]; // Error: false no es de tipo string
-
-const numbers: number[] = [];
-numbers.push(10);
-numbers.push(5);
-numbers.push('Hola'); // Error
-
-let unaVariable: any = 'Hola';
-unaVariable = 5;
-// En este caso no arroja error porque indicamos que la variable es de tipo any(cualquiera).
-// Perdemos los beneficios de typescript. No debemos hacerlo. Es la última opción. No es buena práctica.
-
-const suma = (arr: number[]): number => {
-  // indica que recibe un array de números y retorna un numero
-  const total: number = 0;
-  for (const num of arr) total += num;
-  return total;
+const user1: IAdminUser = {
+  name: 'Mauricio',
+  email: 'jourdanmau@gmail.com',
+  age: 35,
+  adminSince: new Date(),
 };
 ```
 
-Este es un buen ejemplo de cuándo utilizar la asignación de tipos. En la práctica se hace una combinación de la asignación e inferencia de datos para generar código más legible y al mismo tiempo seguro.
+## Demo (integración)
+
+Con todo lo que vimos en mente, vamos a trabajar en una demo que nos permita integrar todos estos conceptos. Vamos a crear interfaces, y cada una de ellas nos servirá como base para definir objetos con una estructura particular.
+
+```typescript
+interface ITrack {
+  title: string;
+}
+
+interface ISong extends ITrack {
+  // title: string,
+  artist: string;
+  duration: number;
+}
+
+interface IPodcast extends ITrack {
+  // title: string,
+  host: string;
+  episodes: number;
+}
+
+interface IAudiobook extends ITrack {
+  // title: string,
+  author: string;
+  duration: number;
+}
+
+// El operador | "o" nos permite definir que el contenido del array
+// puede ser una canción, un podcast o un audiolibro
+interface IPlayList {
+  name: string;
+  // playlist: (ISong | IPodcast | IAudioBook)[];
+  playlist: ITrack[];
+}
+
+// Otro ejemplo de |
+// const miArr = (number | string | boolean)[] = [1, 2, "Hola", 3, true];
+
+const song1: ISong = {
+  title: 'by the Way',
+  artist: 'Red Hot Chili Pappers',
+  duration: 100,
+};
+
+const podcast1: IPodcast = {
+  title: 'by the Way',
+  host: 'Una calavera',
+  episodes: 100,
+};
+
+const audioBook1: IAudioBook = {
+  title: 'El principito',
+  artist: 'Antoine de Saint-Exupéry',
+  duration: 100,
+};
+
+// Sin typescript tenemos grandes chances de cometer errores.
+// Tenemos un objeto que contiene un array,
+// que a su vez contiene 3 objetos diferentes
+const myPlaylist: IPlaylist = {
+  name: 'My Playlist',
+  playlist: [song1, podcast1, audioBook1],
+};
+```
 
 ## Cierre
 
-En esta clase aprendimos un nuevo lenguaje: **TypeScript**. Vimos cuáles son las ventajas de hacer código utilizando el tipado estático y cómo configurar nuestro entorno de desarrollo para que nuestros proyectos puedan ser más seguros.
+En esta clase conocimos conceptos más avanzados, como el **tipado de funciones** en, **interfaces** y el **tipado personalizado**. Comprendimos cómo tipificar funciones, tanto sus parámetros como el valor que retornan, a partir de tipos de datos primitivos y complejos. Si nuestras funciones no retornan valores, TypeScript podrá inferirlo sin necesidad de escribirlo manualmente.
 
-Descubrimos que TypeScript provee una especie de "asistente de desarrollo" que está al tanto de nuestros posibles errores al momento de escribir código, compilando nuestros scripts con extensión .ts en archivos .js tradicionales.
-
-Finalmente, conocimos de qué manera hacer uso de los tipos de datos primitivos, así como a determinar en qué situaciones es beneficioso realizar el tipado estático manualmente y cuándo dejar que este sea inferido.
+Exploramos la creación y uso de **interfaces** y **tipos** para estructurar objetos. Vimos que, a pesar de que su comportamiento fuera similar, tenían casos de uso puntuales que los diferenciaba uno del otro, haciendo énfasis en la herencia, los unión types y los alias.
 
 ### Mapa de conceptos
 
-![Resumen de Conceptos](/astro-doc-full-stack/images/m3/clase1/conceptos.webp)
+![Resumen de Conceptos](/astro-doc-full-stack/images/m3/clase2/conceptos.webp)
 
 ## Homework
 
@@ -369,52 +361,36 @@ Finalmente, conocimos de qué manera hacer uso de los tipos de datos primitivos,
 
 **ACTIVIDAD 01**
 
-_PUNTOS A TENER EN CUENTA_
+En esta actividad nos centraremos en configurar nuestro entorno de desarrollo con TypeScript. Para ello haremos lo siguiente:
 
-¡Bienvenidos al Proyecto Integrador del módulo 3!
+1. Generar el archivo package.json con el comando correspondiente.
 
-Notarás que este proyecto será mucho más robusto y desafiante que los anteriores, por lo cual será clave más que nunca contar con una correcta PLANIFICACIÓN.
+2. Instalar TypeScript . Recuerda que te sugerimos hacer esta instalación de forma global, y no únicamente dentro del proyecto.
 
-Para iniciar, pasamos en limpio lo que queremos lograr: <mark>una aplicación para la gestión de turnos. El usuario deberá poder, interactuando con el FrontEnd, agendar su turno en una fecha y hora determinados para asistir a ser atendido a un determinado lugar.</mark>
+3. Generar el archivo tsconfig.json con el comando correspondiente
 
-Para encarar este proyecto partiremos de algunas pautas y simplificaciones:
+4. Ajustar en tsconfig.json las configuraciones que hemos visto en la clase.
 
-- Tú decides de qué lugar se trata: un banco, una peluquería, un restaurant, un consultorio médico, etc. Tendrás libertad para esta elección y luego la temática deberá verse reflejada en el diseño de tu aplicación de Frontend.
+5. Configurar el comando build para que ejecute el compilador de TypeScript y el comando start para que ejecute dicho build.
 
-- Un usuario siempre debe estar autenticado para poder reservar un turno. No se agendará turnos a anónimos o invitados.
+6. Crear la carpeta src del proyecto y el módulo index.ts.
 
-- Los turnos deberán ser agendados siempre dentro del horario de atención del establecimiento, el cual también estará en tus manos decidir cuál es. También deberás tener en cuenta los fines de semana como días no laborables.
-
-- Asumimos que el establecimiento cuenta con “infinitos” recursos para atender a sus clientes. Es decir, si 10, 20, 50 o 100 usuarios agendaron un turno para las 10:00hs del día 11/12/24, asumimos que el lugar cuenta con capacidad para poder atenderlos a todos al mismo tiempo en este horario.
-
-- Los turnos reservados por los usuarios pueden ser cancelados hasta el día anterior al día de la reserva. No implementaremos la función de reprogramar.
-
-Asimismo, definiremos una serie de **EXTRA-CREDITS**, los cuales podrás incluir en tu proyecto en las cantidades y tiempos que estén dentro de tus posibilidades:
-
-- Envío de confirmación vía email al usuario luego de reservar un turno o cancelarlo.
-
-- Posibilidad de que el usuario “suba” una foto perfil a su cuenta a través de un archivo de imagen (.jpg, .png, etc).
-
-**ACTIVIDAD 02**
-
-Ahora que tenemos estas pautas sobre la mesa, pasemos a la actividad del día: ¡a planificar!
-
-1. Redactar las “user stories” de tu proyecto. En el video que acompaña a esta consigna te explicamos qué son estos puntos y algunas estrategias para desarrollarlos.
-
-2. Define un primer esquema de tu base de datos. Probablemente luego encuentres que hay cosas que modificar o mejorar, pero al menos establece un punto de partida: entidades involucradas, relación entre las entidades, atributos que queremos describir y, muy importante, los tipos de datos de cada atributo.
-
-**¡Bien hecho!**
+7. Realizar pruebas de variables, objetos, funciones y demás características de TypeScript vistas en clase dentro de este módulo index.ts.
 
 _TIPS_
 
-- Notarás que en el proceso de desarrollo de este proyecto te tocará tomar muchas decisiones y planificar varias cosas. Debes tener en cuenta que en el desarrollo escribir código no lo es todo. Por eso este paso de planificación resultará vital.
+- Si bien esta actividad puede parecer sencilla, la configuración de TypeScript requiere de mucha atención y cuidado en cada una de las propiedades involucradas. Recrea paso a paso lo visto en las clases para que tu módulo index.ts se pueda “buildear” correctamente y luego ser ejecutado desde el build.
 
-- Los **extra credits** son desafíos que requerirán de investigación adicional para poder completarlos, por eso te recomendamos que intentes alcanzar al menos uno de ellos. Esta práctica será muy valiosa de cara a los proyectos que encaramos luego de este módulo.
+- Aprovechar el index.ts a modo de “sandbox”. Has todas las pruebas que quieras con las características de TypeScript para ir familiarizándote con ellas.
+
+- No te preocupes por las importaciones y exportaciones de módulos. Si intentas trabajar con varios módulos probablemente te encuentres con algunos errores. No te apresures. En la próxima clase veremos cómo realizar este paso.
 
 **[REQUISITOS]**:
 
-> - Haber redactado las historias de usuario para la aplicación de gestión de turnos que vamos a desarrollar.
-> - Haber planteado la estructura de entidades y atributos para la aplicación. La misma debe contar con al menos las siguientes entidades: Usuarios, Turnos y Credenciales (usuario y contraseña de cada usuario).
+- Haber creado correctamente el archivo package.json.
+- Haber creado correctamente el archivo tsconfig.json.
+- Haber creado correctamente la carpeta src y el módulo index.ts dentro de la carpeta.
+- Haber configurado correctamente los comandos build y start para que funcionen de acuerdo a lo esperado en las consignas.
 
 </details>
 
