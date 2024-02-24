@@ -1,5 +1,5 @@
 ---
-layout: '../../../layouts/SubBlogPostLayout.astro'
+layout: '../../../../layouts/SubBlogPostLayout.astro'
 title: Módulo 2 - Clase 8. Express II
 date: 11-02-2024
 author: Mauricio Jourdán

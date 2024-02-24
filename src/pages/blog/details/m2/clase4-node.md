@@ -1,5 +1,5 @@
 ---
-layout: '../../../layouts/SubBlogPostLayout.astro'
+layout: '../../../../layouts/SubBlogPostLayout.astro'
 title: Módulo 2 - Clase 4. Node
 date: 11-02-2024
 author: Mauricio Jourdán
