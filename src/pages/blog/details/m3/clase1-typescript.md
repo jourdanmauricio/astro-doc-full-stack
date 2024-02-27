@@ -20,11 +20,18 @@ category: TypeScript JavaScript
 
 ## TypeScript
 
-<mark>TypeScript es un lenguaje de programación de código abierto fuertemente tipado que actúa como una extensión de JavaScript. En otras palabras, es JavaScript con esteroides.</mark>
+<mark>TypeScript es un lenguaje de programación de **código abierto** y **fuertemente tipado** que actúa como una extensión de JavaScript. En otras palabras, es JavaScript con esteroides.</mark>
+
+- El tipo de dato es estático,
+- Está asociado a la variable en el momento de su creación
+- No permite que se modifique nunca más
+- Tratar de modificarlo conlleva a un error
+- Documenación: https://www.typescriptlang.org/docs/ -> Se encuentra en español y posee un playground
+- Por defecto transpila a la version ES5 de javascript (compatible con todos los navegadores) -> Ej: declara las variables con var. Ser podrá modificar desde el archivo de configuración
 
 ### ¿Fuertemente tipado?
 
-Pero, ¿Qué significa que sea un lenguaje "fuertemente tipado"? Recordemos que dentro de las características básicas de JavaScript, se menciona que es un lenguaje de programación "débilmente tipado". Esto significa que las variables declaradas en JavaScript pueden cambiar de tipo de dato durante la ejecución de un programa.
+Pero, ¿Qué significa que sea un lenguaje "fuertemente tipado"? Recordemos que dentro de las características básicas de **JavaScript**, se menciona que <mark>es un lenguaje de programación "débilmente tipado"</mark>. Esto significa que <mark>las variables declaradas en JavaScript pueden cambiar de tipo de dato durante la ejecución de un programa.</mark>
 
 Por ejemplo, podríamos definir una variable x que sea inicializada con un valor numérico, y en algún otro lugar del código decidir cambiarla a un string.
 
@@ -46,7 +53,10 @@ x = 'Ahora serás un string'; //Type 'string' is not assignable to type 'number'
 
 ## ¿Por qué utilizar Typescript?
 
-En realidad, TypeScript nos da las mismas funcionalidades de JavaScript, pero con una capa extra de seguridad gracias a su sistema de tipado. Por esto se dice que son lenguajes “primos”. Esto quiere decir que podemos trabajar código tal como lo haríamos con JavaScript, pero con la ventaja de que podemos supervisar la consistencia en los tipos de datos utilizados para prevenir comportamientos inesperados en el código o bugs.
+- Nos dá las mismas funcionalidades de JavaScript, pero con una capa de seguridad extra gracias a sus sitema de tipado
+- Podemos supervisar la consistencia de los tipos de datos para prevenir comportamientos inesperados en el código o bugs
+
+En realidad, <mark>TypeScript nos da las mismas funcionalidades de JavaScript, pero con una capa extra de seguridad gracias a su sistema de tipado</mark>. Por esto se dice que son lenguajes “primos”. Esto quiere decir que podemos trabajar código tal como lo haríamos con JavaScript, pero con la ventaja de que podemos supervisar la consistencia en los tipos de datos utilizados para prevenir comportamientos inesperados en el código o bugs.
 
 Consideremos el siguiente caso. Imagina que dentro de un archivo index.js típico existe una función que utiliza como argumento un string para imprimir algo en consola. Al trabajar con JavaScript estamos asumiendo que efectivamente ese argumento recibido será siempre un string.
 
@@ -78,7 +88,7 @@ En efecto, obtenemos un error dado que el método toUpperCase solo está definid
 > 👀 Ejemplo real
 > <mark>Cuando recibimos información de una API asumimos que la información vendrá de determinada manera, pero muchas veces viene con otro formato. Estos errores serían detectados únicamente al momento de ejecutar el código. TypeScript nos permite ahorrarnos estos errores.</mark>
 
-Este lenguaje hace una verificación en tiempo de compilación, ayudándonos a detectar errores **mientras escribimos el código** y no al ejecutarlo.
+<mark>Este lenguaje hace una verificación en tiempo de compilación, ayudándonos a detectar errores **mientras escribimos el código** y no al ejecutarlo</mark>.
 
 Continuando con el ejemplo anterior, vamos a hacer una prueba de esto. Primero cambiaremos la extensión del archivo de index.js a index.**ts**. Luego vamos a agregarle a la variable user el tipado (user: string). Al hacer esto nos daremos cuenta que inmediatamente podemos ver los errores en la función sayHello() con los distintos argumentos.
 
@@ -94,11 +104,11 @@ sayHello(true); // argument of type 'boolean' is not assignable to parameter of 
 sayHello(['no', 'funca']); // argument of type 'string[]' is not assignable to parameter of type 'string'
 ```
 
-Además de brindarnos información sobre los errores de forma rápida, TypeScript incluye una herramienta nativa de autocompletado de funciones en el editor de texto, lo que lo vuelve más preciso dando opciones compatibles con el tipo de dato asociado.
+Además de brindarnos información sobre los errores de forma rápida, <mark>TypeScript incluye una herramienta nativa de autocompletado de funciones en el editor de texto, lo que lo vuelve más preciso dando opciones compatibles con el tipo de dato asociado</mark>.
 
 Es necesario hacer la observación de que los entornos de ejecución como node o los navegadores web **no tienen ni idea de qué es TypeScript** ni su sintaxis para tipar estáticamente, pues solo trabajan con JavaScript. Si intentamos ejecutar el archivo index.ts con node recibiremos errores.
 
-Para poder ejecutar este script es necesario que sea **previamente compilado (traducido) a JavaScript**. Para esto debemos realizar algunas configuraciones en nuestro programa.
+Para poder ejecutar este script es necesario que sea **previamente compilado (traducido/transpilado) a JavaScript**. Para esto debemos realizar algunas configuraciones en nuestro programa.
 
 ## Configuración inicial de entorno
 
@@ -108,6 +118,13 @@ Con este comando podrás instalar TypeScript de forma global en tu computadora y
 
 ```bash
 npm install -g typescript
+
+# Dependencias instaladas globalmente
+npm ls -g --depth-0
+# Version de typescript
+tsc -v
+# Desinstalat la version global
+npm uninstall -g typescript
 ```
 
 Este comando creará automáticamente un proyecto local de node con todas las dependencias de este lenguaje ya instaladas.
@@ -121,6 +138,8 @@ npm install --save-dev typescript ts-node
 Una vez hecho esto, podremos compilar el código TS a JS utilizando el **comando npx tsc index.ts**.
 
 Al hacerlo, nos daremos cuenta que dentro de nuestro proyecto se crea un archivo de .js. ¡Es un archivo de JavaScript básico!
+
+![Transpilación TypeScript](/astro-doc-full-stack/images/m3/clase1/typescript.webp)
 
 ### Inicio de proyecto
 
@@ -153,8 +172,8 @@ node index.ts
 Por el momento, todo se ejecuta OK porque no hay sintaxis typescript en el módulo, pero si incorporamos los typos obtendremos un error. Node no entiende typescript solo puede ejecutar javascript.
 
 ```typescript
-const num: Number = 5;
-const num2: Number = 10;
+const num: number = 5;
+const num2: number = 10;
 
 const sumar = (a, b) => a + b;
 
@@ -196,8 +215,8 @@ Para que typescript deje el resultado en la carpeta **/dist** (dist es una conve
 // tsconfig.json
 {
   "compilerOptions": {
-  ...,
-  "outdir": "./dist",
+    // ...,
+    "outdir": "./dist"
   }
 }
 ```
@@ -215,7 +234,59 @@ Por otro lado, si creamos más módulos .ts serán transpilados a sus correspond
 }
 ```
 
+## Módulos en TypeScript
+
+### ¿Cómo trabajan los módulos en Typescript?
+
+La forma en la gestionamos los módulos en el **backend (node)**, se llama **common js (export.module y require)**.
+
+**TypeScript** gestiona los módulos con **módulos de ES6 (export e import)**.
+
+Cuando realicemso la transpilación de index.ts (tsc index.tsc), typescript tambńe transpilará los archivos que está importando. También incoporará el "use strict" en la primera línea del archivo transpilado (establece reglas rígidas para el .js)
+
+Por debajo la transpilación dejará las importaciones con common js (module.export / require). En la configuguración podemos indicar que modo de importación utilizar:
+
+> Nota: Si el proyecto es backend podemos indicar module: "CommonJs", si es front podemos setear ESM, aunque luego utilizaremos React que se encargará de la configuración.
+
+1. Inicialmente JavaScript no tenía un mecanismo para exportar/importar.
+2. Node incorpora common js.
+3. ECMS incorpora de forma nativa a javascript ESM (ecmascript modules).
+
+```typescript
+// variables.ts
+const num1: number = 3;
+const num3: number = 2;
+
+// 1- Exportar la variable o función.
+// export const num1: number = 3;
+// export const num3: number = 2;
+
+// 2- Exportar como objeto
+export { num1, num3 };
+
+// 3- Export default
+// Podemos combinar la forma anterior con el export default
+// Puede existir un export default por módulo
+export default function suma(a: number, b: number) {
+  return a + b;
+}
+```
+
+```typescript
+// Cuando exportamos por default no utilizamos las llaves,
+// e incluso podemos cambiar el nombre a la variable o función
+import suma2, { num1, num3 } from './variables';
+
+console.log(suma2(num1, num3));
+```
+
 ## ESLint
+
+- El analizador de código estático le permite a TS detectar e informar los errores a medida que se escribe código
+- Hay ocasiones en las que las necesidades del proyecto requieren opciones mas personalizadas y de mayor alcance
+- Uso de **ESLint** para analizar y dar formato al código
+- Se utiliza mucho cuando trabajamos en equipo. Así todos tendremos el mismo identado, comillas dobles o simples, etc
+- Eslint detecta cosas como varibles declaradas que no se utilizan, variables declaradas con let pero que no cambian su valor en el resto del programa,.etc
 
 Antes de empezar con las bases de TypeScript vamos a aprender a cómo configurar un "analizador de código". Por analizador de código nos referimos a una herramienta que permite al lenguaje detectar e informar los errores conforme se escriben líneas de código. Si bien el análisis proporcionado nos permite trabajar en la mayoría de casos, hay ocasiones en las que las necesidades del proyecto requieren opciones más personalizables y de mayor alcance. Para ello, haremos uso de **ESLint**.
 
@@ -265,7 +336,7 @@ console.log(sumar(num, num2));
 
 Typescript tiene una opción por defecto llamada **noImplicitAny**. Esta opción le indica a typescript que nos alerte cuando no definamos un tipo de dato. En nuestra función suma los parámetros a y b.
 
-En la definición de las constantes no somos alertados porque typescript posee inferenciade datos, al igualar las variables a un número, typescript infiere el tipo Number.
+En la definición de las constantes no somos alertados porque typescript posee inferenciade datos, al igualar las variables a un número, typescript infiere el tipo number.
 
 ```json
 // tsconfig.json
