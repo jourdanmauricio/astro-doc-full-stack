@@ -201,7 +201,7 @@ dotenv.config();
 
 const app = express();
 
-const PORT: number = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
@@ -265,13 +265,13 @@ export default server;
 // src/config/envs.ts
 import 'dotenv/config';
 
-export const PORT = proccess.env.PORT;
+export const PORT = process.env.PORT;
 ```
 
 ```typescript
 // index.ts
 import server from './server';
-import { PORT } from './../config/envs';
+import { PORT } from './config/envs';
 
 server.listen(PORT || 3000, () => {
   console.log(`Server is running on port ${PORT || 3000}`);
@@ -306,9 +306,10 @@ import {
   createUserService,
   deleteUserService,
 } from './../services/userService';
+import IUser from '../interfaces/IUser';
 
 export const getUsers = async () => {};
-export const createUsers = async (req: Request, res: Rresponse) => {
+export const createUsers = async (req: Request, res: Response) => {
   const { name, email, active } = req.body;
   const newUser: IUser = await createUserService({ name, email, active });
   res.status(201).json(newUser);
@@ -384,19 +385,20 @@ import {
   createUserService,
   deleteUserService,
 } from './../services/userService';
+import IUser from '../interfaces/IUser';
 
-export const createUsers = async (req: Request, res: Rresponse) => {
+export const createUser = async (req: Request, res: Response) => {
   const { name, email, active } = req.body;
   const newUser: IUser = await createUserService({ name, email, active });
   res.status(201).json(newUser);
 };
 
-export const getUsers = async (req: Request, res: Rresponse) => {
-  const users: IUsers[] = await getUsersService();
+export const getUsers = async (req: Request, res: Response) => {
+  const users: IUser[] = await getUserService();
   res.status(200).json(users);
 };
 
-export const deleteUsers = async (req: Request, res: Rresponse) => {
+export const deleteUser = async (req: Request, res: Response) => {
   const { id } = req.body;
   await deleteUserService(id);
   res.status(200).json({ message: 'User eliminado' });
@@ -406,7 +408,7 @@ export const deleteUsers = async (req: Request, res: Rresponse) => {
 ```typescript
 // src/services/userService.ts
 import IUser from './../interfaces/IUser';
-import IUser from './../dto/UserDto';
+import UserDto from './../dto/UserDto';
 
 let users: IUser[] = [];
 let id: number = 1;
@@ -428,7 +430,7 @@ export const getUserService = async (): Promise<IUser[]> => {
 };
 
 export const deleteUserService = async (id: number): Promise<void> => {
-  users = users.filter(user: IUser => user.id !== id);
+  users = users.filter((user: IUser) => user.id !== id);
 };
 ```
 
