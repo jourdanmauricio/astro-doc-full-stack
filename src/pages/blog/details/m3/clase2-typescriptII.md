@@ -51,6 +51,12 @@ calcularTotal(10, 'Hola'); // Error
 
 ### ¿Qué es una interfaz?
 
+- Permiten definir la forma que deben tener los tipos de datos más complejos en typescript
+- En el caso de los objetos, especifican qué propiedades deben contener, así como los tipos de datos asociados a sus valores
+- Solo establece las reglas que deben seguir para ser compatibles con la interfaz
+- Ayudan a garantizar consistencia
+- Facilitan la comunicación entre diferentes partes del programa
+
 Las interfaces **permiten definir la forma que debe tener los tipos de datos más complejos**.
 
 En el caso de los objetos, por ejemplo, especifican qué propiedades deben contener, así como los tipos de datos asociados a sus valores.
@@ -164,22 +170,22 @@ Las interfaces y los types paracen iguales. En términos de sintaxis difiren por
 Veamos un ejemplo haciendo uso de la palabra clave **extends**. En este caso, la interfaz IEmpleado podrá utilizar las propiedades de ITrabajo para definir sus propios objetos.
 
 ```typescript
-inteface ITrabajo {
-  compania: string,
-  posicion: string,
+interface ITrabajo {
+  compania: string;
+  posicion: string;
 }
 
-inteface IEmpleado {
-  nombre: string,
-  edad: number,
+interface IEmpleado {
+  nombre: string;
+  edad: number;
 }
 
 const empleado: IEmpleado = {
-  compania: "Google",
-  posicion: "Senior Engineer",
-  nombre: "Pedro Perez",
-  edad: 35
-}
+  compania: 'Google',
+  posicion: 'Senior Engineer',
+  nombre: 'Pedro Perez',
+  edad: 35,
+};
 ```
 
 Otra característica particular es que cuando creamos dos interfaces con el mismo nombre en distintas partes del código, ambas se comportan como una sola con toda la información.
@@ -200,6 +206,43 @@ const miPerro: IMascota = {
 ```
 
 Aquí vemos que, a pesar que la interfaz se reescribió dos veces y con el mismo nombre, se comporta al final como una única con la información de ambas.
+
+### Tipos de datos personalizados
+
+- Los tipos (types), similares a las interfaces, proporcionan reglas que nos permiten definit tipos de datos como objetos, arrays, funciones, etc
+- Los types suelen comenzar onc la T mayúscula.
+
+```typescript
+enum RolUsuario {
+  ADMINISTRADOR = 'Administrador',
+  EDITOR = 'Editor',
+  LECTOR = 'Lector'
+}
+
+type TUsuario = {
+  nombre: string;
+  role: RolUsuario;
+}
+
+const user1: TUsuario {
+  nombre: 'Mauricio',
+  role: RolUsuario.ADMINISTRADOR
+}
+
+const user2: TUsuario {
+  nombre: 'Adriana',
+  role: RolUsuario.EDITOR
+}
+
+console.log(user1, user2);
+```
+
+### Casos de uso
+
+- Tanto las interfaces como los types permiten ser extendidos por otras interfaces o types.
+- Pueden heredar información para usarla en sus propias estructuras.
+- Lo más común es usar interfaces, debido a su legibilidad y mejor visualización de errores de compilación
+- Uso de la palabra clave extends
 
 ### Tipos | Casos de uso
 
