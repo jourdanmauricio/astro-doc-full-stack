@@ -43,5 +43,7 @@ category: Reference Docs HTML CSS JS
 - [Clase 1 TypeScript](/astro-doc-full-stack/blog/details/m3/clase1-typescript)
 - [Clase 2 TypeScript II](/astro-doc-full-stack/blog/details/m3/clase2-typescriptII)
 - [Clase 3 Express && TypeScript](/astro-doc-full-stack/blog/details/m3/clase3-express-typescript)
+- [Clase 4 SQL Fundamentals](/astro-doc-full-stack/blog/details/m3/clase4-sql-fundamentals)
+- [Clase 5 TypeORM](/astro-doc-full-stack/blog/details/m3/clase5-typeorm)
 
 ### Módulo 4
