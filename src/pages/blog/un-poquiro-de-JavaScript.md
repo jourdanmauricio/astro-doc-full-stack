@@ -495,10 +495,10 @@ Un Map es una **estructura de datos que almacena una colección de pares clave-v
 
 - Características de un Map:
 
-  -Pares clave-valor: No hay restricciones en los tipos de datos que se pueden usar como claves o valores
-  -Sin orden: Los elementos no se ordenan de ninguna manera
-  -Acceso rápido: Es rápido obtener el valor asociado a una clave en un Map
-  -Eficiencia de memoria: Los Maps son eficientes en memoria
+  - Pares clave-valor: No hay restricciones en los tipos de datos que se pueden usar como claves o valores
+  - Sin orden: Los elementos no se ordenan de ninguna manera
+  - Acceso rápido: Es rápido obtener el valor asociado a una clave en un Map
+  - Eficiencia de memoria: Los Maps son eficientes en memoria
 
 - Creación de un Map:
 
