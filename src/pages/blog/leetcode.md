@@ -1969,6 +1969,298 @@ console.log(canWinNim(2)); // true
 
 </details>
 
+## 414. Third Maximum Number
+
+<details>
+<summary>Ver</summary>
+
+**Problem**: Given an integer array nums, return the third distinct maximum number in this array. If the third maximum does not exist, return the maximum number.
+
+**Example 1**:
+Input: nums = [3,2,1]
+Output: 1
+Explanation:
+The first distinct maximum is 3.
+The second distinct maximum is 2.
+The third distinct maximum is 1.
+
+**Example 2**:
+Input: nums = [1,2]
+Output: 2
+Explanation:
+The first distinct maximum is 2.
+The second distinct maximum is 1.
+The third distinct maximum does not exist, so the maximum (2) is returned instead.
+
+**Example 3**:
+Input: nums = [2,2,3,1]
+Output: 1
+Explanation:
+The first distinct maximum is 3.
+The second distinct maximum is 2 (both 2's are counted together since they have the same value).
+The third distinct maximum is 1.
+
+**Constraints**:
+1 <= nums.length <= 104
+-231 <= nums[i] <= 231 - 1
+
+Follow up: Can you find an O(n) solution?
+
+```javascript
+var thirdMax = function (nums) {
+  const set = new Set(nums);
+  const array = Array.from(set).sort((a, b) => b - a);
+  // console.log(array[5]);
+  return array[2] !== undefined ? array[2] : array[0];
+};
+console.log(thirdMax([3, 3, 4, 3, 4, 3, 0, 3, 3])); // 0
+console.log(thirdMax([3, 2, 1])); // 1
+console.log(thirdMax([1, 2])); // 2
+console.log(thirdMax([2, 2, 3, 1])); // 1
+```
+
+</details>
+
+## 412. Fizz Buzz
+
+<details>
+<summary>Ver</summary>
+
+**Problem**: Given an integer n, return a string array answer (1-indexed) where:
+
+- answer[i] == "FizzBuzz" if i is divisible by 3 and 5.
+- answer[i] == "Fizz" if i is divisible by 3.
+- answer[i] == "Buzz" if i is divisible by 5.
+- answer[i] == i (as a string) if none of the above conditions are true.
+
+**Example 1**:
+Input: n = 3
+Output: ["1","2","Fizz"]
+
+**Example 2**:
+Input: n = 5
+Output: ["1","2","Fizz","4","Buzz"]
+
+**Example 3**:
+Input: n = 15
+Output: ["1","2","Fizz","4","Buzz","Fizz","7","8","Fizz","Buzz","11","Fizz","13","14","FizzBuzz"]
+
+**Constraints**:
+1 <= n <= 104
+
+**Solution**:
+
+```javascript
+var fizzBuzz = function (n) {
+  let res = [];
+
+  for (let i = 1; i <= n; i++) {
+    let string = '';
+    if (i % 3 === 0) string += 'Fizz';
+    if (i % 5 === 0) string += 'Buzz';
+
+    if (string === '') string += i;
+    res.push(string);
+  }
+  return res;
+};
+console.log(fizzBuzz(3)); // ["1","2","Fizz"]
+console.log(fizzBuzz(5)); // ["1","2","Fizz","4","Buzz"]
+console.log(fizzBuzz(15)); // ["1","2","Fizz","4","Buzz","Fizz","7","8","Fizz","Buzz","11","Fizz","13","14","FizzBuzz"]
+```
+
+</details>
+
+## 344. Reverse String
+
+<details>
+<summary>Ver</summary>
+
+**Problem**: Write a function that reverses a string. The input string is given as an array of characters s.
+
+You must do this by modifying the input array in-place with O(1) extra memory.
+
+**Example 1**:
+Input: s = ["h","e","l","l","o"]
+Output: ["o","l","l","e","h"]
+
+**Example 2**:
+Input: s = ["H","a","n","n","a","h"]
+Output: ["h","a","n","n","a","H"]
+
+**Constraints**:
+1 <= s.length <= 105
+s[i] is a printable ascii character.
+
+**Solution**:
+
+```javascript
+var reverseString = function (s) {
+  let i = 0;
+  j = s.length - 1;
+  while (i < j) {
+    let temp = s[i];
+    s[i] = s[j];
+    s[j] = temp;
+    i++;
+    j--;
+  }
+  return s;
+};
+
+console.log(reverseString(['h', 'e', 'l', 'l', 'o'])); // ["o","l","l","e","h"]
+console.log(reverseString(['H', 'a', 'n', 'n', 'a', 'h'])); // ["h","a","n","n","a","H"]
+```
+
+</details>
+
+## 345. Reverse Vowels of a String
+
+<details>
+<summary>Ver</summary>
+
+**Problem**: Given a string s, reverse only all the vowels in the string and return it.
+
+The vowels are 'a', 'e', 'i', 'o', and 'u', and they can appear in both lower and upper cases, more than once.
+
+**Example 1**:
+Input: s = "hello"
+Output: "holle"
+
+**Example 2**:
+Input: s = "leetcode"
+Output: "leotcede"
+
+**Constraints**:
+1 <= s.length <= 3 \* 105
+s consist of printable ASCII characters.
+
+**Solution**:
+
+```javascript
+var reverseVowels = function (s) {
+  let arr = s.split('');
+  const set = new Set(['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U']);
+
+  let left = 0;
+  let right = arr.length - 1;
+  let temp;
+
+  while (left <= right) {
+    if (set.has(arr[left]) && set.has(arr[right])) {
+      temp = arr[left];
+      arr[left] = arr[right];
+      arr[right] = temp;
+      left++;
+      right--;
+    } else !set.has(arr[left]) ? left++ : right--;
+  }
+
+  return arr.join('');
+};
+
+console.log(reverseVowels('hello')); // "holle"
+console.log(reverseVowels('leetcode')); // "leotcede"
+```
+
+</details>
+
+## 349. Intersection of Two Arrays
+
+<details>
+<summary>Ver</summary>
+
+**Problem**: Given two integer arrays nums1 and nums2, return an array of their intersection. Each element in the result must be unique and you may return the result in any order.
+
+**Example 1**:
+Input: nums1 = [1,2,2,1], nums2 = [2,2]
+Output: [2]
+
+**Example 2**:
+Input: nums1 = [4,9,5], nums2 = [9,4,9,8,4]
+Output: [9,4]
+Explanation: [4,9] is also accepted.
+
+**Constraints**:
+1 <= nums1.length, nums2.length <= 1000
+0 <= nums1[i], nums2[i] <= 1000
+
+**Solution**:
+
+```javascript
+var intersection = function (nums1, nums2) {
+  const intersect = (set1, set2) => {
+    let res = [];
+
+    for (const num of set1) {
+      if (set2.has(num)) res.push(num);
+    }
+    return res;
+  };
+
+  let set1 = new Set(nums1);
+  let set2 = new Set(nums2);
+
+  return set1.size > set2.size ? intersect(set1, set2) : intersect(set2, set1);
+};
+
+console.log(intersection([1, 2, 2, 1], [2, 2])); //  [2]
+console.log(intersection([4, 9, 5], [9, 4, 9, 8, 4])); // [9, 4]
+```
+
+## 350. Intersection of Two Arrays II
+
+<details>
+<summary>Ver</summary>
+
+**Problem**: Given two integer arrays nums1 and nums2, return an array of their intersection. Each element in the result must appear as many times as it shows in both arrays and you may return the result in any order.
+
+**Example 1**:
+Input: nums1 = [1,2,2,1], nums2 = [2,2]
+Output: [2,2]
+
+**Example 2**:
+Input: nums1 = [4,9,5], nums2 = [9,4,9,8,4]
+Output: [4,9]
+Explanation: [9,4] is also accepted.
+
+**Constraints**:
+1 <= nums1.length, nums2.length <= 1000
+0 <= nums1[i], nums2[i] <= 1000
+
+**Follow up**:
+
+- What if the given array is already sorted? How would you optimize your algorithm?
+- What if nums1's size is small compared to nums2's size? Which algorithm is better?
+- What if elements of nums2 are stored on disk, and the memory is limited such that you cannot load all elements into the memory at once?
+
+```javascript
+var intersect = function (nums1, nums2) {
+  nums1.sort((a, b) => a - b);
+  nums2.sort((a, b) => a - b);
+
+  let i = 0;
+  let j = 0;
+  let result = [];
+
+  while (i < nums1.length && j < nums2.length) {
+    if (nums1[i] === nums2[j]) {
+      result.push(nums1[i]);
+      i++;
+      j++;
+    } else nums1[i] < nums2[j] ? i++ : j++;
+  }
+
+  return result;
+};
+console.log(intersect([1, 2, 2, 1], [2, 2])); // [2,2]
+console.log(intersect([4, 9, 5], [9, 4, 9, 8, 4])); // [4,9]
+```
+
+</details>
+
+</details>
+
 <style>
   h1 { color: #713f12; }
   h2 { color: #2563eb; }
