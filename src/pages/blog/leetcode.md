@@ -13,7 +13,7 @@ draft: false
 category: JS Leetcode
 ---
 
-## 9. Palindrome Number
+## 9. ❌ Palindrome Number
 
 <details>
 <summary>Ver</summary>
@@ -22,25 +22,25 @@ category: JS Leetcode
 
 **Example 1**:
 
-Input: x = 121
-Output: true
-Explanation: 121 reads as 121 from left to right and from right to left.
+- Input: x = 121
+- Output: true
+- Explanation: 121 reads as 121 from left to right and from right to left.
 
 **Example 2**:
 
-Input: x = -121
-Output: false
-Explanation: From left to right, it reads -121. From right to left, it becomes 121-. Therefore it is not a palindrome.
+- Input: x = -121
+- Output: false
+- Explanation: From left to right, it reads -121. From right to left, it becomes 121-. Therefore it is not a palindrome.
 
 **Example 3**:
 
-Input: x = 10
-Output: false
-Explanation: Reads 01 from right to left. Therefore it is not a palindrome.
+- Input: x = 10
+- Output: false
+- Explanation: Reads 01 from right to left. Therefore it is not a palindrome.
 
 **Constraints**:
 
--231 <= x <= 231 - 1
+- 231 <= x <= 231 - 1
 
 <mark>Follow up: Could you solve it without converting the integer to a string?</mark>
 
@@ -57,7 +57,7 @@ var isPalindrome = function (x) {
   const number = x.toString();
   let res = true;
 
-  for (let i = 0; i < number.length; i++) {
+  for (let i = 0; Math.floor(i < number.length / 2); i++) {
     if (number[i] !== number[number.length - i - 1]) res = false;
   }
 
@@ -67,7 +67,7 @@ var isPalindrome = function (x) {
 
 </details>
 
-## 20. Valid Parentheses
+## 20. ❌ Valid Parentheses
 
 <details>
 <summary>Ver</summary>
@@ -76,29 +76,29 @@ var isPalindrome = function (x) {
 
 An input string is valid if:
 
-Open brackets must be closed by the same type of brackets.
-Open brackets must be closed in the correct order.
-Every close bracket has a corresponding open bracket of the same type.
+- Open brackets must be closed by the same type of brackets.
+- Open brackets must be closed in the correct order.
+- Every close bracket has a corresponding open bracket of the same type.
 
 **Example 1**:
 
-Input: s = "()"
-Output: true
+- Input: s = "()"
+- Output: true
 
 **Example 2**:
 
-Input: s = "()[]{}"
-Output: true
+- Input: s = "()[]{}"
+- Output: true
 
 **Example 3**:
 
-Input: s = "(]"
-Output: false
+- Input: s = "(]"
+- Output: false
 
 **Constraints**:
 
-1 <= s.length <= 104
-s consists of parentheses only '()[]{}'.
+- 1 <= s.length <= 104
+- s consists of parentheses only '()[]{}'.
 
 **Solución**:
 
@@ -142,21 +142,20 @@ For example, if s = "abcde", then it will be "bcdea" after one shift.
 
 **Example 1**:
 
-Input: s = "abcde", goal = "cdeab"
-Output: true
+- Input: s = "abcde", goal = "cdeab"
+- Output: true
 
 **Example 2**:
 
-Input: s = "abcde", goal = "abced"
-Output: false
+- Input: s = "abcde", goal = "abced"
+- Output: false
 
 **Constraints**:
 
-1 <= s.length, goal.length <= 100
-s and goal consist of lowercase English letters.
+- 1 <= s.length, goal.length <= 100
+- s and goal consist of lowercase English letters.
 
 **Planteos**
-
 Existen dos formas de resolver el ejercicio-
 
 1. Fuerza bruta.
@@ -223,27 +222,28 @@ var rotateString = function (s, goal) {
 
 **Example**:
 
-Input:
-n = 10
-["call","call","call"]
-Output: [10,11,12]
-Explanation:
-counter() = 10 // The first time counter() is called, it returns n.
-counter() = 11 // Returns 1 more than the previous time.
-counter() = 12 // Returns 1 more than the previous time.
-Example 2:
+- Input:
+- n = 10
+- ["call","call","call"]
+- Output: [10,11,12]
+- Explanation:
+- counter() = 10 // The first time counter() is called, it returns n.
+- counter() = 11 // Returns 1 more than the previous time.
+- counter() = 12 // Returns 1 more than the previous time.
 
-Input:
-n = -2
-["call","call","call","call","call"]
-Output: [-2,-1,0,1,2]
-Explanation: counter() initially returns -2. Then increases after each sebsequent call.
+**Example 2**:
+
+- Input:
+- n = -2
+- ["call","call","call","call","call"]
+- Output: [-2,-1,0,1,2]
+- Explanation: counter() initially returns -2. Then increases after each sebsequent call.
 
 **Constraints**:
 
--1000 <= n <= 1000
-0 <= calls.length <= 1000
-calls[i] === "call"
+- 1000 <= n <= 1000
+- 0 <= calls.length <= 1000
+- calls[i] === "call"
 
 **Solution**:
 
@@ -275,25 +275,26 @@ You can return the answer in any order.
 
 **Example 1**:
 
-Input: nums = [2,7,11,15], target = 9
-Output: [0,1]
-Explanation: Because nums[0] + nums[1] == 9, we return [0, 1].
+- Input: nums = [2,7,11,15], target = 9
+- Output: [0,1]
+- Explanation: Because nums[0] + nums[1] == 9, we return [0, 1].
 
 **Example 2**:
 
-Input: nums = [3,2,4], target = 6
-Output: [1,2]
-Example 3:
+- Input: nums = [3,2,4], target = 6
+- Output: [1,2]
 
-Input: nums = [3,3], target = 6
-Output: [0,1]
+**Example 3**:
+
+- Input: nums = [3,3], target = 6
+- Output: [0,1]
 
 **Constraints**:
 
-2 <= nums.length <= 104
--109 <= nums[i] <= 109
--109 <= target <= 109
-Only one valid answer exists.
+- 2 <= nums.length <= 104
+- 109 <= nums[i] <= 109
+- 109 <= target <= 109
+- Only one valid answer exists.
 
 Follow-up: Can you come up with an algorithm that is less than O(n<sup>2</sup>) time complexity?
 
@@ -333,7 +334,7 @@ console.log(twoSum([2, 7, 11, 15], 9)); // [ 0, 1 ]
 
 </details>
 
-## 14. Longest Common Prefix
+## 14. ❌ Longest Common Prefix
 
 <details>
 <summary>Ver</summary>
@@ -344,20 +345,20 @@ If there is no common prefix, return an empty string "".
 
 **Example 1**:
 
-Input: strs = ["flower","flow","flight"]
-Output: "fl"
+- Input: strs = ["flower","flow","flight"]
+- Output: "fl"
 
 **Example 2**:
 
-Input: strs = ["dog","racecar","car"]
-Output: ""
-Explanation: There is no common prefix among the input strings.
+- Input: strs = ["dog","racecar","car"]
+- Output: ""
+- Explanation: There is no common prefix among the input strings.
 
 **Constraints**:
 
-1 <= strs.length <= 200
-0 <= strs[i].length <= 200
-strs[i] consists of only lowercase English letters.
+- 1 <= strs.length <= 200
+- 0 <= strs[i].length <= 200
+- strs[i] consists of only lowercase English letters.
 
 **Solution**:
 
@@ -405,18 +406,18 @@ The judge will test your solution with the following code:
 
 **Example 1**:
 
-Input: nums = [3,2,2,3], val = 3
-Output: 2, nums = [2,2,_,_]
-Explanation: Your function should return k = 2, with the first two elements of nums being 2.
-It does not matter what you leave beyond the returned k (hence they are underscores).
+- Input: nums = [3,2,2,3], val = 3
+- Output: 2, nums = [2,2,_,_]
+- Explanation: Your function should return k = 2, with the first two elements of nums being 2.
+- It does not matter what you leave beyond the returned k (hence they are underscores).
 
 **Example 2**:
 
-Input: nums = [0,1,2,2,3,0,4,2], val = 2
-Output: 5, nums = [0,1,4,0,3,_,_,_]
-Explanation: Your function should return k = 5, with the first five elements of nums containing 0, 0, 1, 3, and 4.
-Note that the five elements can be returned in any order.
-It does not matter what you leave beyond the returned k (hence they are underscores).
+- Input: nums = [0,1,2,2,3,0,4,2], val = 2
+- Output: 5, nums = [0,1,4,0,3,_,_,_]
+- Explanation: Your function should return k = 5, with the first five elements of nums containing 0, 0, 1, 3, and 4.
+- Note that the five elements can be returned in any order.
+- It does not matter what you leave beyond the returned k (hence they are underscores).
 
 ```javascript
 var removeElement = function (nums, val) {
@@ -435,7 +436,7 @@ removeElement([0, 1, 2, 2, 3, 0, 4, 2], 2);
 
 </details>
 
-## 28. Find the Index of the First Occurrence in a String
+## 28. ❌ Find the Index of the First Occurrence in a String
 
 <details>
 <summary>ver</summary>
@@ -444,21 +445,21 @@ removeElement([0, 1, 2, 2, 3, 0, 4, 2], 2);
 
 **Example 1**:
 
-Input: haystack = "sadbutsad", needle = "sad"
-Output: 0
-Explanation: "sad" occurs at index 0 and 6.
-The first occurrence is at index 0, so we return 0.
+- Input: haystack = "sadbutsad", needle = "sad"
+- Output: 0
+- Explanation: "sad" occurs at index 0 and 6.
+- The first occurrence is at index 0, so we return 0.
 
 **Example 2**:
 
-Input: haystack = "leetcode", needle = "leeto"
-Output: -1
-Explanation: "leeto" did not occur in "leetcode", so we return -1.
+- Input: haystack = "leetcode", needle = "leeto"
+- Output: -1
+- Explanation: "leeto" did not occur in "leetcode", so we return -1.
 
 **Constraints**:
 
-1 <= haystack.length, needle.length <= 104
-haystack and needle consist of only lowercase English characters.
+- 1 <= haystack.length, needle.length <= 104
+- haystack and needle consist of only lowercase English characters.
 
 **Solution**:
 
@@ -483,25 +484,25 @@ You must write an algorithm with O(log n) runtime complexity.
 
 **Example 1**:
 
-Input: nums = [1,3,5,6], target = 5
-Output: 2
+- Input: nums = [1,3,5,6], target = 5
+- Output: 2
 
 **Example 2**:
 
-Input: nums = [1,3,5,6], target = 2
-Output: 1
+- Input: nums = [1,3,5,6], target = 2
+- Output: 1
 
 **Example 3**:
 
-Input: nums = [1,3,5,6], target = 7
-Output: 4
+- Input: nums = [1,3,5,6], target = 7
+- Output: 4
 
 **Constraints**:
 
-1 <= nums.length <= 104
--104 <= nums[i] <= 104
-nums contains distinct values sorted in ascending order.
--104 <= target <= 104
+- 1 <= nums.length <= 104
+- -104 <= nums[i] <= 104
+- nums contains distinct values sorted in ascending order.
+- -104 <= target <= 104
 
 **Solution**:
 
@@ -540,24 +541,24 @@ Consider the number of unique elements of nums to be k, to get accepted, you nee
 - Change the array nums such that the first k elements of nums contain the unique elements in the order they were present in nums initially. The remaining elements of nums are not important as well as the size of nums.
 - Return k.
 
-```javascritp
-var removeDuplicates = function(nums) {
-    let k = 1;
+```javascript
+var removeDuplicates = function (nums) {
+  let k = 1;
 
-    for (let i = 1; i < nums.length; i++) {
-        if (nums[i] !== nums[i - 1]) {
-            nums[k] = nums[i];
-            k++;
-        }
+  for (let i = 1; i < nums.length; i++) {
+    if (nums[i] !== nums[i - 1]) {
+      nums[k] = nums[i];
+      k++;
     }
+  }
 
-    return k;
+  return k;
 };
 ```
 
 </details>
 
-## 58. Length of Last Word
+## 58. ❌ Length of Last Word
 
 <details>
 <summary>Ver</summary>
@@ -568,26 +569,27 @@ A word is a maximal substring consisting of non-space characters only.
 
 **Example 1**:
 
-Input: s = "Hello World"
-Output: 5
-Explanation: The last word is "World" with length 5.
+- Input: s = "Hello World"
+- Output: 5
+- Explanation: The last word is "World" with length 5.
 
 **Example 2**:
 
-Input: s = " fly me to the moon "
-Output: 4
-Explanation: The last word is "moon" with length 4.
-Example 3:
+- Input: s = " fly me to the moon "
+- Output: 4
+- Explanation: The last word is "moon" with length 4.
 
-Input: s = "luffy is still joyboy"
-Output: 6
-Explanation: The last word is "joyboy" with length 6.
+**Example 3**:
+
+- Input: s = "luffy is still joyboy"
+- Output: 6
+- Explanation: The last word is "joyboy" with length 6.
 
 **Constraints**:
 
-1 <= s.length <= 104
-s consists of only English letters and spaces ' '.
-There will be at least one word in s.
+- 1 <= s.length <= 104
+- s consists of only English letters and spaces ' '.
+- There will be at least one word in s.
 
 ```javascript
 var lengthOfLastWord = function (s) {
@@ -614,30 +616,34 @@ console.log(lengthOfLastWord('luffy is still joyboy')); //6
 Increment the large integer by one and return the resulting array of digits.
 
 **Example1**:
-Input: digits = [1,2,3]
-Output: [1,2,4]
-Explanation: The array represents the integer 123.
-Incrementing by one gives 123 + 1 = 124.
-Thus, the result should be [1,2,4].
+
+- Input: digits = [1,2,3]
+- Output: [1,2,4]
+- Explanation: The array represents the integer 123.
+- Incrementing by one gives 123 + 1 = 124.
+- Thus, the result should be [1,2,4].
 
 **Example2**:
-Input: digits = [4,3,2,1]
-Output: [4,3,2,2]
-Explanation: The array represents the integer 4321.
-Incrementing by one gives 4321 + 1 = 4322.
-Thus, the result should be [4,3,2,2].
+
+- Input: digits = [4,3,2,1]
+- Output: [4,3,2,2]
+- Explanation: The array represents the integer 4321.
+- Incrementing by one gives 4321 + 1 = 4322.
+- Thus, the result should be [4,3,2,2].
 
 **Example3**:
-Input: digits = [9]
-Output: [1,0]
-Explanation: The array represents the integer 9.
-Incrementing by one gives 9 + 1 = 10.
-Thus, the result should be [1,0].
+
+- Input: digits = [9]
+- Output: [1,0]
+- Explanation: The array represents the integer 9.
+- Incrementing by one gives 9 + 1 = 10.
+- Thus, the result should be [1,0].
 
 **Constraints**:
-1 <= digits.length <= 100
-0 <= digits[i] <= 9
-digits does not contain any leading 0's.
+
+- 1 <= digits.length <= 100
+- 0 <= digits[i] <= 9
+- digits does not contain any leading 0's.
 
 **Soluction**
 
@@ -660,16 +666,19 @@ var plusOne = function (digits) {
 **Problem**: Given two binary strings a and b, return their sum as a binary string.
 
 **Example 1**:
-Input: a = "11", b = "1"
-Output: "100"
+
+- Input: a = "11", b = "1"
+- Output: "100"
 
 **Example 2**:
-Input: a = "1010", b = "1011"
-Output: "10101"
+
+- Input: a = "1010", b = "1011"
+- Output: "10101"
 
 **Constraints**:
-1 <= a.length, b.length <= 104
-a and b consist only of '0' or '1' characters.
+
+- 1 <= a.length, b.length <= 104
+- a and b consist only of '0' or '1' characters.
 
 ```javascript
 var addBinary = function (a, b) {
@@ -697,24 +706,26 @@ Each time you can either climb 1 or 2 steps. In how many distinct ways can you c
 
 **Example 1**:
 
-Input: n = 2
-Output: 2
-Explanation: There are two ways to climb to the top.
+- Input: n = 2
+- Output: 2
+- Explanation: There are two ways to climb to the top.
 
 1. 1 step + 1 step
 2. 2 steps
 
 **Example 2**:
-Input: n = 3
-Output: 3
-Explanation: There are three ways to climb to the top.
+
+- Input: n = 3
+- Output: 3
+- Explanation: There are three ways to climb to the top.
 
 1. 1 step + 1 step + 1 step
 2. 1 step + 2 steps
 3. 2 steps + 1 step
 
 **Constraints**:
-1 <= n <= 45
+
+- 1 <= n <= 45
 
 ```javascript
 function climbingStaircase(n) {
@@ -748,23 +759,26 @@ Merge nums1 and nums2 into a single array sorted in non-decreasing order.
 The final sorted array should not be returned by the function, but instead be stored inside the array nums1. To accommodate this, nums1 has a length of m + n, where the first m elements denote the elements that should be merged, and the last n elements are set to 0 and should be ignored. nums2 has a length of n.
 
 **Example 1**:
-Input: nums1 = [1,2,3,0,0,0], m = 3, nums2 = [2,5,6], n = 3
-Output: [1,2,2,3,5,6]
-Explanation: The arrays we are merging are [1,2,3] and [2,5,6].
-The result of the merge is [1,2,2,3,5,6] with the underlined elements coming from nums1.
+
+- Input: nums1 = [1,2,3,0,0,0], m = 3, nums2 = [2,5,6], n = 3
+- Output: [1,2,2,3,5,6]
+- Explanation: The arrays we are merging are [1,2,3] and [2,5,6].
+- The result of the merge is [1,2,2,3,5,6] with the underlined elements coming from nums1.
 
 **Example 2**:
-Input: nums1 = [1], m = 1, nums2 = [], n = 0
-Output: [1]
-Explanation: The arrays we are merging are [1] and [].
-The result of the merge is [1].
+
+- Input: nums1 = [1], m = 1, nums2 = [], n = 0
+- Output: [1]
+- Explanation: The arrays we are merging are [1] and [].
+- The result of the merge is [1].
 
 **Example 3**:
-Input: nums1 = [0], m = 0, nums2 = [1], n = 1
-Output: [1]
-Explanation: The arrays we are merging are [] and [1].
-The result of the merge is [1].
-Note that because m = 0, there are no elements in nums1. The 0 is only there to ensure the merge result can fit in nums1.
+
+- Input: nums1 = [0], m = 0, nums2 = [1], n = 1
+- Output: [1]
+- Explanation: The arrays we are merging are [] and [1].
+- The result of the merge is [1].
+- Note that because m = 0, there are no elements in nums1. The 0 is only there to ensure the merge result can fit in nums1.
 
 ```javascript
 var merge = function (nums1, m, nums2, n) {
@@ -809,24 +823,28 @@ C can be placed before D (500) and M (1000) to make 400 and 900.
 Given a roman numeral, convert it to an integer.
 
 **Example 1**:
-Input: s = "III"
-Output: 3
-Explanation: III = 3.
+
+- Input: s = "III"
+- Output: 3
+- Explanation: III = 3.
 
 **Example 2**:
-Input: s = "LVIII"
-Output: 58
-Explanation: L = 50, V= 5, III = 3.
+
+- Input: s = "LVIII"
+- Output: 58
+- Explanation: L = 50, V= 5, III = 3.
 
 **Example 3**:
-Input: s = "MCMXCIV"
-Output: 1994
-Explanation: M = 1000, CM = 900, XC = 90 and IV = 4.
+
+- Input: s = "MCMXCIV"
+- Output: 1994
+- Explanation: M = 1000, CM = 900, XC = 90 and IV = 4.
 
 **Constraints**:
-1 <= s.length <= 15
-s contains only the characters ('I', 'V', 'X', 'L', 'C', 'D', 'M').
-It is guaranteed that s is a valid roman numeral in the range [1, 3999].
+
+- 1 <= s.length <= 15
+- s contains only the characters ('I', 'V', 'X', 'L', 'C', 'D', 'M').
+- It is guaranteed that s is a valid roman numeral in the range [1, 3999].
 
 ```javascript
 var romanToInt = function (s) {
@@ -874,24 +892,28 @@ console.log(romanToInt('MCMXCIV')); // 1994
 Given a string s, return true if it is a palindrome, or false otherwise.
 
 **Example 1**:
-Input: s = "A man, a plan, a canal: Panama"
-Output: true
-Explanation: "amanaplanacanalpanama" is a palindrome.
+
+- Input: s = "A man, a plan, a canal: Panama"
+- Output: true
+- Explanation: "amanaplanacanalpanama" is a palindrome.
 
 **Example 2**:
-Input: s = "race a car"
-Output: false
-Explanation: "raceacar" is not a palindrome.
+
+- Input: s = "race a car"
+- Output: false
+- Explanation: "raceacar" is not a palindrome.
 
 **Example 3**:
-Input: s = " "
-Output: true
-Explanation: s is an empty string "" after removing non-alphanumeric characters.
-Since an empty string reads the same forward and backward, it is a palindrome.
+
+- Input: s = " "
+- Output: true
+- Explanation: s is an empty string "" after removing non-alphanumeric characters.
+- Since an empty string reads the same forward and backward, it is a palindrome.
 
 **Constraints**:
-1 <= s.length <= 2 \* 105
-s consists only of printable ASCII characters.
+
+- 1 <= s.length <= 2 \* 105
+- s consists only of printable ASCII characters.
 
 ```javascript
 var isPalindrome = function (s) {
@@ -2208,6 +2230,8 @@ console.log(intersection([1, 2, 2, 1], [2, 2])); //  [2]
 console.log(intersection([4, 9, 5], [9, 4, 9, 8, 4])); // [9, 4]
 ```
 
+</details>
+
 ## 350. Intersection of Two Arrays II
 
 <details>
@@ -2258,6 +2282,49 @@ console.log(intersect([4, 9, 5], [9, 4, 9, 8, 4])); // [4,9]
 ```
 
 </details>
+
+## 387. First Unique Character in a String
+
+<details>
+<summary>Ver</summary>
+
+**Problem**: Given a string s, find the first non-repeating character in it and return its index. If it does not exist, return -1.
+
+**Example 1**:
+
+- Input: s = "leetcode"
+- Output: 0
+
+**Example 2**:
+
+- Input: s = "loveleetcode"
+- Output: 2
+
+**Example 3**:
+
+- Input: s = "aabb"
+- Output: -1
+
+**Constraints**:
+
+- 1 <= s.length <= 105
+- s consists of only lowercase English letters.
+
+**Solution**:
+
+```javascript
+var firstUniqChar = function (s) {
+  for (let idx = 0; idx < s.length; idx++) {
+    if (s.indexOf(s[idx]) === s.lastIndexOf(s[idx])) {
+      return idx;
+    }
+  }
+  return -1;
+};
+console.log(firstUniqChar('leetcode')); // 0
+console.log(firstUniqChar('loveleetcode')); // 2
+console.log(firstUniqChar('aabb')); // -1
+```
 
 </details>
 
