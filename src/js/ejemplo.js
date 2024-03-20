@@ -1,23 +1,11 @@
-var generate = function (numRows) {
-  // initilize the result array
-  let dp = [];
+var missingNumber = function (nums) {
+  nums = nums.sort((a, b) => a - b);
 
-  for (let i = 0; i < numRows; i++) {
-    // Setup for each new row
-    // We know that each row will have first and last number set to 1
-    dp[i] = [];
-    dp[i][0] = 1;
-    dp[i][i] = 1;
-
-    // Iterate over each position in the row,
-    // and calculate the result for that position using the formula
-    for (let j = 1; j < i; j++) {
-      dp[i][j] = dp[i - 1][j] + dp[i - 1][j - 1];
-    }
+  for (let i = 0; i < nums.length; i++) {
+    if (nums[i] + 1 !== nums[i + 1]) return nums[i] + 1;
   }
-
-  return dp;
+  return i;
 };
-
-console.log(generate(5)); // [[1],[1,1],[1,2,1],[1,3,3,1],[1,4,6,4,1]]
-console.log(generate(1)); // [[1]]
+console.log(missingNumber([3, 0, 1])); // 2
+console.log(missingNumber([0, 1])); // 2
+console.log(missingNumber([9, 6, 4, 2, 3, 5, 7, 0, 1])); // 8

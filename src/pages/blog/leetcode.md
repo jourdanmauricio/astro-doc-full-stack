@@ -882,7 +882,7 @@ console.log(romanToInt('MCMXCIV')); // 1994
 
 </details>
 
-## 125. Valid Palindrome
+## ❌ 125. Valid Palindrome
 
 <details>
 <summary>Ver</summary>
@@ -1119,25 +1119,29 @@ console.log(isPowerOfTwo(3));
 **Problem**: Given an array nums containing n distinct numbers in the range [0, n], return the only number in the range that is missing from the array.
 
 **Example 1**:
-Input: nums = [3,0,1]
-Output: 2
-Explanation: n = 3 since there are 3 numbers, so all numbers are in the range [0,3]. 2 is the missing number in the range since it does not appear in nums.
+
+- Input: nums = [3,0,1]
+- Output: 2
+- Explanation: n = 3 since there are 3 numbers, so all numbers are in the range [0,3]. 2 is the missing number in the range since it does not appear in nums.
 
 **Example 2**:
-Input: nums = [0,1]
-Output: 2
-Explanation: n = 2 since there are 2 numbers, so all numbers are in the range [0,2]. 2 is the missing number in the range since it does not appear in nums.
+
+- Input: nums = [0,1]
+- Output: 2
+- Explanation: n = 2 since there are 2 numbers, so all numbers are in the range [0,2]. 2 is the missing number in the range since it does not appear in nums.
 
 **Example 3**:
-Input: nums = [9,6,4,2,3,5,7,0,1]
-Output: 8
-Explanation: n = 9 since there are 9 numbers, so all numbers are in the range [0,9]. 8 is the missing number in the range since it does not appear in nums.
+
+- Input: nums = [9,6,4,2,3,5,7,0,1]
+- Output: 8
+- Explanation: n = 9 since there are 9 numbers, so all numbers are in the range [0,9]. 8 is the missing number in the range since it does not appear in nums.
 
 **Constraints**:
-n == nums.length
-1 <= n <= 104
-0 <= nums[i] <= n
-All the numbers of nums are unique.
+
+- n == nums.length
+- 1 <= n <= 104
+- 0 <= nums[i] <= n
+- All the numbers of nums are unique.
 
 **Solution**:
 
@@ -1999,32 +2003,36 @@ console.log(canWinNim(2)); // true
 **Problem**: Given an integer array nums, return the third distinct maximum number in this array. If the third maximum does not exist, return the maximum number.
 
 **Example 1**:
-Input: nums = [3,2,1]
-Output: 1
-Explanation:
-The first distinct maximum is 3.
-The second distinct maximum is 2.
-The third distinct maximum is 1.
+
+- Input: nums = [3,2,1]
+- Output: 1
+- Explanation:
+- The first distinct maximum is 3.
+- The second distinct maximum is 2.
+- The third distinct maximum is 1.
 
 **Example 2**:
-Input: nums = [1,2]
-Output: 2
-Explanation:
-The first distinct maximum is 2.
-The second distinct maximum is 1.
-The third distinct maximum does not exist, so the maximum (2) is returned instead.
+
+- Input: nums = [1,2]
+- Output: 2
+- Explanation:
+- The first distinct maximum is 2.
+- The second distinct maximum is 1.
+- The third distinct maximum does not exist, so the maximum (2) is returned instead.
 
 **Example 3**:
-Input: nums = [2,2,3,1]
-Output: 1
-Explanation:
-The first distinct maximum is 3.
-The second distinct maximum is 2 (both 2's are counted together since they have the same value).
-The third distinct maximum is 1.
+
+- Input: nums = [2,2,3,1]
+- Output: 1
+- Explanation:
+- The first distinct maximum is 3.
+- The second distinct maximum is 2 (both 2's are counted together since they have the same value).
+- The third distinct maximum is 1.
 
 **Constraints**:
-1 <= nums.length <= 104
--231 <= nums[i] <= 231 - 1
+
+- 1 <= nums.length <= 104
+- -231 <= nums[i] <= 231 - 1
 
 Follow up: Can you find an O(n) solution?
 
@@ -2093,7 +2101,7 @@ console.log(fizzBuzz(15)); // ["1","2","Fizz","4","Buzz","Fizz","7","8","Fizz","
 
 </details>
 
-## 344. Reverse String
+## ❌ 344. Reverse String
 
 <details>
 <summary>Ver</summary>
@@ -2240,17 +2248,20 @@ console.log(intersection([4, 9, 5], [9, 4, 9, 8, 4])); // [9, 4]
 **Problem**: Given two integer arrays nums1 and nums2, return an array of their intersection. Each element in the result must appear as many times as it shows in both arrays and you may return the result in any order.
 
 **Example 1**:
-Input: nums1 = [1,2,2,1], nums2 = [2,2]
-Output: [2,2]
+
+- Input: nums1 = [1,2,2,1], nums2 = [2,2]
+- Output: [2,2]
 
 **Example 2**:
-Input: nums1 = [4,9,5], nums2 = [9,4,9,8,4]
-Output: [4,9]
-Explanation: [9,4] is also accepted.
+
+- Input: nums1 = [4,9,5], nums2 = [9,4,9,8,4]
+- Output: [4,9]
+- Explanation: [9,4] is also accepted.
 
 **Constraints**:
-1 <= nums1.length, nums2.length <= 1000
-0 <= nums1[i], nums2[i] <= 1000
+
+- 1 <= nums1.length, nums2.length <= 1000
+- 0 <= nums1[i], nums2[i] <= 1000
 
 **Follow up**:
 

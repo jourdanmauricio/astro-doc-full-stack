@@ -45,5 +45,14 @@ category: Reference Docs HTML CSS JS
 - [Clase 3 Express && TypeScript](/astro-doc-full-stack/blog/details/m3/clase3-express-typescript)
 - [Clase 4 SQL Fundamentals](/astro-doc-full-stack/blog/details/m3/clase4-sql-fundamentals)
 - [Clase 5 TypeORM](/astro-doc-full-stack/blog/details/m3/clase5-typeorm)
+- [Clase 6 TypeORM II](/astro-doc-full-stack/blog/details/m3/clase6-typeorm-II)
+- [Clase 7 React Intro & Estilos](/astro-doc-full-stack/blog/details/m3/clase7-react-intro-styles)
+- [Clase 8 React Data Flow](/astro-doc-full-stack/blog/details/m3/clase8-react-data-flow)
+- [Clase 9 React Lifecycle](/astro-doc-full-stack/blog/details/m3/clase9-react-lifecycle)
+- [Clase 10 React Forms](/astro-doc-full-stack/blog/details/m3/clase10-react-forms)
+- [Clase 11 React Routing](/astro-doc-full-stack/blog/details/m3/clase11-react-routing)
+- [Clase 12 React Redux](/astro-doc-full-stack/blog/details/m3/clase12-react-redux)
+- [Clase 13 Frontend Advanced](/astro-doc-full-stack/blog/details/m3/clase13-frontend-advanced)
+- [Clase 14 JavaScript Advanced II](/astro-doc-full-stack/blog/details/m3/clase14-javascript-advancedII)
 
 ### Módulo 4
