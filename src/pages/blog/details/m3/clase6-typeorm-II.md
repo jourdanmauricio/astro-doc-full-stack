@@ -479,6 +479,82 @@ export default userRepository;
 
 Ahora, desde nuestros servicios podemos utilizar este nuevo **método personalizado** del repositorio.
 
+## Subscribers
+
+- Es una clase que se encuentra atenta a eventos de una entidad específica
+- Pueden ocurrir antes o después de que ocurran ciertas operaciones en la DB asociadas a esa entidad
+
+Para construir un subscriber antener el decoradoe **@EventSubscriber()** a la clase.
+
+Definir la entidad a implementar con **EntitySubscriberInterface**
+
+Dentro del susbcriber ejecutaremos la función **listenTo()** que inicia la subscripción a eventos específicos que pueden ocurrir en la entidad
+
+```js
+import {
+  EntitySubscriberInterface,
+  EventSubscriber,
+  InsertEvent,
+  UpdateEvent,
+} from 'typeorm';
+import { User } from '../entities/User';
+import sendRegisterMail from '../templates/sendRegisterMail';
+
+@EventSubscriber()
+export class UserSubscriber implements EntitySubscriberInterface<User> {
+  listenTo() {
+    return User;
+  }
+
+  // beforeInsert(event: InsertEvent<User>) {
+  //   console.log(`Before insert: `, event.entity);
+  // }
+
+  async afterInsert(event: InsertEvent<User>) {
+    await sendRegisterMail(event.entity);
+  }
+}
+```
+
+## Entity Listeners
+
+- Permite ejecutar métodos personalizados dentro de una entidad antes de su creación, eliminación, actualización o carga
+- Son asignados dentro de la misma entidad y se inician con el decorador correspondiente al evento que queremos ejecutar mediante el método
+
+![Entity Listeners.](/astro-doc-full-stack/images/m3/clase6/entity-listeners.png)
+
+```typescript
+// src/entities/Vehicle.ts
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+
+@Entity({
+  name: 'vehicles',
+})
+export class Vehicle {
+  // Entity Listener
+  @BeforeInsert()
+  transformBrand() {
+    this.brand = this.brand.toLowerCase();
+  }
+
+  // clave primaria y autoincremental
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column()
+  brand: string;
+
+  @Column()
+  color: string;
+
+  @Column()
+  model: string;
+
+  @Column()
+  year: number;
+}
+```
+
 ## Cierre
 
 A lo largo de la lecture, hemos comprendido la importancia de los repositorios como interfaces para interactuar con nuestras entidades directamente, permitiendo así una separación clara entre la lógica personalizada de cada entidad y el manejo de los controladores.
