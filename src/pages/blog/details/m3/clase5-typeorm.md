@@ -22,11 +22,11 @@ category: TypeORM SQL Bases de datos
 
 Para comprender qué es **TypeORM**, comprendamos primero qué es una ORM.
 
-Un **ORM** (Object Relational Mapping) es un tipo de herramienta que permite la interacción entre una base de datos relacional y código estructurado en objetos de JavaScript.
+Un **ORM** <mark>(Object Relational Mapping)</mark> es un tipo de herramienta que permite la interacción entre una base de datos relacional y código estructurado en objetos de JavaScript.
 
 ¿Recuerdas el concepto de **ODM** cuando hablábamos de Mongoose(opens in a new tab)? Su funcionamiento sería similar a cómo trabaja la ODM con bases de datos no relacionales. Veamos un ejemplo sencillo.
 
-**<mark>TypeORM</mark>** es una biblioteca para trabajar en diferentes entornos de ejecución. En nuestro caso, el de node con enfoque en TypeScript y JavaScript nos proporciona una interfaz que permite transformar objetos a tablas de una base de datos relacional.
+<mark>**TypeORM** es una biblioteca para trabajar en diferentes entornos de ejecución. En nuestro caso, el de node con enfoque en TypeScript y JavaScript nos proporciona una interfaz que permite transformar objetos a tablas de una base de datos relacional.</mark>
 
 ### ¿Por qué utilizar TypeORM y qué ventajas ofrece?
 

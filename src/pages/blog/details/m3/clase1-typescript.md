@@ -20,6 +20,14 @@ category: TypeScript JavaScript
 
 ## TypeScript
 
+<mark>Resumen</mark>
+
+- TypeScript: utiliza el tipado estático
+- Configuración del entorno: proyectos más seguros y escalables debido a esta herramienta
+- Al momento de escribir código, nos alerta los errores
+- Compila los scripts con estensión .ts a archivos .js
+- Determina en qué situaciones es beneficioso realizar el tipado estático manualmente y cuándo dejar que sea inferido
+
 <mark>TypeScript es un lenguaje de programación de **código abierto** y **fuertemente tipado** que actúa como una extensión de JavaScript. En otras palabras, es JavaScript con esteroides.</mark>
 
 - El tipo de dato es estático,
@@ -198,7 +206,7 @@ Para no ejecutar tsc index.tsc por cada módulo que tengamos, podemos:
 tsc --init
 ```
 
-Este comando nos va a generar un archivo llamado tsconfig.json donde podremos configurar el comportamiento de typescript. Ahora ya podemos ejecutar solo con el comando **tsc**.
+<mark>Este comando nos va a generar un archivo llamado tsconfig.json donde podremos configurar el comportamiento de typescript. Ahora ya podemos ejecutar solo con el comando **tsc**.</mark>
 
 Pero podemos agregar un script al package.json:
 
@@ -282,11 +290,11 @@ console.log(suma2(num1, num3));
 
 ## ESLint
 
-- El analizador de código estático le permite a TS detectar e informar los errores a medida que se escribe código
-- Hay ocasiones en las que las necesidades del proyecto requieren opciones mas personalizadas y de mayor alcance
-- Uso de **ESLint** para analizar y dar formato al código
-- Se utiliza mucho cuando trabajamos en equipo. Así todos tendremos el mismo identado, comillas dobles o simples, etc
-- Eslint detecta cosas como varibles declaradas que no se utilizan, variables declaradas con let pero que no cambian su valor en el resto del programa,.etc
+- <mark>El analizador de código estático le permite a TS detectar e informar los errores a medida que se escribe código</mark>
+- <mark>Hay ocasiones en las que las necesidades del proyecto requieren opciones mas personalizadas y de mayor alcance</mark>
+- <mark>Uso de **ESLint** para analizar y dar formato al código</mark>
+- <mark>Se utiliza mucho cuando trabajamos en equipo. Así todos tendremos el mismo identado, comillas dobles o simples, etc</mark>
+- <mark>Eslint detecta cosas como varibles declaradas que no se utilizan, variables declaradas con let pero que no cambian su valor en el resto del programa, etc</mark>
 
 Antes de empezar con las bases de TypeScript vamos a aprender a cómo configurar un "analizador de código". Por analizador de código nos referimos a una herramienta que permite al lenguaje detectar e informar los errores conforme se escriben líneas de código. Si bien el análisis proporcionado nos permite trabajar en la mayoría de casos, hay ocasiones en las que las necesidades del proyecto requieren opciones más personalizables y de mayor alcance. Para ello, haremos uso de **ESLint**.
 
@@ -334,7 +342,7 @@ const sumar = (a, b) => a + b;
 console.log(sumar(num, num2));
 ```
 
-Typescript tiene una opción por defecto llamada **noImplicitAny**. Esta opción le indica a typescript que nos alerte cuando no definamos un tipo de dato. En nuestra función suma los parámetros a y b.
+<mark>Typescript tiene una opción por defecto llamada **noImplicitAny**. Esta opción le indica a typescript que nos alerte cuando no definamos un tipo de dato. En nuestra función suma los parámetros a y b.</mark>
 
 En la definición de las constantes no somos alertados porque typescript posee inferenciade datos, al igualar las variables a un número, typescript infiere el tipo number.
 
@@ -378,7 +386,7 @@ Comenzaremos con los tipos de datos primitivos en TypeScript. El tipado para las
 
 <mark>Una de las características</mark> más importantes de typescript es que podemos configurarlo para nos exija indicar los tipos de datos a varibles, funciones, etc.
 
-Javascript posee un tipado dinámico, podemos asignar un valor de un tipo y luego modificar el valor por otro que posee un tipo distinto. Typescript nos alerta sobre esta situación. No puede ser un number y luego un string. Typescript espera que el tipo de dato se mantenga a lo largo de la ejecución del programa.
+<mark>Javascript posee un tipado dinámico, podemos asignar un valor de un tipo y luego modificar el valor por otro que posee un tipo distinto. Typescript nos alerta sobre esta situación. No puede ser un number y luego un string. Typescript espera que el tipo de dato se mantenga a lo largo de la ejecución del programa.</mark>
 
 ```typescript
 let num1 = 10;
@@ -420,6 +428,13 @@ const suma = (arr: number[]): number => {
 ```
 
 Este es un buen ejemplo de cuándo utilizar la asignación de tipos. En la práctica se hace una combinación de la asignación e inferencia de datos para generar código más legible y al mismo tiempo seguro.
+
+## Declaración de variables con tipos
+
+- El tipo de datos inferido es una práctica común en TS
+- Mejora la legibilidad del código
+- Puede no ser descriptivo al momento de recibir los mensajes de error de TS
+- En caso de string y number, aunque el tipo de se trate de forma correcta, los mensajes de error hacen referencia al valor y no al tipo de dato
 
 ## Cierre
 

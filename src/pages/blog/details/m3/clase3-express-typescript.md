@@ -41,7 +41,7 @@ app.listen(3000, () => {
 });
 ```
 
-- **TYPESCRIPT**: ypeScrip es un lenguaje de programación que potencia las funcionalidades de JavaScript y que nos permite definir tipados estáticos, los cuales nos ayudarán a reducir comportamientos inesperados en la ejecución del código y que podemos prever en tiempo de compilación.
+- **TYPESCRIPT**: TypeScrip es un lenguaje de programación que potencia las funcionalidades de JavaScript y que nos permite definir tipados estáticos, los cuales nos ayudarán a reducir comportamientos inesperados en la ejecución del código y que podemos prever en tiempo de compilación.
 
 Por ejemplo, al construir una función dejamos asignado explícitamente el tipo de datos que recibirá como argumentos y que retornará, en caso que devuelva algo:
 

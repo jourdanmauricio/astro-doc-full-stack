@@ -51,11 +51,11 @@ calcularTotal(10, 'Hola'); // Error
 
 ### ¿Qué es una interfaz?
 
-- Permiten definir la forma que deben tener los tipos de datos más complejos en typescript
-- En el caso de los objetos, especifican qué propiedades deben contener, así como los tipos de datos asociados a sus valores
-- Solo establece las reglas que deben seguir para ser compatibles con la interfaz
-- Ayudan a garantizar consistencia
-- Facilitan la comunicación entre diferentes partes del programa
+- <mark>Permiten definir la forma que deben tener los tipos de datos más complejos en typescript</mark>
+- <mark>En el caso de los objetos, especifican qué propiedades deben contener, así como los tipos de datos asociados a sus valores</mark>
+- <mark>Solo establece las reglas que deben seguir para ser compatibles con la interfaz</mark>
+- <mark>Ayudan a garantizar consistencia</mark>
+- <mark>Facilitan la comunicación entre diferentes partes del programa</mark>
 
 Las interfaces **permiten definir la forma que debe tener los tipos de datos más complejos**.
 
@@ -123,7 +123,7 @@ Ahora sabemos utilizar parámetros según el tipo de dato: strings, numbers o bo
 
 ## Definición de tipos personalizados
 
-Los tipos (**types**), similares a las interfaces, proporcionan reglas que nos permiten definir tipos de datos como objetos, arrays, funciones, etc.
+<mark>Los tipos (**types**), similares a las interfaces, proporcionan reglas que nos permiten definir tipos de datos como objetos, arrays, funciones, etc.</mark>
 
 ```typescript
 // un enum limita los valores que puede toma la propiedad
@@ -163,7 +163,7 @@ const user1 = {
 
 ### Interfaces | Casos de uso
 
-Las interfaces y los types paracen iguales. En términos de sintaxis difiren por la palabra reservada y el operador '=', pero poseen diferencias.
+**Las interfaces y los types paracen iguales. En términos de sintaxis difiren por la palabra reservada y el operador '=', pero poseen diferencias.**
 
 <mark>Tanto las interfaces como los types permiten ser extendidos por otras interfaces o types. Esto quiere decir que pueden heredar información para usarla en sus propias estructuras. Sin embargo, lo más común es utilizar interfaces, debido a su legibilidad y mejor visualización de errores en compilación.</mark>
 
@@ -209,8 +209,8 @@ Aquí vemos que, a pesar que la interfaz se reescribió dos veces y con el mismo
 
 ### Tipos de datos personalizados
 
-- Los tipos (types), similares a las interfaces, proporcionan reglas que nos permiten definit tipos de datos como objetos, arrays, funciones, etc
-- Los types suelen comenzar onc la T mayúscula.
+- <mark>Los tipos (types), similares a las interfaces, proporcionan reglas que nos permiten definir tipos de datos como objetos, arrays, funciones, etc</mark>
+- <mark>Los types suelen comenzar con la T mayúscula.</mark>
 
 ```typescript
 enum RolUsuario {
@@ -246,9 +246,9 @@ console.log(user1, user2);
 
 ### Tipos | Casos de uso
 
-Hay dos características muy comunes a las que se les da uso en types: **union types** y **alias**.
+<mark>Hay dos características muy comunes a las que se les da uso en types: **union types** y **alias**.</mark>
 
-- **UNION TYPES**: permiten describir valores que pueden ser uno de varios tipos posibles, ya sean primitivos o complejos.
+- **<mark>UNION TYPES</mark>**: permiten describir valores que pueden ser uno de varios tipos posibles, ya sean primitivos o complejos.
 
 Por ejemplo, podemos definir un tipo con las tallas de camisas para una tienda virtual, con las opciones "S", "M", "L" y “XL”, de manera que únicamente pueda tomar estos valores y valide, por ejemplo, si hay disponibles o no en stock. Para indicar que este será un nuevo tipo de dato debemos inicializarlo con el indicador type.
 
@@ -266,7 +266,7 @@ console.log(validarTalla('L')); // Disponible
 console.log(validarTalla('S')); // Agotado
 ```
 
-- **ALIAS**: Los alias de tipos son una característica en TypeScript que permiten asignar un nombre personalizado a un tipo existente o complejo. Esto facilita la creación de tipos reutilizables.
+- **<mark>ALIAS</mark>**: Los alias de tipos son una característica en TypeScript que permiten asignar un nombre personalizado a un tipo existente o complejo. Esto facilita la creación de tipos reutilizables.
 
 En este caso, Coordenada es un alias para un array de dos números. Al utilizar este alias, estamos haciendo que el código sea más expresivo y fácil de entender.
 

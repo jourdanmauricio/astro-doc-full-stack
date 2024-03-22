@@ -133,7 +133,14 @@ Para este caso y considerando dos entidades, Actor y Película, bajo la relació
 
 ## ¿Qué es SQL?
 
-**SQL** (Structured Query Language) es un lenguaje estandarizado que permite realizar queries de información a una base de datos relacional. Estas queries pueden ser consultas, actualizaciones, inserciones o eliminación de datos. Es un lenguaje declarativo, es decir, el usuario indica qué operación y qué resultado desea obtener y el sistema de gestión se encarga del procesamiento de la solicitud.
+<mark>**SQL** (Structured Query Language) es un lenguaje estandarizado que permite realizar queries de información a una base de datos relacional. Estas queries pueden ser consultas, actualizaciones, inserciones o eliminación de datos. Es un lenguaje declarativo, es decir, el usuario indica qué operación y qué resultado desea obtener y el sistema de gestión se encarga del procesamiento de la solicitud.</mark>
+
+### Características de SQL
+
+- **Lenguaje universal** -> SQL esta presente en gran cantidad de disciplinas, así como su compatibilidad con la mayoría de los lengiajes de programación
+- **Open source** -> Dado que es un lenguaje de código abierto, posee una gran comuniad de desarrollo y recusos para responder a tus inquietudes
+- **Capacidad de imformación** -> Millones de registros en BD relacionales pueden ser gestionados a través de SQL son problemas
+- **Incemento en la demanda** -> La demanda de desarrolladores con conocimientos en SQL ha aumentado año tras año, tanto para pequeños negocios hasta para grandes asociaciones, bancos y hospitales
 
 Imagina que tienes una lista de mil usuarios y quieres felicitar a quienes cumplen años el día de hoy.
 
@@ -172,6 +179,16 @@ Es hora de empezar a llenar de información esta base de datos.
 **Veamos cómo construir las distintas tablas que la componen.**
 
 ## Creación de tablas y constraints
+
+### Constraints
+
+Son restricciones o reglas que se aplican a una o más columnas dentro de la tabla para garantizar la integridad de los datos. Se agregan a cada propiedad.
+
+- **Primary Key** -> Asigna los valores de una columna como clave primaria. Estos datos deben ser únicos en la tabla y no pueden ser nulos
+- **Foreing key** -> Establece la relación entre dos tablas garantizando que los valores de referencia sean válidos y tengan coincidencias
+- **Unique** -> Garantiza que los valores dentro de la columna sean únicos
+- **Not Null** -> Restringe el registro de instancias en las que esta propiedad tengan un valor nulo
+  **Check** -> Verifica una condición booleana que debe cumplirse antes de almacenar datos en la columna
 
 ### Create Table
 
@@ -291,6 +308,32 @@ DELETE FROM peliculas WHERE id = 3;
 ```
 
 ## Relaciones en SQL
+
+- Las relaciones son parte fundamental del manejo de una base de datos relacional
+
+- Es imprescindible planificarlas desde antes de crear las tablas que contendrán información
+
+- Estas relaciones tendrán una representación de la cardinalidad entre tablas y la forma en que se conectan
+
+### ONE TO MANY
+
+- Es importan definir dentro de la tabla base la columna que almacena la FOREIGN KEY (clave foránea) así como la tabla a la que hace referencia
+
+- Dicha clave foranea debe coincidir con algún registro dentro de la tabla referida
+
+### ONE TO ONE
+
+- Esta relación se genera cuando los valores de referencia de la tabla base únicamente pueden estar asociados a un valor de la tabla a la que refieren
+
+- Es necesario que la columna donde se almacena la clave foránea sea marcada con el constraint UNIQUE
+
+### MANY TO MANY
+
+- Las relaciones de muchos elementos de una tabla A a una tabla B funcionan diferente
+
+- Es necesario crear una tabla intermedia que se encargará de almacenar las relaciones entre tablas asegurándose de mantener la integridad de los datos
+
+- Cada relación será identificada por una clave primaria que será una combinación de las claves primarias referidas lo que permite que cada relación sea única
 
 ### Middlewares con express y ts
 
