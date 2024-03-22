@@ -1,6 +1,6 @@
 ---
 layout: '../../../../layouts/SubBlogPostLayout.astro'
-title: Módulo 3 - Clase 8. React Data Flow
+title: Módulo 3 - Clase 7. React Intro & estilos
 date: 11-02-2024
 author: Mauricio Jourdán
 image:
@@ -10,10 +10,10 @@ image:
   }
 icon:
   {
-    src: '/astro-doc-full-stack/images/m3/clasey/icon.png',
+    src: '/astro-doc-full-stack/images/m3/clase7/icon.png',
     alt: 'Logo express',
   }
-description: React Data Flow
+description: React Intro & estilos
 draft: false
 category: React
 ---
@@ -32,15 +32,39 @@ Sin embargo, la industria del desarrollo web comenzaba a necesitar una mejor her
 
 ### ¿Qué es react?
 
+- Librería desarrollada para la creación de interfaces de usuarios
+- Componenetes -> pequeñas piezas independientes y reutilizables
+- Los componentes dan forma a una aplicación web
+
 <mark>React es una librería desarrollada específicamente para la creación de interfaces de usuario</mark> utilizando pequeñas piezas independientes y reutilizables conocidas como **componentes**, que en conjunto dan forma a una aplicación web en su totalidad.
 
 En pocas palabras, un **componente** es un bloque visual que define la presentación de una parte específica de una aplicación web.
 
 Fíjate en Youtube por ejemplo. El recuadro violeta es un componente. Mira como ese componente se repite una y otra vez a su lado. Lo que cambia es simplemente la información que lleva internamente.
 
+### Principios y características de React
+
+- React es una librería **declarativa**, no es imperativa
+- Debemos indicar cómo queremos que luzca la interfaz
+- No debemos precuparnos por los pasos para lograr el resultado
+- No interactuamos directamente con el DOM
+- Solo indicamos los cambios realizados en la aplicación y Reac utilizará el **DOM virtual**
+
+- **Flujo unidireccional** -> la información fluye en una dirección, por lo general, desde un componente principal hacia los componentes secundarios
+- **Basado en componentes**
+  - un fragmento de código puede contener tanto la lógica como la interfaz de una sección específica de una aplicación
+  - pueden ser reutilizados en diversas partes del código cumpliendo diferentes funciones
+
 ## React + vite
 
 ### Vite
+
+- Entorno de desarrollo de código abierto
+- Opera el proceso de carga de las aplicaciones
+- Basadas en módulos
+- Posee soporte para React y compatibilidad con TypeScript
+- Permite desarrollar más rápido porque carga los módulos sobre la marcha
+- Mejora el rendimiento y la experiencia de desarrollo
 
 Para trabajar con **react** es necesario instalar la librería, y, aunque es posible realizar esto de forma manual con npm, la documentación nos alienta a utilizar alguna herramienta externa que nos permita construir una base optimizada de un proyecto con una pre-configuración.
 
@@ -73,6 +97,10 @@ Dentro del proyecto encontramos archivos <mark>.jsx -> JAVASCRIPT XML</mark>. No
 ReactDom -> Es el dom virtual
 
 ## Componentes
+
+### Componente funcional
+
+- Es una función de JavasScript que devuelve elementos que representan la **interfaz del usuario**. Son pequeños bloques de construcción que corresponden a las piezas fundamentales de nuestra aplicación
 
 ### Estructura de un componente
 
@@ -205,13 +233,28 @@ Hasta ahora, hemos aprendido a **renderizar componentes**, así como a **condici
 
 #### CSS Legacy
 
+- Se gestionan los estilos de forma global
+- Un solo archivo de CSS
+- Gran cantidad de líneas de código
+- Los estilos colisionan o se sobreescriben
+
 Al trabajar con react existen diversas formas de agregar estilos a los componentes que dan forma a nuestra página. Comenzaremos mencionando una de ellas: <mark>**CSS Legacy**</mark>.
 
 Son los estilos globales de la aplicación. Podemos incluirlos en index.css y serán visibles por todos los componentes de la aplicación.
 
 <mark>className</mark>: para asiginar una clase a un elemento se utiliza className en lugar del atributo class de HTML
 
+#### estilos en línea
+
+```jsx
+<div style={{ backgroundColor: 'red', padding: '10px' }}></div>
+```
+
 #### CSS Modules
+
+- Crea archivos de estilo independientes para cada componente
+- Modifica la extensión del archivo componente.module.css e importa los estilos como un objeto de JS llamado style
+- Cada regla de estilo corresponderá a una propiedad de este objeto u la pasamos al atributo className del elemento al que deseamos dar estilo
 
 Veamos ahora qué es y cómo trabaja <mark>**CSS Modules**</mark>. Esta es otra técnica que nos permitirá darle diseño y estilos a nuestra página.
 
@@ -244,6 +287,10 @@ React utiliza un mecanismo para nombrar las clases con un nombre único, lo que 
 Por último, veremos una opción más para agregar estilos que, a pesar de ser un poco más compleja, es un buen ejemplo de cómo utilizar librerías externas para la incorporación de estilos. Hablemos de <mark>**Styled Components**</mark>.
 
 #### Styled Components
+
+- Es una biblioteca para React
+- Permite escribir estilos de componentes utilizando **JavaScript** y **CSS-in-JS**
+- Encapsula los estilos junto con la lógica del componente y facilita el desarrollo de interfaces de usuario más **modulares y mantenibles**
 
 Crearemos componentes estilizados. El objeto styled contiene todas las etiquetas posibles de estilar.
 

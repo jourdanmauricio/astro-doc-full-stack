@@ -18,6 +18,12 @@ category: React
 
 ## Ciclo de vida
 
+### Ciclo de vida de un componente
+
+- Fases y métodos que ocurren desde que un componentne comienza a renderizar en pantalla hasta que termina
+- Permiten que un componente realice diferentes tareas
+- Es importante para entender mejor cómo controlar los componentes
+
 ## Componentes y sus ciclos
 
 <mark>El término **ciclo de vida** se refiere a las fases y métodos que ocurren desde que un **componente** comienza a renderizarse en pantalla hasta que desaparece.</mark> Estas fases permiten que los componentes realicen diferentes tareas.
@@ -29,6 +35,10 @@ Por este motivo, ahora vamos a aprender una **nueva forma de crear** componentes
 > Aunque actualmente el concepto del ciclo de vida ha cambiado ligeramente gracias a la introducción de los **hooks**, es importante conocer las cuáles son estas etapas en su forma original para entender mejor cómo controlarlos. Por este motivo, ahora vamos a aprender una **nueva forma de crear componentes**.
 
 ### Componentes de clase
+
+- El componente se extiende de una clase predefinida de React llamada **Component**. La forma de renderizar algo es utilizando el método **render** que viene predefinido
+- Pueden recibir **props** de un componente padre
+- Pueden contener un **estado** interno para almacenar y gestionar información
 
 De momento sabemos crear componentes funcionales, que son con los que hemos trabajado hasta el momento. Pero antes de que se haya normalizado utilizar este tipo de componentes, existían de otro tipo: los **componentes de clase**.
 
@@ -105,9 +115,51 @@ export default SaludoPersonalizado;
 
 ![Ciclos de vida.](/astro-doc-full-stack/images/m3/clase9/ciclo-de-vida.webp)
 
+**Montaje** es el momento en que un componente se crea e inserta en el DOM. Ocurre una vez. Durante esta fase se ejecutan los siguientes métodos:
+
+- Constructor(): inicializa el estado del componente
+- getDerivedStateFromProps(): se llama antes de cada renderizado cuando las props cambian
+- Render(): crea una representación de la estructura del componente
+- ComponentDidMount(): se ejecuta después de la inicialización del componente. Aquí tenemos acceso.
+
+Orden de ejecución:
+
+- Se ejecuta el constructor
+- Se ejecuta el render con el estado inicial definifdo en el constructor
+- Se ejecuta componentDidMount
+- Se ejecuta render por segunda ocasión con la información actualizada por componentDidMount
+
+**Actualización** ocurre cuando un componente ya renderizado se actualiza debido a cambios en su estado interno o en las props que recibe. Métodos:
+
+- getDerivedStateFromProps()
+- shouldComponenteUpdate()
+- render()
+- getSnapshotBeforeUpdate()
+- componentDidUpdate()
+
+- El método render se ejecuta en dos ocasiones
+- componentDidUpdate() indica que se ha actualizado la información del componente
+
 Ahora que comprendemos el **ciclo de vida** de los **componentes**, conozcamos un nuevo hook: **useEffect**. Este nos permitirá definir un comportamiento similar al ciclo de videa de componente de clases, pero en los componentes funcionales.
 
+**Desmontaje** momento en que un componente es eliminado del DOM y no se visualiza más. Se llevan a cabo métodos que permiten la limpieza y liberación de recursos
+
+- componentWillUnmount() se ejecuta antes del que el componente se desmonte y detiene las tareas que consumen recursos aun al desaparecer el componente
+
 ## useEffect
+
+<mark>Se encarga de realizar efectos secundarios dentro de los componentes funcionales en las distintas etapas del ciclo de vida. Podremos realiar acciones cuando el componente se monta, actualiza o desmonta.</mark>
+
+```jsx
+import { useEffect } from 'react';
+
+useEffect(() => {
+  // se ejecuta este código luego del montaje
+  return () => {
+    // Se ejecuta al desmontar
+  };
+}, []); // arreglo de dependencias
+```
 
 El ciclo de vida en los componentes funcionales se trabaja de una manera muy distinta a cómo lo vimos en los componentes de clase. Aquí se incorpora el concepto de **efectos**. Estos hacen referencia a acciones secundarias que pueden llevarse a cabo más allá de la propia renderización. De esta forma, se puede controlar en qué momento del ciclo queremos que estas acciones ocurran.
 
@@ -153,6 +205,10 @@ useEffectt(() => {
  // código
 }, [/* Dependencias */]);
 ```
+
+## Wrap up
+
+Es la forma en que trabaja React, envolver una cosa dentro de otra. Componentes dentro de componentes.
 
 ## Cierre
 

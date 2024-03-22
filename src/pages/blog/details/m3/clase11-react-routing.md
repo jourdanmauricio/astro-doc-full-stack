@@ -18,6 +18,10 @@ category: React
 
 ## Routing
 
+- Gestion de las diferentes vistas de una página web
+- Permite al usuario moverse entre las distintas páginas de un sitio sin la necesidad de recargar la página por completo
+- Los elementos serán renderizados en cada ruta de la SPA
+
 <mark>El **routing** es la gestión de las diferentes vistas de una página web, permitiendo que un usuario pueda navegar entre ellas</mark>. El usuario se podrá mover entre las diferentes vistas sin la necesidad de recargar la página por completo. De esta forma, definimos qué elementos serán renderizados en cada ruta.
 
 Por ejemplo, si entras a la página oficial de Henry (o a cualquier otra) y comienzas a presionar botones verás como puedes navegar en distintas vistas de la página.
@@ -37,6 +41,10 @@ De esta manera, denominaremos al cambio de vistas como routing. La navegación e
 ¿Cómo podemos implementar esto en nuestras aplicaciones de react? Para lograr esto existen multiples opciones. En nuestro caso vamos a enfocarnos en conocer una librería llamada **react-router-dom**.
 
 ## React router dom
+
+- Librería de React
+- Se enfoca en el manejo de rutas para aplicaciones del lado del cliente
+- Esta herramienta gestiona el proceso de renderizado en una SPA, a partir de las rutas para los diferentes componentes de nuestra app
 
 Esta es una librería enfocada en el manejo de rutas para aplicaciones del lado del cliente. Esta herramienta gestiona el proceso de renderizado en una **SPA**, a partir de las rutas definidas para los diferentes componentes de nuestra aplicación.
 
@@ -157,6 +165,11 @@ Por ejemplo, piensa en la vista de "Perfil" que existe en Instagram como un solo
 <mark>Las **rutas dinámicas** permiten configurar las direcciones web de manera que puedan incluir segmentos variables</mark>. Esto conlleva a que una **misma ruta** maneje **diferentes valores** en ciertas partes de la URL.
 
 El utilizar **parámetros** en las rutas, posibilita la creación de componentes reutilizables, facilitando así la construcción de aplicaciones más dinámicas y adaptables.
+
+### useParams
+
+- Permite ontener y acceder a los parámetros de una ruta dinámica
+- Nos devuelve un objeto con los parámetros de la URL actual
 
 ```jsx
 // /src/components/ContactList.jsx

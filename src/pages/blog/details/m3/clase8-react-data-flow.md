@@ -17,6 +17,8 @@ category: React
 
 ## Flujo de datos
 
+- Direccionalidad -> el manejo de la información como un flujo unidireccional se refiere a que los datos siguen un único orden al momento de ser transferidos entre componentes
+
 Vamos a retomar uno de los principios básicos de React que vimos en la clase pasada: el Flujo unidireccional. Al mismo tiempo, conoceremos qué son y cómo funcionan las propiedades comúnmente llamadas props de los componentes
 
 ### Direccionalidad
@@ -28,6 +30,12 @@ Para aclarar mejor esta idea, definamos dos conceptos auxiliares: diremos que un
 Antes de conocer de qué manera se lleva a cabo esta comunicación, veamos un concepto que será muy importante de aquí en adelante: el **estado** de un componente.
 
 ## Estado de un componente
+
+- Objeto que permite almacenar y gestionar información en el componente
+- Cambia su apariencia y comportamiento con la interacción de un usuario
+- Determinan cuándo renderizar los componentes de nuestra página
+
+> <mark>Simpre que actualicemos el estado de un componente, el **componente actualizará** de forma inmediata su información</mark>
 
 Cuando hablamos del estado de un componente, nos referimos a **un objeto que permite almacenar y gestionar información**, así como cambiar su apariencia y comportamiento a partir de la interacción de un usuario.
 
@@ -42,6 +50,12 @@ Los **estados** nos permiten determinar cuándo renderizar (o actualizar) los co
 Para que podamos crear nuestro primer estado deberemos entender antes otro concepto fundamental: **hooks**. Esta es la herramienta actual que se utiliza para la creación de estados.
 
 ### Hooks
+
+- Funciones especiales que permiten que un componente utilice las características de React
+- Siempre empleados dentro de un componente
+- Podemos encontrarlos en otras librerías
+- Podemos crear hooks personalizados
+- Permiten simplificar distintas funciones específicas que vienen a solucionar un problema
 
 Los **hooks** son funciones especiales que permiten que un componente utilice características de react. Estos son siempre y únicamente empleados dentro de un componente.
 
@@ -102,6 +116,10 @@ Algunos casos comunes en los que se utiliza este hook...
 - Datos de un formulario -> Se utiliza para almacenar y actualizar la información proveniente de un formulario.
 
 ### Estados vs Variables
+
+- **Variables** -> cambian el contenido de forma adecuada, pero los cambios no se exhiben en la interfax debido a que no se vuelve a renderizar el componente
+
+- **Estados** -> Gerantiza que React gestione los cambios y re-renderice el componente de manera eficiente
 
 Cuando necesitamos reactividad en nuestro componente utilizaremos estados.React reacciona ante los cambios de estados y re-renderiza el componente, no así ante cambios en los valores de las variables.
 

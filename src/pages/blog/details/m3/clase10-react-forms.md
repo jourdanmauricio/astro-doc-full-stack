@@ -29,17 +29,31 @@ Los formularios son elementos muy importantes en las páginas web. Sirven como u
 
 ### Pongamonos técnicos... ¿Qué es un formulario?
 
+- Son elementos muy importantes en el desarrollo web
+- Sirven como un puente entre un usuario y la BD
+- Podemos brindar información para que la app pueda trabajar con ella
+- Permite ausuarios enviar datos a una app para su procesamento
+
 <mark>Vamos a interpretar a los formularios como fragmentos de código que permiten a los **usuarios** enviar datos a un servidor para su procesamiento.</mark>
 
 Está compuesto por una **serie de campos** (por ejemplo, de texto, desplegables, checkbox, entre muchas otras) los cuales sirven como data-points para la recopilación de información.
 
 ## Formularios controlados
 
+- Los elementos de entrada están directamente vinculados al estado del componente y son controlados por este
+- Podemos manejar la información recibida a través de los formularios desde un solo lugar
+- Permiten centralizar la información, realizar validaciones y manejar eventos de forma precisa
+
 <mark>El término **formulario controlado** se refiere a formularios donde los elementos de entrada (inputs, textarea, selectores, checkbox, etc) están **vinculados al estado del componente** y son gestionados (controlados) por este. Esto nos permite centralizar la información, realizar validaciones y manejar eventos de forma precisa.</mark>
 
 Enlazamos (**bindeamos**) el estado de react con el valor del input a través del evento onChange. De esta manera, podremos hacer validaciones sobre el ingreso de datos del user. No dependemos de las validaciones de HTML.
 
 ## Validación de datos
+
+- Garantiza que los datos almacenados sean precisos y consistentes
+- Evita errores en el funcionamiento del sistema
+- Son una capa adicional de seguridad
+- Evita que datos incorrectos o no válidos lleguen a los sistemas de backend, ahorrando recursos y evitando procesamientos innecesarios
 
 La **validación de datos** nos permite garantizar que la información almacenada en una base de datos o utilizados en una aplicación sean precisos y consistentes, lo que evita errores en el funcionamiento del sistema.
 
