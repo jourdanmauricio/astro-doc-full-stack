@@ -30,6 +30,12 @@ Un **ORM** <mark>(Object Relational Mapping)</mark> es un tipo de herramienta qu
 
 ### ¿Por qué utilizar TypeORM y qué ventajas ofrece?
 
+- Se destaca por brindar una experiencia de desarrollo más segura y completa
+- Permitiendo trabajar con objetos y clases en lugar de escribir consultas SQL
+- Es compatible con varios gestores de bases de datos relaciones, como PostgreSQL, MySQL, SQLite, y SQL Server
+- Brinda flexibilidad según la necesidad del proyecto
+- Se integra con facilidad con múltiples frameworks web, como Express en el entorno Node Js
+
 A pesar de que **existen múltiples opciones para incorporar como ORM** a un proyecto que trabaja con bases de datos relacionales (como Hibernate, Entity, o Sequelize), TypeORM ha adquirido mucha más popularidad ya que proporciona una mayor simplificación del proceso de desarrollo y el mapeo de información.
 
 Es compatible con varios gestores de bases de datos relacionales, como el ya conocido **PostgreSQL**, y otros como **MySQL, SQLite y SQL Server**, brindando flexibilidad según la necesidad del proyecto. Además, se integra con facilidad a frameworks como **express**.
@@ -45,9 +51,9 @@ npx typeorm init --name demoTypeORM --database postgres
 
 TypeORM posee comandos que nos permiten realizar la configuraciones pero como ya tenemos un proyecto avanzado modificará archivos que no deseamos. Va a pisar congiguraciones que ya realizamos. Por lo tanto, realizaremos la configuración paso a paso.
 
-Documentación: https://typeorm.io/
+<mark>Documentación: https://typeorm.io/</mark>
 
-Primeramente debemos crear la base de datos. Ejecutamos SQL Shell
+<mark>Primeramente debemos crear la base de datos. Ejecutamos SQL Shell</mark>
 
 ```bash
 CREATE DATABASE demo_typeorm;
@@ -110,9 +116,9 @@ npm run start
 
 ### Creación de entidades y modelos
 
-Las **entidades** representan objetos reales con propiedades y relaciones. Puedes tener, por ejemplo, una entidad “Usuario” con propiedades como nombre, edad e email.
+<mark>Las **entidades** representan objetos reales con propiedades y relaciones. Puedes tener, por ejemplo, una entidad “Usuario” con propiedades como nombre, edad e email.</mark>
 
-Un **modelo**, por su parte, corresponde a una **clase de TypeScript** que define cómo se verán y se comportarán las entidades en tu aplicación. Estos modelos se usan para crear, leer, actualizar y eliminar datos. Veamos esto en el siguiente video.
+<mark>Un **modelo**, por su parte, corresponde a una **clase de TypeScript** que define cómo se verán y se comportarán las entidades en tu aplicación. Estos modelos se usan para crear, leer, actualizar y eliminar datos.</mark>
 
 Debemos modificar el archivo tsconfig.ts
 
@@ -125,7 +131,13 @@ Debemos modificar el archivo tsconfig.ts
 ...
 ```
 
-Ya trabajamos con la interfaz user. Ahora la llevaremos a un modelo. Creamos la carperta entities en src
+<mark>Para crear una entidad es necesario anteponer el decorador **@entity** de TypeORM.</mark>
+
+<mark>Los **decoradores son funciones de TypeScript** inicializadas con "@" que nos permiten agregar múltiples características, propiedades y métodos a una clase.</mark>
+
+El decorador **@column** sirve para identificar y construir columnas dentro de una tabla a partir de la información de las propiedades de la clase. Podemos agregar opciones o restricciones a la columna
+
+Ya trabajamos con la interfaz user. Ahora la llevaremos a un modelo. Creamos la carperta entities en src.
 
 ```typescript
 // src/entities/User.ts
@@ -200,7 +212,7 @@ export const getUsersService = async() => {
 
 Para que no aparezcan los logs en consola podemos modificar para que aparezcan solo los errores o directamente colocar false.
 
-Por otro lado, repetiremos mucho: AppDataSource.getRepository, asi que podríamos integrarlo al data-source.ts y exportarlo con un nombre más simple.
+Por otro lado, **repetiremos mucho: AppDataSource.getRepository, asi que podríamos integrarlo al data-source.ts y exportarlo con un nombre más simple**.
 
 ```typescript
 // src/config/data-source.ts
@@ -282,7 +294,7 @@ export const getUserByIdService = async(id: number): Promise<User | null> => {
 
 ### Relaciones entre entidades
 
-En la bases de datos relacionales trabajamos con diversas tablas las cuales pueden estar relacionadas entre sí mediante diferentes tipos de cardinalidad. Dentro de TypeORM la definición del tipo de relación es muy sencilla gracias al uso de decoradores.
+En la bases de datos relacionales trabajamos con diversas tablas las cuales pueden estar relacionadas entre sí mediante diferentes tipos de cardinalidad. <mark>Dentro de TypeORM la definición del tipo de relación es muy sencilla gracias al uso de decoradores.</mark>
 
 1. Uno a uno mediante @OneToOne.
 2. Muchos a uno mediante @ManyToOne.
@@ -373,11 +385,11 @@ export const createVehicleService = async (
 
 ### Relación 1:1
 
-Por el momento, tenemos a usuarios y vehículos con sus rutas, contrillers, services, pero aún no se encuentran relacionadas. La relación será: 1:1, aunque sabemos que un usuario puede tener varios vehiculos y viceversa, pero establecemos 1:1 como punto de partida.
+Por el momento, tenemos a usuarios y vehículos con sus rutas, controllers, services, pero aún no se encuentran relacionadas. La relación será: 1:1, aunque sabemos que un usuario puede tener varios vehiculos y viceversa, pero establecemos 1:1 como punto de partida.
 
-> **Como vaciar la base de datos** -> modificamos la configuración src/config/data-source.ts y agregamos la propiedad <mark>dropSchema: true,</mark> esto creará las tablas nuevamente. Una restaurada la BD, comentamos la propiedad. **ATENCION**: perderemos todos los datos de la base de datos.
+> **<mark>Como vaciar (reiniciar) la base de datos</mark>** -> modificamos la configuración src/config/data-source.ts y agregamos la propiedad <mark>**dropSchema: true,**</mark> esto creará las tablas nuevamente. Una restaurada la BD, comentamos la propiedad. **ATENCION**: perderemos todos los datos de la base de datos.
 
-La relación se establece en los modelos a través de decorador @OneToOne():
+La relación se establece en los modelos a través del **decorador @OneToOne()**:
 
 ```typescript
 // src/entities/User.ts
@@ -420,7 +432,7 @@ export const createVehicleService = async (
 };
 ```
 
-Para que el resultado de consultar a los usuarios nos muestre toda la información del vehículo y no solo su id (Populate de Mongoose) deberemos indicarlo en el servicio.
+<mark>Para que el resultado de consultar a los usuarios nos muestre toda la información del vehículo y no solo su id (Populate de Mongoose) deberemos indicarlo en el servicio.</mark>
 
 ```typescript
 // scr/services/userServces.ts

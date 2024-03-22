@@ -20,7 +20,9 @@ category: TypeORM SQL Bases de datos
 
 ## Transacciones
 
-<mark>Las **transacciones** son secuencias de operaciones que se ejecutan como una unidad lógica y atómica</mark>. Esto quiere decir que todas las operaciones deben ser ejecutadas con éxito para que el resto se lleven a cabo.
+- <mark>Las **transacciones** son secuencias de operaciones que se ejecutan como una unidad lógica y atómica</mark>.
+- Esto quiere decir que todas las operaciones deben ser ejecutadas con éxito para que el resto se lleven a cabo.
+- Garantiza la integridad y consistencia de datos.
 
 Pensemos en un ejemplo teórico muy sencillo para entender este concepto. Supongamos que debemos realizar una transferencia bancaria de la cuenta A a la B. Los pasos serían los siguientes.
 
@@ -33,13 +35,20 @@ Pensemos en un ejemplo teórico muy sencillo para entender este concepto. Supong
 
 ## Método transaction() del objeto AppDataSource.manager
 
-Este método es **asíncrono**, por tanto debe llevar antepuesta la palabra await.
+- Se adegura que cada solicitud sea tratada como una unidad
+- Hasta que una de las solicitudes no sea completada la siguiente no será procesada
+- Usa el método transaction() del objeto AppDataSource.manager
+- Este método es **asíncrono**, por tanto debe llevar antepuesta la palabra await
 
 ### Argumentos del método de transaction()
 
-- Nivel de aislamiento -> El primero argumento será el nivel de aislamiento, que determina que tan esctrictas son las operaciones y si otras operaciones pueden acceder a sus datos. Mientras más alto el nivel más confiable es la transacción pero maś costosa en términos de rendimiento
+- **Nivel de aislamiento** -> El primero argumento será el nivel de aislamiento, que determina que tan esctrictas son las operaciones y si otras operaciones pueden acceder a sus datos. Mientras más alto el nivel más confiable es la transacción pero maś costosa en términos de rendimiento
+
+  - REPETEABLE READ -> la siguiente transacción necesita datos de la actual
   - READ UNCOMMITED
+  - READ COMMITTED
   - SERIALIZABLE
+
 - Función asíncrona -> El segundo argumento recibe una función asíncrona que se encarga de realizar las consultas a la BD y recibe como argumento a **transaccionalEntityManager** que resolverá la promesa
 
 ### Ejemplo:
@@ -48,8 +57,8 @@ Recordemos que la propiedad **dropschema: true** del archivo data-source.ts elim
 
 Esta tarea se vuelve repetitiva, por lo que podemos realizar una precarga de datos de prueba con los que podemos comenzar a trabajar.
 
-1- Crear la carpeta helpers dentro de src
-2- Crear el archivo preloadData.ts
+- Crear la carpeta helpers dentro de src
+- Crear el archivo preloadData.ts
 
 > Todo lo que deseemos incluir en una transacción debe ser ejecutado en un callback. También podríamos utilizar los modelos para realizar los cambios, pero **siempre** debemos utilizar el transactionalEntityManager que se nos brinda.
 
@@ -404,7 +413,7 @@ export const preloadVehicleData = async () => {
 
 Por ahora hemos trabajado el **CRUD** por medio del objeto manager de **AppDataSource** a partir de consultas a una colección que contiene todas las entidades de nuestra aplicación. Si bien, trabajar utilizando esta herramienta es correcto, existe una opción que es mucho más específica: **los repositorios**.
 
-A grandes rasgos, un repositorio tiene la misma función que manager. Sin embargo, un repositorio limita su acción a una entidad en concreto y no sobre la colección general que las contiene. Veamos a qué nos referimos.
+<mark>A grandes rasgos, un repositorio tiene la misma función que manager. Sin embargo, un repositorio limita su acción a una entidad en concreto y no sobre la colección general que las contiene.</mark> Veamos a qué nos referimos.
 
 Empecemos por modificar los **controladores** que utilizan a manager para que hagan uso de **Repository**. Lo primero que debemos hacer es generar un repositorio para cada entidad mediante el método **getRepository()** de AppDataSource.
 
@@ -432,7 +441,7 @@ export default vehicleRepository;
 
 Ahora, podemos inportar los repositorios en nuestros servicios y trabajar con los repositorios en lugar de los modelos.
 
-El repositorio representa a la entidad mapeada y reflejada en la BD.
+<mark>El repositorio representa a la entidad mapeada y reflejada en la BD.</mark>
 
 De esta forma todos nuestros **controladores** trabajan con un repositorio particular y podemos incluso personalizarlos para potenciar sus funciones.
 
@@ -440,7 +449,11 @@ De esta forma todos nuestros **controladores** trabajan con un repositorio parti
 
 ## Repositorios personalizados
 
-El manejar un **repositorio** que sea exclusivo de una **entidad** nos permite agregar métodos que únicamente sean aplicables a este repositorio y que desempeñen una tarea particular dentro de él. Por ejemplo, supongamos que en diferentes rutas y controladores, vamos a tener que realizar la búsqueda por nombre.
+- Maneja un repositorio que sea exclusivo de una entidad
+- Permite agregar métodos que únicamente sean aplicables a este repositorio
+- Desempeñan una tarea particular dentro de él
+
+<mark>El manejar un **repositorio** que sea exclusivo de una **entidad** nos permite agregar métodos que únicamente sean aplicables a este repositorio y que desempeñen una tarea particular dentro de él.</mark> Por ejemplo, supongamos que en diferentes rutas y controladores, vamos a tener que realizar la búsqueda por nombre.
 
 En lugar de repetir una y otra vez la lógica de búsqueda, podríamos agregar esta funcionalidad a **usersRepository** y utilizarla desde allí.
 
