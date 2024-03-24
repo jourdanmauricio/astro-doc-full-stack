@@ -1,11 +1,11 @@
 ---
 layout: '../../layouts/BlogPostLayout.astro'
-title: Nest js
+title: Fundamentos de Nest js
 date: 2024-02-12
 author: Mauricio Jourdán
 image:
   { src: '/astro-doc-full-stack/images/back-general.webp', alt: Logo nest js' }
-description: Nest js.
+description: Fundamentos de Nest js.
 draft: false
 category: Nest js backend
 ---
@@ -13,6 +13,7 @@ category: Nest js backend
 ## Nest Js
 
 Documentación: https://nestjs.com/
+Repositorio: https://github.com/jourdanmauricio/nest-ecommerce
 
 <mark>Nest Js es un framework con abastracciones basado en Node Js</mark>. Decimos con abstracciones porque Nest Js es agnóstico, por debajo generalmente utiliza Express Js pero prodía utilizar otros framworks. Nest Js realiza las abstracciones.
 
@@ -129,7 +130,7 @@ your-name-project
 El archivo que no se crea en la intalación es .editorConfig que nos permite que todos los miemobros del equipo manejemos el mismo estandar en los diferentes editores. Todos tendremos las mismas normas, por ejemplo que la tabulación sea con espacios y que idente con 2 espacios, etc.
 
 ```bash
-# ./editorconfig
+# .editorconfig
 # Editor configuration, see https://editorconfig.org
 root = true
 
@@ -193,20 +194,20 @@ Dentro de los controladores tendremos decoradores, que le indican a Nest como se
 
 ```ts
 // AppController.ts
-import {Controller, Get} from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 
 @Controller()
 export class AppController {
-  contructor() {}
+  constructor() {}
 
   // Endpoint predefinido
   @Get()
   getHello(): string {
-    return "Hello Word!";
+    return 'Hello Word!';
   }
 
   // Creamos un nuevo endpoint
-  @Get('health');
+  @Get('health')
   getHealth(): string {
     return 'Server working correctly';
   }
@@ -274,7 +275,7 @@ import { Controller, Get, Param } from '@nestjs/common';
 
 @Controller()
 export class AppController {
-  contructor() {}
+  constructor() {}
 
   // @Get('products/:productId')
   // getProduct(@Param() params: any) {
@@ -329,7 +330,7 @@ import { Controller, Get, Param, Query } from '@nestjs/common';
 
 @Controller()
 export class AppController {
-  contructor() {}
+  constructor() {}
 
   // @Get('products')
   // getProduct(@query() params: any) {
@@ -340,12 +341,17 @@ export class AppController {
   // De la misma manera que con params, podemos utilizar la forma simplificada
   // y también podemos indicar valores por default
   @Get('products')
-  getProduct(
-    @query('limit') limit = 10, // ts infiere el tipo number
-    @query('offset') offset = 0, // ts infiere el tipo number
-    @query('brand') brand: string
+  getProducts(
+    @Query('limit') limit = 10, // ts infiere el tipo number
+    @Query('offset') offset = 0, // ts infiere el tipo number
+    @Query('brand') brand: string
   ) {
     return `Products: Limit ${limit}, offset: ${offset}, brand: ${brand}`;
+  }
+
+  @Get('products/filter')
+  getProductFilter() {
+    return `Respuesta aplicando un filtro`;
   }
 
   @Get('products/:productId')
@@ -466,13 +472,13 @@ import { Controller, Get, Param, Query } from '@nestjs/common';
 
 @Controller('products')
 export class ProductsController {
-  contructor() {}
+  constructor() {}
 
   @Get()
   getProduct(
-    @query('limit') limit = 10, // ts infiere el tipo number
-    @query('offset') offset = 0, // ts infiere el tipo number
-    @query('brand') brand: string
+    @Query('limit') limit = 10, // ts infiere el tipo number
+    @Query('offset') offset = 0, // ts infiere el tipo number
+    @Query('brand') brand: string
   ) {
     return `Products: Limit ${limit}, offset: ${offset}, brand: ${brand}`;
   }
@@ -495,7 +501,7 @@ import { Controller, Get, Param, Query } from '@nestjs/common';
 
 @Controller('categories')
 export class CategoriesController {
-  contructor() {}
+  constructor() {}
 
   @Get(':id/products/:productId')
   getCategory(@Param('id') id: string, @Param('productId') productId: string) {
@@ -510,7 +516,7 @@ import { Controller, Get, Param, Query } from '@nestjs/common';
 
 @Controller()
 export class AppController {
-  contructor() {}
+  constructor() {}
 
   @Get()
   getHello(): string {
@@ -544,13 +550,13 @@ import { Controller, Get, Post, Param, Query, Body } from '@nestjs/common';
 
 @Controller('products')
 export class ProductsController {
-  contructor() {}
+  constructor() {}
 
   @Get()
   getAll(
-    @query('limit') limit = 10, // ts infiere el tipo number
-    @query('offset') offset = 0, // ts infiere el tipo number
-    @query('brand') brand: string
+    @Query('limit') limit = 10, // ts infiere el tipo number
+    @Query('offset') offset = 0, // ts infiere el tipo number
+    @Query('brand') brand: string
   ) {
     return `Products: Limit ${limit}, offset: ${offset}, brand: ${brand}`;
   }
@@ -609,7 +615,7 @@ Al ejecutar obtendremos el siguiente response:
 <details>
 <summary>Detalle</summary>
 
-Agregaremos al controlador de productis los endpoints para editar y eliminar.
+Agregaremos al controlador de productos los endpoints para editar y eliminar.
 
 ```ts
 // products.controller.ts
@@ -626,7 +632,7 @@ import {
 
 @Controller('products')
 export class ProductsController {
-  contructor() {}
+  constructor() {}
   // ...
 
   @Get(':productId')
@@ -643,7 +649,7 @@ export class ProductsController {
   }
 
   @Delete(':id')
-  update(@Param('id') id: number) {
+  delete(@Param('id') id: number) {
     return { id };
   }
 
@@ -730,7 +736,7 @@ import {
 
 @Controller('products')
 export class ProductsController {
-  contructor() {}
+  constructor() {}
   // ...
 
   @Get(':productId')
@@ -780,7 +786,7 @@ import {Response} from 'express'
 
 @Controller('products')
 export class ProductsController {
-  contructor() {}
+  constructor() {}
   // ...
 
   // @Get(':productId')
@@ -870,13 +876,13 @@ Creamos la carpeta /src/entities y adentro la entida product.entity.ts.
 // product.entity.ts
 
 export class Product {
-  id: number,
-  name: string,
-  brand: string,
-  description: string,
-  price: number,
-  stock: number,
-  image: string,
+  id: number;
+  name: string;
+  brand: string;
+  description: string;
+  price: number;
+  stock: number;
+  image: string;
 }
 ```
 
@@ -887,7 +893,6 @@ import { Product } from './../entities/product.entity';
 
 @Injectable()
 export class ProductsService {
-
   // Simulamos el id. Luego lo gestionará la BD
 
   private counterId = 0;
@@ -902,10 +907,10 @@ export class ProductsService {
       image: 'https://...',
     },
     {
-      id: 1,
+      id: 2,
       name: 'Calzado de seguridad',
       brand: 'Ombu',
-      description: 'Calzado de trabajo Ombu Ozono. Segurida y Sonfort',
+      description: 'Calzado de trabajo Ombu Ozono. Segurida y Confort',
       price: 60,
       stock: 34,
       image: 'https://...',
@@ -926,9 +931,10 @@ export class ProductsService {
     this.counterId = this.counterId + 1;
 
     const newProduct = {
-      id: this.counterId
-      ..payload
-    }
+      id: this.counterId,
+      ...payload,
+    };
+
     this.products.push(newProduct);
 
     return newProduct;
@@ -941,7 +947,7 @@ export class ProductsService {
       this.products[index] = {
         ...product,
         ...payload,
-        };
+      };
       return this.products[index];
     }
     return null;
@@ -952,7 +958,7 @@ export class ProductsService {
     if (index === -1) return null;
 
     this.products.splice(index, 1);
-    return {id}
+    return { id };
   }
 }
 ```
@@ -986,37 +992,37 @@ export class ProductsController {
   // El motor de nest resuelve la inyección de dependencias.
   // Crea una instanciade ProductsService y la pasa al controlador
   // De esta forma inyectamos el servicio
-  contructor(private productsService: ProductsService) {}
+  constructor(private productsService: ProductsService) {}
 
   // ...
 
   @Get()
   getAll(
-    @query('limit') limit = 10,
-    @query('offset') offset = 0,
-    @query('brand') brand: string
+    @Query('limit') limit = 10,
+    @Query('offset') offset = 0,
+    @Query('brand') brand: string
   ) {
-    return this.produstsServices.findAll();
+    return this.productsService.findAll();
   }
 
   @Get(':productId')
   getOne(@Param('productId') productId: string) {
-    return this.produstsServices.findOne(Number(productId));
+    return this.productsService.findOne(Number(productId));
   }
 
   @Post()
   create(@Body() payload: any) {
-    return this.produstsServices.create(payload);
+    return this.productsService.create(payload);
   }
 
   @Put(':id')
   update(@Param('id') id: string, @Body() payload: any) {
-    return this.produstsServices.update(Number(id), payload);
+    return this.productsService.update(Number(id), payload);
   }
 
   @Delete(':id')
   delete(@Param('id') id: string) {
-    return this.produstsServices.remove(Number(id));
+    return this.productsService.remove(Number(id));
   }
 }
 ```
@@ -1041,7 +1047,6 @@ import { Product } from './../entities/product.entity';
 
 @Injectable()
 export class ProductsService {
-
   // Simulamos el id. Luego lo gestionará la BD
 
   private counterId = 0;
@@ -1056,10 +1061,10 @@ export class ProductsService {
       image: 'https://...',
     },
     {
-      id: 1,
+      id: 2,
       name: 'Calzado de seguridad',
       brand: 'Ombu',
-      description: 'Calzado de trabajo Ombu Ozono. Segurida y Sonfort',
+      description: 'Calzado de trabajo Ombu Ozono. Segurida y Confort',
       price: 60,
       stock: 34,
       image: 'https://...',
@@ -1083,16 +1088,15 @@ export class ProductsService {
     this.counterId = this.counterId + 1;
 
     const newProduct = {
-      id: this.counterId
-      ..payload
-    }
+      id: this.counterId,
+      ...payload,
+    };
     this.products.push(newProduct);
 
     return newProduct;
   }
 
   update(id: number, payload: any) {
-
     const product = this.findOne(id);
 
     if (product) {
@@ -1100,7 +1104,7 @@ export class ProductsService {
       this.products[index] = {
         ...product,
         ...payload,
-        };
+      };
       return this.products[index];
     }
 
@@ -1109,10 +1113,10 @@ export class ProductsService {
 
   remove(id: number) {
     const index = this.products.findIndex((item) => item.id === id);
-    if (index === -1)  throw new NotFoundException('product not found');
+    if (index === -1) throw new NotFoundException('product not found');
 
     this.products.splice(index, 1);
-    return {id}
+    return { id };
   }
 }
 ```
@@ -1179,7 +1183,7 @@ import {
   Param,
   Query,
   Body,
-  parseIntPipe,
+  ParseIntPipe,
 } from '@nestjs/common';
 
 import { ProductsService } from './../services/products.service';
@@ -1189,36 +1193,36 @@ export class ProductsController {
   // El motor de nest resuelve la inyección de dependencias.
   // Crea una instanciade ProductsService y la pasa al controlador
   // De esta forma inyectamos el servicio
-  contructor(private productsService: ProductsService) {}
+  constructor(private productsService: ProductsService) {}
 
   @Get()
   getAll(
-    @query('limit') limit = 10,
-    @query('offset') offset = 0,
-    @query('brand') brand: string
+    @Query('limit') limit = 10,
+    @Query('offset') offset = 0,
+    @Query('brand') brand: string
   ) {
-    return this.produstsServices.findAll();
+    return this.productsService.findAll();
   }
 
   // El Pipe Se envía como segundo parámetro en el decorador
   @Get(':productId')
   getOne(@Param('productId', ParseIntPipe) productId: number) {
-    return this.produstsServices.findOne(productId);
+    return this.productsService.findOne(productId);
   }
 
   @Post()
   create(@Body() payload: any) {
-    return this.produstsServices.create(payload);
+    return this.productsService.create(payload);
   }
 
   @Put(':id')
   update(@Param('id', ParseIntPipe) id: number, @Body() payload: any) {
-    return this.produstsServices.update(id, payload);
+    return this.productsService.update(id, payload);
   }
 
   @Delete(':id')
   delete(@Param('id', ParseIntPipe) id: number) {
-    return this.produstsServices.remove(id);
+    return this.productsService.remove(id);
   }
 }
 ```
@@ -1276,10 +1280,10 @@ nest g pipe common/parse-int
 
 ```ts
 // parse-int.pipe.ts
-import { ArgumentMetadata, Injectable, PipeTransform} from '@nestjs/common';
+import { ArgumentMetadata, Injectable, PipeTransform } from '@nestjs/common';
 
 @Injectable()
-export class ParseIntPipe impletments PipeTransform {
+export class ParseIntPipe implements PipeTransform {
   transform(value: any, metadata: ArgumentMetadata) {
     return value;
   }
@@ -1330,36 +1334,36 @@ export class ProductsController {
   // El motor de nest resuelve la inyección de dependencias.
   // Crea una instanciade ProductsService y la pasa al controlador
   // De esta forma inyectamos el servicio
-  contructor(private productsService: ProductsService) {}
+  constructor(private productsService: ProductsService) {}
 
   @Get()
   getAll(
-    @query('limit') limit = 10,
-    @query('offset') offset = 0,
-    @query('brand') brand: string
+    @Query('limit') limit = 10,
+    @Query('offset') offset = 0,
+    @Query('brand') brand: string
   ) {
-    return this.produstsServices.findAll();
+    return this.productsService.findAll();
   }
 
   // El Pipe Se envía como segundo parámetro en el decorador
   @Get(':productId')
   getOne(@Param('productId', ParseIntPipe) productId: number) {
-    return this.produstsServices.findOne(productId);
+    return this.productsService.findOne(productId);
   }
 
   @Post()
   create(@Body() payload: any) {
-    return this.produstsServices.create(payload);
+    return this.productsService.create(payload);
   }
 
   @Put(':id')
   update(@Param('id', ParseIntPipe) id: number, @Body() payload: any) {
-    return this.produstsServices.update(id, payload);
+    return this.productsService.update(id, payload);
   }
 
   @Delete(':id')
   delete(@Param('id', ParseIntPipe) id: number) {
-    return this.produstsServices.remove(id);
+    return this.productsService.remove(id);
   }
 }
 ```
@@ -1507,26 +1511,26 @@ export class ProductsController {
   // El motor de nest resuelve la inyección de dependencias.
   // Crea una instanciade ProductsService y la pasa al controlador
   // De esta forma inyectamos el servicio
-  contructor(private productsService: ProductsService) {}
+  constructor(private productsService: ProductsService) {}
 
   @Get()
   getAll(
-    @query('limit') limit = 10,
-    @query('offset') offset = 0,
-    @query('brand') brand: string
+    @Query('limit') limit = 10,
+    @Query('offset') offset = 0,
+    @Query('brand') brand: string
   ) {
-    return this.produstsServices.findAll();
+    return this.productsService.findAll();
   }
 
   // El Pipe Se envía como segundo parámetro en el decorador
   @Get(':productId')
   getOne(@Param('productId', ParseIntPipe) productId: number) {
-    return this.produstsServices.findOne(productId);
+    return this.productsService.findOne(productId);
   }
 
   @Post()
   create(@Body() payload: CreateProductDto) {
-    return this.produstsServices.create(payload);
+    return this.productsService.create(payload);
   }
 
   @Put(':id')
@@ -1534,12 +1538,12 @@ export class ProductsController {
     @Param('id', ParseIntPipe) id: number,
     @Body() payload: UpdateProductDto
   ) {
-    return this.produstsServices.update(id, payload);
+    return this.productsService.update(id, payload);
   }
 
   @Delete(':id')
   delete(@Param('id', ParseIntPipe) id: number) {
-    return this.produstsServices.remove(id);
+    return this.productsService.remove(id);
   }
 }
 ```
@@ -1567,10 +1571,10 @@ export class ProductsService {
       image: 'https://...',
     },
     {
-      id: 1,
+      id: 2,
       name: 'Calzado de seguridad',
       brand: 'Ombu',
-      description: 'Calzado de trabajo Ombu Ozono. Segurida y Sonfort',
+      description: 'Calzado de trabajo Ombu Ozono. Segurida y Confort',
       price: 60,
       stock: 34,
       image: 'https://...',
@@ -1652,42 +1656,41 @@ npm i class-validator class-transformer @nestjs/mapped-types
 
 ```ts
 // products.dtos.ts
-
 import {
   IsString,
   IsNumber,
   IsUrl,
-  isNotEmpty,
-  isPositive,
+  IsNotEmpty,
+  IsPositive,
 } from 'class-validator';
 // isEmail, isDate, etc
 
 export class CreateProductDto {
   // readonly no permite que modifiquemos el valor
   @IsString()
-  @isNotEmpty()
+  @IsNotEmpty()
   readonly name: string;
 
   @IsString()
-  @isNotEmpty()
+  @IsNotEmpty()
   readonly brand: string;
 
   @IsString()
-  @isNotEmpty()
+  @IsNotEmpty()
   readonly description: string;
 
-  IsNumber();
-  isPositive();
-  @isNotEmpty()
+  @IsNumber()
+  @IsPositive()
+  @IsNotEmpty()
   readonly price: number;
 
-  IsNumber();
-  isPositive();
-  @isNotEmpty()
+  @IsNumber()
+  @IsPositive()
+  @IsNotEmpty()
   readonly stock: number;
 
   @IsUrl()
-  @isNotEmpty()
+  @IsNotEmpty()
   readonly image: string;
 }
 
@@ -1717,11 +1720,11 @@ Fianlemente, para activar las validacoines de class-validator debemos modificar 
 
 import { NestFactory } from '@nest/core';
 import { appModule } from './app.module';
-import { ValidationPipe } from '@nest/common';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.useGolbalPipes(new ValidationPipe());
+  app.useGlobalPipes(new ValidationPipe());
   await app.listen(3000);
 }
 
@@ -1736,44 +1739,43 @@ Y, ¿Cómo podemos realizar las validaciones sobre el dto para update? Podríamo
 
 ```ts
 // products.dtos.ts
-
 import { PartialType } from '@nestjs/mapped-types';
 
 import {
   IsString,
   IsNumber,
   IsUrl,
-  isNotEmpty,
-  isPositive,
+  IsNotEmpty,
+  IsPositive,
 } from 'class-validator';
 // isEmail, isDate, etc
 
 export class CreateProductDto {
   // readonly no permite que modifiquemos el valor
   @IsString()
-  @isNotEmpty()
+  @IsNotEmpty()
   readonly name: string;
 
   @IsString()
-  @isNotEmpty()
+  @IsNotEmpty()
   readonly brand: string;
 
   @IsString()
-  @isNotEmpty()
+  @IsNotEmpty()
   readonly description: string;
 
-  IsNumber();
-  isPositive();
-  @isNotEmpty()
+  @IsNumber()
+  @IsPositive()
+  @IsNotEmpty()
   readonly price: number;
 
-  IsNumber();
-  isPositive();
-  @isNotEmpty()
+  @IsNumber()
+  @IsPositive()
+  @IsNotEmpty()
   readonly stock: number;
 
   @IsUrl()
-  @isNotEmpty()
+  @IsNotEmpty()
   readonly image: string;
 }
 
