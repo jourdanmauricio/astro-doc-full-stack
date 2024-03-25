@@ -5,7 +5,7 @@ date: 11-02-2024
 author: Mauricio Jourdán
 image:
   {
-    src: '/astro-doc-full-stack/images/henry-index.jpg',
+    src: '/astro-doc-full-stack/images/henry-index.webp',
     alt: 'A picture of a coder',
   }
 description: Resumen de los 4 módulos del bootcamp SoyHenry

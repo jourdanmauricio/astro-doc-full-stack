@@ -12,6 +12,10 @@ draft: false
 category: Nest js backend
 ---
 
+Documentación: https://nestjs.com/
+Repositorio del proyecto: https://github.com/jourdanmauricio/nest-ecommerce
+Branch Fundamentos: git clone -b modulos-documentacion https://github.com/jourdanmauricio/nest-ecommerce
+
 Este post es continuación de [Fundamentos de Nest js](/astro-doc-full-stack/blog/nest). En alquel post construimos el backen para un e-commmerce poniendo foco en los controladores y validaciones de iniformación.
 
 En este post veremos como aplicar progración orientada a módulos para escalar y organizar mejor el código. También veremos más a profundidad la inyección de dependencias.

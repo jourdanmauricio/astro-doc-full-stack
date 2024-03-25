@@ -1,23 +1,20 @@
 ---
-layout: '../../layouts/BlogPostLayout.astro'
-title: Nest js
+layout: '../../../layouts/SubBlogPostLayout.astro'
+title: Persistencia de Datos con TypeORM y PostgreSQL
 date: 2024-02-12
 author: Mauricio Jourdán
 image:
   { src: '/astro-doc-full-stack/images/nest-js/back.webp', alt: Logo nest js' }
-description: Fundamentos de Nest Js, Modularización, Documentación
+icon:
+  { src: '/astro-doc-full-stack/images/nest-js/icon.png', alt: 'Logo Nest js' }
+description: NestJS - Persistencia de Datos con TypeORM y PostgreSQL
 draft: false
 category: Nest js backend
 ---
 
-# NEST JS
-
 Documentación: https://nestjs.com/
 Repositorio del proyecto: https://github.com/jourdanmauricio/nest-ecommerce
-
-- [Fundamentos de Nest Js](/astro-doc-full-stack/blog/nest-js/nest-fundamentos)
-- [Programación modular y documentación](/astro-doc-full-stack/blog/nest-js/nest-prog-modular-swagger)
-- [Persistencia de Datos con TypeORM y PostgreSQL](/astro-doc-full-stack/blog/nest-js/persistencia-typeorm-poastgresql)
+Branch Fundamentos: git clone -b persistencia-typeorm https://github.com/jourdanmauricio/nest-ecommerce
 
 <style>
   h1 { color: #713f12; }
