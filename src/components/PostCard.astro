@@ -41,9 +41,8 @@ const { title, date, author, image, description, category } = frontmatter;
         >
       </Tag>
       <small>
-        por <a href={`/author/${slugify(author)}/`}>{author}</a> • {
-          formatDate(date)
-        }
+        <!-- por <a href={`/author/${slugify(author)}/`}>{author}</a> • { -->
+        por <a href={`/astro-doc-full-stack`}>{author}</a> • {formatDate(date)}
       </small>
     </div>
     <p>{description}</p>
