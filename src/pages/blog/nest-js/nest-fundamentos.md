@@ -14,9 +14,9 @@ category: Nest js backend
 
 ## Nest Js
 
-Documentación: https://nestjs.com/
-Repositorio del proyecto: https://github.com/jourdanmauricio/nest-ecommerce
-Branch Fundamentos: git clone -b fundamentos-nestjs https://github.com/jourdanmauricio/nest-ecommerce
+- Documentación: https://nestjs.com/
+- Repositorio del proyecto: https://github.com/jourdanmauricio/nest-ecommerce
+- Branch Fundamentos: git clone -b fundamentos-nestjs https://github.com/jourdanmauricio/nest-ecommerce
 
 <mark>Nest Js es un framework con abastracciones basado en Node Js</mark>. Decimos con abstracciones porque Nest Js es agnóstico, por debajo generalmente utiliza Express Js pero prodía utilizar otros framworks. Nest Js realiza las abstracciones.
 

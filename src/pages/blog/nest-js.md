@@ -12,8 +12,8 @@ category: Nest js backend
 
 # NEST JS
 
-Documentación: https://nestjs.com/
-Repositorio del proyecto: https://github.com/jourdanmauricio/nest-ecommerce
+- Documentación: https://nestjs.com/
+- Repositorio del proyecto: https://github.com/jourdanmauricio/nest-ecommerce
 
 - [Fundamentos de Nest Js](/astro-doc-full-stack/blog/nest-js/nest-fundamentos)
 - [Programación modular y documentación](/astro-doc-full-stack/blog/nest-js/nest-prog-modular-swagger)
