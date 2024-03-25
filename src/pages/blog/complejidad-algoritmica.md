@@ -1,6 +1,6 @@
 ---
 layout: '../../layouts/BlogPostLayout.astro'
-title: Complejidad algorítmica - Leetcode
+title: Complejidad algorítmica
 date: 11-02-2024
 author: Mauricio Jourdán
 image:
@@ -8,7 +8,7 @@ image:
     src: '/astro-doc-full-stack/images/complejidad-algoritmica.jpeg',
     alt: 'A picture of a coder',
   }
-description: Complejidad algorítmica utilizando javascript - Ejercicios en Leetcode
+description: Complejidad algorítmica utilizando javascript
 draft: false
 category: JS Leetcode
 ---
