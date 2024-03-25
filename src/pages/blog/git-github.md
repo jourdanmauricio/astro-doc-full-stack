@@ -3,8 +3,7 @@ layout: '../../layouts/BlogPostLayout.astro'
 title: Git y Github
 date: 2024-02-12
 author: Mauricio Jourdán
-image:
-  { src: '/astro-doc-full-stack/images/back-general.webp', alt: Logo nest js' }
+image: { src: '/astro-doc-full-stack/images/git/back.webp', alt: Logo github' }
 description: Comandos básicos de git y github
 draft: false
 category: git
