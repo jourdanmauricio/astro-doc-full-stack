@@ -1143,6 +1143,8 @@ export class BrandsController {
 }
 ```
 
+![Nest Documentación.](/astro-doc-full-stack/images/nest-js/nest-doc.webp)
+
 > Nota: no es necesario utilizar todos lo decoradores de documentación. Tendremos que ver cuáles serán necesarios de acuerdo a las particularidades del proyecto.
 
 <style>
