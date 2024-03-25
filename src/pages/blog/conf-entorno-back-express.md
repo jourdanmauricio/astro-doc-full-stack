@@ -5,7 +5,7 @@ date: 12-02-2024
 author: Mauricio Jourdán
 image:
   {
-    src: '/astro-doc-full-stack/images/post-3.jpg',
+    src: '/astro-doc-full-stack/images/back-general.webp',
     alt: 'A picture of a coder',
   }
 description: Configurando el entorno de desarrollo para trabajar con node js - Express js

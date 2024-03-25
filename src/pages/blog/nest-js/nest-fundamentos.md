@@ -1,10 +1,12 @@
 ---
-layout: '../../layouts/BlogPostLayout.astro'
+layout: '../../../layouts/SubBlogPostLayout.astro'
 title: Fundamentos de Nest js
-date: 2024-02-12
+date: 11-02-2024
 author: Mauricio Jourdán
 image:
-  { src: '/astro-doc-full-stack/images/back-general.webp', alt: Logo nest js' }
+  { src: '/astro-doc-full-stack/images/nest-js/back.webp', alt: Logo nest js' }
+icon:
+  { src: '/astro-doc-full-stack/images/nest-js/icon.png', alt: 'Logo Nest js' }
 description: Fundamentos de Nest js.
 draft: false
 category: Nest js backend

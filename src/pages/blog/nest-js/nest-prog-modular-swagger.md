@@ -1,16 +1,16 @@
 ---
-layout: '../../layouts/BlogPostLayout.astro'
+layout: '../../../layouts/SubBlogPostLayout.astro'
 title: NestJS - Programación Modular, Documentación con Swagger
 date: 2024-02-12
 author: Mauricio Jourdán
 image:
-  { src: '/astro-doc-full-stack/images/back-general.webp', alt: Logo nest js' }
+  { src: '/astro-doc-full-stack/images/nest-js/back.webp', alt: Logo nest js' }
+icon:
+  { src: '/astro-doc-full-stack/images/nest-js/icon.png', alt: 'Logo Nest js' }
 description: NestJS - Programación Modular, Documentación con Swagger
 draft: false
 category: Nest js backend
 ---
-
-# Programación Modular, Documentación con Swagger
 
 Este post es continuación de [Fundamentos de Nest js](/astro-doc-full-stack/blog/nest). En alquel post construimos el backen para un e-commmerce poniendo foco en los controladores y validaciones de iniformación.
 
