@@ -34,6 +34,9 @@ nmp run start:dev
 
 ## Módulos
 
+<details>
+<summary>Detalle</summary>
+
 La programación modular nos permite:
 
 - Tener el código organizado
@@ -170,7 +173,12 @@ import { CustomersService } from './services/customers.service';
 export class UsersModule {}
 ```
 
+</details>
+
 ## Interacción entre módulos
+
+<details>
+<summary>Detalle</summary>
 
 Ya modularizamos a products y a users. Ahora cada módulo funciona como una isla así que no interactúan entre ellos.
 
@@ -356,7 +364,12 @@ import { ProductsModule } from './../products/products.module';
 export class UsersModule {}
 ```
 
+</details>
+
 ## Entendiendo la inyección de dependencias
+
+<details>
+<summary>Detalle</summary>
 
 El patrón de inyección de dependencias es un principio de arquitectura que nos permite desacoplar las cosas y un controlador por medio de su constructor utilizará un servicio A o B. Inyecta los servicios para que se utilicen en el controlador.
 
@@ -394,7 +407,12 @@ Al definir el servicio en el contructor queda como atributo de la clase. Por est
 
 Nest js gestiona todos estos patrones por nosotros.
 
+</details>
+
 ## useValue y useClass
+
+<details>
+<summary>Detalle</summary>
 
 Hasta el momento hemos utilizado el useClass. La inyección de dependencias por debajo utiliza useClass. Pero, ¿qué otra cosa se puede inyectar?
 
@@ -450,7 +468,12 @@ NODE_ENV=prod npm run start:dev
 
 El useValue se utilizará mucho en testing y para las conexiones.
 
+</details>
+
 ## useFactory
+
+<details>
+<summary>Detalle</summary>
 
 **useFactory** es un método que nos va a permitir con ciertas reglas. Es una fábrica qie maneja inyección de dependencias y asincronismo. Será importante cuando veamos conexiones a base de datos.
 
@@ -554,7 +577,13 @@ Trasladamos la constante API_KEY de app.module a este módulo pero como este mó
 
 El Global Módule se utliza para variables que necesitamos utilizar en otros módulos. Deben ser generales para toda la aplicación. También se puede utilizar para resolver dependencias circulares, aunque no es ideal.
 
+</details>
+
 ## Módulo de configuración
+
+<details>
+
+<summary>Detalle</summary>
 
 El **config module** nos permitirá trabajar con variables de ambiente, trabajar con distintos tipo de ambiente, con entornos de desarrollo, entornos de testing, staging hasta entornos de producción y debemos moldear la API para que se comporte de acuerdo a estas variables.
 
@@ -661,7 +690,12 @@ export class UsersService {
 }
 ```
 
+</details>
+
 ## Configuración por ambientes
+
+<details>
+<summary>Detalle</summary>
 
 Utilizaremos los archivos de tipo .env para configurar los distintos ambientes. Ej: el ambiente de desarrollo tendrá un API_KEY diferente a la de producción, o la conexión a la base de datos.
 
@@ -767,7 +801,12 @@ NODE_ENV=prod npm run start:dev
 npm run start:dev
 ```
 
+</details>
+
 ## Tipado en la configuración
+
+<details>
+<summary>Detalle</summary>
 
 Una forma evitar errores en la configuración del proyecto es tipar los datos. ¿Qué pasaría si por error en lugar de escribir this.config.get('API_KEY') escribimos this.config.get('API_KY')?
 
@@ -868,7 +907,12 @@ import config from './config';
 export class AppModule {}
 ```
 
+</details>
+
 ## Validación de esquemas en .envs con Joi
+
+<details>
+<summary>Detalle</summary>
 
 El tipado en la configuración nos ayuda en el momento de desarrollo, pero qué ocurre si al realizar el deploy enviamos valores incorrectos en la configuración (tiempo de ejecución). Ejemplo: si en el puerto en lugar de colocar un número el implementador en producción coloca un string.
 
@@ -940,7 +984,12 @@ Ahora, si intentamos levantar el backend sin la configuración en .env del puert
 
 > Recordemos de acuerdo a donde se realice la implementación puede que las variables se configuren gráficamente, o si es un servidor propio utilizaríamos el archivo .env. De todas maneras, ahora el servidor se encuentra protegido ante fallos en la configuración de las variables de entorno desde el exterior tanto en valores como en tipos.
 
+</details>
+
 ## Integrando Swagger y PartialType con Open API
+
+<details>
+<summary>Detalle</summary>
 
 La documentación es muy valiosa, no solo para nosotros como desarrolladores del backend, sino para el cliene que se conecte a nuestra API, para el equipo de frontend, al equipo de desarrollo mobile. Podríamos enviar un archivo generado por Postman o Insomnia pero eso no es una buena documentación, es más bien prueba y eror.
 
@@ -1033,7 +1082,12 @@ export class CreateUserDto {
 export class UpdateUserDto extends PartialType(CreateUserDto) {}
 ```
 
+</details>
+
 ## Extendiendo la documentación
+
+<details>
+<summary>Detalle</summary>
 
 Swagger realiza el trabajo de la documentación pero podemos agregar más detalle para que sea más facil de leer y quede más completa.
 
@@ -1146,6 +1200,8 @@ export class BrandsController {
 ![Nest Documentación.](/astro-doc-full-stack/images/nest-js/nest-doc.webp)
 
 > Nota: no es necesario utilizar todos lo decoradores de documentación. Tendremos que ver cuáles serán necesarios de acuerdo a las particularidades del proyecto.
+
+</details>
 
 <style>
   h1 { color: #713f12; }
