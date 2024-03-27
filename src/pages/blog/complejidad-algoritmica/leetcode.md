@@ -20,7 +20,7 @@ category: Leetcode
 
 https://leetcode.com/
 
-- [9. Palindrome Number](./leetcode/9-Palindrome-Number)
+- [9. Palindrome Number](/astro-doc-full-stack/blog/complejidad-algoritmica/leetcode/9-Palindrome-Number)
 
 ## 20. ❌ Valid Parentheses
 
