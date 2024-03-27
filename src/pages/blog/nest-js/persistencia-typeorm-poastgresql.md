@@ -1317,6 +1317,182 @@ export class ProductsService {
 
 </details>
 
+## Sync Mode vs. Migraciones en TypeORM
+
+<details>
+<summary>Detalle</summary>
+
+**Migraciones** -> es la forma en que controlamos los cambios hacia la base de datos.
+
+En el proyecto utilizamos la **versión síncrona de TypeORM**. Cuando configuramos la conexión tenemos una bandera que indica **synchroniza: true**. Las consecuencias de esta bandera es que cada vez que creamos una entidad o agregamos un atributo, lo sincroniza directamente a la BD. Por eso cuando ejecutamos el proyecto ya estaban disponibles las tablas.
+
+Este modo de sincronizar es buena práctica en desarrollo o para ambientes de testing. En producción es mala práctica y es riesgosa, puede corremper la BD o borrar una columna que tiene información productiva.
+
+Para evitar este problema se creatron las **migraciones**. Las migraciones son como un control de versión de la BD. Entonces cuando creemos una nueva entidad tendremos una migración para crear la tabla en la BD, o cuando alteramos un campo. Así disminuimos el riesgo de perder información.
+
+Sync Mode en TypeORM es una opción que se puede utilizar cuando se está trabajando con una base de datos de TypeORM. Sync Mode indica si TypeORM debe sincronizar la estructura de la base de datos con el modelo de entidades que se está utilizando. Si Sync Mode está habilitado, TypeORM comparará la estructura de la base de datos con el modelo de entidades y, si hay alguna diferencia, modificará la base de datos para que coincida con el modelo de entidades.
+
+Las migraciones, por otro lado, son un proceso que se utiliza para realizar cambios en la estructura de una base de datos de manera controlada y documentada. Las migraciones se pueden utilizar para hacer cosas como agregar o eliminar tablas, modificar columnas existentes o agregar nuevas columnas a una tabla. Al utilizar migraciones, se puede tener un control más preciso sobre los cambios que se están realizando en la base de datos y revertir cambios si es necesario.
+
+En general, Sync Mode es útil cuando se está trabajando en un entorno de desarrollo y se quiere que TypeORM se encargue de mantener la base de datos sincronizada con el modelo de entidades. Las migraciones, por otro lado, son más adecuadas para entornos de producción, ya que permiten un mayor control y documentación de los cambios que se realizan en la base de datos.
+
+</details>
+
+## Configurando migraciones y npm scripts
+
+<details>
+<summary>Detalle</summary>
+
+El CLI de TypeORM nos ayuda a generar las migraciones de forma automática, muy similar al CLI de Nest que nos ayuda a crear controladores, módulos, servicios, etc.
+
+Para ejecutar las migraciones con TypeORM se requiere de una conexión propia a la BD. Esta configuración es aparte de la que tenemos con Nest.
+
+Para leer la variables de ambiente tendremos que utilizar el package dotenv. Ya que no utilizaremos los módulos de Nest. Podemos ejecutar las migraciones sin que el servidor se encuentre en ejecución. Por eso, leemos directamente las variables de .env.
+
+```bash
+npm i dotenv
+npm i ts-node --save-dev
+```
+
+```ts
+// src/database/data-source.ts
+import { DataSource } from 'typeorm';
+import * as dotenv from 'dotenv';
+
+dotenv.config();
+
+export const AppDataSource = new DataSource({
+  type: 'postgres',
+  url: process.env.TYPEORM_URL,
+  synchronize: Boolean(process.env.TYPEORM_SYNCHRONIZE),
+  logging: Boolean(process.env.TYPEORM_LOGIN),
+  migrations: [process.env.TYPEORM_MIGRATIONS],
+  migrationsTableName: process.env.TYPEORM_MIGRATIONS_TABLE_NAME,
+  entities: [process.env.TYPEORM_ENTITIES],
+});
+```
+
+```sh
+# .env
+API_KEY=12345678
+DATABASE_NAME=my_db
+DATABASE_PORT=5432
+
+## DB
+POSTGRES_HOST=localhost
+POSTGRES_PORT=5432
+POSTGRES_DB=my_db
+POSTGRES_USER=root
+POSTGRES_PASSWORD=123456
+TYPEORM_URL='postgres://root:123456@localhost:5432/my_db'
+TYPEORM_ENTITIES='src/**/*.entity.ts'
+TYPEORM_LOGGING=false
+TYPEORM_MIGRATIONS='src/database/migrations/*.ts'
+TYPEORM_MIGRATIONS_TABLE_NAME='migrations'
+TYPEORM_SYNCHRONIZE=false
+```
+
+```json
+// package.json
+// ..
+"scripts": {
+  //...
+  "typeorm": "typeorm-ts-node-esm -d src/database/data-source.ts",
+  "migrations:generate": "npm run typeorm -- migration:generate",
+  "migrations:run": "npm run typeorm -- migration:run",
+  "migrations:show": "npm run typeorm -- migration:show",
+  "migrations:drop": "npm run typeorm -- schema:drop",
+  "migrations:revert": "npm run typeorm -- migration:revert"
+},
+//...
+```
+
+```ts
+// database.module.ts
+import { Module, Global } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { ConfigType } from '@nestjs/config';
+
+import { Client } from 'pg';
+import config from '../config';
+
+const API_KEY = '12345678';
+const API_KEY_PROD = 'PROD12345678';
+
+@Global()
+@Module({
+  imports: [
+    TypeOrmModule.forRootAsync({
+      inject: [config.KEY],
+      useFactory: (configService: ConfigType<typeof config>) => {
+        const { dbHost, dbPort, dbName, dbUser, dbPass } =
+          configService.postgres;
+        return {
+          type: 'postgres',
+          host: dbHost,
+          port: dbPort,
+          username: dbUser,
+          password: dbPass,
+          database: dbName,
+          // entities: [],
+          // pasamos synchronize a false
+          synchronize: false,
+          autoLoadEntities: true,
+        };
+      },
+    }),
+  ],
+  providers: [
+    {
+      provide: 'API_KEY',
+      useValue: process.env.NODE_ENV === 'prod' ? API_KEY_PROD : API_KEY,
+    },
+    {
+      provide: 'PG',
+      useFactory: (configService: ConfigType<typeof config>) => {
+        const { dbHost, dbPort, dbName, dbUser, dbPass } =
+          configService.postgres;
+        const client = new Client({
+          host: dbHost,
+          port: dbPort,
+          database: dbName,
+          user: dbUser,
+          password: dbPass,
+        });
+
+        client.connect();
+        return client;
+      },
+      inject: [config.KEY],
+    },
+  ],
+  exports: ['API_KEY', 'PG', TypeOrmModule],
+})
+export class DatabseModule {}
+```
+
+Antes de crear mas migraciones vamos a eliminar las tablas existentes para crearlas a partir de la migración inicial. Ejecutar este comando con mucha precausión ya que elimina todas las tablas y su información.
+
+```bash
+npm run migrations:drop
+```
+
+Creemos la primera migración con el CLI de typeORM
+
+```bash
+npm run migrations:generate ./src/database/migrations/init
+```
+
+Corremos las migraciones
+
+```bash
+npm run migrations:run
+```
+
+</details>
+
+## Modificando una entidad
+
 <style>
   h1 { color: #713f12; }
   h2 { color: #2563eb; }

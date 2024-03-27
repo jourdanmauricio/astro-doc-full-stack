@@ -1,17 +1,24 @@
 ---
-layout: '../../layouts/BlogPostLayout.astro'
-title: Algunos ejercicios de Leetcode
+layout: '../../../layouts/SubBlogPostLayout.astro'
+title: Leetcode
 date: 11-02-2024
 author: Mauricio Jourdán
 image:
   {
-    src: '/astro-doc-full-stack/images/leetcode.png',
-    alt: 'A picture of a coder',
+    src: '/astro-doc-full-stack/images/complejidad-algoritmica/back-leetcode.png',
+    alt: 'Leetcode - js',
   }
-description: Resolución Ejercicios de Leetcode
+icon:
+  {
+    src: '/astro-doc-full-stack/images/complejidad-algoritmica/icon.png',
+    alt: 'Logo Leetcode',
+  }
+description: Ejercicios Leetcode.
 draft: false
-category: JS Leetcode
+category: Leetcode
 ---
+
+https://leetcode.com/
 
 ## 9. ❌ Palindrome Number
 
