@@ -48,25 +48,27 @@ https://leetcode.com/
 
 <mark>Follow up: Could you solve it without converting the integer to a string?</mark>
 
+**Solution**
+
 ```javascript
 /**
  * @param {number} x
  * @return {boolean}
  */
 var isPalindrome = function (x) {
-  // const cadena = x.toString();
-  // const array = cadena.split('');
-  // const reverse = array.reverse();
-  // return cadena === reverse.join('');
-  const number = x.toString();
-  let res = true;
+  let cadena = x.toString();
+  let result = true;
 
-  for (let i = 0; Math.floor(i < number.length / 2); i++) {
-    if (number[i] !== number[number.length - i - 1]) res = false;
+  for (let i = 0; Math.floor(i < cadena.length / 2); i++) {
+    if (cadena[i] !== cadena[cadena.length - i - 1]) result = false;
   }
 
-  return res;
+  return result;
 };
+
+console.log(isPalindrome(121)); // true
+console.log(isPalindrome(-121)); // false
+console.log(isPalindrome(10)); // false
 ```
 
 <style>
