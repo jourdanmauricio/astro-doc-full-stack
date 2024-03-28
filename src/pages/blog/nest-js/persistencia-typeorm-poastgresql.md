@@ -1493,6 +1493,608 @@ npm run migrations:run
 
 ## Modificando una entidad
 
+<details>
+<summary>Detalle</summary>
+
+Si agregamos un nuevo atributo a una tabla, ¿Cómo lo controlamos en una migración?
+
+A la entidad de productos le agregaremo los campos createdAt y updatedAt a través de los decoradores que nos ofrece TypeORM.
+
+<mark>Como los dos nuevos campos son generados por default no debemos agregarlos al dto. timestamptz -> asigna zona horaria.</mark>
+
+```ts
+// product.entity
+import {
+  Column,
+  PrimaryGeneratedColumn,
+  Entity,
+  CreateDateColumn,
+} from 'typeorm';
+
+@Entity({ name: 'products' })
+export class Product {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column({ type: 'varchar', length: 255, unique: true })
+  name: string;
+
+  @Column({ type: 'text' })
+  description: string;
+
+  @Column({ type: 'int' })
+  price: number;
+
+  @Column({ type: 'int' })
+  stock: number;
+
+  @Column({ type: 'varchar', length: 255 })
+  image: string;
+
+  // timestamptz -> asigna zona horaria
+  @CreateDateColumn({
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  createAt: Date;
+  // timestamptz -> asigna zona horaria
+  @CreateDateColumn({
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  updatedAt: Date;
+}
+```
+
+```bash
+npm run migrations:generate ./src/database/migrations/product-add-fields
+npm run migrations:run
+npm run migrations:show
+
+# [X] 1 Init1711514850150
+# [X] 2 ProductAddFields1711571479528
+```
+
+</details>
+
+## Relaciones uno a uno
+
+<details>
+<summary>Detalle</summary>
+Dentro de las bases de datos relaciones existen las relaciones **uno a uno**, **uno a muchos** y **muchos a muchos**.
+
+Comenzaremos por la relación uno a uno entre user y customer. Un customer puede tener un usuario (no es obligatorio porque tenfremos users administrativos que no son customers), y un user solo puede tener un customer.
+
+<mark>Las relaciones uno a uno tienen una **llave foranea (FK)** que nos lleva hacia la otra tabla. Alguna de las dos tablas debe llevar la relación. **No importa demasiado cuál es la tabla que lleva la relación, TypeORM nos dá la posibilidad de hacer la referencia bidireccional**</mark>, pero por practicidad la colocaremos en la tabla user para saber si un user es un customer.
+
+En el proyecto que la relación sea bidireccional significa que cuando trabajamos con usuarios puedo saber si ese usuario tiene o no un customer (haciendo el join de forma automática) pero si estamos trabajando en customer, ¿cómo podría saber si ese customer tiene un usuario? No lo podríamos saber en forma directa a menos que hagamos un query. La relación bidireccional nos permite tener la referencia desde user a customer como desde customer a user.
+
+```ts
+// user.entity.ts
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinColumn,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { Customer } from './customer.entity';
+
+@Entity({ name: 'users' })
+export class User {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column({ type: 'varchar', length: 255, unique: true })
+  email: string;
+
+  @Column({ type: 'varchar', length: 255 })
+  password: string;
+
+  @Column({ type: 'varchar', length: 100 })
+  role: string;
+
+  @CreateDateColumn({
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  createAt: Date;
+
+  @CreateDateColumn({
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  updatedAt: Date;
+
+  // JoinColumn crea la referencia hacia la otra tabla
+  // Se coloca en la tabla que queremos que cargue la relación
+  // Joincolumn no se puede colocar en las dos tablas
+  // nullable: true -> indica que pueden existir users que no sean customers
+  // Para que funcione la relación bidireccional debemos
+  // especificar contra que campo se resuelve la referencia
+  @OneToOne(() => Customer, (customer) => customer.user, { nullable: true })
+  @JoinColumn()
+  customer: Customer;
+}
+```
+
+```ts
+// customer.entity.ts
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { User } from './user.entity';
+
+@Entity({ name: 'customers' })
+export class Customer {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column({ type: 'varchar', length: 255 })
+  name: string;
+
+  @Column({ type: 'varchar', length: 255 })
+  lastName: string;
+
+  @Column({ type: 'varchar', length: 255 })
+  phone: string;
+
+  @CreateDateColumn({
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  createAt: Date;
+
+  @CreateDateColumn({
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  updatedAt: Date;
+
+  // Para que funcione la relación bidireccional debemos
+  // especificar contra que campo se resuelve la referencia
+  @OneToOne(() => User, (user) => user.customer, { nullable: true })
+  user: User;
+}
+```
+
+```bash
+npm run migrations:generate ./src/database/migrations/user-customer-relation
+npm run migrations:run
+npm run migrations:show
+
+# [X] 1 Init1711514850150
+# [X] 2 ProductAddFields1711571479528
+```
+
+</details>
+
+## Resolviendo la relación uno a uno en el controlador
+
+<details>
+<summary>Detalle</summary>
+
+Al momento de crear un user podríamos tener el id del customer (no es obligatorio), asi que comenzamos por agregar el campo customerId al dto de users.
+
+Modificamos el servicio de users para que al momento de crear un usuario, obtener el customerId para poder relacionarlo. También modificaremos el método find para que al consultar todos los usuarios retorne la información de customers indicando la relación.
+
+```ts
+// user.dto.ts
+import {
+  IsString,
+  IsNotEmpty,
+  IsEmail,
+  Length,
+  IsPositive,
+  IsOptional,
+} from 'class-validator';
+import { ApiProperty, PartialType } from '@nestjs/swagger';
+
+export class CreateUserDto {
+  @ApiProperty()
+  @IsString()
+  @IsEmail()
+  readonly email: string;
+
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  @Length(6)
+  readonly password: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  readonly role: string;
+
+  @IsOptional()
+  @ApiProperty()
+  @IsPositive()
+  readonly customerId: number;
+}
+
+export class UpdateUserDto extends PartialType(CreateUserDto) {}
+```
+
+```ts
+// users.service.ts
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { ConfigService } from '@nestjs/config';
+import { Repository } from 'typeorm';
+import { Client } from 'pg';
+
+import { User } from '../entities/user.entity';
+import { ProductsService } from './../../products/services/products.service';
+import { CreateUserDto, UpdateUserDto } from '../dtos/user.dto';
+import { CustomersService } from './customers.service';
+
+// import { Order } from '../entities/order.entity';
+
+@Injectable()
+export class UsersService {
+  constructor(
+    @InjectRepository(User) private userRepo: Repository<User>,
+    private configService: ConfigService,
+    private productsService: ProductsService,
+    @Inject('PG') private clientPg: Client,
+    private customersService: CustomersService
+  ) {}
+
+  findAll() {
+    const apiKey = this.configService.get('API_KEY');
+    const dbName = this.configService.get('DATABASE_NAME');
+    console.log('apiKey', apiKey);
+    console.log('atabaseName', dbName);
+    // retornamos los users con la relacion a customers
+    return this.userRepo.find({
+      relations: ['customer'],
+    });
+  }
+
+  async findOne(id: number) {
+    const user = await this.userRepo.findOneBy({ id });
+
+    if (!user) throw new NotFoundException('user not found');
+    return user;
+  }
+
+  async create(data: CreateUserDto) {
+    const newUser = this.userRepo.create(data);
+    // Buscamos el customerId
+    if (data.customerId) {
+      const customer = await this.customersService.findOne(data.customerId);
+      newUser.customer = customer;
+    }
+    return this.userRepo.save(newUser);
+  }
+
+  async update(id: number, changes: UpdateUserDto) {
+    const user = await this.findOne(id);
+    this.userRepo.merge(user, changes);
+    return this.userRepo.save(user);
+  }
+
+  remove(id: number) {
+    return this.userRepo.delete(id);
+  }
+
+  async getOrdersByUser(id: number) {
+    const user = this.findOne(id);
+    return {
+      date: new Date(),
+      user,
+      products: await this.productsService.findAll(),
+    };
+  }
+
+  getTasks() {
+    return new Promise((resolve, reject) => {
+      this.clientPg.query('SELECT * FROM tasks', (err, res) => {
+        if (err) reject(err);
+        resolve(res.rows);
+      });
+    });
+  }
+}
+```
+
+Creamos un user de tipo administrador que no tendrá su contraparte como customer.
+
+![Crear user admin.](/astro-doc-full-stack/images/nest-js/create-user-admin.webp)
+
+Creamos un customer.
+
+![Crear customer.](/astro-doc-full-stack/images/nest-js/create-customer.webp)
+
+Creamos el user para ese customer.
+
+![Crear user customer.](/astro-doc-full-stack/images/nest-js/create-user-customer.webp)
+
+Finalmente comprobamos la relación al obtener todos los usuarios.
+
+![Obtener todos los usuarios.](/astro-doc-full-stack/images/nest-js/getAllUsers.webp)
+
+Como vemos el user admin no posee un usuario customer, pero el user con role customer posee la relación.
+
+</details>
+
+## Relaciones uno a muchos
+
+<details>
+<summary>Detalle</summary>
+
+Para ilustrar las relaciones **1 a muchos** vamos a utilizar productos y marcas. Un producto solo puede pertenecer a una marca, pero una marca puede estar ligada a muchos productos.
+
+En una relación de 1 a muchos la entidad débil es la que lleva la relación. Product es la que tiene que tener la referencia porque un producto solo puede tener una marca.
+
+En esta oportunidad también dfefiniremos la relación bidireccional, ya que nos puede interesar obtener todos los productos al consultar una marca.
+
+No utilizaremos el decorador @JoinColmun porque TypeORM sabe que la entidad que carga con la relación, es la ManyToOne, la que poseerá la Foreing Key.
+
+```ts
+// brand.entity.ts
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { Product } from './product.entity';
+
+@Entity({ name: 'brands' })
+export class Brand {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column({ type: 'varchar', length: 255, unique: true })
+  name: string;
+
+  @Column({ type: 'varchar', length: 255 })
+  image: string;
+
+  @CreateDateColumn({
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  createAt: Date;
+
+  @CreateDateColumn({
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  updatedAt: Date;
+
+  @OneToMany(() => Product, (product) => product.brand)
+  products: Product[];
+}
+```
+
+```ts
+// product.entity.ts
+import {
+  Column,
+  PrimaryGeneratedColumn,
+  Entity,
+  CreateDateColumn,
+  ManyToOne,
+} from 'typeorm';
+import { Brand } from './brand.entity';
+
+@Entity({ name: 'products' })
+export class Product {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column({ type: 'varchar', length: 255, unique: true })
+  name: string;
+
+  @Column({ type: 'text' })
+  description: string;
+
+  @Column({ type: 'int' })
+  price: number;
+
+  @Column({ type: 'int' })
+  stock: number;
+
+  @Column({ type: 'varchar', length: 255 })
+  image: string;
+
+  @CreateDateColumn({
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  createAt: Date;
+
+  @CreateDateColumn({
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  updatedAt: Date;
+
+  @ManyToOne(() => Brand, (brand) => brand.products)
+  brand: Brand;
+}
+```
+
+```bash
+npm run migrations:generate ./src/database/migrations/brand-product-relation
+npm run migrations:run
+```
+
+</details>
+
+## Resolviendo la relación uno a muchos en el controlador
+
+<details>
+<summary>Detalle</summary>
+
+```ts
+// products.dto.ts
+import { ApiProperty, PartialType } from '@nestjs/swagger';
+
+import {
+  IsString,
+  IsNumber,
+  IsUrl,
+  IsNotEmpty,
+  IsPositive,
+} from 'class-validator';
+// isEmail, isDate, etc
+
+export class CreateProductDto {
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  readonly name: string;
+
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  readonly description: string;
+
+  @ApiProperty()
+  @IsNumber()
+  @IsPositive()
+  @IsNotEmpty()
+  readonly price: number;
+
+  @ApiProperty()
+  @IsNumber()
+  @IsPositive()
+  @IsNotEmpty()
+  readonly stock: number;
+
+  @ApiProperty()
+  @IsUrl()
+  @IsNotEmpty()
+  readonly image: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsPositive()
+  brandId: number;
+}
+
+export class UpdateProductDto extends PartialType(CreateProductDto) {}
+```
+
+```ts
+// products.services.ts
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { Product } from '../entities/product.entity';
+import { CreateProductDto, UpdateProductDto } from '../dtos/products.dtos';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { BrandsService } from './brands.service';
+
+@Injectable()
+export class ProductsService {
+  // Simulamos el id. Luego lo gestionará la BD
+
+  constructor(
+    @InjectRepository(Product) private productRepo: Repository<Product>,
+    private brandsService: BrandsService
+  ) {}
+
+  findAll() {
+    return this.productRepo.find({ relations: ['brand'] });
+  }
+
+  async findOne(id: number) {
+    const product = await this.productRepo.findOneBy({ id });
+
+    if (!product) throw new NotFoundException('product not found');
+    return product;
+  }
+
+  async create(data: CreateProductDto) {
+    const newProduct = this.productRepo.create(data);
+    if (data.brandId) {
+      const brand = await this.brandsService.findOne(data.brandId);
+      newProduct.brand = brand;
+    }
+
+    return this.productRepo.save(newProduct);
+  }
+
+  async update(id: number, changes: UpdateProductDto) {
+    const product = await this.findOne(id);
+
+    // Si hay cambio de marca
+    if (changes.brandId) {
+      const brand = await this.brandsService.findOne(changes.brandId);
+      product.brand = brand;
+    }
+
+    this.productRepo.merge(product, changes);
+    return this.productRepo.save(product);
+  }
+
+  remove(id: number) {
+    return this.productRepo.delete(id);
+  }
+}
+```
+
+```ts
+// brands.service.ts
+import { Injectable, NotFoundException } from '@nestjs/common';
+
+import { Brand } from '../entities/brand.entity';
+import { CreateBrandDto, UpdateBrandDto } from '../dtos/brand.dtos';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+
+@Injectable()
+export class BrandsService {
+  constructor(@InjectRepository(Brand) private brandRepo: Repository<Brand>) {}
+
+  findAll() {
+    return this.brandRepo.find();
+  }
+
+  async findOne(id: number) {
+    const brand = await this.brandRepo.findOne({
+      where: { id },
+      relations: ['products'],
+    });
+
+    if (!brand) throw new NotFoundException('category not found');
+    return brand;
+  }
+
+  create(data: CreateBrandDto) {
+    const newBrand = this.brandRepo.create(data);
+    return this.brandRepo.save(newBrand);
+  }
+
+  async update(id: number, changes: UpdateBrandDto) {
+    const brand = await this.findOne(id);
+    this.brandRepo.merge(brand, changes);
+    return this.brandRepo.save(brand);
+  }
+
+  remove(id: number) {
+    return this.brandRepo.delete(id);
+  }
+}
+```
+
+![Create brand.](/astro-doc-full-stack/images/nest-js/create-brand.webp)
+
+![Create product.](/astro-doc-full-stack/images/nest-js/create-product.webp)
+
+![Get product.](/astro-doc-full-stack/images/nest-js/brand-products.webp)
+
+</details>
+
 <style>
   h1 { color: #713f12; }
   h2 { color: #2563eb; }
