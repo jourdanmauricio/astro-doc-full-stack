@@ -2095,6 +2095,742 @@ export class BrandsService {
 
 </details>
 
+## Relaciones muchos a muchos
+
+<details>
+<summary>Detalle</summary>
+
+Una relación muchos a muchos implica tener una tabla terciaria. TypeORM la gestiona por nosotros a través del decorador JoinTables, que se debe colocar en solo lado de la relación, sin importar en cuál de las tablas se define.
+
+En el proyecto estbleceramos la relación muchos a muchos entre categories y products. Un producto puede tener muchas categorías y una categoría puede tener muchos productos.
+
+```ts
+// catgory.entity.ts
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { Product } from './product.entity';
+
+@Entity({ name: 'categories' })
+export class Category {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column({ type: 'varchar', length: 255, unique: true })
+  name: string;
+
+  @CreateDateColumn({
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  createAt: Date;
+
+  @CreateDateColumn({
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  updatedAt: Date;
+
+  @ManyToMany(() => Product, (product) => product.categories)
+  @JoinTable()
+  products: Product[];
+}
+```
+
+```ts
+// product.entity.ts
+import { Category } from './category.entity';
+import {
+  Column,
+  PrimaryGeneratedColumn,
+  Entity,
+  CreateDateColumn,
+  ManyToOne,
+  ManyToMany,
+} from 'typeorm';
+import { Brand } from './brand.entity';
+
+@Entity({ name: 'products' })
+export class Product {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column({ type: 'varchar', length: 255, unique: true })
+  name: string;
+
+  @Column({ type: 'text' })
+  description: string;
+
+  @Column({ type: 'int' })
+  price: number;
+
+  @Column({ type: 'int' })
+  stock: number;
+
+  @Column({ type: 'varchar', length: 255 })
+  image: string;
+
+  @CreateDateColumn({
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  createAt: Date;
+
+  @CreateDateColumn({
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  updatedAt: Date;
+
+  @ManyToOne(() => Brand, (brand) => brand.products)
+  brand: Brand;
+
+  @ManyToMany(() => Category, (category) => category.products)
+  categories: Category[];
+}
+```
+
+```bash
+npm run migrations:generate ./src/database/migrations/category-product-relation
+npm run migrations:run
+```
+
+</details>
+
+## Resolviendo la relación muchos a muchos en el controlador
+
+<details>
+<summary>Detalle</summary>
+
+Al crear un producto debemos indicar que se encuentra relacionado a varias categorías. Lo primero que debemos modificar es el dto para crear este campo nuevo e indicar que es oblitagorio.
+
+Una vez nos llegan las categorías en el dto debemos modificar el servicio de products para resolver la relación. Buscar las categorías para incoroirarlas al nuevo producto. Deberíamos realizar un for por cada categoría informada para realizar la búsqueda pero TypeORM posee el operador In que nos permite buscar un array de ids en una sola consulta ().
+
+Por otro lado, modificaremos la consulta a brands reemplazando el servicio por el repositorio. Esto cambio se debe, a que al crear un producto se busca la información de la marca y el findOne de la marca trae la relación hacia productos nuevamente, y funciona pero tenemos redundancia de información.
+
+También podemos modificar los gets de productos para que retorne la relación con categorías. Solo lo incorporaremos al findOne porque realizarlo en la consulta de todos los pructos puede traer demasiada información.
+
+Finalmente, cuando realizamos un getOne por categoría deberíamos retornar los productos asociados a esa categoría.
+
+```ts
+// products.dto.ts
+import { ApiProperty, PartialType } from '@nestjs/swagger';
+
+import {
+  IsString,
+  IsNumber,
+  IsUrl,
+  IsNotEmpty,
+  IsPositive,
+  IsArray,
+} from 'class-validator';
+// isEmail, isDate, etc
+
+export class CreateProductDto {
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  readonly name: string;
+
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  readonly description: string;
+
+  @ApiProperty()
+  @IsNumber()
+  @IsPositive()
+  @IsNotEmpty()
+  readonly price: number;
+
+  @ApiProperty()
+  @IsNumber()
+  @IsPositive()
+  @IsNotEmpty()
+  readonly stock: number;
+
+  @ApiProperty()
+  @IsUrl()
+  @IsNotEmpty()
+  readonly image: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsPositive()
+  readonly brandId: number;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsArray()
+  readonly categoriesIds: number[];
+}
+
+export class UpdateProductDto extends PartialType(CreateProductDto) {}
+```
+
+```ts
+// products.service.ts
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { In, Repository } from 'typeorm';
+
+import { Product } from '../entities/product.entity';
+import { CreateProductDto, UpdateProductDto } from '../dtos/products.dtos';
+import { Category } from '../entities/category.entity';
+import { Brand } from '../entities/brand.entity';
+
+@Injectable()
+export class ProductsService {
+  constructor(
+    @InjectRepository(Product) private productRepo: Repository<Product>,
+    // private brandsService: BrandsService,
+    @InjectRepository(Brand) private brandRepo: Repository<Brand>,
+    @InjectRepository(Category) private categoryRepo: Repository<Category>
+  ) {}
+
+  findAll() {
+    return this.productRepo.find({ relations: ['brand'] });
+  }
+
+  async findOne(id: number) {
+    const product = await this.productRepo.findOne({
+      where: { id },
+      relations: ['brand', 'categories'],
+    });
+
+    if (!product) throw new NotFoundException('product not found');
+    return product;
+  }
+
+  async create(data: CreateProductDto) {
+    const newProduct = this.productRepo.create(data);
+    if (data.brandId) {
+      const brand = await this.brandRepo.findOne({
+        where: { id: data.brandId },
+      });
+      newProduct.brand = brand;
+    }
+
+    if (data.categoriesIds) {
+      const categories = await this.categoryRepo.findBy({
+        id: In(data.categoriesIds),
+      });
+
+      newProduct.categories = categories;
+    }
+
+    return this.productRepo.save(newProduct);
+  }
+
+  async update(id: number, changes: UpdateProductDto) {
+    const product = await this.findOne(id);
+
+    // Si hay cambio de marca
+    if (changes.brandId) {
+      const brand = await this.brandRepo.findOne({
+        where: { id: changes.brandId },
+      });
+      product.brand = brand;
+    }
+
+    this.productRepo.merge(product, changes);
+    return this.productRepo.save(product);
+  }
+
+  remove(id: number) {
+    return this.productRepo.delete(id);
+  }
+}
+```
+
+```ts
+// categories.service.ts
+import { Injectable, NotFoundException } from '@nestjs/common';
+
+import { Category } from '../entities/category.entity';
+import { CreateCategoryDto, UpdateCategoryDto } from '../dtos/category.dtos';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+
+@Injectable()
+export class CategoriesService {
+  constructor(
+    @InjectRepository(Category) private categoryRepo: Repository<Category>
+  ) {}
+
+  findAll() {
+    return this.categoryRepo.find();
+  }
+
+  async findOne(id: number) {
+    const category = await this.categoryRepo.findOne({
+      where: { id },
+      relations: ['products'],
+    });
+
+    if (!category) throw new NotFoundException('category not found');
+    return category;
+  }
+
+  create(data: CreateCategoryDto) {
+    const newCategory = this.categoryRepo.create(data);
+    return this.categoryRepo.save(newCategory);
+  }
+
+  async update(id: number, changes: UpdateCategoryDto) {
+    const category = await this.findOne(id);
+    this.categoryRepo.merge(category, changes);
+    return this.categoryRepo.save(category);
+  }
+
+  remove(id: number) {
+    return this.categoryRepo.delete(id);
+  }
+}
+```
+
+</details>
+
+## Manipulación de arreglos en relaciones muchos a muchos
+
+<details>
+<summary>Detalle</summary>
+
+**¿Cómo actualizamos las categorías de un producto?** O, si deseamos eliminar una categoría del array de categorías en el producto.
+
+```ts
+// products.dto.ts
+import { ApiProperty, PartialType } from '@nestjs/swagger';
+
+import {
+  IsString,
+  IsNumber,
+  IsUrl,
+  IsNotEmpty,
+  IsPositive,
+  IsArray,
+} from 'class-validator';
+// isEmail, isDate, etc
+
+export class CreateProductDto {
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  readonly name: string;
+
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  readonly description: string;
+
+  @ApiProperty()
+  @IsNumber()
+  @IsPositive()
+  @IsNotEmpty()
+  readonly price: number;
+
+  @ApiProperty()
+  @IsNumber()
+  @IsPositive()
+  @IsNotEmpty()
+  readonly stock: number;
+
+  @ApiProperty()
+  @IsUrl()
+  @IsNotEmpty()
+  readonly image: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsPositive()
+  readonly brandId: number;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsArray()
+  readonly categoriesIds: number[];
+}
+
+export class UpdateProductDto extends PartialType(CreateProductDto) {}
+```
+
+```ts
+// products.controller.ts
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import {
+  Controller,
+  Get,
+  Post,
+  Put,
+  Delete,
+  Param,
+  Query,
+  Body,
+  ParseIntPipe,
+} from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
+
+import { ProductsService } from '../services/products.service';
+// import { ParseIntPipe } from './../common/parse-int/parse-int.pipe';
+import { CreateProductDto, UpdateProductDto } from '../dtos/products.dtos';
+
+@ApiTags('products')
+@Controller('products')
+export class ProductsController {
+  constructor(private productsService: ProductsService) {}
+
+  @Get()
+  getAll(
+    @Query('limit') limit = 10,
+    @Query('offset') offset = 0,
+    @Query('brand') brand: string
+  ) {
+    return this.productsService.findAll();
+  }
+
+  @Get(':productId')
+  getOne(@Param('productId', ParseIntPipe) productId: number) {
+    return this.productsService.findOne(productId);
+  }
+
+  @Post()
+  create(@Body() payload: CreateProductDto) {
+    return this.productsService.create(payload);
+  }
+
+  @Put(':id')
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() payload: UpdateProductDto
+  ) {
+    return this.productsService.update(id, payload);
+  }
+
+  @Put(':id/category/:categoryId')
+  addCategory(
+    @Param('id', ParseIntPipe) id: number,
+    @Param('categoryId', ParseIntPipe) categoryId: number,
+    @Body() payload: UpdateProductDto
+  ) {
+    return this.productsService.addCategoryToProd(id, categoryId);
+  }
+
+  @Delete(':id')
+  delete(@Param('id', ParseIntPipe) id: number) {
+    return this.productsService.remove(id);
+  }
+
+  @Delete(':id/category/:categoryId')
+  deleteCategory(
+    @Param('id', ParseIntPipe) id: number,
+    @Param('categoryId', ParseIntPipe) categoryId: number
+  ) {
+    return this.productsService.removeCategoryByProd(id, categoryId);
+  }
+}
+```
+
+```ts
+// products.service.ts
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { In, Repository } from 'typeorm';
+
+import { Product } from '../entities/product.entity';
+import { CreateProductDto, UpdateProductDto } from '../dtos/products.dtos';
+import { Category } from '../entities/category.entity';
+import { Brand } from '../entities/brand.entity';
+
+@Injectable()
+export class ProductsService {
+  constructor(
+    @InjectRepository(Product) private productRepo: Repository<Product>,
+    // private brandsService: BrandsService,
+    @InjectRepository(Brand) private brandRepo: Repository<Brand>,
+    @InjectRepository(Category) private categoryRepo: Repository<Category>
+  ) {}
+
+  findAll() {
+    return this.productRepo.find({ relations: ['brand'] });
+  }
+
+  async findOne(id: number) {
+    const product = await this.productRepo.findOne({
+      where: { id },
+      relations: ['brand', 'categories'],
+    });
+
+    if (!product) throw new NotFoundException('product not found');
+    return product;
+  }
+
+  async create(data: CreateProductDto) {
+    const newProduct = this.productRepo.create(data);
+    if (data.brandId) {
+      const brand = await this.brandRepo.findOne({
+        where: { id: data.brandId },
+      });
+      newProduct.brand = brand;
+    }
+
+    if (data.categoriesIds) {
+      const categories = await this.categoryRepo.findBy({
+        id: In(data.categoriesIds),
+      });
+      newProduct.categories = categories;
+    }
+
+    return this.productRepo.save(newProduct);
+  }
+
+  async removeCategoryByProd(productId: number, categoryId: number) {
+    const product = await this.productRepo.findOne({
+      where: { id: productId },
+      relations: ['categories'],
+    });
+    product.categories = product.categories.filter(
+      (item) => item.id !== categoryId
+    );
+
+    return this.productRepo.save(product);
+  }
+
+  async addCategoryToProd(productId: number, categoryId: number) {
+    const product = await this.productRepo.findOne({
+      where: { id: productId },
+      relations: ['categories'],
+    });
+
+    const category = await this.categoryRepo.findOneBy({ id: categoryId });
+    product.categories.push(category);
+    return this.productRepo.save(product);
+  }
+
+  async update(id: number, changes: UpdateProductDto) {
+    const product = await this.findOne(id);
+
+    // Si hay cambio de marca
+    if (changes.brandId) {
+      const brand = await this.brandRepo.findOne({
+        where: { id: changes.brandId },
+      });
+      product.brand = brand;
+    }
+
+    // Si hay cambios en categorías
+    // Esto funciona pero desde el front siempre
+    // se debe enviar todas las categorías.
+
+    // Una buena práctica para el manejo de arrays es
+    // separarlo en un método diferente
+    // y generar endpoints para agregar o quitar categorias
+    if (changes.categoriesIds) {
+      const categories = await this.categoryRepo.findBy({
+        id: In(changes.categoriesIds),
+      });
+      product.categories = categories;
+    }
+
+    this.productRepo.merge(product, changes);
+    return this.productRepo.save(product);
+  }
+
+  remove(id: number) {
+    return this.productRepo.delete(id);
+  }
+}
+```
+
+</details>
+
+## Relaciones muchos a muchos personalizadas
+
+<details>
+<summary>Detalle</summary>
+
+Las relaciones ManyToMany son administradas automáticamente por TypeORM, crea la tabla ternaria (catgory_products), la gestión de la relación, etc. Crea la tabla con solo dos atributos. En nuestro proyecto una columna referenciando a productId y la otra a categoryId.
+
+Pero que pasa si queremos una relación muchos a muchos con campos adicionales. Por ejemplo, orders y productos. Una orden de compra tiene muchos productos, así como muchos productos pueden pertecer a una orden compra. Podriamos utilizar ManyToMany, pero qué ocurre si queremos agregar a la tabla ternaria la cantidad de cada producto.
+
+En esta situación, en la que tenemos que agregar campos a la tabla ternaria, nosotros debemos generar la tabla ternaria.
+
+Crearemos la tabla order tendrá una relación OneToMany hacia el Customer. Y la tabla ternaria (order-items) que poseerá los items para esa order de compra. La tabla tendrá el orderId, el productId y la cantidad de ese producto.
+
+```ts
+// order.entity,ts
+import {
+  CreateDateColumn,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+
+import { Customer } from './customer.entity';
+import { OrderItem } from './order-item.entity';
+
+@Entity({ name: 'orders' })
+export class Order {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @CreateDateColumn({
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  createAt: Date;
+
+  @CreateDateColumn({
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  updatedAt: Date;
+
+  @ManyToOne(() => Customer, (customer) => customer.orders)
+  customer: Customer;
+
+  @OneToMany(() => OrderItem, (item) => item.order)
+  items: OrderItem[];
+}
+```
+
+```ts
+// customer.entity.ts
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  OneToMany,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { User } from './user.entity';
+import { Order } from './order.entity';
+
+@Entity({ name: 'customers' })
+export class Customer {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column({ type: 'varchar', length: 255 })
+  name: string;
+
+  @Column({ type: 'varchar', length: 255 })
+  lastName: string;
+
+  @Column({ type: 'varchar', length: 255 })
+  phone: string;
+
+  @CreateDateColumn({
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  createAt: Date;
+
+  @CreateDateColumn({
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  updatedAt: Date;
+
+  // Para que funcione la relación bidireccional debemos
+  // especificar contra que campo se resuelve la referencia
+  @OneToOne(() => User, (user) => user.customer, { nullable: true })
+  user: User;
+
+  @OneToMany(() => Order, (order) => order.customer)
+  orders: Order[];
+}
+```
+
+```ts
+// order-item.entity.ts
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { Order } from './order.entity';
+import { Product } from '../../products/entities/product.entity';
+
+@Entity()
+export class OrderItem {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @CreateDateColumn({
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  createAt: Date;
+
+  @CreateDateColumn({
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  updatedAt: Date;
+
+  @Column({ type: 'int' })
+  quantity: number;
+
+  // Relación hacia products
+  // No habililitamos la relación bidireccional
+  // porque no nos interesa obtener las ordernes
+  // en las que participó un producto.
+  @ManyToOne(() => Product)
+  product: Product;
+
+  // Relación hacia orders
+  // En este caso si establecemos la bidireccionalidad
+  // Nos interesa los items de una orden,
+  // y desde los obtener la info de la orden
+  @ManyToOne(() => Order, (order) => order.items)
+  order: Order;
+}
+```
+
+```ts
+// users.module.ts
+import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+
+import { User } from './entities/user.entity';
+import { UsersController } from './controllers/users.controller';
+import { UsersService } from './services/users.service';
+import { Customer } from './entities/customer.entity';
+import { CustomersController } from './controllers/customers.controller';
+import { CustomersService } from './services/customers.service';
+import { Order } from './entities/order.entity';
+import { OrderItem } from './entities/order-item.entity';
+import { ProductsModule } from './../products/products.module';
+
+@Module({
+  imports: [
+    ProductsModule,
+    TypeOrmModule.forFeature([User, Customer, Order, OrderItem]),
+  ],
+  controllers: [UsersController, CustomersController],
+  providers: [UsersService, CustomersService],
+})
+export class UsersModule {}
+```
+
+```bash
+npm run migrations:generate ./src/database/migrations/create-order-orderItem
+npm run migrations:run
+```
+
+</details>
+
+## Resolviendo la relación muchos a muchos personalizada en el controlador
+
 <style>
   h1 { color: #713f12; }
   h2 { color: #2563eb; }
