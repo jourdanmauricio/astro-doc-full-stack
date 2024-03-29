@@ -2760,7 +2760,7 @@ import {
 import { Order } from './order.entity';
 import { Product } from '../../products/entities/product.entity';
 
-@Entity()
+@Entity({ name: 'order_items' })
 export class OrderItem {
   @PrimaryGeneratedColumn()
   id: number;
@@ -2830,6 +2830,1324 @@ npm run migrations:run
 </details>
 
 ## Resolviendo la relación muchos a muchos personalizada en el controlador
+
+<details>
+
+<summary>Detalle</summary>
+
+Con las tablas Order y order_items creadas podemos crear el controlador, el servicio y el dto para crear nuevas órdenes y sus items.
+
+```bash
+nest g co users/controllers/orders --flat
+nest g s users/services/orders --flat
+nest g s users/services/order-items --flat
+nest g co users/controllers/order-items --flat
+```
+
+```ts
+// order.dto.ts
+import { ApiProperty, PartialType } from '@nestjs/swagger';
+import { IsNotEmpty, IsPositive } from 'class-validator';
+
+export class CreateOrderDto {
+  @IsNotEmpty()
+  @IsPositive()
+  @ApiProperty()
+  readonly customerId: number;
+}
+
+export class UpdateOrderDto extends PartialType(CreateOrderDto) {}
+```
+
+```ts
+// order-items.dto
+import { ApiProperty, PartialType } from '@nestjs/swagger';
+import { IsNotEmpty, IsPositive } from 'class-validator';
+
+export class CreateOrderItemDto {
+  @IsNotEmpty()
+  @IsPositive()
+  @ApiProperty()
+  readonly orderId: number;
+
+  @IsNotEmpty()
+  @IsPositive()
+  @ApiProperty()
+  readonly productId: number;
+
+  @IsNotEmpty()
+  @IsPositive()
+  @ApiProperty()
+  readonly quantity: number;
+}
+
+export class UpdateOrderItemDto extends PartialType(CreateOrderItemDto) {}
+```
+
+```ts
+// product.module.ts
+import { BrandsController } from './controllers/brands.controller';
+import { BrandsService } from './services/brands.service';
+import { Category } from './entities/category.entity';
+import { Brand } from './entities/brand.entity';
+
+@Module({
+  imports: [TypeOrmModule.forFeature([Product, Category, Brand])],
+  controllers: [ProductsController, CategoriesController, BrandsController],
+  providers: [ProductsService, CategoriesService, BrandsService],
+  exports: [ProductsService, TypeOrmModule],
+})
+export class ProductsModule {}
+```
+
+```ts
+// orders.controller.ts
+import {
+  Controller,
+  Get,
+  Param,
+  Post,
+  Body,
+  Put,
+  Delete,
+  ParseIntPipe,
+} from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
+
+import { OrdersService } from './../services/orders.service';
+import { CreateOrderDto, UpdateOrderDto } from '../dtos/order.dto';
+
+@ApiTags('orders')
+@Controller('orders')
+export class OrdersController {
+  constructor(private ordersService: OrdersService) {}
+
+  @Get()
+  findAll() {
+    return this.ordersService.findAll();
+  }
+
+  @Get(':id')
+  get(@Param('id', ParseIntPipe) id: number) {
+    return this.ordersService.findOne(id);
+  }
+
+  @Post()
+  create(@Body() payload: CreateOrderDto) {
+    return this.ordersService.create(payload);
+  }
+
+  @Put(':id')
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() payload: UpdateOrderDto
+  ) {
+    return this.ordersService.update(id, payload);
+  }
+
+  @Delete(':id')
+  remove(@Param('id', ParseIntPipe) id: number) {
+    return this.ordersService.remove(+id);
+  }
+}
+```
+
+```ts
+// order-items.controller.ts
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  ParseIntPipe,
+  Post,
+  Put,
+} from '@nestjs/common';
+import { CreateOrderItemDto, UpdateOrderItemDto } from '../dtos/order-item.dto';
+import { OrderItemsService } from '../services/order-items.service';
+
+@Controller('order-items')
+export class OrderItemsController {
+  constructor(private orderImtesService: OrderItemsService) {}
+
+  @Get()
+  findAll() {
+    return this.orderImtesService.findAll();
+  }
+
+  @Get(':id')
+  get(@Param('id', ParseIntPipe) id: number) {
+    return this.orderImtesService.findOne(id);
+  }
+
+  @Post()
+  create(@Body() payload: CreateOrderItemDto) {
+    return this.orderImtesService.create(payload);
+  }
+
+  @Put(':id')
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() payload: UpdateOrderItemDto
+  ) {
+    return this.orderImtesService.update(id, payload);
+  }
+
+  @Delete(':id')
+  remove(@Param('id', ParseIntPipe) id: number) {
+    return this.orderImtesService.remove(id);
+  }
+}
+```
+
+```ts
+// orders.service.ts
+
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Order } from '../entities/order.entity';
+import { Repository } from 'typeorm';
+import { CreateOrderDto, UpdateOrderDto } from '../dtos/order.dto';
+import { Customer } from '../entities/customer.entity';
+
+@Injectable()
+export class OrdersService {
+  constructor(
+    @InjectRepository(Order) private orderRepo: Repository<Order>,
+    @InjectRepository(Customer) private customerRepo: Repository<Customer>
+  ) {}
+
+  findAll() {
+    return this.orderRepo.find({ relations: ['customer'] });
+  }
+
+  // En la relacion hacia items, profundizamos para otener la info del prod
+  async findOne(id: number) {
+    const order = await this.orderRepo.findOne({
+      where: { id },
+      relations: ['items', 'items.product'],
+    });
+
+    if (!order) throw new NotFoundException('order not found');
+    return order;
+  }
+
+  async create(data: CreateOrderDto) {
+    const newOrder = new Order();
+
+    if (data.customerId) {
+      const customer = await this.customerRepo.findOneBy({
+        id: data.customerId,
+      });
+      newOrder.customer = customer;
+    }
+
+    return this.orderRepo.save(newOrder);
+  }
+
+  async update(id: number, changes: UpdateOrderDto) {
+    const order = await this.findOne(id);
+
+    if (changes.customerId) {
+      const customer = await this.customerRepo.findOneBy({
+        id: changes.customerId,
+      });
+      order.customer = customer;
+    }
+
+    this.orderRepo.save(order);
+  }
+
+  remove(id: number) {
+    return this.orderRepo.delete(id);
+  }
+}
+```
+
+```ts
+// order-items.service.ts
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+
+import { Order } from '../entities/order.entity';
+import { Product } from '../../products/entities/product.entity';
+import { OrderItem } from './../entities/order-item.entity';
+import { CreateOrderItemDto, UpdateOrderItemDto } from '../dtos/order-item.dto';
+
+@Injectable()
+export class OrderItemsService {
+  constructor(
+    @InjectRepository(Order) private orderRepo: Repository<Order>,
+    @InjectRepository(Product) private productRepo: Repository<Product>,
+    @InjectRepository(OrderItem) private orderItemRepo: Repository<OrderItem>
+  ) {}
+
+  findAll() {
+    return this.orderItemRepo.find({
+      relations: ['order', 'order.customer'],
+    });
+  }
+
+  findOne(id: number) {
+    return this.orderItemRepo.findOne({
+      where: { id },
+      relations: ['order', 'product'],
+    });
+  }
+
+  async create(data: CreateOrderItemDto) {
+    const order = await this.orderRepo.findOneBy({ id: data.orderId });
+    const product = await this.productRepo.findOneBy({ id: data.productId });
+
+    const newOrderItem = new OrderItem();
+    newOrderItem.order = order;
+    newOrderItem.product = product;
+    newOrderItem.quantity = data.quantity;
+
+    return this.orderItemRepo.save(newOrderItem);
+  }
+
+  async update(id: number, changes: UpdateOrderItemDto) {
+    const orderItem = await this.orderItemRepo.findOneBy({ id });
+    if (changes.orderId) {
+      const order = await this.orderRepo.findOneBy({ id: changes.orderId });
+      orderItem.order = order;
+    }
+    if (changes.productId) {
+      const product = await this.productRepo.findOneBy({
+        id: changes.productId,
+      });
+      orderItem.product = product;
+    }
+    if (changes.quantity) {
+      orderItem.quantity = changes.quantity;
+    }
+    return this.orderItemRepo.save(orderItem);
+  }
+
+  remove(id: number) {
+    return this.orderItemRepo.delete(id);
+  }
+}
+```
+
+</details>
+
+## Paginación
+
+<details>
+<summary>Detalle</summary>
+
+El método getAll de los productos retorna todos los productos de la base de datos. Aquí podriamos implementar la paginación utilizando los parámetros recibidos por query params.
+
+Para ello podemos creae un nuevo dto. Uno de los problemas que enfrentaremos es que los query params son tipo string, pero necesitamos que sean number. No es tan simple utilizar el PipePrseInt porque estamos dentro de un dto, pero si podemos modificar la configuración en main.ts para que realice la conversión automáticamente.
+
+Otro punto interesante de la aplicación para aplicar paginación es en getAll de orders.
+
+```ts
+// main.ts
+import { NestFactory } from '@nestjs/core';
+import { AppModule } from './app.module';
+import { ValidationPipe } from '@nestjs/common';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+
+async function bootstrap() {
+  const app = await NestFactory.create(AppModule);
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      // Castea los query params automaticamente
+      transformOptions: {
+        enableImplicitConversion: true,
+      },
+    })
+  );
+
+  const config = new DocumentBuilder()
+    .setTitle('My e-commerce API')
+    .setDescription('Documentación de my e-commerce API')
+    .setVersion('1.0')
+    .build();
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('docs', app, document);
+
+  await app.listen(3000);
+}
+bootstrap();
+```
+
+```ts
+// product.dto.ts
+import { ApiProperty, PartialType } from '@nestjs/swagger';
+
+import {
+  IsString,
+  IsNumber,
+  IsUrl,
+  IsNotEmpty,
+  IsPositive,
+  IsArray,
+  IsOptional,
+  Min,
+} from 'class-validator';
+// isEmail, isDate, etc
+
+// ..
+
+export class FilterProductDto {
+  @IsOptional()
+  @IsPositive()
+  limit: number;
+
+  @IsOptional()
+  @Min(0)
+  offset: number;
+}
+```
+
+```ts
+// products.controller.ts
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import {
+  Controller,
+  Get,
+  Post,
+  Put,
+  Delete,
+  Param,
+  Query,
+  Body,
+  ParseIntPipe,
+} from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
+
+import { ProductsService } from '../services/products.service';
+// import { ParseIntPipe } from './../common/parse-int/parse-int.pipe';
+import {
+  CreateProductDto,
+  FilterProductDto,
+  UpdateProductDto,
+} from '../dtos/products.dtos';
+
+@ApiTags('products')
+@Controller('products')
+export class ProductsController {
+  constructor(private productsService: ProductsService) {}
+
+  @Get()
+  getAll(@Query() params: FilterProductDto) {
+    return this.productsService.findAll(params);
+  }
+
+  // ...
+}
+```
+
+```ts
+// products.secvice.ts
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { In, Repository } from 'typeorm';
+
+import { Product } from '../entities/product.entity';
+import {
+  CreateProductDto,
+  FilterProductDto,
+  UpdateProductDto,
+} from '../dtos/products.dtos';
+import { Category } from '../entities/category.entity';
+import { Brand } from '../entities/brand.entity';
+
+@Injectable()
+export class ProductsService {
+  constructor(
+    @InjectRepository(Product) private productRepo: Repository<Product>,
+    @InjectRepository(Brand) private brandRepo: Repository<Brand>,
+    @InjectRepository(Category) private categoryRepo: Repository<Category>
+  ) {}
+
+  findAll(params?: FilterProductDto) {
+    if (params) {
+      const { limit, offset } = params;
+
+      return this.productRepo.find({
+        relations: ['brand'],
+        take: limit,
+        skip: offset,
+      });
+    }
+
+    return this.productRepo.find({ relations: ['brand'] });
+  }
+
+  // ...
+}
+```
+
+Ahora podemos hacer uso de la paginación en los requests.
+
+- http://localhost:3000/products?limit=10&offset=0
+- http://localhost:3000/products?limit=10&offset=1
+
+</details>
+
+## Filtrando precios con operadores
+
+<details>
+<summary>Detalle</summary>
+
+Una funcionalidad interesante para el frontend podría ser filtrar los productos por precio. Para ello modificaremos el dto de filtrado incluyendo dos nuevos atributos: minPrice y maxPrice.
+
+En el dto podemos validar que si nos informan minPrice también debe llegar el maxPrice
+
+```ts
+// product.dto.ts
+import { ApiProperty, PartialType } from '@nestjs/swagger';
+
+import {
+  IsString,
+  IsNumber,
+  IsUrl,
+  IsNotEmpty,
+  IsPositive,
+  IsArray,
+  IsOptional,
+  Min,
+} from 'class-validator';
+// isEmail, isDate, etc
+
+// ..
+
+export class FilterProductDto {
+  @IsOptional()
+  @IsPositive()
+  limit: number;
+
+  @IsOptional()
+  @Min(0)
+  offset: number;
+
+  @IsOptional()
+  @IsPositive()
+  minPrice: number;
+
+  @ValidateIf((item) => item.minPrice)
+  @IsPositive()
+  maxPrice: number;
+}
+```
+
+```ts
+// products.service.ts
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Between, FindOptionsWhere, In, Repository } from 'typeorm';
+
+import { Product } from '../entities/product.entity';
+import {
+  CreateProductDto,
+  FilterProductDto,
+  UpdateProductDto,
+} from '../dtos/products.dtos';
+import { Category } from '../entities/category.entity';
+import { Brand } from '../entities/brand.entity';
+
+@Injectable()
+export class ProductsService {
+  constructor(
+    @InjectRepository(Product) private productRepo: Repository<Product>,
+    // private brandsService: BrandsService,
+    @InjectRepository(Brand) private brandRepo: Repository<Brand>,
+    @InjectRepository(Category) private categoryRepo: Repository<Category>
+  ) {}
+
+  findAll(params?: FilterProductDto) {
+    if (params) {
+      const where: FindOptionsWhere<Product> = {};
+
+      const { limit, offset } = params;
+      const { minPrice, maxPrice } = params;
+
+      if (minPrice && maxPrice) {
+        where.price = Between(minPrice, maxPrice);
+      }
+      return this.productRepo.find({
+        relations: ['brand'],
+        where,
+        take: limit,
+        skip: offset,
+      });
+    }
+
+    return this.productRepo.find({ relations: ['brand'] });
+  }
+
+  // ...
+}
+```
+
+Ahora podemos hacer uso de los filtros en los requests.
+
+- http://localhost:3000/products?minPrice=1&maxPrice=100
+
+> Existen muchos operadores para utilizar en los filtros. También podríamos agregar filtros por marca u otros atributos.
+
+</details>
+
+## Agregando indexadores
+
+<details>
+<summary>Detalle</summary>
+
+Los indexadores nos sirven para optimizar una búsqueda a través de uno o mas atributos, por defecto el id esta indexado.
+
+Solo debemos indexar algunos campos, si priorizamos todos los campos al final ningún campo lo será. Se deben optimizar siempre que tengamos mucha información en la tabla y para las consultas que con más frecuencia se ejecutan.
+
+Para ello solo debemos agregar el decorator **@Index()** que nos permite crear el índice sobre un campo si lo colocamos en el atributo de la entidad o índices de más de un campo si agreamos a la entidad.
+
+```ts
+// product.entity.ts
+import { Category } from './category.entity';
+import {
+  Column,
+  PrimaryGeneratedColumn,
+  Entity,
+  CreateDateColumn,
+  ManyToOne,
+  ManyToMany,
+  Index,
+} from 'typeorm';
+import { Brand } from './brand.entity';
+
+@Entity({ name: 'products' })
+@Index(['price', 'stock'])
+export class Product {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column({ type: 'varchar', length: 255, unique: true })
+  name: string;
+
+  @Column({ type: 'text' })
+  description: string;
+
+  @Index()
+  @Column({ type: 'int' })
+  price: number;
+
+  @Column({ type: 'int' })
+  stock: number;
+
+  @Column({ type: 'varchar', length: 255 })
+  image: string;
+
+  @CreateDateColumn({
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  createAt: Date;
+
+  @CreateDateColumn({
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  updatedAt: Date;
+
+  @ManyToOne(() => Brand, (brand) => brand.products)
+  brand: Brand;
+
+  @ManyToMany(() => Category, (category) => category.products)
+  categories: Category[];
+}
+```
+
+```bash
+npm run migrations:generate ./src/database/migrations/add-index-product-price
+npm run migrations:run
+```
+
+</details>
+
+## Modificando el naming
+
+<details>
+<summary>Detalle</summary>
+
+Como desarrolladores, estamos muy acostumbrados a aplicar naming sobre variables, funciones, clases en javascript, pero en la base de datos también debemos aplicar namimg.
+
+**Naming o Nombramiento de variables en BD**
+
+- El naming es una buena practica.
+- Nombre de una variable tiene que ser representativa
+- Tiene que ser escrita en camelCase para JavaScript
+- En BD una buena práctica es no tener caracteres especiales como la mayúscula.
+- Debido que si se hace consultas directa a la BD habría que escapar caracteres especiales.
+- En BD debe ser separadas con \_. (snake_case)
+- Nombre de la tabla debe ser en plural.
+
+TypeORM utilizó el naming Js para la base de datos. Por ejemplo el campo createdAt debería llamarse create_at para seguir las buenas prácticas en BD.
+
+Podemos indicar el nombre de campo que deseemos indicádoselo a TypeORM. Continuando con el ejemplo, la definición en las entidades de createAt debería ser:
+
+```ts
+@CreateDateColumn({
+		name: 'create_at', // nombre de la columna en la BD
+		type: 'timestamptz',
+		default: () => 'CURRENT_TIMESTAMP',
+	})
+	createAt: Date;  // Nombre de la variable en el codigo
+```
+
+Esto cambios deberíamos aplicarlos sobre updateAt, productId, categoryId.
+
+- De la misma menara debemos nombrar a las tablas en plural y para esto podemos indicarle a TypeORM.
+
+```ts
+// product.entity.ts
+@Entity({ name: 'products' }) // Nombre de la tabla
+@Index(['price', 'stock'])
+export class Product {
+  // ...
+}
+```
+
+- En los casos de relaciones OneToOne se hace la modificación en la tabla que tenga el decorator @JoinColumn.
+
+```ts
+// user.entity.ts
+@OneToOne(() => Customer, (customer) => customer.user, { nullable: true })
+  @JoinColumn({ name: 'customer_id' })
+  customer: Customer;
+// ...
+```
+
+- En una relación ManyToOne se hace la modificación en quien lleve este decorator.
+
+- Se agrega el decorator @JoinColumn
+
+```ts
+//products/entities/product.entity.ts
+
+@ManyToOne(() => Brand, (brand) => brand.products)
+  @JoinColumn({ name: 'brand_id' })
+  brand: Brand;
+
+  //...
+```
+
+- En las tablas muchos a muchos que es manejada por TypeORM se modifica en la entidad que tenga el decorator @JoinTable
+
+Recuerda que en este caso se crea una tabla ternaria.
+
+```ts
+//products/entities/product.entity.ts
+
+@ManyToMany(() => Category, (category) => category.products)
+  @JoinTable({
+    name: 'products_categories', //nombre de la tabla que tambien puede ser products_has_categories
+    joinColumn: {
+      name: 'product_id', // Relación con la entidad donde estas situado.
+    },
+    inverseJoinColumn: {
+      name: 'category_id', // Relación con la otra entidad.
+    },
+  })
+  categories: Category[];
+```
+
+Aunque sea muy extenso para detallarlo aquí, pegaremos el detalle de cada una de las entidades utilizadas en el proyecto. Considermos que no solo se encuentra en nombre de tablas y campos, sino también las relaciones.
+
+```ts
+// customer.entity.ts
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  OneToMany,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { User } from './user.entity';
+import { Order } from './order.entity';
+
+@Entity({ name: 'customers' })
+export class Customer {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column({ type: 'varchar', length: 255 })
+  name: string;
+
+  @Column({ name: 'last_name', type: 'varchar', length: 255 })
+  lastName: string;
+
+  @Column({ type: 'varchar', length: 255 })
+  phone: string;
+
+  @CreateDateColumn({
+    name: 'create_at',
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  createAt: Date;
+
+  @CreateDateColumn({
+    name: 'update_at',
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  updatedAt: Date;
+
+  @OneToOne(() => User, (user) => user.customer, { nullable: true })
+  user: User;
+
+  @OneToMany(() => Order, (order) => order.customer)
+  orders: Order[];
+}
+```
+
+```ts
+// user.entity.ts
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinColumn,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { Customer } from './customer.entity';
+
+@Entity({ name: 'users' })
+export class User {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column({ type: 'varchar', length: 255, unique: true })
+  email: string;
+
+  @Column({ type: 'varchar', length: 255 })
+  password: string;
+
+  @Column({ type: 'varchar', length: 100 })
+  role: string;
+
+  @CreateDateColumn({
+    name: 'create_at',
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  createAt: Date;
+
+  @CreateDateColumn({
+    name: 'update_at',
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  updatedAt: Date;
+
+  @OneToOne(() => Customer, (customer) => customer.user, { nullable: true })
+  @JoinColumn({ name: 'customer_id' })
+  customer: Customer;
+}
+```
+
+```ts
+// product.entity.ts
+import { Category } from './category.entity';
+import {
+  Column,
+  PrimaryGeneratedColumn,
+  Entity,
+  CreateDateColumn,
+  ManyToOne,
+  ManyToMany,
+  Index,
+  JoinColumn,
+} from 'typeorm';
+import { Brand } from './brand.entity';
+
+@Entity({ name: 'products' })
+@Index(['price', 'stock'])
+export class Product {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column({ type: 'varchar', length: 255, unique: true })
+  name: string;
+
+  @Column({ type: 'text' })
+  description: string;
+
+  @Index()
+  @Column({ type: 'int' })
+  price: number;
+
+  @Column({ type: 'int' })
+  stock: number;
+
+  @Column({ type: 'varchar', length: 255 })
+  image: string;
+
+  @CreateDateColumn({
+    name: 'create_at',
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  createAt: Date;
+
+  @CreateDateColumn({
+    name: 'update_at',
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  updatedAt: Date;
+
+  @ManyToOne(() => Brand, (brand) => brand.products)
+  @JoinColumn({ name: 'brand_id' })
+  brand: Brand;
+
+  @ManyToMany(() => Category, (category) => category.products)
+  categories: Category[];
+}
+```
+
+```ts
+// category.entity.ts
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { Product } from './product.entity';
+
+@Entity({ name: 'categories' })
+export class Category {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column({ type: 'varchar', length: 255, unique: true })
+  name: string;
+
+  @CreateDateColumn({
+    name: 'create_at',
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  createAt: Date;
+
+  @CreateDateColumn({
+    name: 'update_at',
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  updatedAt: Date;
+
+  @ManyToMany(() => Product, (product) => product.categories)
+  @JoinTable({
+    name: 'products_categories',
+    joinColumn: {
+      name: 'category_id',
+    },
+    inverseJoinColumn: {
+      name: 'product_id',
+    },
+  })
+  products: Product[];
+}
+```
+
+```ts
+// brand.entity.ts
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { Product } from './product.entity';
+
+@Entity({ name: 'brands' })
+export class Brand {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column({ type: 'varchar', length: 255, unique: true })
+  name: string;
+
+  @Column({ type: 'varchar', length: 255 })
+  image: string;
+
+  @CreateDateColumn({
+    name: 'create_at',
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  createAt: Date;
+
+  @CreateDateColumn({
+    name: 'update_at',
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  updatedAt: Date;
+
+  @OneToMany(() => Product, (product) => product.brand)
+  products: Product[];
+}
+```
+
+```ts
+// order.entity.ts
+import {
+  CreateDateColumn,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+
+import { Customer } from './customer.entity';
+import { OrderItem } from './order-item.entity';
+
+@Entity({ name: 'orders' })
+export class Order {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @CreateDateColumn({
+    name: 'create_at',
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  createAt: Date;
+
+  @CreateDateColumn({
+    name: 'update_at',
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  updatedAt: Date;
+
+  @ManyToOne(() => Customer, (customer) => customer.orders)
+  @JoinColumn({ name: 'customer_id' })
+  customer: Customer;
+
+  @OneToMany(() => OrderItem, (item) => item.order)
+  items: OrderItem[];
+}
+```
+
+```ts
+// order-item.entity.ts
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+
+import { Order } from './order.entity';
+import { Product } from '../../products/entities/product.entity';
+
+@Entity({ name: 'order_items' })
+export class OrderItem {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @CreateDateColumn({
+    name: 'create_at',
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  createAt: Date;
+
+  @CreateDateColumn({
+    name: 'update_at',
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  updatedAt: Date;
+
+  @Column({ type: 'int' })
+  quantity: number;
+
+  @ManyToOne(() => Product)
+  @JoinColumn({ name: 'product_id' })
+  product: Product;
+
+  @ManyToOne(() => Order, (order) => order.items)
+  @JoinColumn({ name: 'order_id' })
+  order: Order;
+}
+```
+
+**Correr migraciones**.
+
+- Debes ser precavido los nombres deben ser ideado desde el diseño.
+- Cuando se cambia el nombre de una tabla, crea una nueva tabla no migra los datos.
+- Se puede perder datos. Evitar usarlo luego que la BD este en producción.
+- Cuando eliminas toda la BD para volverla crear, sin estar en producción, tienes la opción de eliminar las migraciones anteriores, y crear una nueva como estructura inicial.
+- En caso de vaciar y volver a crear las tablas en la BD ejecuta
+
+```bash
+npm run migrations:drop
+npm run migrations:generate ./src/database/migrations/init
+npm run migrations:run
+```
+
+</details>
+
+## Serializar
+
+<details>
+<summary>Detalle</summary>
+
+Serializar es transformar la información que el usuario nos esta enviando antes de que nuestro controlador la retorne al servicio.
+
+Esto nos permite hacer una serie de cosas como:
+
+- Excluir información
+- Agregar información
+- Trastornarla a un formato deseado
+
+Para hacer esto, vamos a tener que ir a nuestro **main.ts** y enviar la siguiente configuración:
+
+```ts
+// main.ts
+
+import { NestFactory, Reflector } from '@nestjs/core';
+import { AppModule } from './app.module';
+import { ClassSerializerInterceptor, ValidationPipe } from '@nestjs/common';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+
+async function bootstrap() {
+  const app = await NestFactory.create(AppModule);
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      // Castea los query params automaticamente
+      transformOptions: {
+        enableImplicitConversion: true,
+      },
+    })
+  );
+
+  // usamos el interceptor en la configuración global
+  app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
+
+  const config = new DocumentBuilder()
+    .setTitle('My e-commerce API')
+    .setDescription('Documentación de my e-commerce API')
+    .setVersion('1.0')
+    .build();
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('docs', app, document);
+
+  await app.listen(3000);
+}
+bootstrap();
+```
+
+Con esto, ya tenemos la configuración para utilizar los interceptors en toda nuestra aplicación, ¿Pero como lo hacemos? Veamos un ejemplo:
+
+Supongamos que deseamos excluir cuando fue creado o actualizada una orden, ya que para el cliente puede ser innecesario verlo pero para la base de datos es importante tener un registro, ¿Cómo cambiaríamos esto? Para esto vamos a nuestra entidad de **order-item** y hagamos lo siguiente:
+
+```ts
+// order-item.entity.ts
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+
+import { Order } from './order.entity';
+import { Product } from '../../products/entities/product.entity';
+import { Exclude } from 'class-transformer';
+
+@Entity({ name: 'order_items' })
+export class OrderItem {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Exclude()
+  @CreateDateColumn({
+    name: 'create_at',
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  createAt: Date;
+
+  @Exclude()
+  @CreateDateColumn({
+    name: 'update_at',
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  updatedAt: Date;
+
+  @Column({ type: 'int' })
+  quantity: number;
+
+  @ManyToOne(() => Product)
+  @JoinColumn({ name: 'product_id' })
+  product: Product;
+
+  @ManyToOne(() => Order, (order) => order.items)
+  @JoinColumn({ name: 'order_id' })
+  order: Order;
+}
+```
+
+Bien, ahora veamos como podemos modificar un dato antes de enviarlo. Digamos que deseamos transformar el Array de las ordenes antes de que lo enviemos, por ejemplo, si queremos hacer que el resultado de nuestra petición sea mucho más limpia podemos hacer que los items de la orden sean solo un array de productos y que nos dé el precio total de la orden de compra. Para realizar esto debemos utilizar el decorador **@Expose()**.
+
+```ts
+// order.entity.ts
+import {
+  CreateDateColumn,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+
+import { Customer } from './customer.entity';
+import { OrderItem } from './order-item.entity';
+import { Exclude, Expose } from 'class-transformer';
+
+@Entity({ name: 'orders' })
+export class Order {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @CreateDateColumn({
+    name: 'create_at',
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  createAt: Date;
+
+  @CreateDateColumn({
+    name: 'update_at',
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  updatedAt: Date;
+
+  @ManyToOne(() => Customer, (customer) => customer.orders)
+  @JoinColumn({ name: 'customer_id' })
+  customer: Customer;
+
+  @Exclude()
+  @OneToMany(() => OrderItem, (item) => item.order)
+  items: OrderItem[];
+
+  @Expose()
+  get products() {
+    if (this.items) {
+      return this.items
+        .filter((item) => !!item)
+        .map((item) => ({
+          ...item.product,
+          quantity: item.quantity,
+          itemId: item.id,
+        }));
+    }
+    return [];
+  }
+
+  @Expose()
+  get Total() {
+    if (this.items) {
+      return this.items
+        .filter((item) => !!item)
+        .reduce((total, item) => {
+          const totalItem = item.product.price * item.quantity;
+          return total + totalItem;
+        }, 0);
+    }
+    return 0;
+  }
+}
+```
+
+Y listo, ya sabes usar una de las técnicas más útiles que tiene una API para manipular la información que le retorna al usuario. Sin embargo tienes que tener cuidado como manejas esta información porque hacer demasiados cálculos puede afectar negativamente el rendimiento de la app.
+
+</details>
+
+## Cómo solucionar una referencia circular entre módulos
+
+<details>
+<summary>Detalle</summary>
+
+NestJS Realmente es un framework potente que nos permite tener una arquitectura sólida y escalable. Pero al conectarnos con bases de datos podemos llegar a enfrentarnos a una referencia circular, problema que debemos evitar y/o aprender a solucionar.
+
+En nuestro proyecto tenemos a UsersModule que importa a ProductsModule con el fin usar al ProductsService. Pero ¿qué pasa si _ProductsModule_ necesita hacer una consulta hacia users? Recuerda que dentro de UsersModule está el UserService y la entidad de Users. Si importamos a UserModule dentro de ProductsModule, tendríamos un problema de referencia circular entre módulos.
+
+- Solución 1: entidades en un Global Module
+
+Una de las soluciones es poner todas las entidades de tu proyecto en el DatabaseModule de manera global haciendo que cada uno de los demás módulos pueda usar estas entidades sin tener problemas de referencia circular.
+
+De esta manera cada módulo puede usar el Repository Pattern y hacer la consulta que necesite de una entidad.
+
+- Solución 2: Referencia directa
+
+Una de las formas que tiene NestJS para resolver la referencia circular es tener una referencia directa por ejemplo, si AService y BService dependen el uno del otro, ambos lados de la relación pueden usar @Inject () y la utilidad forwardRef () para resolver la dependencia circular, ejemplo:
+
+```ts
+@Injectable()
+export class AService {
+  constructor(
+    @Inject(forwardRef(() => BService))
+    private service: BService
+  ) {}
+}
+```
+
+De la misma manera en el otro servicio.
+
+```ts
+@Injectable()
+export class BService {
+  constructor(
+    @Inject(forwardRef(() => AService))
+    private service: AService
+  ) {}
+}
+```
+
+También puedes aplicar lo mismo entre módulos
+
+```ts
+@Module({
+  imports: [forwardRef(() => AModule)],
+})
+export class BModule {}
+```
+
+```ts
+@Module({
+  imports: [forwardRef(() => BModule)],
+})
+export class AModule {}
+```
+
+</details>
 
 <style>
   h1 { color: #713f12; }
