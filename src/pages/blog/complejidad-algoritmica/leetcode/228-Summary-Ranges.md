@@ -59,8 +59,28 @@ Each range [a,b] in the list should be output as:
 
 **Solution**:
 
-```javascript
+```js
+/**
+ * @param {number[]} nums
+ * @return {string[]}
+ */
 var summaryRanges = function (nums) {
+  // let result = [];
+  // let start = 0;
+
+  // for (let i = 0; i < nums.length; i++) {
+  //   if (nums[i] + 1 !== nums[i + 1]) {
+  //     if (i - start >= 1) {
+  //       result.push(`${nums[start]}->${nums[i]}`);
+  //     } else {
+  //       result.push(`${nums[i]}`);
+  //     }
+  //     start = i + 1;
+  //   }
+  // }
+
+  // return result;
+
   let result = [];
   let start = nums[0];
   for (let i = 0; i < nums.length; i++) {

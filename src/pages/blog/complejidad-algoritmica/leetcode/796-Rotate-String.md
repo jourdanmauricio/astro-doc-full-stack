@@ -78,9 +78,9 @@ Ahora podemos buscar goal dentro de s.
 T: O(n)
 S: O(n)
 
-**Solución**
+**Solution**
 
-```javascript
+```js
 /**
  * @param {string} s
  * @param {string} goal
