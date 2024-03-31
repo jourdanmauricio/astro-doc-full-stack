@@ -18,7 +18,7 @@ category: Nest js backend
 - [Fundamentos de Nest Js](/astro-doc-full-stack/blog/nest-js/nest-fundamentos)
 - [Programación modular y documentación](/astro-doc-full-stack/blog/nest-js/nest-prog-modular-swagger)
 - [Persistencia de Datos con TypeORM y PostgreSQL](/astro-doc-full-stack/blog/nest-js/persistencia-typeorm-poastgresql)
-
+- [Autneticación con Passport y JWT](/astro-doc-full-stack/blog/nest-js/nest-autenticacion)
 <style>
   h1 { color: #713f12; }
   h2 { color: #2563eb; }
