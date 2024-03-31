@@ -90,6 +90,13 @@ Al tener un molde será más sencillo crear las mismas de una misma forma.
 
 Las clases serán nuestros moldes las cuales podremos reutilizar declarando atributos y métodos.
 
+**Pilares de la POO**
+
+- Abstracción
+- Encapsulamiento
+- Herencia
+- Polimorfismo
+
 </details>
 
 ## Qué es un objeto en JavaScript
@@ -377,7 +384,7 @@ const avanzadoPython = new Courses({
 
 // learning paths
 class LearningPaths {
-  constructor({ name, courses }) {
+  constructor({ name, courses = [] }) {
     this.name = name;
     this.courses = courses;
   }
@@ -437,6 +444,115 @@ const miguel = new Student({
 ```
 
 </details>
+
+## Abstracción
+
+<details>
+<summary>Detalle</summary>
+
+Es un de los pilares de la POO. Permite reducir la complejidad y una implementación y diseño eficiente de los datos.
+
+Consiste en abstraer los datos de un objeto para crear su molde, su clase. Abstraer hace referencia a la forma de separar o aislar los datos, rasgos, cualidades, propiedades o características esenciales, para que se puedan crear y formar instancias de dicho molde, de la clase. Crear el prototipo es el objetivo de la abstracción, pues cada elemento u objeto, debe poderse abstraer para que podamos reutilizar el código, o sea crear instancias de esta clase.
+
+**Ventajas**:
+
+- Evitamos codigo duplicado, es decir, reusamos codigo.
+- Podemos crear múltiples instancias con una sola abstracción.
+- Al encapsular datos, los estamos protegiendo
+- Evitamos código a bajo nivel.
+- Podemos cambiar implementaciones en la clase, sin perjudicar su funcionamiento.
+
+</details>
+
+## Abstracción en JavaScript
+
+<details>
+<summary>Detalle</summary>
+
+```js
+class Course {
+  constructor({ name, classes = [] }) {
+    this.name = name;
+    this.classes = classes;
+  }
+}
+
+const cursoProgBasica = new Course({
+  name: 'Curso Gratis de Programación Básica',
+});
+const cursoDefinitivoHTML = new Course({
+  name: 'Curso Definitivo de HTML y CSS',
+});
+const cursoPracticoHTML = new Course({
+  name: 'Curso Practico de HTML y CSS',
+});
+
+class LearningPath {
+  constructor({ name, courses = [] }) {
+    this.name = name;
+    this.courses = courses;
+  }
+}
+
+const escuelaWeb = new LearningPath({
+  name: 'Escuela de Desarrollo Web',
+  courses: [cursoProgBasica, cursoDefinitivoHTML, cursoPracticoHTML],
+});
+
+const escuelaData = new LearningPath({
+  name: 'Escuela de Data Science',
+  courses: [cursoProgBasica, 'Curso DataBusiness', 'Curso Dataviz'],
+});
+
+const escuelaVgs = new LearningPath({
+  name: 'Escuela de Vidweojuegos',
+  courses: [cursoProgBasica, 'Curso de Unity', 'Curso de Unreal'],
+});
+
+class Student {
+  constructor({
+    name,
+    email,
+    username,
+    twitter = undefined,
+    instagram = undefined,
+    facebook = undefined,
+    approvedCourses = [],
+    learningPaths = [],
+  }) {
+    this.name = name;
+    this.email = email;
+    this.username = username;
+    this.socialMedia = {
+      twitter,
+      instagram,
+      facebook,
+    };
+    this.approvedCourses = approvedCourses;
+    this.learningPaths = learningPaths;
+  }
+}
+
+const juan2 = new Student({
+  name: 'JuanDC',
+  username: 'juandc',
+  email: 'juanito@juanito.com',
+  twitter: 'fjuandc',
+  learningPaths: [escuelaWeb, escuelaVgs],
+});
+
+const miguelito2 = new Student({
+  name: 'Miguelito',
+  username: 'migelitofeliz',
+  email: 'miguelito@juanito.com',
+  instagram: 'migelito_feliz',
+  learningPaths: [escuelaWeb, escuelaData],
+});
+```
+
+</details>
+
+## Qué es encapsulamiento
 
 <style>
   h1 { color: #713f12; }
