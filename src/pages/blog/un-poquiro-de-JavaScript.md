@@ -13,6 +13,8 @@ draft: false
 category: javascript
 ---
 
+- [Programación Orientada a Objetos con JavasSript](/astro-doc-full-stack/blog/javascript/POO-JavaScript)
+
 ## Modificación de arrays:
 
 <details>

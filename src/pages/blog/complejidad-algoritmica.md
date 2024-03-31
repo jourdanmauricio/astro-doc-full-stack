@@ -17,6 +17,7 @@ category: JS Leetcode
 
 - [Big-O Notation](/astro-doc-full-stack/blog/complejidad-algoritmica/complejidad-algoritmica)
 - [Leetcode](/astro-doc-full-stack/blog/complejidad-algoritmica/leetcode)
+- [Henry](/astro-doc-full-stack/blog/complejidad-algoritmica/henry)
 
 <style>
   h1 { color: #713f12; }

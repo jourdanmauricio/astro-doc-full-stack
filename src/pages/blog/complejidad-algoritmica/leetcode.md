@@ -73,6 +73,7 @@ https://leetcode.com/
 - [2634. Filter Elements from Array](/astro-doc-full-stack/blog/complejidad-algoritmica/leetcode/2634-Filter-Elements-from-Array)
 - [2635. Apply Transform Over Each Element in Array](/astro-doc-full-stack/blog/complejidad-algoritmica/leetcode/2635-Apply-Transform-Over-Each-Element-in-Array)
 - [2626. Array Reduce Transformation](/astro-doc-full-stack/blog/complejidad-algoritmica/leetcode/2626-Array-Reduce-Transformation)
+- [459. Repeated Substring Pattern](/astro-doc-full-stack/blog/complejidad-algoritmica/leetcode/459-Repeated-Substring-Pattern)
 
 <style>
   h1 { color: #713f12; }

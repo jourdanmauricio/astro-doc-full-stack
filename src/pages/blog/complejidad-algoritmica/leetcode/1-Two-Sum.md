@@ -53,7 +53,7 @@ You can return the answer in any order.
 
 Follow-up: Can you come up with an algorithm that is less than O(n<sup>2</sup>) time complexity?
 
-**Solución**:
+**Solution**:
 
 - Utilizar un map permite reducir el time complexity de O(n<sup>2</sup>) a O(n) ya que no debemos utilizar un segundo loop.
 - La idea es guardar en un map u objeto pares clave - valor, donde la clave serán los números que ya evaluamos y el valor será la posición original dentro del array.
