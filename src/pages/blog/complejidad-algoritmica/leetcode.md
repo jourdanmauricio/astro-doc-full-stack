@@ -74,6 +74,7 @@ https://leetcode.com/
 - [2635. Apply Transform Over Each Element in Array](/astro-doc-full-stack/blog/complejidad-algoritmica/leetcode/2635-Apply-Transform-Over-Each-Element-in-Array)
 - [2626. Array Reduce Transformation](/astro-doc-full-stack/blog/complejidad-algoritmica/leetcode/2626-Array-Reduce-Transformation)
 - [459. Repeated Substring Pattern](/astro-doc-full-stack/blog/complejidad-algoritmica/leetcode/459-Repeated-Substring-Pattern)
+- [485. Max Consecutive Ones](/astro-doc-full-stack/blog/complejidad-algoritmica/leetcode/485-Max-Consecutive-Ones)
 
 <style>
   h1 { color: #713f12; }

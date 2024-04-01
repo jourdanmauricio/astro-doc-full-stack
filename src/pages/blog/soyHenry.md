@@ -55,4 +55,6 @@ category: Reference Docs HTML CSS JS
 - [Clase 13 Frontend Advanced](/astro-doc-full-stack/blog/details/m3/clase13-frontend-advanced)
 - [Clase 14 JavaScript Advanced II](/astro-doc-full-stack/blog/details/m3/clase14-javascript-advancedII)
 
-### Módulo 4
+### Módulo 4 (Especilidad Backend)
+
+- [Clase 1 Backend Architecture](/astro-doc-full-stack/blog/details/m4/clase1-Backend-Architecture)

@@ -554,6 +554,87 @@ const miguelito2 = new Student({
 
 ## Qué es encapsulamiento
 
+<details>
+<summary>Detalle</summary>
+El encapsulamiento es la forma de proteger, encapsular, guardar, limitar, esconder el acceso de ciertos atributos y propiedades de nuestros objetos.
+
+- Esto nos permite crear **métodos y atributos privados**. Solamente los métodos y atributos que se encuentren dentro de la clase podrán acceder a estos datos privados.
+
+- Así, nosotros podemos **prevenir la sobreescritura o alteración de métodos y atributos**, de las clases, de los objetos, o los prototipos incluso, o sea las instancias creadas.
+
+Pero, en JavaScript, el encapsulamiento no es tan falcil. Porque en JS todo es público. Los métodos y atrobutos privados en Js no existen. Los que si se puede hacer es no permitir la alteración de mátodos y atributos.
+
+Debemos tener un dominio más profundo del prototipo Object para lograrlo.
+
+Las formas que tenemos para aplicar encapculamientos en Js son:
+
+- getters & setters,
+- Namespaces,
+  . Object.defineProperties, -> Modificar el prototitpo Object para evitar que las propiedades se públicas.
+- módulos de ES6.
+
+</details>
+
+## Getters y setters en JavaScript
+
+<details>
+<summary>Detalle</summary>
+
+En otros lenguajes de programación existen sentencias como private, public o protect. En Js al ser todo público, por convención, se utiliza el símboilo "\_" para indicar al equipo de desarrollo que no deben interactuar directamente con esa variable o método.
+
+No es un restricción del lenguaje. Si alguien desea modificar una variable podrá hacerlo.
+
+Para leer los atrbutos desde afuera se utilizan los getters (get) y para modificarlos se utilizan los setters (set). Esta característica a sido implementada en ES2015, pudiendo modificar el funcionamiento normal de establecer u obtener el valor de una propiedad, a estas se les conoce como accessor properties.
+
+```js
+class Course {
+  constructor({ name, classes = [] }) {
+    this._name = name;
+    this.classes = classes;
+  }
+
+  get name() {
+    return this._name;
+  }
+
+  set name(newName) {
+    // Incorporamos logica de negocio
+    if (!newName.length > 3) {
+      console.log('Nombre debe ser mayor a 3');
+    } else {
+      this._name = newName;
+    }
+  }
+}
+
+const curso1 = new Course({ name: 'Curso 1' });
+console.log(curso1.name); // Curso 1
+
+curso1.name = 'Curso alterado 1';
+```
+
+</details>
+
+## Módulos de ECMAScript 6
+
+<details>
+<summary>Detalle</summary>
+
+Si bien podemos encapsular atributos y propiedades también podemos encapsular archivos enteros.
+
+Al encapsular archivos enteros podemos restringir y controlar el acceso tanto de variables como funciones o el contenido en sí que tenga dicho módulo.
+
+Para ser utilizados en un sitio web es necesario poder contar con un servidor web y también que sea soportado por el navegador del usuario.
+
+El uso de dichos módulos nos permite usar:
+
+- import {variable} from “./modulo.js”
+- export variable
+
+</details>
+
+## Qué es herencia
+
 <style>
   h1 { color: #713f12; }
   h2 { color: #2563eb; }
