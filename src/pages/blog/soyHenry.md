@@ -58,3 +58,5 @@ category: Reference Docs HTML CSS JS
 ### Módulo 4 (Especilidad Backend)
 
 - [Clase 1 Backend Architecture](/astro-doc-full-stack/blog/details/m4/clase1-Backend-Architecture)
+- [clase2 Nest JS Fundamentals](/astro-doc-full-stack/blog/details/m4/clase2-Nest-JS-Fundamentals)
+- [Clase 3 Nest JS Fundamentals II](/astro-doc-full-stack/blog/details/m4/clase3-NestJSFundamentals-II)
