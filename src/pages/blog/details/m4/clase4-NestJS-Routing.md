@@ -489,7 +489,7 @@ import { Observable } from 'rxjs';
 import { Request } from 'express';
 
 function validateRequest(request: Request) {
-  const token = request.headers('token');
+  const token = request.header('token');
   return token === '1234';
 }
 
@@ -498,7 +498,7 @@ export class AuthGuard implements CanActivate {
   canActivate(
     context: ExecutionContext
   ): boolean | Promise<boolean> | Observable<boolean> {
-    const request = context.swithToHttp().getRequest();
+    const request = context.switchToHttp().getRequest();
     return validateRequest(request);
   }
 }
@@ -520,7 +520,7 @@ import {
   Param,
   Body,
   Headers,
-  UseGuard,
+  UseGuards,
 } from '@nestjs/common';
 import { Response, Request } from 'express';
 
@@ -548,7 +548,7 @@ export class UsersController {
   }
 
   @Get('profile/images')
-  @UseGuard(AuthGuard)
+  @UseGuards(AuthGuard)
   getUserImages() {
     return 'Restorna las imágenes del usuario';
   }
@@ -582,7 +582,7 @@ export class UsersController {
 
   @Put()
   updateUser() {
-    return 'Usuario modificado!!';
+    return this.usersService.updateUser(user);
   }
 
   @Delete()
@@ -663,7 +663,7 @@ En la demo crearemos una carpeta llamada src/interceptors y un archivo llamado d
 
 ```ts
 // date-adder.interceptor.ts
-import { Injectable, NestInterceptor, ExecutionContext } from 'nestjs/common';
+import { Injectable, NestInterceptor, ExecutionContext } from '@nestjs/common';
 import { Observable } from 'rxjs';
 
 @Injectable()
@@ -673,7 +673,7 @@ export class DataAdderInterceptor implements NestInterceptor {
     next: CallHandler<any>
   ): Observable<any> | Promise<Observable<any>> {
     const now = new Date();
-    const format = now.toLocalDateString('es-AR', {
+    const format = now.toLocaleDateString('es-AR', {
       year: 'numeric',
       month: '2-digit',
       day: '2-digit',
