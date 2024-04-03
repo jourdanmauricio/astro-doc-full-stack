@@ -62,11 +62,11 @@ Creamos todos.repository.ts y users.repository.ts
 
 ```ts
 // todos.repository.ts
-// Estos archivos serán proveedores, ser+an inyectables
-import { Inyectable } from '@nestjs/commnon';
+// Estos archivos serán proveedores, serán inyectables
+import { Injectable } from '@nestjs/common';
 
 @Injectable()
-export class TodosRespository {
+export class TodosRepository {
   private todos = [
     {
       id: 1,
@@ -96,10 +96,10 @@ export class TodosRespository {
 
 ```ts
 // users.repository.ts
-import { Inyectable } from '@nestjs/commnon';
+import { Injectable } from '@nestjs/common';
 
 @Injectable()
-export class UsersRespository {
+export class UsersRepository {
   private users = [
     {
       id: 1,
@@ -143,7 +143,7 @@ export class UsersService {
   constructor(private usersRepository: UsersRepository) {}
 
   getUsers() {
-    return this.usersRespository.getUsers();
+    return this.usersRepository.getUsers();
   }
 }
 ```
@@ -152,14 +152,14 @@ export class UsersService {
 // todos.service.ts
 import { Injectable } from '@nestjs/common';
 
-import { TodosRespository } from './todos.repository';
+import { TodosRepository } from './todos.repository';
 
 @Injectable()
 export class TodosService {
   constructor(private todosRepository: TodosRepository) {}
 
   getTodos() {
-    return this.todosRespository.getTodos();
+    return this.todosRepository.getTodos();
   }
 }
 ```
@@ -219,7 +219,7 @@ En la versión extendida de la definición de dependencias podemos ver que se as
 
 Para declarar un **proveedor personalizado**, nest nos proporciona algunas propiedades alternativas que pueden ser agregadas dentro de la declaración extendida. Estas opciones nos permiten modificar el funcionamiento estándar. Veamos algunas de ellas.
 
-## useValue
+### useValue
 
 <mark>Esta propiedad nos sirve para definir una dependencia bajo el nombre de un proveedor existente, pero que ejecuta una función diferente.</mark>
 
@@ -299,6 +299,81 @@ export class TodosService {
     return accessToken === 'Clave Super Secreta'
       ? this.todosRespository.getTodos()
       : 'Unauthorized';
+  }
+}
+```
+
+**¡Excelente!** Este es un ejemplo sencillo para validar la transferencia de información empleando la inyección de datos con proveedores no definidos como clases. A continuación, tenemos una nueva propiedad que nos permite utilizar proveedores personalizados.
+
+### useFactory
+
+Nos autoriza la creación de **proveedores** que trabajan de forma dinámica con información proveniente de otra función, como por ejemplo, una solicitud asincrónica. Estas funciones pueden realizar un sinnúmero de acciones cuyo resultado necesita ser inyectado como dependencia en algún componente del módulo.
+
+Vamos a pensar, por ejemplo, que nuestro módulo de usuarios necesita integrar información de una API que será utilizada como dependencia en UsersService para unificar esta información con la de la base de datos.
+
+En este caso, la función creada dentro de **useFactory** tendrá que realizar la solicitud de información y su limpieza para que pueda ser empleada.
+
+Volviendo a la demos, otra cosa que podemos hacer con los providers es utilizar el <mark>**useFactory**. Se utiliza cuando necesitamos configurar algo del provider antes de generarlo</mark>. Nos permite ejecutar una función que retorne el calor que tendrá en provider.
+
+En la demo suponemos que tenemos que llamar a una API externa (https://jsonplaceholder.typicode.com/users) donde tenemos usuarios.
+
+```ts
+// users.module.ts
+import { Module } from '@nestjs/common';
+
+import { UsersController } from './users.controllers';
+import { UsersService } from './users.service';
+// import { UsersRepository } from './users.repository';
+
+// const mockUsersService = {
+//   getUsers: () => 'Este es un servicio mock de usuario',
+// };
+
+@Module({
+  controllers: [UsersController],
+  // providers: [UsersService, UsersRepository],
+  // cuando encuentre UserService, utiliza mockUsersService
+  providers: [
+    // {
+    //   provide: UsersService,
+    //   useValue: mockUsersService,
+    // },
+    UsersService,
+    UsersRepository,
+    {
+      provide: 'API_USERS'
+      useFactory: async() => {
+        const apiUsers = await fetch('https://jsonplaceholder.typicode.com/users')
+        .then((response) => response.json());
+        return apiUsers.map(user => {
+          return {
+            id: user.id,
+            name: user.name,
+            email: user.email,
+          }
+        })
+      }
+    }
+  ],
+})
+export class UsersModule {}
+```
+
+```ts
+// users.service.ts
+import { Injectable, Inject } from '@nestjs/common';
+
+import { UsersRespository } from './users.repository';
+
+@Injectable()
+export class UsersService {
+  constructor(private usersRepository: UsersRepository,
+  @Inject('API_USERS') private apiUsers: ApiUsers: any[]) {}
+
+  async getUsers() {
+    const dbUsers = await this.usersRepository.getUsers();
+    const users = [...dbUsers, ...this.apiUsers];
+    return users:
   }
 }
 ```
