@@ -33,7 +33,7 @@ Como siempre, el primer paso será la instalación de las librerías y dependenc
 Tendremos la instalación de las librerías **@nestjs/typeorm**, que nos da acceso a la interfaz para integrar ambas herramientas; la librería misma typeorm, y a **@nestjs/config**, que incluye a dotenv, para leer la información de las variables de entorno de la aplicación. Por último, el driver pg de **PostgreSQL** para trabajar con este gestor SQL.
 
 ```bash
-npm install @nestjs/typrorm @nestjs/config typeorm pg
+npm install @nestjs/typeorm @nestjs/config typeorm pg
 ```
 
 Ahora que tenemos las bases, empecemos por construir la conexión de nuestra base de datos. Esta conexión será configurada dentro del módulo principal de la aplicación para que pueda ser compartida a lo largo de toda esta.
@@ -89,15 +89,15 @@ Con esta configuración, al leventar el servidor debería conectarse a la BD.
 
 Ahora, que la conexión se realizó con éxito podemos mejorar el código para no "hardcodear" las credenciales de la BD. Deberían estar en variables de entorno.
 
-Creamos una archivo en la raíz del proyecto llamado .env.devepment:
+Creamos una archivo en la raíz del proyecto llamado .env.development:
 
 ```bash
-# .env.devepment
+# .env.development
 
-DB_NAME=demo-db,
-DB_HOST=http://localhost,
-DB_PORT=5432,
-DB_USERNAME=postgres,
+DB_NAME=demo-db
+DB_HOST=http://localhost
+DB_PORT=5432
+DB_USERNAME=postgres
 DB_PASSWORD=example
 ```
 
@@ -106,8 +106,8 @@ Para leer este archivo de variables de ambiente debemos importar otro módulo ll
 ```ts
 // app.module.ts
 import { Module }  from '@nestjs/common' ;
-import { TypeOrmModule} from '@nestjs/typeorm' ;
-import { ConfigModule} from '@nestjs/config' ;
+import { TypeOrmModule} from '@nestjs/typeorm';
+import { ConfigModule} from '@nestjs/config';
 // import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
 
 import { UsersModule } from './users/users.module';
@@ -122,11 +122,11 @@ import { TodosModule } from './todos/todos.module';
     }),
     TypeOrmModule.forRoot({
     type: 'postgres',
-    database: 'demo-db',
-    host: 'http://localhost',
+    database: 'pm4_db',
+    host: 'localhost',
     port: 5432,
     username: 'postgres',
-    password: 'example'
+    password: 'admin'
   }),
   UserModule, TodosModule]
   contreollers: [],
@@ -150,12 +150,16 @@ Ahora podemos utilizar las variables desde el app.module
 
 ```ts
 // app.module.ts
-import { Module }  from '@nestjs/common' ;
-import { TypeOrmModule} from '@nestjs/typeorm' ;
+import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 // import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
 
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
+import { AuthModule } from './auth/auth.module';
+import { ProductsModule } from './products/products.module';
 import { UsersModule } from './users/users.module';
-import { TodosModule } from './todos/todos.module';
 // import { AuthGuard } from './guards/auth.guard';
 
 @Module({
@@ -165,19 +169,19 @@ import { TodosModule } from './todos/todos.module';
       envFilePath: './.env.development'
     }),
     TypeOrmModule.forRootAsync({
-    inject: [ConfigService],
-    useFactory: (configService: ConfigService) => ({
-      type: 'postgres',
-      database: configService.get('DB_NAME'),
-      host: configService.get('DB_HOST'),
-      port: configService.get('DB_PORT'),
-      username: configService.get('DB_USERNAME'),
-      password: configService.get('DB_PASSWORD'),
-      // en prod -> false
-      synchronoize: true,  // ase actualiza la bd automaticamente
-      logging: true,   // muestra en terminal las query que ejecuta en la BD
-    })
-  }),
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        type: 'postgres',
+        database: configService.get('DB_NAME'),
+        host: configService.get('DB_HOST'),
+        port: configService.get('DB_PORT'),
+        username: configService.get('DB_USERNAME'),
+        password: configService.get('DB_PASSWORD'),
+        // en prod -> false
+        synchronoize: true,  // ase actualiza la bd automaticamente
+        logging: true,   // muestra en terminal las query que ejecuta en la BD
+      })
+    }),
   UserModule, TodosModule]
   contreollers: [],
   providers: [
@@ -358,8 +362,8 @@ Creamos un archivo llamado typeorm.ts en una carpeta llamada src/config.
 
 ```ts
 // src/config/typeorm.ts
-import { DataSourceOptions } from 'typeorm';
-import { config as dotenvConfig } from 'ditenv';
+import { DataSource, DataSourceOptions } from 'typeorm';
+import { config as dotenvConfig } from 'dotenv';
 import { registerAs } from '@nestjs/config';
 
 dotenvConfig({ path: '.env.development' });
@@ -372,7 +376,7 @@ const config = {
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   autoLoadEntities: true,
-  synchronoize: false,
+  synchronize: false,
   logging: true,
   entities: ['dist/**/*.entity{.ts,.js}'],
   migrations: ['dist/migrations/*{.ts,.js}'],
@@ -403,8 +407,10 @@ import typeOrmConfig from './config/typeorm'
     TypeOrmModule.forRootAsync({
     inject: [ConfigService],
     useFactory: (configService: ConfigService) => configService.get('typeorm'),
-  }),
-  UserModule, TodosModule]
+    }),
+    UserModule,
+    TodosModule,
+  ],
   contreollers: [],
   providers: [
     // {
@@ -435,6 +441,7 @@ Ahora podemos crear las migraciones incorporando scripts al packege.json.
   "migration:create": "npm run typeorm migration:create",
   "migration:revert": "npm run typeorm -- -d ./src/config/typeorm.ts migration:revert",
   "migration:show": "npm run typeorm -- -d ./src/config/typeorm.ts migration:show",
+  "migration:drop": "npm run typeorm -- -d ./src/config/typeorm.ts schema:drop"
 }
 // ...
 
