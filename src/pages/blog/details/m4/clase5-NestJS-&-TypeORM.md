@@ -709,17 +709,19 @@ Crear el modelo,controllador, servicio y repositorio para las órdenes de compra
 
 - La orden de compra será recibida mediante una solicitud de HTTP Post al endpoint /orders cuyo cuerpo tendrá la siguiente estructura:
 
+```json
 {
-"userId":"UUID del usuario",
-"products":[
-{
-"id":"UUID producto 1"
-},
-{
-"id":"UUID producto 2"
+  "userId": "UUID del usuario",
+  "products": [
+    {
+      "id": "UUID producto 1"
+    },
+    {
+      "id": "UUID producto 2"
+    }
+  ]
 }
-]
-}
+```
 
 - Por ahora los usuarios solo pueden agregar una unidad de cada producto dentro de su carrito.
 
@@ -757,10 +759,10 @@ Tendrás que hacer algunos cambios en controladores y servicios para que funcion
 
 **[REQUISITOS]**:
 
-Al terminar el hito el alumno debe haber realizado la correcta configuración de la base de datos en el proyecto.
-Los servicios deben trabajar con los repositorios de cada entidad para gestionar la información en la base de datos.
-Las relaciones entre tablas deben funcionar correctamente al realizar el proceso de compra.
-Debe estar configurada la implementación de migraciones para monitorear futuros cambios en la base de datos.
+- Al terminar el hito el alumno debe haber realizado la correcta configuración de la base de datos en el proyecto.
+- Los servicios deben trabajar con los repositorios de cada entidad para gestionar la información en la base de datos.
+- Las relaciones entre tablas deben funcionar correctamente al realizar el proceso de compra.
+- Debe estar configurada la implementación de migraciones para monitorear futuros cambios en la base de datos.
 
 <style>
   h1 { color: #713f12; }

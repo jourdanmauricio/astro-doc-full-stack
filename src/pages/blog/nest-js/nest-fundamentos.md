@@ -106,23 +106,6 @@ npm run start
 
 Nest.js trae muchas carpetas y archivos cuya finalidad es configurar todo lo que nuestro proyecto de backend necesitaría sin tener que configurarlo nosotros. Entre todos los archivos y carpetas generados, los principales son:
 
-```bash
-your-name-project
-|-> /dist
-|-> /node_modules
-|-> /src
-|-> /test
-|-> .eslintrc.js
-|-> .gitignore
-|-> .prettierrc
-|-> nest-cli.json
-|-> package-lock.json
-|-> package.json
-|-> README.md
-|-> tsconfig.build.json
-|-> tsconfig.json
-```
-
 - La carpeta dist donde se encuentra todo el código que enviaremos a producción
 - La carpeta src donde crearemos nuestro proyecto backend (servicios, controladores, etc)
 - El archivo package.json dentro del cual se encuentran todos los comandos (scripts) y dependencias que utiliza Nest.js
@@ -1650,8 +1633,8 @@ Con este tipado evitamos cometer errores al desarrollar pero recordemos que en m
 
 Instalaremos dos dependencias que integraremos con los dtos.
 
-Documentación de class-validator -> https://github.com/typestack/class-validator
-Nota sobre mapped-types -> https://trilon.io/blog/introducing-mapped-types-for-nestjs
+- Documentación de class-validator -> https://github.com/typestack/class-validator
+- Nota sobre mapped-types -> https://trilon.io/blog/introducing-mapped-types-for-nestjs
 
 ```bash
 npm i class-validator class-transformer @nestjs/mapped-types
@@ -1716,7 +1699,7 @@ export class UpdateProductDto {
   readonly name: string;
 ```
 
-Fianlemente, para activar las validacoines de class-validator debemos modificar main.ts.
+Fianlemente, para activar las validaciones de class-validator debemos modificar main.ts.
 
 ```ts
 // main.ts
