@@ -377,7 +377,7 @@ Esto solo es para determinar qué veremos en la pantalla de inicio de nuestro pa
 En este caso seleccionamos la opción **Coding with APIs and SDKs**.
 
 ```bash
-npm install cloudinary buffer-to.stream
+npm install cloudinary buffer-to-stream
 ```
 
 ```bash
@@ -397,14 +397,14 @@ CLOUDINARY_API_KEY=XXXXXXXXXXXX
 // src/config/cloudinary.ts
 
 import {v2} from 'cloudinary';
-import {config as dotendConfig} from 'dotenv';
+import {config as dotenvConfig} from 'dotenv';
 
 dotenvConfig({ path: '.env.development'});
 
 export const CloudinaryConfig =  {
-  provide: 'clodinary'
+  provide: 'cloudinary'
   useFactory: () => {
-    return v.config({
+    return v2.config({
       cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
       api_secret: process.env.CLOUDINARY_API_SECRET,
       api_key: process.env.CLOUDINARY_API_KEY,
@@ -424,7 +424,7 @@ import * as toStream from 'buffer-to-stream';
 export class ClodinaryService() {
   async uploadImage(file: Express.Multer.File): Promise<UploadApiResponse> {
     return new Promise((resolve, reject) => {
-      const upload = v2.uploader.upload_stream({
+      const upload = v2.uploader.upload_stream(
         {resource_type: 'auto'},
         (error, result) => {
           if (error) {
@@ -433,8 +433,7 @@ export class ClodinaryService() {
             resolve(result);
           }
         }
-
-      });
+      );
       toStream(file.buffer).pipe(upload)
     })
   }
@@ -507,8 +506,10 @@ import {
   UseGuard,
   UseInterceptors,
   parseUUIDPipe,
+  UploadedFile,
 } from '@nestjs/common';
 import { Response, Request } from 'express';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 import { UsersService } from './users.service';
 import { User } from './user.interface';
