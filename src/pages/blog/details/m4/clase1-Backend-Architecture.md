@@ -32,6 +32,12 @@ Imagina que estás construyendo tu propia casa. Lo mejor que puedes hacer es ase
 
 > A largo plazo este impacto se verá reflejado en el costo económico a lo largo del ciclo de vida del software.
 
+### La arquitectura de software
+
+- Se define como la descripción de la estructura y organización de un sistema, sus componentes y cómo estos se comunican entre sí.
+
+- Aseguran la eficiencia, escalabilidad y mantenibilidad del sistema.
+
 ### Niveles de abstracción
 
 Para planificar la arquitectura de un sistema existen diferentes niveles de abstracción. Estos permiten determinar qué tan detallada es la definición de la estructura de una aplicación. Existen tres niveles.
@@ -46,15 +52,29 @@ En nuestro caso, nos enfocaremos en el diseño de una arquitectura de software e
 
 <mark>Recordemos que un **servicio**, en términos generales, **es una unidad lógica, independiente y reutilizable que desempeña una tarea específica**. Además, pueden constar de múltiples clases y módulos según las necesidades.</mark>
 
+![Arquitectura](/astro-doc-full-stack/images/henry/m4/clase1/architecture.webp)
+
+> Los módulo consumen clases, pero las clases no pueden consumir módulos.
+
+Podemos catalogar a las **clases** con un nivel de abstracción bajo. Se utlizan para definir la estructura y los comportamientos asociados.
+
+Los **módulos** poseen un nivel de abstracción medio, interactúan con otros módulos para desarrollar la funcionalidad del sistema. Suelen ser una colección de clases, variables, y funciones agrupadas de manera de formar una unidad lógica, modularizando el código.
+
+Los módulos pueden importarse desde otras partes del código a través de la inyección de dependencias y así retulizarlo. Los módulos consumen clases.
+
+Los **servicios** agrupan componentes en servicios generando un nivel más alto de abstracción, es ideal para productos de gran escala.
+
+Un servicio es un componete que resliza un conjunto específico de tareas, y se comunica con otros componentes a través de interfaces bien definidas. Es decir, pueden comunicarse con otros servicios.
+
 Para poder definir la arquitectura de nuestro proyecto, lo primero que debemos considerar es su naturaleza y los requerimientos funcionales de este. Repasemos entonces un poco los conceptos básicos de la **arquitectura cliente-servidor** para entender mejor la naturaleza del proyecto a llevar a cabo.
 
 ## Arquitectura cliente-servidor - Principios
 
 La **arquitectura cliente-servidor**, como vimos anteriormente, es un modelo de diseño de software que **organiza** una aplicación en dos entidades principales comunicadas..
 
-- Cliente -> Corresponde a la entidad que solicita servicios e interactúa directamente con el usuario final. Este podría ser un frontend, como también otro servidor. Si un servidor le solicita información a otro, está actuando como un cliente.
+- <mark>Cliente</mark> -> Corresponde a la entidad que solicita servicios e interactúa directamente con el usuario final. Este podría ser un frontend, como también otro servidor. Si un servidor le solicita información a otro, está actuando como un cliente.
 
-- Servidor -> Proporciona los servicios y gestiona los recursos compartidos y la lógica de negocios de la aplicación.
+- <mark>Servidor</mark> -> Proporciona los servicios y gestiona los recursos compartidos y la lógica de negocios de la aplicación.
 
 Tomemos por ejemplo un e-commerce. La página web, el frontend, donde agregamos productos al carrito, realizar la compra, se comporta como nuestro cliente.
 
@@ -63,6 +83,7 @@ El servidor, es la infraestructura de verificar cuál es el stock cargado en la 
 En el modelo cliente servidor podemos establecer la comunición de dos maneras:
 
 - **Stateful** -> el servidor guarda un registro de las solicitudes previas del cliente, con sus preferencias, y actividad en la página web a través de una sesión.
+
 - **Stateless** -> sin estado. Cada solicitud que le llega al servidor es independiente de las solicitudes previas que se hayan realizado.
 
 En el caso de un e-commerce el servidor debería llevar un registro del carrito de compra, sobre qué productos se agregaron, cuales se quitaron, el precio total de todos los productos en el carrito, para cada uno de los clientes. Este ejemplo, podríamos ppensarlo como un modelo con estado.
@@ -77,10 +98,13 @@ Esta interacción mediante solicitudes y respuestas entre ambos extremos se rige
 
 Como hemos visto anteriormente,<mark> los **protocolos de comunicación** son conjuntos de reglas y convenciones que limitan las interacciones entre dispositivos conectados a una red</mark>. Dentro de estos protocolos, los más frecuentemente empleados son...
 
-- TCP/IP -> (Transmision Control Protocol / Internet Protocol)
-- Websocket
-- FTP -> (File Transfer Protocol)
-- HTTP (Hypertext Transfer Protocol)
+- TCP/IP -> (Transmision Control Protocol / Internet Protocol). Se utiliza para la comunicación de datos en redes de computadoras. Es el protocolo fundamental de internet.
+
+- Websocket -> Protocolo de **comunicación bidireccional** que permite la comunicación en **tiempo real** entre clientes y servidores a través de una conexión persistente.
+
+- FTP -> (File Transfer Protocol). Utililizado para la **transferencia de archivos** entre un cliente y un servidor en una red TCP/IP.
+
+- HTTP (Hypertext Transfer Protocol). Para la comunicación en la Web. Define cómo se envían y reciben mensajes entre clientes y servidores web, lo que incluye solicitudes como **GET, POST, PUT y DELETE**, y respuestas como códigos de estado y contenido.
 
 **Repaso HTTP**
 
@@ -100,7 +124,7 @@ Existen diferentes patrones de arquitectura de software...
 
 ### Monolitos
 
-**Arquitectura de monolitos**. En este patrón la aplicación se desarrolla de forma integral como una única unidad de software, que se compone de un código base que se ejecuta en un solo proceso del servidor.
+<mark>**Arquitectura de monolitos**. En este patrón la aplicación se desarrolla de forma integral como una única unidad de software, que se compone de un código base que se ejecuta en un solo proceso del servidor.</mark>
 
 Esto quiere decir, que todas las funcionalidades de la aplicación (cliente y servidor) se encuentran integradas en una sola aplicación.
 
@@ -108,7 +132,7 @@ Si bien este patrón nos da una forma práctica de trabajar y desplegar, suelen 
 
 ### Microservicios
 
-Por otro lado tenemos el **patrón de microservicios** que divide la aplicación en varios servicios independientes autocontenidos, cada uno con su propia lógica y base de código.
+<mark>Por otro lado tenemos el **patrón de microservicios** que divide la aplicación en varios servicios independientes autocontenidos, cada uno con su propia lógica y base de código.</mark>
 
 Este tipo de arquitectura promueve la **modularidad y reutilización del código**. Este patrón permite que la base de código sea más pequeña, lo que conlleva a que el proceso de desarrollo sea más rápido y simple.
 
@@ -116,27 +140,27 @@ En cuanto al manejo de errores, el patrón de microservicios posee una ventaja. 
 
 Entonces, podemos pensar el desarrollo como un único servicio que se encarga de resolver todos los requerimientos de nuestro negocio. O podemos separar cada componente clave en unidades independientes, cada uno como un servicio propio y que entre ellos se comuniquen a través de algún protocolo web.
 
-Ventajas Monolito:
+**Ventajas Monolito**:
 
 - Es mas sencillo desarrollar nuevos cambios.
 - Es maś simple levantar el servicio.
 - Escribir pruebas unitarias y end to end es mas sencillo porque dependen únicamente de un solo código.
 
-Desventajas Monolito:
+**Desventajas Monolito**:
 
 - Cuando la aplicación comienza a crecer porque al agregar nuevas features tenemos que tener cuidado de no romper lo que ya se encuentra implementado.
 - Suele ser más cosotoso en terminos computacionales levantar un proyecto muy grande.
 - Escalabilidad: si alguna parte del sistema requiere más recursos, se debe escalar toda la aplicación.
 - No podemos utilizar diferentes tecnologías.
 
-Ventajas Microservicios:
+**Ventajas Microservicios**:
 
 - Al separar la funcionalidad en distintos servicios (incluso servidor, BD, etc) y una parte requiere escalar simplemente le damos recursos a ese servicio.
 - Podemos tener varios equipos de desarrollo trabajando en paralelo porque cada uno desarrolla sobre su propia base de código y no se pisa con el resto de los equipos.
 - Los equipos pueden trabajar con distintas tecnologías. Siempre que utilicen el mismo protocolo para comunicarse, no importa en qué tecnología se derralle cada servicio.
 - Si debemos actualizar una funcionalidad, solo modificamos ese servicio.
 
-Desventajas Microservicios:
+**Desventajas Microservicios**:
 
 - La depuración y el testing son más complicados, porque dependemos de otros servicios.
 - Utilizar diferentes tecnologías genera una falta de estandarización. Necesitamos desarrolladores para cada una de esas tecnologías.

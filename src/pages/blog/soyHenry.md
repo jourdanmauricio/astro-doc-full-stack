@@ -62,3 +62,4 @@ category: Reference Docs HTML CSS JS
 - [Clase 3 Nest JS Fundamentals II](/astro-doc-full-stack/blog/details/m4/clase3-NestJSFundamentals-II)
 - [Clase 4 NestJS Routing](/astro-doc-full-stack/blog/details/m4/clase4-NestJS-Routing)
 - [Clase 5 NestJS & TypeORM](/astro-doc-full-stack/blog/details/m4/clase5-NestJS-&-TypeORM)
+- [Clase 6 NestJS Pipes](/astro-doc-full-stack/blog/details/m4/Clase6-NestJS-Pipes)
