@@ -618,6 +618,377 @@ Para responder a esto ha llegado el momento de conocer a **JSON Web Token**.
 
 ## JSON Web Token
 
+## Definicion y estructura de JSON Web Token (JWT)
+
+**JWT (JSON Web Token)** es un estándar público que define un formato compacto y autónomo para la transmisión segura de información entre partes como un **objeto JSON**. Se utiliza comúnmente para la autenticación y autorización en aplicaciones web y servicios API.
+
+- La forma en la que trabaja **JWT** es por medio de la **emisión de tokens (claves o pases)** con una estructura específica y certificada que es provista al cliente y debe ser enviada de vuelta junto con cada solicitud subsecuente para validar la identidad de un usuario autenticado.
+
+Únicamente las solicitudes con un token válido pueden tener acceso a información protegida dentro del servidor.
+
+La **estructura de un token** se compone de 3 partes principales separadas por puntos “ . ” :
+
+- <mark>Header</mark> -> Contiene el tipo de token y el algoritmo de firma utilizado para firmar el token. Este algoritmo no es más que un método matemático utilizado para generar una firma digital, que verifique la integridad y autenticidad del token.
+
+**Comúnmente pueden ser de tipo HMAC, RSA o ECDSA.**
+
+En este caso, será de tipo HS256, una combinación entre HMAC y SHA-256. En otras palabras, el token será una cadena de caracteres de longitud fija igual a 256 bits de tipo JWT.
+
+- <mark>Payload</mark> -> Contiene la información que se quiere transmitir, como los datos del usuario autenticado o cualquier otro tipo de datos relevante. Para la codificación, se hace uso del formato **Base64Url** propio de **JWT**.
+
+- <mark>Signature (Firma)</mark> -> Corresponde a una versión codificada del header, el payload y una **CLAVE SECRETA** definida dentro de la aplicación y el algoritmo empleado para generar la firma. Se utiliza para verificar la integridad del token y garantizar que no haya sido alterado durante la transmisión.
+
+> El resultado lucirá parecido a esto: 23kjhg4k.j23h4k25.345njhj5
+
+## Implementación de JWT para gestionar sesiones y accesos
+
+Vamos a integrar la autenticación por medio de JWT dentro de nuestra app. Para incorporar la librería de JWT en Nest, es necesario instalarla utilizando el comando:
+
+```bash
+npm install --save @nestjs/jwt
+```
+
+Una vez instalada, la configuración puede ser realizada de forma independiente para cada módulo. Sin embargo, la incorporaremos de manera global a nuestra aplicación por facilidad.
+
+Trabajaremos dentro del módulo principal de la aplicación. Allí importamos a **JwtModule** de **@nestjs/jwt**, que nos permite utilizar la función register. Esta función recibe un objeto con las opciones de configuración para la firma de tokens mediante JWT.
+
+Dentro de dicho objeto, asociaremos la **CLAVE SECRETA** de la aplicación que será utilizada para generar tokens específicos.
+
+Esta es información sensible, así que lo ideal será almacenar su valor dentro de una variable de entorno. Además agregaremos una opción adicional a la firma que nos permitirá asignar un tiempo de expiración al token.
+
+Si quieres conocer más opciones disponibles para configurar la firma, puedes acceder al repositorio de JWT. https://github.com/auth0/node-jsonwebtoken
+
+Vamos a configurar JWT en nuestro servidor.
+
+```bash
+# .env.delopment
+DB_NAME=pm4_db
+DB_HOST=localhost
+DB_PORT=5432
+DB_USERNAME=postgres
+DB_PASSWORD=example
+
+CLOUDINARY_CLOUD_NAME=XXXXXXXXXXXXXXX
+CLOUDINARY_API_SECRET=XXXXXXXXXXX
+CLOUDINARY_API_KEY=XXXXXXXXXXXX
+
+JWT_SECRET=superclavesecreta
+```
+
+```ts
+// app.module.ts
+import { Module }  from '@nestjs/common' ;
+import { TypeOrmModule} from '@nestjs/typeorm' ;
+// import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
+
+import { UsersModule } from './users/users.module';
+import { TodosModule } from './todos/todos.module';
+import typeOrmConfig from './config/typeorm';
+import { JWTModule } from '@nestjs/jwt';
+// import { AuthGuard } from './guards/auth.guard';
+
+@Module({
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,   // para acceder desde cualquier lado de la app
+      load: [typeOrmConfig],
+    }),
+    TypeOrmModule.forRootAsync({
+    inject: [ConfigService],
+    useFactory: (configService: ConfigService) => configService.get('typeorm'),
+    }),
+    UserModule,
+    TodosModule,
+    JWTModule.register,({
+      global: true,
+      signOptions: { expiresIn: '1h' },
+      secret: process.env.JWT_SECRET,
+    })
+  ],
+  contreollers: [],
+  providers: [
+    // {
+    //   provide: APP_GUARD,
+    //   useClass: AuthGuard,
+    // },
+    // {
+    //   provide: APP_INTERCEPTOR,
+    //   useClass: MyInterceptor,
+    // },
+  ]
+})
+
+export class app.module {}
+
+```
+
+```ts
+// src/users/auth.service.ts
+import { Injectable } from '@nestjs/common';
+import * as bcrypt from 'bcrypt';
+import { JWTService } from '@nest/jwt';
+
+import { UsersDBService } from './usersDB.service';
+import { User } from './users.entity';
+
+@Injectable()
+export class AuthService {
+  constructor(
+    private readonly usersDBService: UsersDBService,
+    private readonly jwtService: JwtService
+  ) {}
+
+  async signUp(user: User) {
+    const dbUser = await this.usersDBService.getUserByEmail(user.mail);
+    if (dbUser) throw new BadRequestException('Email already exists');
+
+    const hashedPass = await bcrypt.hash(user.password, 10);
+    if (!hashedPass)
+      throw new BadRequestException('Password could not be hashed');
+
+    this.usersDBService.saveUser({ ...user, password: hashedPass });
+    return { success: 'User created successfully' };
+  }
+
+  async signIn(email: string, password: string) {
+    const dbUser = await this.usersDBService.getUserByEmail(user.mail);
+
+    if (!dbUser) throw new BadRequestException('User not found');
+
+    const match = await bcrypt.compare(password, dbUser.password);
+
+    if (!match) throw new BadRequestException('Invalid password');
+
+    const userPayload = {
+      sub: dbUser.id,
+      id: dbUser.id,
+      email: dbUser.email,
+    };
+
+    // Generamos un token
+    const token = this.jwtService.sign({});
+
+    return { success: 'User Logged in successfully', token };
+  }
+}
+```
+
+Los datos que se encuentran en un token se pueden ver en [jwt.io](https://jwt.io/). Allí podremos pegar el token y nos mostrará su contenido.
+
+Hasta el momento, creamos el token y lo enviamos al cliente cuando realiza el Login. Ahora debemos verificar el token. Para ello utilizaremos el header de las peticiones. Ocuparemos el atributo Authorization con el valor "Bearer < token >". Es decir, el valor siempre comienza con la palabra Bearer más un espacio más el token.
+
+```ts
+// src/guards/auth.guard.ts
+import {
+  Injectable,
+  CanActivate,
+  ExecutionContext,
+  UnauthorizedException,
+} from '@nestjs/common';
+import { Observable } from 'rxjs';
+import { JwtService } from '@nestjs/jwt';
+
+@Injectable()
+export class AuthGuard implements CanActivate {
+  constuctor(private readonly jwtService: JwtService) {}
+
+  canActivate(
+    context: ExecutionContext
+  ): boolean | Promise<boolean> | Observable<boolean> {
+    const request = context.switchToHttp().getRequest();
+
+    const token = request.headers['authorization']?.split(' ')[1] ?? '';
+
+    if (!token) throw new UnauthorizedException('Bearer token not found');
+
+    try {
+      const secret = process.env.JWT_SECRET;
+      // verificamos la firma
+      const payload = this.jwtService.verify(token, { secret });
+
+      // Formateamos fechas
+      payload.iat = new Date(payload.iat * 1000);
+      payload.exp = new Date(payload.exp * 1000);
+      // Hardcodeamos Role
+      payload.roles = ['admin'];
+      request.user = payload;
+      return true;
+    } catch (err) {
+      if (!token) throw new UnauthorizedException('Invalid Token');
+    }
+
+    return validateRequest(request);
+  }
+}
+```
+
+Probamos el guardían en el endpoint profile.
+
+```ts
+// users.controller.ts
+import {
+  Controller,
+  Get,
+  Post,
+  Put,
+  Delete,
+  HttpCode,
+  Res,
+  Req,
+  Param,
+  Body,
+  Headers,
+  UseGuard,
+  UseInterceptors,
+  parseUUIDPipe,
+} from '@nestjs/common';
+import { Response, Request } from 'express';
+
+import { UsersService } from './users.service';
+import { User } from './user.interface';
+import { User as UserEntity } from './user.entity';
+import { AuthGuard } from './../guards/auth.guard';
+import { DateAdderInterceptor } from './../interceptors/date-adder.interceptor';
+import { usersDBService } from './usersDB.service';
+import { CreateUserDto } from './dtos/CreateUser.dto';
+import { CloudinaryService } from './cloudinary.service';
+import { AuthService } from './AuthService.service';
+
+@Controller('users')
+// @UseGuard(AuthGuard)
+export class UsersController {
+  constructor(
+    private readonly usersService: UsersService,
+    private readonly usersDBService: UsersDBService,
+    private readonly cloudinaryService: CloudinaryService,
+    private readonly authService: AuthService
+  ) {}
+
+  // ...
+  @Get('profile')
+  UseGuards(AuthGuard)
+  getUserProfile(/*@Headers('token') token: string*/
+  @Req() resquest: Resquest & { user: any }) {
+
+    console.log("user: ", request.user)
+    return "Perfil del usuario";
+  }
+
+  @Get(':id')
+  getUserById(@Param('id', parseUUIDPipe) id: string) {
+    return this.usersDBService.getUserById(id);
+  }
+
+  // Agregamos Pipes
+  @Post('profile/images')
+  @UseInterceptors(FileInterceptor('image'))
+  @UsePipes(MinSizeValidatorPipe)
+  createUserImage(
+    @UploadedFile(
+      new ParseFilePipe({
+        validators: [
+          new MaxFileSizeValidator({
+            maxSize: 100000,
+            message: `El archivo debe ser menor a 100kb`,
+          }),
+          new FileTypeValidator({
+            fileType: /(jpg|jpeg|png|webp)$/,
+          }),
+        ],
+      })
+    )
+    file: Express.Multer.File
+  ) {
+    return this.cloudinaryService.uploadImage(file);
+  }
+
+  @Post('signup')
+  @UseInterceptor(DateAdderInterceptor)
+  createUser(
+    @Body() user: Omit<User, 'id'>,
+    @req() request: Request & { now: string }
+  ) {
+    return this.authService.signUp({ ...user, createdAt: request.now });
+  }
+
+  @Post('signin')
+  signin(@Body() user: UserCredentialsDto) {
+    return this.authService.signin(user.email, user.password);
+  }
+
+  // ...
+}
+```
+
+## Cierre
+
+En esta clase, hemos abordado de manera exhaustiva varios aspectos clave relacionados con la autenticación en NestJS.
+
+Conocimos de qué trata el proceso de autenticación, un concepto que nos es muy familiar, pero que no sabíamos a fondo su completo funcionamiento. Descubrimos, además, las diferentes estrategias de autenticación que nos permiten definir un sistema flexible y eficiente, según nuestros gustos o necesidades en las aplicaciones.
+
+Comprendimos también cómo encriptar y desencriptar contraseñas de manera segura, a partir de la librería bcrypt y de qué forma implementarla en nuestros proyectos. Con esto, hemos adquirido un conocimiento sólido que nos permitirá diseñar y desarrollar sistemas de autenticación robustos y seguros para nuestros clientes.
+
+Finalmente, hemos explorado el uso de JWT (JSON Web Token) como una herramienta poderosa basada en tokens, brindándonos una mayor comprensión de cómo desarrollar y gestionar la autenticación de forma eficaz en nuestras aplicaciones NestJS.
+
+## Homework
+
+### ACTIVIDAD 01
+
+**Sign Up**
+
+- Sustituir el endpoint POST /users por el endpoint POST /auth/signup que será creado dentro del controlador de autenticación.
+
+- Este endpoint recibirá la misma estructura que recibia el endpoint anterior y adicionalmente recibirá una propiedad de confirmación de contraseña, debes validar que ambas contraseñas sean recibidas y coincidan o devolver una excepción.
+
+- Debe registrar al usuario dentro de la base de datos con una contraseña hasheada
+
+- Debe retornar al usuario sin contraseña
+
+### ACTIVIDAD 02
+
+**Sign In**
+
+- Modificar la funcionalidad de signIn para que valide el password encriptado con el provisto en la solicitud.
+
+- Enviar un error genérico en caso de existir algún error ya sea por que el usuario no es encontrado o por que el password es incorrecto
+
+- Crear un token de acceso para el usuario registrado con una validez de 1 hora
+
+### ACTIVIDAD 03
+
+**Auth Guard**
+
+- Modificar la funcionalidad del guardián de autenticación para la validación de tokens.
+
+- Enviar un error en caso de no recibir el token o en caso de que este o sea un token válido con código de error 401
+
+- El token debe ser verificado por medio de una clave secreta que no debe ser mostrada directamente en el código (Variables de entorno).
+
+- Una vez validado el token debes adjuntar la información correspondiente al tiempo de expiración de dicho token
+
+### ACTIVIDAD 04
+
+Los endpoints protegidos por este guardián serán los siguientes
+
+- POST /uploadImage/:productId
+- POST /orders
+- GET /orders/:id
+- PUT /products/:id
+- GET /users
+- GET /users/:id
+- PUT /users/:id
+- DELETE /users/:id
+
+**TIPs - ¡Bien hecho!:**
+
+- Recuerda modificar el DTO para la creación de usuarios.
+- Puedes utilizar decoradores personalizados para la validación.
+
+**[Requisitos]**
+
+Al finalizar el alumno tendrá que haber implementado un sistema de autenticación por medio de la encriptación de contraseñas y la validación por medio de la gestión de tokens de JWT
+El proyecto deberá contar con rutas protegidas particulares y rutas públicas accesibles sin la necesidad de un token.
+
 <style>
   h1 { color: #713f12; }
   h2 { color: #2563eb; }
