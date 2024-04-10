@@ -64,3 +64,4 @@ category: Reference Docs HTML CSS JS
 - [Clase 5 NestJS & TypeORM](/astro-doc-full-stack/blog/details/m4/clase5-NestJS-&-TypeORM)
 - [Clase 6 NestJS Pipes](/astro-doc-full-stack/blog/details/m4/clase6-NestJS-Pipes)
 - [Clase 7 NestJS File Upload](/astro-doc-full-stack/blog/details/m4/clase7-NestJS-File-Upload)
+- [Clase 8 Estrategias de autenticación](/astro-doc-full-stack/blog/details/m4/clase8-Estrategias-de-autenticacion)
