@@ -256,9 +256,6 @@ Pero por el momento y para practicar, te invitamos a hacer lo siguiente:
   pre {
     padding: 10px;
   }
-    pre {
-    padding: 10px;
-  }
   table {
     border-collapse: collapse; /* Elimina el espacio entre las celdas */
     width: 100%; /* Ancho de la tabla */

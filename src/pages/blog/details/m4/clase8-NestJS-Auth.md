@@ -207,19 +207,18 @@ export class User {
   @PrimaryGeneratedColumn('uuid')
   id: string = uuid();
 
-  @Colunm();
+  @Colunm()
   name: string;
 
-  @Colunm();
+  @Colunm()
   email: string;
 
-  @Colunm();
+  @Colunm()
   password: string;
 
-  @Colunm();
+  @Colunm()
   createdAt: string;
 }
-
 ```
 
 Almacenaremos la contraseña en la BD encriptada a través de bcrypt. Como es un algoritmo destructivo no es posible a través del hash obtener la contraseña original.
@@ -421,7 +420,7 @@ export class UsersModule {}
 Para ejecutar una migración que crea un nuevo campo (password) de tipo NOT NULL en la tabla users debemos asegurarnos de que la tabla no posee datos. Si nos toca esta situación en producción deberíamos generar la columna como nullable, updatear las filas con algun valor, y luego pasarla a NOT NULL o generarla como NOT NULL pero con un valor por default.
 
 ```sql
-DELETE * FROM users;
+DELETE FROM users;
 ```
 
 ```bash
@@ -684,7 +683,7 @@ import { TypeOrmModule} from '@nestjs/typeorm' ;
 import { UsersModule } from './users/users.module';
 import { TodosModule } from './todos/todos.module';
 import typeOrmConfig from './config/typeorm';
-import { JWTModule } from '@nestjs/jwt';
+import { JwtModule } from '@nestjs/jwt';
 // import { AuthGuard } from './guards/auth.guard';
 
 @Module({
@@ -699,7 +698,7 @@ import { JWTModule } from '@nestjs/jwt';
     }),
     UserModule,
     TodosModule,
-    JWTModule.register,({
+    JwtModule.register({
       global: true,
       signOptions: { expiresIn: '1h' },
       secret: process.env.JWT_SECRET,
