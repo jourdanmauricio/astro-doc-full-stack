@@ -66,3 +66,4 @@ category: Reference Docs HTML CSS JS
 - [Clase 7 NestJS File Upload](/astro-doc-full-stack/blog/details/m4/clase7-NestJS-File-Upload)
 - [Clase 8 NestJS Auth](/astro-doc-full-stack/blog/details/m4/clase8-NestJS-Auth)
 - [Clase 9 NestJS Auth II](/astro-doc-full-stack/blog/details/m4/clase9-NestJS-Auth-II)
+- [clase10 NestJS Testing](/astro-doc-full-stack/blog/details/m4/clase10-NestJS-Testing)
