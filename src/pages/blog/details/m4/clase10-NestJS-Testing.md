@@ -849,7 +849,3 @@ Para tomar el extra credit de este hito el alumno deberá haber creado:
   display: block;
   }
 </style>
-
-```
-
-```
