@@ -580,10 +580,12 @@ POSTGRES_DB=demo-db
 ```
 
 ```bash
-docker compose up
+# -d detach -> segundo plano
+docker compose up -d
 
 # docker compose stop
 # docker compose rm
+# docker compose ps
 ```
 
 Y así hemos logrado tener una aplicación multicontenedores que se comunican entre sí y utilizan la persistencia de datos. Si bien este proceso pudo parecer tedioso, **Docker** cuenta con una herramienta que nos ayudará a simplificarlo.
