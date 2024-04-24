@@ -16,6 +16,56 @@ category: Backend Js Nest
 
 ## Validación de solicitudes
 
+################################################
+
+**Validación avanzada de solicitudes**
+
+- En Nest, contamos con herramientas conocidas como Pipes.
+- Estas trabajan interceptando las solicitudes para hacer validaciones, antes de que sean manejados por el controlador.
+- Las pipes pueden ser implementadas con dos finalidades: **transformar la información a un formato deseado** y **validar los datos de la solicitud**.
+
+**Uso de pipes predeterminados y sus características**
+
+Existen nueve pipes predeterminadas de Nest que se utilizan para transformar o validar los datos de entrada en un formato específico antes de ser procesados por los controladores.
+
+- **ValidationPipe**: Valida los datos de la solicitud HTTP según la regla establecida.
+- **ParseIntPipe**: Establece la entrada como dato numérico.
+- **ParseFloatPipe**: Convierte a dato tipo flotante.
+- **ParseBoolPipe**: Transforma a valor booleano.
+- **ParseArrayPipe**: Muta la entrada a un arreglo.
+- **ParseUUIDPipe**: Verifica y transforma a formato UUID.
+- **ParseEnumPipe**: Valida y convierte a un tipo enumerado.
+- **DefaultValuePipe**: Establece un valor predeterminado si no se proporciona uno.
+- **ParseFilePipe**: Facilita el manejo de archivos en las solicitudes.
+
+**parseUUIDPipe**
+
+- Trata de transformar un valor recibido por argumento dentro de un controlador al dato correspondiente y en caso de fallar, devuelve un error.
+
+**Creación de pipes personalizados**
+
+- Los **pipes** son clases inyectables de Nest que implementan la interfaz **PipeTransform de @nestjs/common**.
+- Dicha interfaz contiene al método **transform** que recibe dos argumentos.
+- El primero es **value**, considerado como el valor del argumento que se desea evaluar.
+- El segundo, **metadata**, que contiene información adicional del argumento como el tipo de dato, origen, etc
+- La creación de validaciones personalizadas se estructuran por medio de la clase **ValidationPipe**.
+- Necesitas indicar a la aplicación que utilizaremos a **ValidationPipe**, dentro del archivo principal **main.ts**.
+- A pesar de que esta opción de protección se habilita de forma global, la aplicación de las reglas de validación del DTO solo son hechas dentro del endpoint que definamos explícitamente.
+
+**Data Transfer Object**
+
+- Los **DTO** son clases que definen la estructura de un objeto en particular.
+- Verifican que el cuerpo de una solicitud coincida con estas especificaciones.
+- Con frecuencia, se hace uso de librerías como **class-validator** o **class-transformer**.
+- Estas nos proveen funciones de validación que pueden ser aplicadas por medio de decoradores haciendo más eficiente el desarrollo.
+
+**class-transformer / class-validator**
+
+- El trabajo de **class-transformer** será transformar los objetos recibidos en instancias de una clase, para que puedan ser
+  validados mediante los decoradores de **class-validator**.
+
+################################################
+
 ## Validación avanzada de solicitudes
 
 Las validaciones de la información recibida de las solicitudes al servidor, como por ejemplo verificar que el email proporcionado sea válido y único en nuestra base de datos, son de suma importancia para garantizar que estos cumplan con ciertos criterios antes de ser procesados.
@@ -397,6 +447,32 @@ Hasta aquí, hemos abordado el concepto de **pipe personalizado**, herramientas 
 
 ## Transformación y saneamiento de datos
 
+###############################################
+
+**Técnicas de transformación y saneamiento**
+
+**Transformación**
+
+- Implica modificar la estructura o el formato de los datos recibidos para ajustarse a las necesidades de la aplicación.
+
+**Saneamiento**
+
+- Implica validar y limpiar los datos recibidos para garantizar que sean seguros y consistentes antes de ser utilizados por la aplicación.
+
+**Eliminación de propiedades**
+
+- **ValidationPipe** se implementa para deshacernos de propiedades que pueden estar incluidas dentro de la solicitud que
+  ingresa al controlador.
+- Para realizar esta limpieza, debes asignar la propiedad **whitelist** de **ValidationPipe** a **true**.
+
+**Transformación de datos**
+
+- Esta transformación se emplea cuando se extrae información de la solicitud.
+- La transformación puede ser realizada de manera global o local.
+- En caso de un pipe local, unirlo al método en cuestión por medio del decorador **@UsePipes** que recibe como argumento una instancia de **ValidationPipe**.
+
+###############################################
+
 ## Técnicas de transformación y saneamiento
 
 Las pipes pueden ser utilizadas no solo para llevar a cabo la validación de datos, sino también para realizar **la transformación y el saneamiento** de estos.
@@ -470,6 +546,56 @@ Hasta ahora, hemos visto cómo realizar **transformaciones** y **validaciones** 
 Pero... ¿qué sucede cuando se presenta algún **error** en particular?
 
 ## Manejo de errores
+
+######################################
+
+**Manejo de errores**
+
+- Una gran ventaja de trabajar con Nest, es que la mayoría de las características que implementa están construidas para retornar errores descriptivos.
+- Al momento de no cumplir con una validación impuesta por algún decorador de la librería class-validator, devuelve un error con un status y mensaje asociado a la validación fallida.
+
+**¿Qué sucede con aquellos errores que no son manejados correctamente?**
+
+- Dentro de Nest, los errores que no son controlados por alguna función o librería son procesados por medio de la **capa de excepciones (Exceptions Layer)**.
+- Esta herramienta se encarga de procesar cualquier error dentro de la aplicación que no haya sido considerado dentro del manejo de errores en el código.
+
+**HttpException**
+
+- Es una clase incorporada a Nest que se encuentra configurado de manera predeterminada y puede ser empleado para generar excepciones personalizadas con status y cuerpo definidos por la aplicación.
+- Este manejo de errores puede ser asignado en un bloque try/catch dentro de la ruta para definir la excepción.
+
+**Exception Filters Preconstruidos**
+
+- BadRequestException
+- UnauthorizedException
+- NotFoundException
+- ForbiddenException
+- NotAcceptableException
+- RequestTimeoutException
+- ConflictException
+- GoneException
+- HttpVersionNotSupportedException
+- PayloadTooLargeException
+- UnsupportedMediaTypeException
+- UnprocessableEntityException
+- InternalServerErrorException
+- NotImplementedException
+- ImATeapotException
+- MethodNotAllowedException
+- BadGatewayException
+- ServiceUnavailableException
+- GatewayTimeoutException
+- PreconditionFailedException
+
+**NotFoundException**
+
+- Podes agregar como argumento un string con un mensaje personalizado de error.
+
+**BadRequestException**
+
+- Recibe como argumento un objeto con un mensaje de alerta y los errores que encapsulamos y lo devolverá al cliente con un status 400.
+
+######################################
 
 Una gran ventaja de trabajar con Nest, es que la mayoría de las características que implementa están construidas para **retornar errores** descriptivos como vimos por ejemplo en el caso de los pipes.
 

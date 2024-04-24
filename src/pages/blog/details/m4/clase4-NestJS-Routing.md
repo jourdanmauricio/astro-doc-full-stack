@@ -16,6 +16,74 @@ category: Backend Js Nest
 
 ## Solicitudes HTTP
 
+############################################
+
+- Nest Js integra una herramienta simplificada pra el manejo y enrutamiento de solicitudes.
+- Se define por medio de clases que hacen usi del decorador **@Controller**.
+- La funcionalidad principal de un controlador es recibir solicitudes HTTP enviadas a un endpoint determinado.
+- Procesa la lógica y devuelve una respuesta acorde a la petición.
+
+**@Controller**
+
+- Recibe como argumento un strig correspondiente a la ruta que lo inicializa.
+- Dentro de la clase correspondiente al decorador, encontramos las acciones a llevarse a cabo en forma de funciones.
+- Cada una de estas funciones estará asociada a un decorador concreto, según el tipo de petición **HTTP** a hacer: **@Get**, **@Post**, **@Put**, **@Delete**.
+
+**Manejo de solicitudes**
+
+- Podemos gestionar tanto las rutas principales como las subrutas correspondientes a cada método.
+- Los decoradores @Get, @Post, @Put, @Delete pueden recibir strings como argumentos que corresponden a las rutas anidadas de la URL de @Controller.
+- Permite trabajar con varios niveles de anidamiento.
+- Las solicitudes HTTP deberán realizarse al endpoint exacto definido en la URL.
+- Nos permite crear una funciionalidad más dinámica en la aplicación y procesar las solicitudes.
+
+**@HttpCode**
+
+- Nest define el código de status de la respuesta de acuerdo al tipo de solicitud.
+- En caso de que se necesite emitir un código personalizado, tenemos acceso al decorador @HttpCode.
+- Este recibe como argumento el código que deseamos devolver con la respuesta.
+
+**@Res**
+
+- Puedes utilizar la sintaxis de Express para manejar la respuesta de forma manual.
+- Utiliza el decorador **@Res**.
+- Este dene agregarse como argumento de la función de la ruta que lo requiere.
+
+**@Req**
+
+- Puedes acceder al objeto request gracias al decorador **@Req**.
+- Trata de evitar esta sintaxis.
+
+**@Param**
+
+- Es usado para extraer los parámetros de la socitud, ya sea para ser empleados en la lógica del controlador o alguna dependecia de la ruta.
+- Debe definirse como argumento de la ruta que lo necesita.
+- Recibe un string con el nombre del parámetro que se desea extraer de esta.
+- El valor puede ser transferido a las dependencias que lo necesiten para realizar sus tareas.
+- Envíalo al servicio y, posteriormente, al repositorio de usuarios para que devuelva al usuario que corresponda con este id.
+
+**@Query**
+
+- Puedes obtener información adicional de la solicitud en forma de strings que se encuentren anidadas dentro de la ruta.
+- A estos datos se los conoce como **query strings**.
+- Nest nos provee el decorador **@query** que recibe como argumento la clave que deseamos extraer de la cadena.
+- Son opcionales y pueden ser usudas para trabajar con rutas dinámicas o para definir filtros, ordenamientos, paginados.
+
+**@Body**
+
+- Para extraer información del cuerpo de la socitud tenemos acceso al decorador **@Body**.
+- Este permite recuperar datos enviados por el cliente mediante solicitudes de tipo POST, PUT o PATCH en forma de objeto.
+
+**@Header**
+
+- Los headers de la solicitud son considerados metadatos.
+- Es la información adicional sobre otros datos.
+- Pueden contener información como, el tipo de contenido que incluye, condificación, autenticación, etc. de la solicitud o de la respuesta.
+- Dentro de Nest podemos acceder a estos valores gracias al decorador **@Header**.
+- Recibe como argumento la propiedad dentro de la cabecera a la que deseamos acceder.
+
+############################################
+
 ## Técnicas avanzadas
 
 Como ya sabemos, la funcionalidad principal de un controlador es recibir las **solicitudes HTTP** enviadas a un **endpoint** determinado, procesar la lógica y devolver una respuesta acorde a la petición.
@@ -439,6 +507,15 @@ La implementación de las **cabeceras** es una alternativa que puede ser emplead
 
 ## Guardianes
 
+- Los guardianes son clases inyectables cuya tarea es determinar si una solicitud recibida en el controlador, debe o no continuar su ejecución.
+- Actúan como filtros que pueden permitir o denegar el acceso a ciertas rutas o recursos, se se cumplen o no algunas condiciones.
+- Tiene una función similar a la de un middleware de autorización.
+- **Su ejecución es mucho más eficiente**.
+- **Tienen acceso directo al contexto de ejecución de la aplicación**.
+- **Permite trabajar de formadeclarativa y no estar atados al uso de next()**.
+- **Cuentan con una mayor flexibilidad al momentos de ser definidos dentro del controlador**.
+- El scope puede estar limitado al método involucrado, al scope de controlador o al scope Global, depende del lugar donde se encuentre definido el decorador **@UseGuard**.
+
 ## Implementación de guardianes
 
 Los **guardianes** son clases inyectables cuya tarea es determinar si una solicitud recibida en el controlador debe o no continuar su ejecución. Lo anterior, de acuerdo a ciertos parámetros de seguridad definidos dentro del guardián. En otras palabras, **actúan como filtros** que pueden permitir o denegar el acceso a ciertas rutas o recursos, si se cumplen o no algunas condiciones.
@@ -649,6 +726,9 @@ Como último tema de esta clase hablaremos de otra herramienta que nos permite l
 
 ## Interceptores
 
+- Un interceptor es una clase inyectable de Nest Js.
+- Permite "interceptar" una solicitud o respuesta y modificar la iniformación contenida en esta, antes de que la solicitud llegue al controlador o antes de que la respuesta sea devuelta al cliente.
+
 ## Manipulación de flujo de datos
 
 En términos generales, un **interceptor** es una clase inyectable que permite “interceptar” una solicitud o respuesta y modificar la información contenida en esta, antes de que la solicitud llegue al controlador o antes de que la respuesta sea devuelta al cliente.
@@ -780,6 +860,8 @@ export class app.module {}
 
 ```
 
+## Aplicaciones prácticas de interceptores
+
 - **LogginInterceptor**: Intercepta las solicitudes HTTP para realizar un seguimiento de los tiempos de respuesta y registrarlos en un archivo.
 
 - **AuthorizationInterceptor**: Verifica los encabezados de autorización en las solicitudes entrantes y permite o niega el acceso a las rutas protegidas según los permisos del usuario.
@@ -791,6 +873,12 @@ export class app.module {}
 **ErrorHandlerInterceptor**: Captura errores en las solicitudes y genera respuestas de error coherentes para proporcionar una experiencia de usuario consistente.
 
 Hemos visto en esta sección, cómo los **interceptores** permiten llevar a cabo acciones antes o después de que una solicitud entre al controlador e incluso luego de que se envíe una respuesta.
+
+**Scope Global**
+
+- Utiliza la función **useGlobalInterceptors**.
+- Recibe como argumento una instancia del interceptor a emplear.
+- Debe ser declarado dentro del array providers del módulo raíz de la aplicación o del módulo que lo importe.
 
 ## Cierre
 

@@ -124,6 +124,11 @@ Existen diferentes patrones de arquitectura de software...
 
 ### Monolitos
 
+- Patrón de arquitectura que se desarrolla de forma integral como una única unidad de software.
+- Se compone de un código base que se ejecuta en un solo proceso del servidor.
+- Todas las funcionalidades de la aplicación (cliente y servidor) se encuentran integradas en una solo aplicación.
+- Suelen ser dificiles de mantener y más aún de escalar.
+
 <mark>**Arquitectura de monolitos**. En este patrón la aplicación se desarrolla de forma integral como una única unidad de software, que se compone de un código base que se ejecuta en un solo proceso del servidor.</mark>
 
 Esto quiere decir, que todas las funcionalidades de la aplicación (cliente y servidor) se encuentran integradas en una sola aplicación.
@@ -131,6 +136,11 @@ Esto quiere decir, que todas las funcionalidades de la aplicación (cliente y se
 Si bien este patrón nos da una forma práctica de trabajar y desplegar, suelen ser difíciles de mantener y más aún de escalar.
 
 ### Microservicios
+
+- Divide la aplicación en varios servicios independientes autocontenidos, cada uno con su propia lógica y base de código.
+- Promueve la modularidad y reutilización del código lo que puede permitir una mayor agilidad y flexibilidad.
+- Permite que la base de código se más pequeña lo que conlleva a que el proceso de desarrollo sea más rápido y simple.
+- Permite que múltiples desarrolladores trabajen al mismo tiempo en un proyecto.
 
 <mark>Por otro lado tenemos el **patrón de microservicios** que divide la aplicación en varios servicios independientes autocontenidos, cada uno con su propia lógica y base de código.</mark>
 
@@ -177,6 +187,24 @@ Nos enfocaremos en el patrón de diseño mediante microservicios para asegurar l
 
 ## Escalabilidad & rendimiento
 
+<mark>Escalabilidad: Capacidad de crecer y manejar de manera efectiva un aumento en la demanda, sin comprometer su rendimiento, confiabilidad o mantenibilidad.</mark>
+
+### Consideraciones de escalabilidad
+
+**Distribución de tareas**
+
+- Es importante definir en componentes independientes cada funcionalidad de la aplicación.
+- Cada uno de esos componentes debe poder trabajar de manera aislada, lo que le permitirá escalar de forma independiente en el futuro.
+
+**Gestión de recursos**
+
+- Es una buena práctica usar herramientas de gestión de recursos como Dockers y Kubernetes.
+- Nos permiten optimizar y automatizar el despliegue de la aplicación.
+
+**Base de datos**
+
+- Es importante seleccionar de forma adecuada la base de datos que nos permita escalar el proyecto.
+
 ### Conceptos
 
 Cuando hablamos de **escalabilidad** de un proyecto, hacemos alusión a su capacidad de **crecer** y **manejar** de manera efectiva un aumento en la demanda, sin comprometer su rendimiento o confiabilidad.
@@ -191,9 +219,16 @@ Horizontal -> asociado a microservicios. Para el cliente es transparente. Podemo
 
 ### Estrategias de rendimiento
 
-**Optimización de consultas**: Al realizar consultas a la base de datos, el manejo de índices o primary keys aumentan considerablemente la eficiencia de la consulta. Por esto es importante planificar servicios que ocupen lo más posible estos valores.
+<mark>Aumentar el rendimiento del sistema es fundamental para asegurar el rápido procesamiento de solicitudes y la disminución de errores.</mark>
 
-**Compresión de datos**: Cuando trabajamos con archivos de gran tamaño, una buena manera de mejorar el rendimiento de una aplicación es por medio de la compresión del formato para que la transferencia sea mucho más rápida.
+**Optimización de consultas**:
+
+- Al realizar consultas a la base de datos, el manejo de índices o primary keys aumentan considerablemente la eficiencia de la consulta.
+- Por esto es importante planificar servicios que ocupen lo más posible estos valores.
+
+**Compresión de datos**:
+
+- Cuando trabajamos con archivos de gran tamaño, una buena manera de mejorar el rendimiento de una aplicación es por medio de la compresión del formato para que la transferencia sea mucho más rápida.
 
 ## Cierre
 

@@ -16,6 +16,18 @@ category: Backend Js Nest
 
 ## TypeORM en NestJS
 
+#######################################
+
+**TypeORM**
+
+- Es una librería que nos permite interactuar con la base de datos desde nuestro código del servidor. Está optimizada para trabajar con el lenguaje TypeScript.
+
+**NestJS**
+
+- Es un framework para crear servidores que nos permite trabajar con bases de datos tanto SQL como NoSQL, mediante la integración de diferentes librerías ORM u ODMs.
+
+#######################################
+
 Como aprendimos en lecciones anteriores, **TypeORM** es una librería que nos permite interactuar con la base de datos desde nuestro código del servidor, y que está optimizada para trabajar con el lenguaje TypeScript.
 
 La elección del ORM para trabajar con NestJS es 100% dependiente de las necesidades del proyecto a implementar. Sin embargo, es importante resaltar que tanto TypeORM como Mongoose, cuentan con una integración por defecto dentro de proyectos inicializados con Nest.
@@ -27,6 +39,35 @@ opciones para incorporar en un proyecto de Nest.</mark>
 En nuestro caso, trabajaremos con la integración de **TypeORM** ya que esta nos permite interactuar tanto con bases de datos relacionales como no relacionales. Tiene también soporte para la mayoría de las **DBMS** más populares de la industria, en especial, **PostgreSQL**.
 
 ## Instalacion y configuracion inicial
+
+##########################################
+
+- **@nestjs/typeorm** nos da acceso a la interfaz para integrar ambas herramientas.
+- **typeorm**, y **@nestjs/config**, incluye a **dotenv**, para leer la información de las variables de entorno de la
+  aplicación.
+- El driver **pg** de PostgreSQL para trabajar con este gestor SQL.
+
+**TypeOrmModule**
+
+- Permite agregar un objeto de configuración como argumento de la función forRoot().
+- Especifica las propiedades correspondientes a las opciones de configuración y credenciales de la conexión.
+- Es necesario indicar el tipo de DBMS con la que se trabajara, las credenciales de acceso, nombre de la base de
+  datos, host y puerto.
+
+**Configuración avanzada**
+
+- Configurar la conexión para extraer los valores de las credenciales desde un archivo de **variables de entorno**.
+- Para configurar **variables de entorno** debes crear un archivo **.env** dentro de la carpeta raíz de la aplicación.
+- Por convención escribelas con nombres descriptivos respecto al contenido que allí guardan.
+
+**Acceso a la información**
+
+- Importar a **ConfigModule** y **ConfigService** de **@nestjs/config** permite leer y utilizar las variables de entorno.
+- Dentro del array imports, agrega a **ConfigModule** y utiliza el metodo **forRoot** el cual recibe como argumento un objeto con la configuración correspondiente a la lectura del archivo **.env** y las variables que contiene.
+- Usa la configuración **isGlobal** para indicar que podemos acceder a estas variables de forma global dentro de la aplicación.
+- Utiliza la propiedad **envFilePath** que nos permite indicar el archivo donde se encuentran las variables.
+
+##########################################
 
 Como siempre, el primer paso será la instalación de las librerías y dependencias correspondientes dentro del proyecto que hemos venido trabajando hasta el día de hoy.
 
@@ -202,6 +243,22 @@ export class app.module {}
 
 ## Entidades, modelos y migraciones
 
+######################################
+
+**Modelos de Entidades**
+
+- Los **modelos** son **clases** de TypeScript que definen la estructura de los objetos que representan elementos del mundo real.
+- Estos se transforman en **entidades** que son **mapeadas a tablas** dentro de la base de datos por TypeORM.
+- La declaración de entidades en proyectos de Nest sigue las mismas directrices de TypeORM.
+- Utiliza los decoradores **@Entity**, **@Column**, **@PrimaryGeneratedColumn**, entre otros.
+
+**Entities**
+
+- Es una propiedad del objeto de configuración de **TypeOrmModule**.
+- Agrega un array con las entidades del proyecto.
+
+######################################
+
 ## Modelos de entidades
 
 Recordemos que en **TypeORM** los modelos son clases de TypeScript que definen la estructura de los objetos que representan elementos del mundo real. Estos se transforman en entidades que son mapeadas a tablas dentro de la base de datos por TypeORM, mediante el decorador **@Entity**.
@@ -321,6 +378,21 @@ Al levantar la aplicación nuevamente, creará la tabla users y todos en la base
 > Antes de empezar a trabajar con la DB, presentaremos un tema muy importante en TypeORM, que nos permite actualizar las tablas de la DB sin correr el riesgo de perder información importante.
 
 ## Migraciones
+
+###########################################
+
+**Migraciones**
+
+- En TypeORM son una forma de gestionar y aplicar cambios en la estructura de la base de datos de una manera controlada y reproducible.
+- Cada vez que necesitemos agregar, quitar o modificar algo en la estructura de tu base de datos creamos una migración para documentar esos cambios.
+- Las migraciones son archivos que contienen clases que implementan la interfaz **MigrationInterface** de TypeORM.
+- Mediante **QueryRunner** debes ejecutar dos queries: **UP** y **DOWN**.
+- Son funciones que, por medio del método **query de QueryRunner**, ejecuta una query con los cambios que queremos
+  actualizar.
+- Una vez realizada la creación y conexión del archivo de configuración definir los scripts que utilizaras dentro de la aplicación.
+- Permite simplificar el proceso de ejecución de los comandos para la generación y uso de migraciones en la terminal.
+
+###########################################
 
 Las **_migraciones_** en TypeORM son una forma de gestionar y aplicar cambios en la estructura de la base de datos de una manera controlada y reproducible. En términos más simples, cada vez que necesitemos agregar, quitar o modificar algo en la estructura de tu base de datos (como añadir una nueva tabla o cambiar el tipo de datos de una columna), creamos una migración para documentar esos cambios.
 
@@ -498,6 +570,22 @@ npm run migrations:run
 Ahora tendremos las tablas users y todos en la base de datos.
 
 A continuación veremos un nuevo patrón de diseño con el que trabajaremos muy seguido.
+
+## Patrón de Repositorios
+
+###########################################
+
+**Diseño e Implementación**
+
+- TypeORM puede trabajar de forma eficiente dentro del patrón de repositorios de Nest.
+- Se basa en la separación de responsabilidades de acceso a la base de datos.
+- Las entidades pueden ser asociadas a un repositorio de Nest para que este sea el único encargado de gestionar las consultas a la base de datos de dicha entidad.
+
+**Inyección de Repositorios**
+
+- Para inyectar una entidad dentro de un servicio, debes agregar en el constructor al decorador **@InjectRepository** de **@nest/typeorm**.
+
+###########################################
 
 ## Implementación del patrón de repositorio
 

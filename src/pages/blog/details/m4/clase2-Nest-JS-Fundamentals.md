@@ -16,6 +16,11 @@ category: Backend Js Nest
 
 ## ¿Qué es NestJS?
 
+- **NestJS** es un framework para crear aplicaciones **node** con **TypeScript**
+- Trabaja con base en un servidor de express para procesar requests de HTTP.
+- Permite la optimización del código.
+- Permite crear código más eficiente y escalable, simplificando y agilizando el proceso de desarrollo.
+
 **NestJS** es un framework para crear aplicaciones **node** con **TypeScript**. Está diseñado para explotar al máximo este lenguaje mediante el uso de herramientas específicas que permiten la optimización del código. ¿Esto quiere decir que nos olvidamos de Express? **Claro que no**.
 
 De hecho, detrás de escena, nest trabaja con base en un servidor de express para procesar requests de HTTP. Podríamos decir incluso que es como una especie de “extensión” de express que nos permite crear código más eficiente.
@@ -24,7 +29,7 @@ Está presente en aplicaciones como plataformas e-commerce, sistemas de salud, s
 
 ## Configuración de proyecto
 
-Para instalar y configurar un proyecto, NestJS nos provee una herramienta llamada **Nest CLI**. Esta nos permite inicializar una aplicación con este framework desde la terminal, simplificando el proceso de instalación y generando un proyecto con una configuración base. El comando a utilizar es...
+<mark>Para instalar y configurar un proyecto, NestJS nos provee una herramienta llamada **Nest CLI**</mark>. Esta nos permite inicializar una aplicación con este framework desde la terminal, simplificando el proceso de instalación y generando un proyecto con una configuración base. El comando a utilizar es...
 
 ```bash
 npm i -g @nestjs/cli
@@ -78,6 +83,12 @@ your-name-project
 
 ## Módulos e inyección de dependencias
 
+- Un proyecto definido con nest sigue la arquitectura de módulos.
+- Cada funcionalidad o característica se encapsula en un módulo específico.
+- Cada uno de estos se compone de al menos un módulo principal.
+- Representado por una clase definida con el decorador @Module
+- Este decorador concede a la clase las funcionalidades para que nest organice la estructura del proyecto.
+
 ## Organización de módulos
 
 Un proyecto definido con nest generalmente sigue la arquitectura de módulos, donde cada funcionalidad o característica se encapsula en un módulo específico.
@@ -88,13 +99,13 @@ Cada uno de estos se compone de al menos un **módulo principal**, representado 
 
 Es decir, en cada **módulo** agregaremos la **lógica** correspondiente a cada componente de nuestra aplicación y nest se encargará de buscar la forma más eficiente de integrarlos según las dependencias definidas en el proyecto.
 
-El decorador **@Module** debe recibir un objeto de configuración donde se describan las propiedades del módulo. Es decir, en cada **módulo** agregaremos la **lógica** correspondiente a cada componente de nuestra aplicación y nest se encargará de buscar la forma más eficiente de integrarlos según las dependencias definidas en el proyecto. Las propiedades pueden ser...
+<mark>El decorador **@Module** debe recibir un objeto de configuración donde se describan las propiedades del módulo</mark>. Es decir, en cada **módulo** agregaremos la **lógica** correspondiente a cada componente de nuestra aplicación y nest se encargará de buscar la forma más eficiente de integrarlos según las dependencias definidas en el proyecto. Las propiedades pueden ser...
 
-- **Providers**: Son clases que pueden ser inyectadas dentro del módulo. Pronto volveremos sobre este concepto con mayor detalle.
+- <mark>**Providers**</mark>: Son clases que pueden ser inyectadas dentro del módulo. Pronto volveremos sobre este concepto con mayor detalle.
 
-- **Controllers**: Corresponden a las **clases** y se encargan de procesar las requests del módulo.
+- <mark>**Controllers**</mark>: Corresponden a las **clases** y se encargan de procesar las requests del módulo.
 
-- **Imports y exports**: Configuraciones opcionales donde se define qué **funcionalidades** del módulo serán exportadas y que otros módulos debemos importar en caso de ser necesario.
+- <mark>**Imports y exports**</mark>: Configuraciones opcionales donde se define qué **funcionalidades** del módulo serán exportadas y que otros módulos debemos importar en caso de ser necesario.
 
 Dentro del archivo **app.module.ts** generado por **Nest CLI**, encontraremos la estructura de un módulo preconstruido llamada **AppModule**. Este actuará como el módulo raíz del proyecto. Este cuenta con tres propiedades:
 
@@ -123,9 +134,12 @@ return go(f, seed, []);
 
 ### Scope de módulos
 
+- Los módulos trabajan con un alcance (scope) definido por el contexto donde son declarados o inyectados.
+- Las funcionalidades y dependencias únicamente están disponibles para los elementos que son definidos dentro de dicho módulo.
+
 Ahora bien, es importante recalcar que los módulos trabajan con un **alcance** definido por el contexto donde son declarados o inyectados (ya veremos en detalle a que se refiere este último término). Esto quiere decir que las funcionalidades y dependencias únicamente están disponibles para los elementos que son definidos dentro de dicho módulo.
 
-Si tomamos en cuenta el código anterior, la información que existe en **AppController**, **AppService** y **AppModule**, puede ser compartida dentro del mismo módulo mediante las importaciones y exportaciones correspondientes.
+Si tomamos en cuenta el código anterior, <mark>la información que existe en **AppController**, **AppService** y **AppModule**, puede ser compartida dentro del mismo módulo mediante las importaciones y exportaciones correspondientes.</mark>
 
 ![Modulos](/astro-doc-full-stack/images/henry/m4/clase2/fundamentals1.webp)
 
@@ -137,7 +151,7 @@ Los módulos nos van a servir para envapsular ciertas funcionalidad dentro de un
 
 Un módulo es una clase, que decoraremos con el decorador @Modulo(). Así convertimos la clase en un módulo de Nest.
 
-El modulo app.module.ts posee un controlador y un provider. Pero si deseamos importar funcionalidad de otro módulo, deberíamos importarlo y dentro del atributp agregar el nombre del módulo. Y de esta manera, importamos la funcionalidad del modulo B dentro del app.module.ts.
+El modulo app.module.ts posee un controlador y un provider. <mark>Pero si deseamos importar funcionalidad de otro módulo, deberíamos importarlo y dentro del atributo agregar el nombre del módulo.</mark> Y de esta manera, importamos la funcionalidad del modulo B dentro del app.module.ts.
 
 ```ts
 // app.module.ts
@@ -155,7 +169,7 @@ import { ModuleB } from './facModule.module';
 export class AppModule {}
 ```
 
-Si la funcionalidad del móduloB será importada por muchos otros módulos, podemos agregarle el decorador @Global. De esta manera, este módulo podrá ser utilizado por cualquier otro módulo sin necesidad de agregarlo al array de imports. Se vuelve global para toda la aplicación.
+<mark>Si la funcionalidad del móduloB será importada por muchos otros módulos, podemos agregarle el decorador @Global.</mark> De esta manera, este módulo podrá ser utilizado por cualquier otro módulo **sin necesidad de agregarlo al array de imports**. Se vuelve global para toda la aplicación.
 
 ```ts
 // facModule.module.ts
@@ -172,17 +186,34 @@ De esta forma toda la aplicación puede tener acceso a las funcionalidades de Ap
 
 ## Inyección de dependencias
 
+- Patrón de diseño sobre el cual está construido NestJS.
+- Sirve para administrar las dependencias entre componentes de una forma más simple y eficiente.
+- Permite la creación, gestión y acceso a los diferentes componentes de la aplicación de forma flexible y automatizada.
+- Utiliza un objeto llamado injector que contiene información sobre las lista de clases y dependencias de la aplicación.
+- Permite centralizar las relaciones entre sus diferentes componentes.
+
+### Ventajas
+
+- Trabajar de manera desacoplada.
+- Mayor facilidad de reutilización de código.
+- Facilita el proceso de testing.
+
 La inyección de dependencias es el **patrón de diseño sobre el cual está construido NestJS**. Sirve para administrar las dependencias entre componentes de una forma más simple y eficiente. Este patrón permite la creación, gestión y acceso a los diferentes componentes de la aplicación de forma flexible y automatizada.
 
 Este patrón trabaja utilizando un objeto llamado **injector** que contiene información sobre las lista de clases y dependencias de la aplicación, permitiendo centralizar las relaciones entre sus diferentes componentes.
 
 ![Inyección de dependencias](/astro-doc-full-stack/images/henry/m4/clase2/fundamentals3.webp)
 
-Al iniciar una aplicación tradicional, integramos los componentes modularizados de manera jerárquica desde el archivo raíz y siguiendo las dependencias definidas en cada módulo durante la compilación. Por su parte, en este patrón de inyección, todos los módulos (clases) de la aplicación están contenidos en un inyector, junto con las relaciones generadas por sus dependencias, permitiendo resolverlas conforme son utilizadas.
+<mark>Al iniciar una aplicación tradicional, integramos los componentes modularizados de manera jerárquica desde el archivo raíz y siguiendo las dependencias definidas en cada módulo durante la compilación. Por su parte, en este patrón de inyección, todos los módulos (clases) de la aplicación están contenidos en un inyector, junto con las relaciones generadas por sus dependencias, permitiendo resolverlas conforme son utilizadas.</mark>
 
 ## Controladores y proveedores
 
 ## Providers
+
+- Utiliza el decorador **@Injectable**.
+- Esto permite que dicha clase pueda ser inyectada en otras, bajo el sistema de inyección de dependencias.
+- Es necesario agregarlo al arreglo providers dentro del módulo correspondiente.
+- Este arreglo vaa a contener todas las clases, valores y funciones que pueden ser utilizadas como dependencias por otras clases dentro del módulo.
 
 Para definir una **clase provider** necesitamos anteponer el decorador **@Injectable**. Esto permite que dicha clase pueda ser **inyectada** en otras. Dentro del proyecto generado con NestCLI encontramos un servicio dentro del archivo **app.service.ts** que exporta al provider **AppService**.
 
@@ -227,6 +258,15 @@ export class AppModule {}
 Pasemos a hablar ahora de los controllers, quienes se encargarán de recibir estas dependencias y ejecutarlas al momento de recibir una solicitud de HTTP.
 
 ## Controllers
+
+- Son clases definidas con el decorador **@Controller**
+- Responsables del manejo de las solicitudes por parte del cliente.
+- El objetivo de un controlador es recibir una request y dirigir la solicitud para procesar la información correspondiente.
+- Las solicitudes pueden resolverse como instancias de dicha dependencia.
+- La sintaxis es parte del patrón de inyección de dependencias de Nest.
+- Estas pueden ser públicas o privadas dependiendo de las necesidades del módulo.
+- El decoradodor **@Get**, que representa al método de HTTP del mismo nombre permite definir un handler espedífico para un endpoint concreto.
+- Los controllers deben ser puestos a disposición del módulo que se encargará de utilizarlos para enrutar las solicitudes HTTP.
 
 Los controladores son clases definidas con el decorador **@Controller**. Responsables del manejo de las solicitudes por parte del cliente.
 
@@ -425,6 +465,13 @@ Para finalizar esta clase, vamos a entender cómo se incorporan también los **m
 
 ## Middlewares
 
+- Los **middlewares** en nest actúan como funciones que son llamadas antes de que la solicitud sea recibida por el handler de una ruta específica.
+- Estas funciones pueden interactuar con la solicitud para realizar alguna tarea “intermediaria” como validación de datos, transformación de un formato, compresión de archivos, etcétera.
+- Tienen acceso a los objetos de la request y la response.
+- Son llevados a cabo como providers.
+- Deben ser definidos por medio del decorador @inyectable.
+- Deben implementar la interfaz de **NestMiddleware** para poder emplear sus métodos.
+
 ## Gestión de solicitudes
 
 Así como en express, los **middlewares** en nest actúan como funciones que son llamadas antes de que la solicitud sea recibida por el handler de una ruta específica. Estas funciones pueden interactuar con la solicitud para realizar alguna tarea “intermediaria” como validación de datos, transformación de un formato, compresión de archivos, etcétera.
@@ -453,7 +500,7 @@ Vamos a crear una nueva carpeta middlewares para nuestra aplicación. Dentro de 
 
 > <mark>No te preocupes, si te fijas en el package.json, estos ya vienen instalados por defecto.</mark>
 
-Ahora bien, debido al patrón de inyección de dependencias, es necesario declarar este middleware dentro del constructor del módulo donde deseamos sea implementado. Lo sumaremos al módulo de usuarios para que sea invocado cada vez que recibamos una solicitud de tipo GET.
+Ahora bien, <mark>debido al patrón de inyección de dependencias, es necesario declarar este middleware dentro del constructor del módulo donde deseamos sea implementado</mark>. Lo sumaremos al módulo de usuarios para que sea invocado cada vez que recibamos una solicitud de tipo GET.
 
 También trabajaremos sobre el ejemplo para que este middleware sea aplicado de **forma global**. Para ello debemos modificar el middleware para que tenga la sintaxis de una función. A esto le llamamos **functional middleware**.
 
@@ -499,9 +546,9 @@ import { UsersService } from './todos.service';
 })
 export class UsersModule {}
 // implements NestModule {
-// condigure(consumer: MiddlewareConsumer) {
-// consumer.apply(LoggerMiddleware).forRoutes('users');
-// }
+//  configure(consumer: MiddlewareConsumer) {
+//    consumer.apply(LoggerMiddleware).forRoutes('users');
+//  }
 // }
 ```
 

@@ -16,6 +16,19 @@ category: Backend Js Nest
 
 ## Servicios vs repositorios
 
+#######################################
+
+**Servicios**
+
+- Es una clase que contine la lógica de negocio de una aplicación
+- Pueden hacer uso de uno o más repositorios para acceder a dicha información.
+
+**Repositorios**
+
+- Son clases cuya función es contener lógica relacionada con solicitudes a fuentes externas de información.
+
+#######################################
+
 ## Fundamentos
 
 En la clase anterior, aprendimos cómo construir y configurar una aplicación con NestJS mediante módulos, controladores y proveedores. A través de los proveedores, generamos un servicio dentro de la aplicación, pero ¿Qué entendemos por **servicio**?
@@ -126,6 +139,11 @@ export class UsersRepository {
 
 ### Inyección de dependencias
 
+- Este patrón nos permite delegar la generación de instancias de las dependencias de nuestro proyecto.
+- Asegura que este proceso se realice de la manera más eficiente posible.
+- Esto generará las instancias del repositorio para poder usar sus funcionalidades dentro del servicio correspondiente.
+- Recuerda: Integrar el repositorio a la lista de dependencias a usar dentro del array providers de cada módulo.
+
 <mark>Este patrón **nos permite delegar la generación de instancias de las dependencias de nuestro proyecto**. Este flujo está totalmente controlado por el **runtime**. Cada vez que definimos una función o clase como provider por medio del decorador **@Injectable** y lo incorporamos como una dependencia.</mark>
 
 > ¡No te marees! Parece ser un tema complejo de entender, pero en la práctica es bastante sencillo de aplicar.
@@ -195,6 +213,25 @@ export class TodosModule {}
 ```
 
 ## Custom providers
+
+#########################################
+
+- Nest nos proporciona algunas propiedades alternativas.
+- Pueden ser agregadas dentro de la declaración extendida.
+- Nos permite modificar el funcionamiento estadar (useClase).
+
+**useValue**
+
+- Esta propiedad nos sirve para definir una dependencia bajo el nombre de un proveedor existente.
+- Ejecuta una función diferente.
+- Toma el valor de la clave de acceso dentro del servicio o repositorio de todos, mediante el decorador **@Inject**.
+
+**useFactory**
+
+- Autoriza la creación de proveedores que trabajan de forma dinámica con información proveniente de otra función.
+- Async.
+
+#########################################
 
 ## Personalización
 
