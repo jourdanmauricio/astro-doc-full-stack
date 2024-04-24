@@ -69,3 +69,4 @@ category: Reference Docs HTML CSS JS
 - [clase10 NestJS Testing](/astro-doc-full-stack/blog/details/m4/clase10-NestJS-Testing)
 - [clase11-Nest-Open-API-Integration](/astro-doc-full-stack/blog/details/m4/clase11-Nest-Open-API-Integration)
 - [clase12-Docker](/astro-doc-full-stack/blog/details/m4/clase12-Docker)
+- [clase13-Deployment](/astro-doc-full-stack/blog/details/m4/clase13-Deployment)
