@@ -110,6 +110,294 @@ Una vez aprobados los cambios en el repositorio, resueltos los conflictos y real
 
 ## Creación de un repositorio de GitHub
 
+Utilizando nuestra cuenta de Github creamos un repositorio. Lo llamaremos nest-demo, y vincularemos nuestro repositorio local con el de Github.
+
+Le agregamos el .env.development al .gitignore que nos creó nest para no subir nuestras claves a Github.
+
+```bash
+# .gitignore
+
+# Agregamos el .env.development
+.env.development
+```
+
+```bash
+git add .
+git commit -m "First commit"
+git remote add origin <repo-github>
+git branch -M main
+git push -u origin main
+```
+
+## Obtención de credenciales de Docker Hub
+
+Vamos a dirigirnos a la página de **Docker Hub** (https://hub.docker.com/) donde tendremos que iniciar sesión o registrarnos si aún no lo hacemos. Una vez iniciada sesión, accedemos a nuestro perfil haciendo click en el botón de la esquina superior derecha, e ingresamos a **My Account**.
+
+Aquí seleccionaremos la opción security y haremos click en el botón **New Access Token**.
+
+Asignaremos un nombre o descripción a este **token**, preferiblemente relacionado a la aplicación, y haremos click en el botón **generate**.
+
+Una vez definido el nombre veremos un **modal** con la información de nuestro token, tanto el usuario (el mismo que tu cuenta de Docker Hub) como el password.
+
+> <mark>Este valor no puede ser visto nuevamente una vez que cerremos la ventana, así que lo ideal será guardarlo en algún lugar como el bloc de notas, por ejemplo.</mark>
+
+## Configuración de variables secretas
+
+Volvamos ahora al repositorio remoto de Github. Dentro de la página principal, hacemos click en la pestaña **Settings**. Dentro de la nueva ventana, nos dirigimos a la opción **Secrets and variables** y seleccionamos **Actions**.
+
+Crearemos una variable llamada **DOCKERHUB_TOKEN** donde pegaremos el valor que acabamos de obtener de Docker Hub.
+
+epetiremos este proceso para crear una segunda variable llamada **DOCKERHUB_USERNAME** que corresponderá ahora al usuario.
+
+Esto es todo lo que necesitamos hacer por ahora. Nos centraremos ahora en ahondar un poco más en esta herramienta **Actions** y conocer el flujo de trabajo a implementar.
+
+## Github Actions y creacion de un workflow
+
+**GitHub Actions** es una característica que permite automatizar tareas dentro de un repositorio de GitHub. Con estas acciones, podemos crear flujos de trabajo personalizados que se activan automáticamente en respuesta a eventos específicos en los repositorios: confirmaciones de código, creación de pull requests, lanzamientos y más.
+
+- Estos flujos de trabajo están definidos en archivos YAML dentro del repositorio, lo que permite definir versiones y gestionar el flujo de trabajo junto con el código de la aplicación.
+
+> Cada flujo de trabajo puede contener una serie de pasos o tareas individuales que se ejecutan en un entorno específico, por ejemplo, un contenedor de Docker.
+
+Ahora vamos a una Github Actions, que nos permitirá correr acciones automatizadas ante ciertos cambios en nuestro repositorio.
+
+Dentro de nuestro repositorio nos dirigimos a Actions y seleccionamos **set up a workflow yourself**.
+
+Este proceso creará el archivo /nest-demo/.github/workflows/main.yml. Aquí configuraremos las acciones a correr.
+
+```yaml
+name: deploy
+
+on:
+  push:
+    branches:
+      - 'main'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/pm4-ecommerce:latest
+```
+
+Presionamos Commit changes y al acceder nuevamente en Actions veremos que se está ejecutando la acción.
+
+Ahora, en Dokerhub tendremos la imagen generada.
+
+### Verificación de la imagen
+
+Para probar nuestra imgagen podemos crear una carpeta en local que solo contendrá dos archivos: <code>docker-compose.yml</code> y <code>.env.development</code>
+
+```bash
+# Creamos el directorio
+mkdir pm4-ecommerce-from-image
+cd pm4-ecommerce-from-image
+
+# Creamos los dos archivos
+touch docker-compose.yml
+touch .env.development
+
+# Abrimos VSCode en el proyecto
+code .
+```
+
+En lugar de compilar una imagen localmente con build: ./, llamaremos a la imagen que subimos a dokerhub (image: jourdanmau/nest-demo:latest).
+
+```yaml
+# docker-compose.yml
+version: '3.8'
+
+services:
+  nestapp:
+    image: jourdanmau/nest-demo:latest
+    ports:
+      - '3001:3000'
+    env_file:
+      - .env.development
+    depends_on:
+      - postgresdb
+
+  postgresdb:
+    image: postgres
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    env_file:
+      - .env.development
+
+  pgadmin:
+    image: dpage/pgadmin4
+    env_file:
+      - .env.development
+    ports:
+      - '5050:80'
+
+volumes:
+  pgdata:
+```
+
+El archivo .env.devepment posee la mismas estructura que para la instalación local, con excepción de la **vasriable DB_HOST que debemos setearla en postgresdb**
+
+Como vemos en el archivo docker-compose.yml, se crean tres contenedores:
+
+- **nestapp**: contine la imagen de la aplicación alojada en dockerhub (jourdanmau/pm4-ecommerce:latest)
+
+- **postgresdb**: imagen de la base de datos postgres
+
+- **pgadmin**: imagen de pgadmin (interfaz gráfica para gestinar bases de datos)
+
+```bash
+# Listamos los contenedores existes
+docker container ls -a
+# Eliminamos los contenedores
+docker rm --force <CONTAINER ID> ... <CONTAINER ID>
+# Listamos las imágenes
+docker images -a
+# Eliminamos las imágenes
+docker rmi <IMAGE ID> ... <IMAGE ID>
+```
+
+```bash
+# Levantamos los contedores
+docker compose up -d
+```
+
+De esta manera, podemos ver la base de datos a través de pgadmin en la url: http://localhost:5050
+
+Para configurar el servidor debemos utilizar las siguientes variables de entorno:
+
+- Nombre: App-Docker
+- Nombre/Dirección del servidor: postgresdb
+- Puerto: DB_PORT
+- Base de datos de mantenimiento: DB_NAME
+- Nombre de usuario: DB_USERNAME
+- Contraseña: DB_PASSWORD
+
+Ya podemos utilizar nuestra API en http://localhost:3001
+
+Cabe resaltar, que estamos utilizando aún la imagen para inicializar una aplicación con compose dentro de nuestro entorno local. Pero, **¿cómo podemos cambiarla a un entorno de producción?** Finalicemos esta sesión hablando sobre el deploy de nuestra app.
+
+## Despliegue de aplicaciones con Render
+
+## Despliegue de base de datos
+
+Existen muchas herramientas que nos permiten realizar el despliegue de aplicaciones para que estas puedan ser utilizadas de manera remota. Entre las más utilizadas encontramos AWS, Azure, Google Cloud, etc.
+
+Estas plataformas están especialmente diseñadas para trabajar con tráfico de datos muy altos, así como algunas otras características que simplifican el mantenimiento y monitoreo de los entornos de producción de las aplicaciones.
+
+Por desgracia, la mayoría de ellas son pagas o la versión gratuita solicita que el usuario cuente con una tarjeta de crédito registrada para acceder al servicio.
+
+> <mark>Por suerte existen algunas plataformas gratuitas que pueden ser de mucha utilidad para trabajar con aplicaciones pequeñas. Una de ellas es Render.</mark>
+
+Vamos a hacer el deployment de nuestra aplicación utilizando esta herramienta. Al crear una cuenta, Render nos dará acceso a un panel de control donde podemos elegir el tipo de aplicación que deseamos construir.
+
+- Nuestro primer objetivo es crear una base de datos que se encuentre asociada al entorno de producción, ya que actualmente trabajamos con una DB de forma local cada vez que se construye el contenedor.
+
+- Esto significa que si múltiples usuarios utilizan la aplicación actualmente haciendo uso de compose, cada uno trabajará con su propia base de datos independiente. .
+
+- Por ende, es necesario contar con una base de datos pública que permita que todos los usuarios trabajen de manera centralizada.
+
+Render nos permite crear y desplegar bases de datos que pueden ser asociadas a un entorno de producción. Vamos a dirigirnos al botón **New** dentro de nuestro dashboard donde seleccionaremos la opción **postgreSQL** para crear una base de datos.
+
+En la ventana de creación asignaremos el nombre de esta instancia de **Postgres**, el usuario y el nombre de la base de datos (este último dato debe coincidir con el que usas en el proyecto) El resto de los campos podemos dejarlos con los valores por default.
+
+Una vez seleccionado el plan gratuito haremos click en **Create Database**.
+
+Esto nos dirigirá al panel de control de la base de datos. Allí dentro vamos a la sección **Access Control** donde haremos click en la opción **Add source**.
+
+Elegimos utilizar nuestra dirección IP como punto de acceso y además dejaremos activo el acceso que se encuentra predefinido. Este admitirá la conexión a la DB desde cualquier ubicación.
+
+Una vez hecho esto, vamos a habilitar la sección **Connections** donde encontraremos las credenciales de acceso a la base de datos.
+
+Como debes imaginar, estos sustituyen algunos de los datos que tenemos configurados actualmente en el proyecto.
+
+## Despliegue de aplicación
+
+Ahora que tenemos configurada la base de datos, realicemos un pequeño cambio dentro del proyecto con el fin de utilizar los valores mencionados anteriormente.
+
+Subiremos nuestra imagen a Render para que se conecte a esta base de datos.
+
+Recordemos que creamos los archivos de configuración de acciones en Github por lo que antes de comenzar debemos realizar:
+
+```bash
+git pull
+```
+
+Dentro de render realizamos **New / Web Service**
+
+Podemos contruir la app desde nuestro repo Github, pero lo construiremos desde Dockerhub.
+
+"Deploy an existing image from a registry" <br>
+"Pull a public image from any registry or a private image from docker Hub, or GitLab"
+
+Configuramos:
+
+- Image URL: jourdanmau/nest-demo:latest
+
+- Next
+
+- Name: dejamos el por defecto
+
+- Seleccionamos la opción gratuita
+
+**Debemos agregar las variables de entorno**
+
+- Add from .env
+
+- Pegamos el contenido de nuestro archivo **.env.development**
+
+- Debemos modificar el DB_HOST, el DB_PASSWORD, DB_NAME y DB_USERNAME por el que nos brindó Render al momento de crear la base de datos
+
+- Create Web Service
+
+Ahora tenemos nuestra API desplega en la URL que nos entrega Render.
+
+Ten en cuenta que algunos de los servicios no estarán disponibles para la aplicación y que el servicio se encuentra limitado a los alcances de la versión gratuita.
+
+**<mark>¡Felicidades has logrado hacer el Deployment de una aplicación de backend con Render y Docker!</mark>**
+
+## Cierre
+
+Durante esta clase, hemos explorado el proceso de despliegue, abordando desde la creación de repositorios en GitHub hasta la obtención de credenciales en Docker Hub.
+
+Hemos profundizado en estrategias avanzadas de implementación, comprendiendo la importancia de la Integración Continua y Despliegue Continuo (CI/CD) para lograr una implementación continua y automatizada sobre nuestros proyectos.
+
+A través de la práctica, hemos adquirido habilidades para configurar variables secretas en nuestros repositorios, conocimos las principales funcionalidades de GitHub Actions para la creación de workflows automatizados y, finalmente, hemos llevado a cabo el despliegue integral, abarcando tanto la base de datos como la aplicación en sí.
+
+Este recorrido completo nos ha proporcionado las herramientas y conocimientos necesarios para ejecutar despliegues eficientes y automatizados, optimizando así el ciclo de desarrollo de principio a fin.
+
+## Homework
+
+### ACTIVIDAD 01
+
+Conectar el repositorio de github a una plataforma de deployment para que tanto la API como la DB sean accesibles desde cualquier ubicación.
+
+### ACTIVIDAD 02
+
+El deployment debe ser realizado desde una imagen de docker, puedes elegir cualquier plataforma de tu elección.
+
+**TIPs ¡Bien hecho!**
+
+- Te recomendamos utilizar Render ya que simplifica mucho el proceso y es una plataforma gratuita.
+
+**[Requisitos]**
+
+- Este es un hito extra credit.
+
 <style>
   h1 { color: #713f12; }
   h2 { color: #2563eb; }
