@@ -1,7 +1,7 @@
 ---
 layout: '../../layouts/BlogPostLayout.astro'
 title: Complejidad algoritmica
-date: 11-02-2024
+date: 2024-02-11
 author: Mauricio Jourdán
 image:
   {

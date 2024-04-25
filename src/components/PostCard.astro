@@ -9,6 +9,13 @@ const { title, date, author, image, description, category } = frontmatter;
 ---
 
 <article class="card">
+  <!-- <small>
+    <a
+      href={`/category/${slugify(category)}/`}
+      class="badge"
+      >{category}</a
+    >
+  </small> -->
   <a
     href={url}
     aria-hidden="true"
@@ -27,7 +34,7 @@ const { title, date, author, image, description, category } = frontmatter;
   <div class="content">
     <small>
       <a
-        href={`/category/${slugify(category)}/`}
+        href={`/astro-doc-full-stack/category/${slugify(category)}/`}
         class="badge"
         >{category}</a
       >
@@ -42,7 +49,9 @@ const { title, date, author, image, description, category } = frontmatter;
       </Tag>
       <small>
         <!-- por <a href={`/author/${slugify(author)}/`}>{author}</a> • { -->
-        por <a href={`/astro-doc-full-stack`}>{author}</a> • {formatDate(date)}
+        por <a href={`/astro-doc-full-stack/author/${slugify(author)}/`}
+          >{author}</a
+        > • {formatDate(date)}
       </small>
     </div>
     <p>{description}</p>
@@ -63,7 +72,8 @@ const { title, date, author, image, description, category } = frontmatter;
     border-radius: 8px;
     box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
     overflow: hidden;
-    max-width: 300px;
+    /* max-width: 300px; */
+    width: 300px;
     color: var(--font);
   }
   .card img {

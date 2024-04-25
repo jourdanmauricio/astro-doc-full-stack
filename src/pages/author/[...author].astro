@@ -1,0 +1,75 @@
+---
+import PostCard from '../../components/PostCard.astro';
+import MainLayout from '../../layouts/MainLayout.astro';
+
+import { slugify, formatBlogPosts } from '../../js/utils';
+
+export async function getStaticPaths() {
+  const allPosts = await Astro.glob('../blog/*.md');
+  const formattedPost = formatBlogPosts(allPosts, {
+    filterOutDrafts: false,
+    filterOutFuturePosts: false,
+    sortByDate: true,
+    limit: 8,
+  });
+
+  const allAuthors = [
+    ...new Set(formattedPost.map((posts) => posts.frontmatter.author).flat()),
+  ];
+  return allAuthors.map((author) => {
+    const authorPosts = formattedPost.filter(
+      (post) => post.frontmatter.author === author
+    );
+    return {
+      params: { author: slugify(author) },
+      props: {
+        authorName: author,
+        posts: authorPosts,
+      },
+    };
+  });
+}
+
+const { author } = Astro.params;
+const { posts, authorName } = Astro.props;
+---
+
+<MainLayout title={authorName}>
+  <section
+    class="container"
+    aria-label={`Posts by ${authorName}`}
+  >
+    <h1 class="title">Posts by {authorName}</h1>
+    <div class="post-container">
+      {
+        posts.map((post) => (
+          <PostCard
+            frontmatter={post.frontmatter}
+            url={post.url}
+            tagType="h3"
+          />
+        ))
+      }
+    </div>
+  </section>
+</MainLayout>
+
+<style>
+  .post-container {
+    margin-block: var(--space-md);
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    height: 100%;
+  }
+
+  .title {
+    text-align: center;
+    color: rebeccapurple;
+    margin-bottom: 3rem;
+    font-size: 2.5em;
+    font-weight: 600;
+  }
+</style>

@@ -1,0 +1,83 @@
+---
+import PostCard from '../../components/PostCard.astro';
+import MainLayout from '../../layouts/MainLayout.astro';
+
+import { slugify, formatBlogPosts } from '../../js/utils';
+
+export async function getStaticPaths() {
+  return [
+    {
+      params: { category: slugify('reference docs html css js') },
+      props: { name: 'reference docs html css js' },
+    },
+    {
+      params: { category: slugify('General') },
+      props: { name: 'General' },
+    },
+    {
+      params: { category: slugify('nest js backend') },
+      props: { name: 'nest js backend' },
+    },
+    {
+      params: { category: slugify('JS') },
+      props: { name: 'JS' },
+    },
+  ];
+}
+
+const { category } = Astro.params;
+const { name } = Astro.props;
+
+const allPosts = await Astro.glob('../blog/*.md');
+
+const formattedPost = formatBlogPosts(allPosts, {
+  filterOutDrafts: false,
+  filterOutFuturePosts: false,
+  sortByDate: true,
+  limit: 8,
+});
+
+const catPosts = formattedPost.filter(
+  (post) => slugify(post.frontmatter.category) === category
+);
+---
+
+<MainLayout title={name}>
+  <section
+    class="container"
+    aria-label={`Posts sobre ${name}`}
+  >
+    <h1 class="title">Posts sobre {name}</h1>
+    <div class="post-container">
+      {
+        catPosts.map((post) => (
+          <PostCard
+            frontmatter={post.frontmatter}
+            url={post.url}
+            tagType="h3"
+          />
+        ))
+      }
+    </div>
+  </section>
+</MainLayout>
+
+<style>
+  .post-container {
+    margin-block: var(--space-md);
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    height: 100%;
+  }
+
+  .title {
+    text-align: center;
+    color: rebeccapurple;
+    margin-bottom: 3rem;
+    font-size: 2.5em;
+    font-weight: 600;
+  }
+</style>

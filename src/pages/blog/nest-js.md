@@ -1,7 +1,7 @@
 ---
 layout: '../../layouts/BlogPostLayout.astro'
 title: Nest js
-date: 2024-02-12
+date: 2024-04-05
 author: Mauricio Jourdán
 image:
   { src: '/astro-doc-full-stack/images/nest-js/back.webp', alt: Logo nest js' }

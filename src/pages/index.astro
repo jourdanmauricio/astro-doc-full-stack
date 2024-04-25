@@ -1,24 +1,37 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
+
+import { formatBlogPosts } from '../js/utils';
+import PostCard from '../components/PostCard.astro';
+
+const allPosts = await Astro.glob('./blog/*.md');
+
+const formattedPost = formatBlogPosts(allPosts, {
+  filterOutDrafts: false,
+  filterOutFuturePosts: false,
+  sortByDate: true,
+  limit: 8,
+});
 ---
 
 <MainLayout title="My Blog">
   <main>
     <section
-      id="about"
-      class="about"
+      class="container"
+      aria-label="Mis apuntess"
     >
-      <article class="about__text">
-        <div>
-          <h1 class="about__title">Mauricio Jourdán</h1>
-          <p class="about__subtitle">Full Stack Developer</p>
-        </div>
-        <img
-          class="about__image"
-          src="https://res.cloudinary.com/dn7npxeof/image/upload/v1706571638/Henry/in_euyoh5.jpg"
-          alt="Imagen Mauricio Jourdán"
-        />
-      </article>
+      <h1 class="title">Mis apuntes</h1>
+      <div class="post-container">
+        {
+          formattedPost.map((post) => (
+            <PostCard
+              frontmatter={post.frontmatter}
+              url={post.url}
+              tagType="h3"
+            />
+          ))
+        }
+      </div>
     </section>
   </main>
 </MainLayout>
@@ -31,65 +44,21 @@ import MainLayout from '../layouts/MainLayout.astro';
     font-size: 4rem;
   }
 
-  /*********/
-  /* ABOUT */
-  /*********/
-  .about {
+  .post-container {
+    margin-block: var(--space-md);
+    margin: 0 auto;
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     justify-content: center;
-    align-items: center;
-    min-height: 50vh;
+    gap: 2rem;
+    height: 100%;
   }
 
-  .about__text {
-    /* width: 100%; */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-  }
-
-  .about__title {
-    width: 320px;
-    font-size: 2em;
-    color: var(--font-color);
-  }
-
-  .about__subtitle {
-    font-size: 1.5em;
-    margin-top: 1rem;
-    width: 20ch;
-    padding-right: 2px;
-    color: var(--gray-light-color);
-    border-right: 1px solid var(--gray-light-color);
-    white-space: nowrap;
-    overflow: hidden;
-    animation:
-      typing 2s steps(20),
-      blink 0.5s step-end infinite alternate;
-  }
-
-  .about__image {
-    border-radius: 50%;
-  }
-
-  @keyframes typing {
-    from {
-      width: 0;
-    }
-  }
-
-  @keyframes blink {
-    50% {
-      border-color: transparent;
-    }
-  }
-
-  @media screen and (min-width: 768px) {
-    .about__text {
-      flex-direction: row;
-      width: 50%;
-    }
+  .title {
+    text-align: center;
+    color: rebeccapurple;
+    margin-bottom: 3rem;
+    font-size: 2.5em;
+    font-weight: 600;
   }
 </style>

@@ -1,7 +1,7 @@
 ---
 layout: '../../layouts/BlogPostLayout.astro'
 title: Henry - Apuntes Bootcamp - 4 módulos
-date: 11-02-2024
+date: 2024-04-24
 author: Mauricio Jourdán
 image:
   {

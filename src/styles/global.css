@@ -44,3 +44,23 @@ body {
 a {
   text-decoration: none;
 }
+
+.badge {
+  padding: 4px 10px;
+  background-color: hsl(var(--accent));
+  border-radius: var(--radius-sm);
+  color: hsl(var(--muted));
+  text-decoration: none;
+  letter-spacing: 0.054em;
+  text-transform: uppercase;
+  font-size: var(--fs-sm);
+
+  &:hover {
+    color: hsl(var(--muted));
+    opacity: 0.8;
+  }
+
+  &:focus-visible {
+    box-shadow: 0 0 0 0.2em hsl(var(--bkg)), 0 0 0 0.4em hsl(var(--accent));
+  }
+}

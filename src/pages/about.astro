@@ -9,15 +9,25 @@ import MainLayout from '../layouts/MainLayout.astro';
   description="My About Page"
 >
   <section
+    id="about"
+    class="about"
+  >
+    <article class="about__text">
+      <div>
+        <h1 class="about__title">Mauricio Jourdán</h1>
+        <p class="about__subtitle">Full Stack Developer</p>
+      </div>
+      <img
+        class="about__image"
+        src="https://res.cloudinary.com/dn7npxeof/image/upload/v1706571638/Henry/in_euyoh5.jpg"
+        alt="Imagen Mauricio Jourdán"
+      />
+    </article>
+  </section>
+  <section
     class="container about"
     aria-label="About Me"
   >
-    <img
-      src="/images/headshot.jpg"
-      alt="My headshot"
-      width="200"
-      height="330"
-    />
     <div class="content">
       <h1 class="h1">My Blog</h1>
       <p>
@@ -35,3 +45,67 @@ import MainLayout from '../layouts/MainLayout.astro';
     </div>
   </section>
 </MainLayout>
+
+<style>
+  /*********/
+  /* ABOUT */
+  /*********/
+  .about {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 50vh;
+  }
+
+  .about__text {
+    /* width: 100%; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  .about__title {
+    width: 320px;
+    font-size: 2em;
+    color: var(--font-color);
+  }
+
+  .about__subtitle {
+    font-size: 1.5em;
+    margin-top: 1rem;
+    width: 20ch;
+    padding-right: 2px;
+    color: var(--gray-light-color);
+    border-right: 1px solid var(--gray-light-color);
+    white-space: nowrap;
+    overflow: hidden;
+    animation:
+      typing 2s steps(20),
+      blink 0.5s step-end infinite alternate;
+  }
+
+  .about__image {
+    border-radius: 50%;
+  }
+
+  @keyframes typing {
+    from {
+      width: 0;
+    }
+  }
+
+  @keyframes blink {
+    50% {
+      border-color: transparent;
+    }
+  }
+
+  @media screen and (min-width: 768px) {
+    .about__text {
+      flex-direction: row;
+      width: 50%;
+    }
+  }
+</style>

@@ -6,7 +6,7 @@ const navData = [
 
   {
     name: 'About',
-    path: '/astro-doc-full-stack/',
+    path: '/astro-doc-full-stack/about',
   },
   {
     name: 'Blog',
