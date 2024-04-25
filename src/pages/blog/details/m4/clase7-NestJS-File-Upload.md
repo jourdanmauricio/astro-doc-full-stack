@@ -16,6 +16,53 @@ category: Backend Js Nest
 
 ## Carga de archivos
 
+############################################
+
+**Implementación de estrategias para gestionar cargas de archivos**
+
+- Uso de bibliotecas externas
+- Integración con servicios de almacenamiento en la nube
+- Validación y procesamiento de archivos
+
+**Manejar archivos**
+
+- Nest hace uso de Multer por defecto para el procesamiento de archivos.
+- Este es un middleware de Node.js
+- Permite a los usuarios cargar archivos, como imágenes, documentos, archivos de audio, videos, entre otros, enviados a través de formularios HTML.
+- Multer facilita la validación, gestión y procesamiento de estos archivos antes de almacenarlos en el servidor.
+- Para trabajar con este middleware, solo necesitamos instalar sus reglas de tipado y así usarlo en conjunto con TS dentro de Nest.
+- Para que el compilador de TS pueda acceder a los tipos de Multer, agrega a la propiedad types en el archivo tsconfig.json
+
+**FileInterceptor**
+
+- Se emplea para habilitar la carga de archivos con Multer en NestJS.
+- **@UseInterceptors** extrae los archivos del cuerpo de la solicitud. **@UploadedFile** obtiene el valor del archivo extraído.
+- El tipo de dato asociado al archivo se define como **Express.Multer.File**.
+
+**Almacenamiento en la nube**
+
+- Hace referencia al servicio de almacenamiento de datos en servidores remotos accesibles a través de Internet.
+- Permite guardar y acceder de forma remota a los datos mediante una conexión web.
+
+**Implementación de procesos**
+
+- Para validar archivos contamos con el pipe integrado de Nest llamado **ParseFilePipe**.
+- Este pipe contempla las dos principales verificaciones que se implementan en la carga de archivos: tamaño y tipo de archivo.
+- **MaxFileSizeValidator** verifica que el archivo no pase de una tamaño especificado en bytes.
+- **FileTypeValidator** verifica el tipo de archivo a partir de un string definido o una Regex.
+- Estos validadores son instanciados dentro de **@UploadedFile**.
+- Evalua el archivo extraído como argumento, antes de que este sea enviado al servicio correspondiente.
+
+**Técnicas Avanzadas**
+
+- Implementación de pipes personalizados.
+- Verifica que los archivos cumplan con ciertas condiciones no contempladas por los validadores incorporados de Nest JS.
+- Incorporar el validador customizado.
+- Necesitas integrarlo al método POST después del interceptor, mediante el decorador **@UsePipes**.
+- Este último usará como argumento la clase **MinSizeValidationPipe**.
+
+############################################
+
 ## Implementación de estrategias para gestionar cargas de archivos
 
 Hasta el día de hoy, hemos venido trabajando únicamente con aplicaciones que trabajan compartiendo información en formato **JSON**, a través de un protocolo de comunicación. Independientemente de lo básica o compleja de la estructura compartida, no ha sido más que información basada en texto plano con dicho tipo de formato.

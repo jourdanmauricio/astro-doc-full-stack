@@ -16,6 +16,80 @@ category: Backend Js Nest
 
 ## Docker y su importancia en el desarrollo de aplicaciones
 
+##################################################
+
+**Introducción a Docker ¿Qué es?**
+
+- Es una tecnología para crear y gestionar **contenedores**.
+- Contenedor: Son aquellas unidades de software que contienen un fragmento de código y las dependencias necesarias para ejecutarlo, asegurando que este se comporte siempre de la misma manera sin importar donde se implemente.
+
+**Crear y Gestionar imágenes y contenedores en Docker**
+
+- Instalar Docker Desktop en nuestro sistema operativo.
+- Docker Desktop es una aplicación que contiene todo lo necesario para construir y gestionar aplicaciones contenerizadas, mediante una interfaz gráfica sencilla.
+- Podemos ejecutar una versión emulada de una o más aplicaciones sin importar el sistema operativo mediante el uso de la imagen de Docker.
+- Estas imágenes son construidas a partir de un archivo de texto llamado Dockerfile.
+- En este se indica cómo debe configurarse el entorno de ejecución y qué aplicaciones o servicios deben incluirse en cada imagen.
+
+**¿Cómo comprobar que Docker ha sido instalado?**
+
+- Dirígete a la terminal y ejecuta el comando docker.
+- Recibirás una lista de comandos disponibles.
+- Crear un archivo llamado Dockerfile para la configuración de las imágenes
+
+**INSTRUCCIONES**
+
+- FROM: Indica cuál será la imagen base para generar los contenedores, la cual puede ser un entorno de ejecución o una imagen preconstruida.
+- WORKDIR: Asignar el nombre directorio que servirá como base para el contenedor, Será creado automáticamente dentro del contenedor al ser inicializado.
+- COPY: Indica qué archivos de la imagen deseamos agregar al contenedor.
+- RUN: Una vez se genera el contenedor a partir de la imagen instalar las dependencias.
+- PUERTO: Definir el puerto que deseamos dejar activo dentro del contenedor para trabajar con la aplicación.
+- CMD: Se ejecutará cuando se inicie un contenedor, definiendo la acción principal que llevará a cabo este último al arrancar.
+- Para construir una nueva imagen ejecutar el comando **build** indicando la carpeta donde se encuentra el archivo.
+- docker build .: Este comando iniciará la construcción de la imagen y al terminar nos devolverá el id de la imagen generada.
+- docker run -p &lt;puerto&gt;:&lt;puerto de la Imagen&gt; &lt;id de la Imagen&gt;:
+  - Inicializar un contenedor de la imagen.
+  - Utiliza el comando **run**.
+  - Este comando toma el flag **-p** para definir el puerto en el que deseas usar el contenedor y el puerto para acceder al servidor.
+  - Indica el id de la imagen a partir de la cual deseamos ejecutar el contenedor.
+
+**¿Cómo se detiene el Container?**
+
+- docker ps: Para ver los contenedores activos, utilizar el comando ps.
+- docker stop &lt;nombre del contenedor&gt;: Al ejecutar un contenedor, Docker asigna un nombre aleatorio al contenedor el cual puede ser utilizado para detenerlo utilizando el comando **stop**.
+
+**Manejo de redes en Docker para la comunicación entre contenedores**
+
+- Contenedor-WEB: Hace referencia a la comunicación con páginas web mediante APIs o servicios. Este tipo de comunicación se encuentra habilitada por default.
+- Contenedor-Localhost: Esta comunicación se realiza cuando un contenedor interactúa con algún elemento del host en el cual se encuentra inicializado.
+- Contenedor-Contenedor: Contempla la comunicación entre dos contenedores aislados que dependen uno del
+  otro.
+
+**Persistencia de datos en Docker**
+
+Uso de volúmenes
+
+- Permite almacenar información del contenedor en forma de folders en la memoria del host.
+
+**Generar un Volumen**
+
+- Flag -v: Permite asignar un volumen al contenedor, el cual es almacenado en un folder dentro del host local en la misma carpeta que se define en la imagen.
+
+**Docker Compose ¿Qué es?**
+
+- Es una herramienta de Docker.
+- Permite automatizar el proceso de creación y configuración de aplicaciones multi contenedores.
+- Reemplaza el uso de algunos comandos como build o run mediante la implementación de un archivo de configuración.
+
+Posee una gran variedad de configuraciones las cuales varían de acuerdo al proyecto donde se implemente
+
+**Configuración**
+
+- Crear un nuevo archivo dentro de la carpeta raíz llamado **docker-compose.yaml**.
+- Uso de la indentación para diferenciar los elementos padres de hijos.
+
+##################################################
+
 La primera pregunta que debemos hacernos es **¿Qué es Docker?** Y la respuesta más sencilla es que **Docker** es una tecnología para crear y gestionar **contenedores**. Pero para entender esta definición primero debemos comprender a qué nos referimos con un contenedor en el contexto del desarrollo de software.
 
 Consideramos como contenedores a aquellas unidades de software que contienen un fragmento de código y las dependencias necesarias para ejecutarlo, asegurando que este se comporte siempre de la misma manera sin importar donde se implemente.

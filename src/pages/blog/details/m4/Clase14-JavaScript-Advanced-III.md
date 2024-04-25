@@ -16,6 +16,152 @@ category: Backend Js
 
 ## Conceptos avanzados
 
+############################################
+
+**CLOSURES**
+
+- Es una función que retorna otra función.
+- La función retornada utiliza una variable que fue previamente guardada en la función externa.
+- Las funciones pueden crear un "alcance léxico" que mantiene vivas estas variables.
+
+**¿En qué otro tipo de situaciones podrían servir las closures?**
+
+- Por ejemplo, para cambiar la configuración de idioma de un sitio web.
+
+**Simular la autenticación de usuarios**
+
+- Mantén privada la información del usuario.
+- Expone solo las funcionalidades necesarias para interactuar con esa información.
+
+- Dentro de crearSistemaDeAutenticacion, retornar un objeto que expone dos métodos.
+- validarCredenciales y cambiarContrasena.
+- Estos métodos tienen acceso a la variable usuarios debido al closure.
+
+- Crear una instancia del sistema de autenticación.
+- Validar credenciales y cambiar contraseñas
+
+**Prototipos**
+
+- JavaScript es un lenguaje basado en prototipos.
+- Son el mecanismo de herencia del lenguaje.
+- Actuan como una cadena a través de la cual los objetos pueden heredar propiedades y métodos de otros objetos.
+- Permite ahorrar de memoria y organización de código.
+- Facilita el mantenimiento del código.
+
+**\_\_proto\_\_ vs prototype**
+
+- \_\_proto\_\_: Es una propiedad de cada objeto que apunta al prototipo del objeto del cual hereda
+  propiedades y métodos.
+- prototype: Es una propiedad de una función en JavaScript que apunta al objeto que será asignado como el prototipo de los objetos creados con dicha función constructora.
+- **prototype** se utiliza para definir propiedades y métodos para los objetos creados por Persona.
+- **\_\_proto\_\_** establece la conexión directa entre alice y su prototipo.
+
+**Ocultamiento de propiedades**
+
+- Es una técnica de programación orientada a objetos.
+- Restringe el acceso directo a las propiedades de una clase desde fuera de esta.
+- Permite un mejor control sobre la manipulación de los datos.
+- Se utilizan las propiedades privadas, las cuales se declaran anteponiendo un numeral (#) al nombre de la propiedad dentro de la clase.
+- Solo puedan ser accedidas o modificadas mediante métodos específicos de la clase
+
+- Esta propiedad no puede ser accedida ni modificada directamente desde fuera de la clase.
+
+- En ocasiones, nos encontraremos que al declarar una clase, no queremos que alguna de las propiedades o métodos sean utilizadas por fuera de esa misma clase.
+
+**Programación Funcional**
+
+**Paradigmas de programación**
+
+- Los paradigmas de programación es un enfoque teórico.
+- Se utiliza para resolver problemas y estructurar el código en el desarrollo de software.
+- Marca las pautas sobre cómo se organizan y realizan las tareas de programación.
+
+**Programación funcional**
+
+- Es un paradigma de programación que se basa en gran medida en el uso de funciones puras y aisladas.
+- Aquí utilizamos funciones puras, que son funciones que no tienen efectos secundarios.
+
+**Funciones de primera clase**
+
+- En JavaScript, todas las funciones son funciones de primera clase.
+- Pueden tratarse como cualquier otra variable.
+- Son funciones que pueden asignarse como valores a variables, devolverse desde otras funciones y pasarse como argumentos a otras funciones.
+
+**Funciones Callbacks**
+
+- Son funciones que se pasan a otras funciones como argumentos.
+- No podemos invocar funciones callback.
+- Se invocan cuando se llama a la función principal en la que se pasaron como argumentos.
+
+**Funciones de orden superior**
+
+- Son funciones que reciben otras funciones como argumentos o devuelven una función.
+
+**Funciones asíncronas**
+
+- Son funciones que no tienen nombre y no se pueden reutilizar.
+- Estas funciones se escriben normalmente cuando necesitamos realizar algo una vez y en un solo lugar.
+
+**Principios de funcionalismo**
+
+**Evitar efectos secundarios y mutaciones**
+
+- Una función no debería cambiar nada.
+- Debe ser pura, lo que significa que no tiene efectos secundarios.
+
+**Abstracción**
+
+- Nos permite explicar un problema en un nivel superior sin necesidad de definir todos los detalles de implementación.
+
+**Composición de funciones**
+
+- Es el acto de crear funciones complejas al combinar funciones más simples.
+- Puedes combinar funciones para formar nuevas operaciones, lo que hace que el código sea más legible y mantenible.
+
+**Declaratividad sobre imperatividad**
+
+- El paradigma funcional favorece un enfoque declarativo en lugar de imperativo.
+- Esto significa que el código tiende a describir el "qué" en lugar del "cómo".
+- Esto resulta en un código más conciso y fácil de razonar.
+
+**Manejo de errores y depuración**
+
+**ESTRUCTURA DE UN ERROR:**
+
+Los errores en JavaScript conllevan ciertas propiedades estándar y personalizadas que ayudan a comprender la causa y los efectos del error.
+
+- Mensaje: Un string que contiene una referencia textual sobre el error.
+- Nombre: El tipo de error que se ha producido (nos adentraremos en esto en la siguiente sección).
+- Fragmento: El fragmento del código ejecutado cuando se produjo el error.
+
+**Fragmento de error**
+
+- Inicia mostrando el nombre y el mensaje del error.
+- Seguido de una lista de los métodos a los que se ha llamado.
+- Cada llamada a un método indica la ubicación de su código fuente y la línea en la que fue invocado.
+
+Puedes utilizar estos datos para navegar por tu código e identificar dónde está la causa del error.
+
+**¿Qué es una excepción?**
+
+- Es un objeto de error que se ha lanzado.
+- Dentro de JavaScript podemos crear muchos tipos distintos de errores a partir de las clases originales del lenguaje.
+- Cada una de estas puede ser personalizada.
+
+**Error**
+
+- La clase genérica para todos los errores de JavaScript.
+- Otros tipos de errores son basados en esta clase.
+
+- RangeError: Ocurre cuando un valor no está dentro del conjunto o rango de valores permitidos.
+- ReferenceError: Se lanza cuando se intenta referenciar una variable que no existe.
+- SyntaxError: Se produce durante la fase de análisis de código, cuando el código no está bien formado.
+- TypeError: Ocurre cuando una operación no puede ser realizada, generalmente cuando un valor no es del tipo esperado.
+- URIError: Se lanza cuando se utilizan funciones globales relacionadas con URIs con parámetros incorrectos.
+- EvalError: Está relacionado con el uso de la función eval(), pero en la práctica actual rara vez se utiliza y no se lanza en los ambientes de JavaScript modernos.
+
+############################################
+
 ## JavaScript Avanzado
 
 Comenzaremos esta primera lección mencionando qué son los closures, y cuáles son sus aplicaciones prácticas. Veremos cómo estas permiten acceder al alcance de una fundición exterior, incluso luego de que la función exterior haya terminado de ejecutarse. De la misma manera veremos de qué forma podemos trabajar con prototipos de manera más profesional.

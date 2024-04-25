@@ -16,6 +16,78 @@ category: Backend Js Nest
 
 ## Estrategias de autenticación
 
+######################################
+
+**¿Qué es el proceso de autenticación en NestJS?**
+
+- Identificación y regulación de acceso a los recursos protegidos.
+- Salvaguardar los datos sensibles y activos de la aplicación.
+- Verificación de las credenciales de un usuario en una solicitud.
+- Registro seguro de identificación y contraseña en la base de datos.
+
+**Estrategias de autenticación**
+
+- Autenticación basada en tokens JWT (JSON Web Tokens)
+- Autenticación con proveedores de identidad externos
+- Autenticación basada en sesiones
+- Autenticación multifactor (MFA)
+
+**Manejo de credenciales de autenticación**
+
+- Se refiere a la gestión de la información del usuario asociada con los datos de autenticación.
+- Son utilizados para verificar la identidad de un usuario registrado.
+
+El proceso comprende 2 fases:
+
+- **Registración de credenciales**: Ocurre cuando un usuario ingresa por primera vez sus datos en la aplicación.
+- **Recuperación de credenciales** Tiene lugar cada vez que el usuario ingresa a la página.
+
+**Encriptación de contraseñas**
+
+- Es el proceso de transformar la información de una contraseña original en una forma codificada o cifrada.
+- Con el fin de protegerla contra accesos no autorizados y salvaguardar la privacidad del usuario.
+- La encriptación asegura que las contraseñas de los usuarios sean almacenadas en un formato que únicamente sea legible si se tiene acceso a una clave que revierta dicho formato.
+
+**Bcrypt**
+
+- Es una biblioteca de **hashing** diseñada para almacenar contraseñas de forma segura.
+- Su función principal es convertir las contraseñas en una cadena de caracteres irreconocible y difícil de revertir.
+- Bcrypt toma la contraseña de entrada y la convierte haciendo uso de un algoritmo matemático,
+  junto con un valor denominado SALT. Dicho valor agrega caracteres aleatorios adicionales al proceso de hashing para aumentar la seguridad.
+- Utiliza el método **hash** el cual recibe dos parámetros. El primero, corresponde a la contraseña provista por el usuario. El segundo, será un número entre 1 y 10, se emplearán para
+  generar el valor de **SALT**. A mayor valor, mayor factor de seguridad.
+
+**Definición y estructura de JSON Web Token**
+
+- Es un estándar público que define un formato compacto y autónomo para la transmisión segura de información entre partes como un objeto JSON.
+- Se utiliza para la autenticación y autorización en aplicaciones web y servicios API.
+- Por medio de la emisión de tokens (claves o pases) provistas al cliente, debe ser enviada de vuelta junto con cada solicitud subsecuente para validar la identidad de un usuario autenticado.
+
+**Estructura**
+
+- El token será una cadena de caracteres de longitud fija igual a 256 bits de tipo JWT.
+- Se compone de 3 partes principales separadas por puntos “ . ”
+- El **header** contiene el tipo de token y el algoritmo de firma utilizado para firmar el token.
+  - Comúnmente pueden ser de tipo HMAC, RSA o ECDSA.
+  - Una combinación entre HMAC y SHA-256.
+- El **payload**, contiene la información que se quiere transmitir.
+  - Para la codificación, se hace uso del formato **Base64Url** propio de JWT.
+- La **signature (firma)** corresponde a una versión codificada del header, el payload y una **CLAVE SECRETA**
+  - Se utiliza para verificar la integridad del token y garantizar que no haya sido alterado durante la transmisión.
+
+**¿Recuerdas a los guards de Nest js?**
+
+- Se encargan de verificar que las solicitudes incluyeran dentro de sus headers, un token de acceso definido por nosotros.
+
+**Verify**
+
+- Es una función de **jwtService**.
+- Recibe como argumentos el token que acabas de obtener y la clave secreta de la aplicación.
+- Compara y decodifica el token de acceso recibido utilizando la clave secreta.
+- Si el proceso ocurre de manera exitosa, nos devolverá como resultado un payload dentro del token.
+
+######################################
+
 ## ¿Qué es el proceso de autenticación en NestJS?
 
 La autenticación es un componente esencial que se enfoca en **confirmar la identidad de los usuarios y regular su acceso a los recursos protegidos**.

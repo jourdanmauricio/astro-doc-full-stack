@@ -16,6 +16,110 @@ category: Backend Js Nest
 
 ## Proceso de Deployment
 
+############################################
+
+**Proceso y etapas del deployment**
+
+- Se refiere al cambio de una aplicación de un entorno de desarrollo a lo que se conoce como entorno de producción.
+- Todas aquellas aplicaciones de terceros que usamos hoy en día, deben pasar por este proceso para poder llegar hasta nosotros.
+- Implica varias etapas y consideraciones que aseguran que la aplicación mantenga un funcionamiento óptimo.
+
+**Etapas del proceso de deployment**
+
+- Preparación del entorno de producción
+- Empaquetado y distribución
+- Proceso de automatización
+- Plan de monitoreo
+
+**Estrategias avanzadas de implementación para garantizar la disponibilidad continua del servicio**
+
+**Estrategia Blue-Green**
+
+- Se mantienen dos entornos idénticos de producción: el Azul y el Verde.
+- La idea general, es que uno de ellos (entorno Azul) se utilice para controlar el tráfico regular de la aplicación.
+- Mientras se implementan los cambios necesarios en el entorno de control (entorno Verde).
+- Redirigir el tráfico de la aplicación al entorno con la nueva versión.
+- Invertir la clasificación para repetir la estrategia en futuros cambios.
+
+**Estrategia Canario**
+
+- Consiste en lanzar la nueva versión de una aplicación disponible para un conjunto de usuarios de control (canarios).
+- Estos hacen uso de ella y evalúan su rendimiento y estabilidad antes de redirigir al resto de usuarios de forma gradual.
+- Esto permite monitorear de manera controlada el funcionamiento de la implementación.
+
+**CI/CD y su importancia en la implementación continua y automatizada**
+
+**Integración Continua (CI)**
+
+- Hace referencia a la técnica en la que los desarrolladores integran su trabajo en un repositorio compartido, a medida que escriben código.
+- Cada integración se verifica a través de pruebas automatizadas y otras herramientas.
+- Garantiza que el código integrado funcione de manera adecuada.
+
+**Implementación Continua (CD)**
+
+- Es una extensión de CI que se centra en automatizar el proceso de implementación del artefacto en diferentes entornos, como desarrollo y producción.
+- Con esta práctica, cada cambio confirmado en el repositorio de código puede desplegarse automáticamente en un entorno de producción.
+
+**Implementación de un proyecto**
+
+**CI/CD en la práctica**
+
+- Puede ser implementado en proyectos de Docker para mejorar la automatización y eficiencia del ciclo de vida de una aplicación.
+- Los contenedores pueden ser integrados y evaluados de forma continua mediante herramientas como Jenkins, Gitlab, GitHub, etc.
+- Permiten el trabajo conjunto de un equipo de desarrollo en un entorno controlado.
+- Los cambios pueden pasar a la etapa de implementación una vez se cumplan las condiciones requeridas.
+
+**Github Actions**
+
+- Es un servicio de GitHub.
+- Permite definir y controlar el flujo de trabajo dentro de un repositorio.
+- Al mismo tiempo se publica el **artefacto** resultante en la plataforma de **Docker Hub**.
+
+Utiliza la herramienta **Actions de Github** para automatizar el proceso de construcción, prueba y despliegue de la aplicación en **Docker Hub**. Este mismo flujo se repetirá de manera constante y automática cada vez se generen cambios en el repositorio.
+
+- Permite automatizar tareas dentro de un repositorio de GitHub.
+- Puedes crear flujos de trabajo personalizados que se activan automáticamente en respuesta a eventos específicos en los repositorios.
+- Estos flujos de trabajo están definidos en archivos YAML dentro del repositorio.
+- Permite definir versiones y gestionar el flujo de trabajo junto con el código de la aplicación.
+- Cada flujo de trabajo puede contener una serie de pasos o tareas individuales que se ejecutan en un entorno específico.
+- Esto creará una nueva carpeta **.github** con una subcarpeta **workflows**.
+- Esta última contiene un archivo .yml en el cual debes definir el flujo del pipeline que deseas construir.
+
+**Archivo .yml de workflow**
+
+- La base de este archivo contiene un nombre **(name)** para el workflow.
+- Indicador **on** define cuándo entra en ejecución este pipeline.
+- Propiedad **jobs** ejecuta el proceso de **build** e indica el tipo de máquina que deseamos ejecutar.
+- Configurar los pasos del build.
+- Mediante la propiedad step cada paso es precedido por un - que contiene dos propiedades.
+  - **name** actúa como una etiqueta para identificar el paso.
+  - **uses** define la herramienta y características del paso a realizar.
+
+¡No olvides que en YAML la indentación es sumamente importante!
+
+**Despliegue de aplicaciones con render**
+
+**Despliegue de base de datos**
+
+- Existen muchas herramientas que nos permiten realizar el despliegue de aplicaciones para que estas puedan ser utilizadas de manera remota.
+- Entre las más utilizadas encontramos AWS, Azure, Google Cloud, etc.
+- Estas plataformas están especialmente diseñadas para trabajar con tráfico de datos muy altos.
+- Simplifican el mantenimiento y monitoreo de los entornos de producción de las aplicaciones.
+
+**Render**
+
+- Plataforma gratuita.
+- Para trabajar con aplicaciones pequeñas.
+- Permite crear y desplegar bases de datos que pueden ser asociadas a un entorno de producción.
+- Dirígete al panel de control de la base de datos.
+- Ir a la sección **Access Control** donde haremos click en la opción **Add source**.
+- Utilizar nuestra dirección IP como punto de acceso.
+- Dejar activo el acceso que se encuentra predefinido.
+- Habilitar la sección **Connections**.
+- Allí encontrarás las credenciales de acceso a la base de datos.
+
+############################################
+
 ## Proceso y etapas del deployment
 
 Hasta ahora, nuestros proyectos se han venido desarrollando y viviendo en un ambiente local. Las aplicaciones no existen por fuera de tu compu, ni nadie más tiene acceso a los recursos que ofrecen. La única solución para que puedan ser compartidas y las demás personas logren interactuar con ellas, es mediante el deployment de aplicaciones. Todas aquellas aplicaciones de terceros que usamos hoy en día, deben pasar por este proceso para poder llegar hasta nosotros.

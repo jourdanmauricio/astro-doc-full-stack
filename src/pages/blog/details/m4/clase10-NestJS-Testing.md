@@ -16,6 +16,65 @@ category: Backend Js Nest
 
 ## Pruebas unitarias
 
+##############################################
+
+**Pruebas unitarias**
+
+- Consisten en verificar el funcionamiento correcto de unidades individuales de código de forma aislada y controlada.
+- Garantizan calidad y fiabilidad de las aplicaciones.
+- Permiten identificar errores en etapas tempranas de desarrollo.
+- Facilitan el proceso de generación y mantenimiento del código de una aplicación.
+
+**ETAPAS**
+
+- Análisis y Planificación: Identificar las unidades de código a probar.
+- Escritura de Pruebas: Utiliza un framework de pruebas unitarias. Crear los distintos casos a testear.
+- Ejecución de Pruebas: Ejecutar las pruebas unitarias para verificar el comportamiento de las unidades de código.
+- Corrección de Errores: Si se encuentran errores o fallos en la etapa anterior, corregir el código de las unidades afectadas.
+- Refactorización: Revisión y refactorización del código para mejorar su calidad y mantenibilidad.
+
+**Validar el funcionamiento aislado del servicio mediante pruebas unitarias**
+
+- Validar que puedes construir una instancia de **AuthService**.
+- Mediante un test utilizar la función **it**.
+- Agregar un módulo de pruebas.
+- Definir los providers que serán empleados en el el entorno de testing.
+- Utilizar la función **createTestingModule** de @**nestjs/testing**.
+
+**Simulación de Dependencias en Pruebas**
+
+- Es una herramienta que permite recrear y controlar de manera simulada las dependencias en un sistema desarrollado con Nest.
+- Facilita la realización de pruebas unitarias al aislar y configurar entornos específicos para evaluar el comportamiento del código, sin depender de servicios externos.
+
+**Pruebas en controladores, servicios y módulos**
+
+Desarrollo de estrategias de testing
+
+- Preparación del Entorno de Pruebas: Configura un entorno de pruebas separado que simula el entorno real del módulo, servicio o controlador.
+- Instalación de Dependencias: Instala las dependencias necesarias para realizar pruebas.
+- Creación de Mocks: Crea mocks para simular el comportamiento de los servicios y dependencias.
+- Pruebas Unitarias: Escribe pruebas unitarias acordes al elemento a evaluar.
+
+**Conceptos clave y aplicación de pruebas de integración**
+
+- Se centran en verificar el funcionamiento conjunto de varios componentes o módulos de una aplicación.
+- Evalúan cómo interactúan diferentes partes de un sistema y cómo se integran para lograr el comportamiento esperado.
+- Garantiza que el sistema funcione como se espera en su conjunto y que los diferentes componentes trabajen de manera coherente y eficiente.
+- Crear una instancia de testing de la aplicación completa.
+- Cada test generado será validado dentro de esta copia.
+- Estas pruebas son conocidas como **end-to-end**.
+- Dentro del proyecto generado con Nest CLI se encuentra pre configurado un entorno de integración dentro de la carpeta test.
+
+**Creación de Pruebas de integración en Nest**
+
+- El test realiza el recorrido completo de una solicitud.
+- Pasa por el módulo, controlador y servicio hasta llegar al repositorio de usuarios.
+- Valida el correcto funcionamiento de la ruta.
+- Válida alguna ruta que tenga contacto con la base de datos.
+- Para ejecutar los tests end to end debes utilizar el comando: npm run test:e2e
+
+##############################################
+
 ## Comprender la importancia y aplicación de pruebas unitarias
 
 Comencemos hablando de un concepto que nos es un poco familiar: <mark>**las pruebas unitarias**. Estas consisten en verificar el funcionamiento correcto de **unidades individuales de código**, como funciones, métodos o clases, de forma aislada y controlada. </mark>

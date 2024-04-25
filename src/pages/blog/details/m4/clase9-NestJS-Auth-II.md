@@ -16,6 +16,56 @@ category: Backend Js Nest
 
 ## Control de acceso basado en roles
 
+############################################
+
+**Autorización Basado en Roles**
+
+- Concede generar una distinción de permisos según el rol de un usuario dentro de una aplicación.
+
+**Conceptos**
+
+- **Roles**: Son vistos como conjuntos de permisos que definen las actividades permitidas para ciertos usuarios.
+
+- **Usuarios**: Son individuos o entidades que interactúan con el sistema y a quienes se les asignan roles específicos. Cada usuario puede tener uno o más roles que determinan sus capacidades dentro del sistema.
+
+- **Permisos**: Acciones específicas que un usuario puede realizar en un sistema, como leer, escribir, actualizar o eliminar datos. Estos permisos están asociados con roles y determinan qué
+  acciones están permitidas para cada usuario según su rol.
+
+**Incorporación de RBAC dentro de una app Nest JS**
+
+- Incluye la definición de roles específicos.
+- La asignación de permisos a dichos roles.
+- La posterior verificación de los roles de los usuarios durante la autenticación.
+- Con el fin de autorizar su acceso a recursos o funciones específicas.
+- Se logra utilizando middlewares, decoradores personalizados o funciones de autorización dentro de los controladores de rutas.
+
+**¿Qué es Auth0?**
+
+- Es una alternativa para simplificar el proceso de autenticación.
+- Es una librería externa.
+- Se encarga de la gestión del acceso, autenticación, autorización y administración de usuarios para aplicaciones web, móviles y APIs.
+
+**Auth0 nos ofrece**
+
+- **Autenticación segura**: Brinda métodos de autenticación seguros como inicio de sesión social, inicio de sesión mediante nombre de usuario y contraseña, autenticación multifactor ՄMFAՅ, autenticación basada en JWT, y más.
+- **Autorización y control de acceso**: Permite definir roles y permisos para usuarios, así como
+  políticas de autorización para controlar el acceso a recursos protegidos en la aplicación.
+- **Integraciones y extensibilidad**: Puede integrarse con una amplia gama de proveedores de identidad, plataformas de aplicaciones y servicios en la nube, lo que facilita su uso en
+  una variedad de entornos de desarrollo.
+- **Administración de usuarios**: Proporciona herramientas para la gestión de usuarios, incluida la creación, edición, eliminación y búsqueda, así como el manejo de perfiles de usuario y datos de
+  perfil.
+
+**Instalación**
+
+- npm install express-openid-connect
+- En la pestaña de integración nos indican instalar la dependencia de express-openid- connect y a express. En nuestro caso, solo la primer dependencia es necesaria pues Express ya se encuentra
+  configurado dentro del proyecto.
+- Esta dependencia permite realizar la configuración de un middleware para Express.
+- Facilita la integración de Open ID Connect.
+- Es un protocolo de autenticación y autorización que proporciona autenticación basada en tokens de JWT.
+
+############################################
+
 ## Establecimiento y gestión de roles para el control de acceso
 
 Previamente, hemos visto cómo construir un sistema de autenticación que brinde acceso a los usuarios para hacer uso de los recursos de nuestras aplicaciones. De esto, surge la necesidad de determinar hasta qué punto y qué clase de recursos puede consumir un usuario.

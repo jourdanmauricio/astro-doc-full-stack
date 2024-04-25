@@ -16,6 +16,75 @@ category: Backend Js Nest
 
 ## Documentación de APIs
 
+########################################
+
+**Documentación de APIs ¿Qué es?**
+
+- Es un conjunto de recursos escritos.
+- Describen cómo utilizar y acceder a una API específica.
+- Permiten interactuar con la API de manera efectiva.
+- Detalla los endpoints disponibles, los parámetros que se pueden enviar, los tipos de respuesta que se esperan, los códigos de estado HTTP posibles, entre otros.
+
+La creación de una documentación eficiente es vital para mejorar la claridad y comprensión de los servicios de una API.
+
+**Buenas prácticas para una documentación efectiva de APIs**
+
+- Mantener la documentación actualizada
+- Usa un formato legible y estructurado
+- Proporciona ejemplos prácticos
+- Documenta claramente los endpoints
+- Describe los códigos de estado y errores
+- Incluye información sobre autenticación y autorización
+- Ofrece una guía de inicio rápido
+
+**Generación de documentación Open Api**
+
+**Open API Specification**
+
+- También conocida como Swagger.
+- Es una especificación que define un estándar o conjunto de reglas para describir APIs de manera clara y detallada.
+- Facilita la comprensión, el diseño y la implementación de servicios web de manera consistente.
+
+**Documentación de una API que trabaja con el estándar de OpenAPI**
+
+- La estructura básica es un archivo en formato JSON o YAML.
+- Describen las características de la aplicación de manera estandarizada.
+- Facilita su desarrollo y puede ser interpretada en interfaces gráficas para mostrar su contenido como Swagger Editor o Swagger UI.
+
+**Integrar Swagger en entornos NestJS**
+
+- npm install --save @nestjs/swagger
+- Para generar la documentación de una API hecha con Nest siguiendo las especificaciones de OpenAPI,
+  contamos con un módulo enfocado en su construcción a partir de la lectura de los decoradores de la aplicación.
+- main.ts: Dentro de la raíz del proyecto utiliza una instancia de **DocumentBuilder** de @nestjs/swagger. A dicha instancia le podemos encadenar diferentes métodos que nos permitirán construir la descripción general del proyecto.
+- Construir el documento a partir de una instancia de la aplicación junto con la configuración definida
+  previamente. Usar el método **createDocument** de la clase **SwaggerModule**. Setear a **SwaggerModule** mediante el método **setup**.
+
+**Personalización de la documentación Open Api**
+
+- Separar las rutas de acuerdo a la entidad de negocio que manejan por medio del decorador **@ApiTags**.
+- Puede ser añadido antes de cada una de las rutas o controladores que consideremos agrupar.
+- Utiliza el decorador **@ApiProperty**. Permite definir manualmente una propiedad. Utilizada para construir el schema dentro de la documentación.
+
+**Nest CLI swagger plugin**
+
+- Permite automatizar la definición de esquemas a partir de las propiedades de DTOS y entidades que se encuentran en la api con las extensiones **.dto.ts** y **.entity.ts**.
+- Para utilizarlo se debe habilitar dentro de **nest-cli.json**.
+- **classValidatorShim** obtiene información de las validaciones realizadas con class-validator.
+- **introspectComments** permite la introspección y extracción de comentarios dentro del esquema
+  para convertirlos en la descripción de la propiedad.
+
+**Pruebas de Api con Swagger UI**
+
+- Permite realizar simulaciones desde la API para validar el funcionamiento de la ruta según la información provista.
+
+**Validaciónes**
+
+- Agregar a la configuración del documento creado el método de autenticación que se implementó.
+- Definir con el decorador **@ApiBearerAuth** aquellas rutas que requieren un token de acceso.
+
+########################################
+
 ## ¿Qué es la documentación en APIs?
 
 Entendemos por documentación en APIs a un **conjunto de recursos escritos** que describen cómo **utilizar y acceder a una API específica**. Esta documentación detalla los endpoints disponibles, los parámetros que se pueden enviar, los tipos de respuesta que se esperan, los códigos de estado HTTP posibles, entre otros. Toda esta información así como otros detalles técnicos necesarios, permiten interactuar con la API de manera efectiva.
