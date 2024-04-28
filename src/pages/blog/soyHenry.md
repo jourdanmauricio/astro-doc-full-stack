@@ -71,3 +71,8 @@ category: Reference Docs HTML CSS JS
 - [clase12 Docker](/astro-doc-full-stack/blog/details/m4/clase12-Docker)
 - [clase13 Deployment](/astro-doc-full-stack/blog/details/m4/clase13-Deployment)
 - [clase14 Clase14 JavaScriptAdvanced III](/astro-doc-full-stack/blog/details/m4/Clase14-JavaScript-Advanced-III)
+
+### Módulo 5 (Job Preparation)
+
+- [Clase 1 Personal Brand](/astro-doc-full-stack/blog/details/job/clase1-personal-brand)
+- [Clase 2 CV](/astro-doc-full-stack/blog/details/job/clase2-cv)
