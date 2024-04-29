@@ -136,3 +136,131 @@ Es mejor **hacer pequeños cambios** e ir **comiteando** en **cortos períodos d
 **Los cambios deben ser no tan grandes pero si significativos.**
 
 Esto se puede medir en las contribuciones. En los inicios es comprensible que no tengamos una actividad muy alta.
+
+## 5. Readme y proyectos
+
+¿Ya has trabajado en varios proyectos y los has agregado en tu perfil de Github? No te olvides de redactar el readme de cada uno, esto te ayudará a mostrar mejor cuáles son los objetivos y las funcionalidades de estos proyectos, aprende cómo en la siguiente clase.
+
+Github nos permite incorporar un readme por proyecto.
+
+- Objetivo: hacer una breve descripción del proyecto.
+- Una persona, ¿Logra entender de qué se trata la aplicación?
+- ¿La puede levantar y probar?
+- El nombre del repositorio debe ser descriptivo
+- La documentación del código es util.
+- Podemos incluir una demostración, capturas de pantalla, imagenes, videos.
+- Un enlace a una demostración, deploy.
+
+## 6. ¿Por qué es importante tener un portfolio?
+
+Ya aprendiste cómo elaborar tu perfil de Github. En esta clase cónocerás 5 razones que debes de saber antes de empezar a armar tu portfolio y utilizarlo como una herramienta en tu proceso de búsqueda laboral.
+
+Una forma de demostrar nuestras habilidades es a través de un portfolio.
+
+Un portfolio es un **espacio** que **reúne** el conjunto **de trabajos** realizados por un **profesional** a lo largo de su **trayectoria**.
+
+Es una página web que reasume nuestra información para darle mayor visibilidad.
+
+### 5 Razones para tener un portfolio
+
+- Potenciará tu marca personal. Cuenta quien eres, en qué te destacas, cuáles son tus proyectos
+- Mejora tu posicinamiento SEO.
+- Opotunidad para generar potenciales clientes. Mostrando tus logros generas confianza con tu público objetivo.
+- Incrementrá tus oportunidades laborales.
+- Será un apoyo para tus entrevistas.
+
+## 7. Contenidos y estructura
+
+¿Qué debe contener tu portfolio? En esta clase conocerás secciones recomendadas que se deben incluír y principales consideraciones a tomar en cuenta.
+
+El protfolio debería contener 8 secciones.
+
+- Resumen de tu perfil. Contar brevemente cuál es tu valor agregado. Principales experiencias, proyectos en los que participamos, objetivos profecionales, etc
+- Lista de soluciones. Podemos contar cuales son las soluciones o servicios que ofrecemos. ¿Qué sabemos hacer? ¿Cómo podemos ayudar a nuestros potenciales clientes? ¿Cuáles son tus servicios principales?
+- Proyecto principales. No es necesario incluir todos los proyectos. Incluir una breve descripción del proyecto y mostrar los resultados, imágenes, enlaces al trabajo.
+- Tecnologías. En esta sección es clave que menciones las teconologías que conoces y las que estamos aprendiendo actualmente.
+- Logros. Para incluirlos podemos realizarnos las siguientes preguntas. ¿Cuáles fueron los **proyectos** más **complejos** que has **desarrollado**? ¿Cuáles fueron tus principales aportes? ¿Cuáles son tus **logros más importantes** sobre cada uno de ellos?
+- Certificaciones. Puedes sumar certificaciones de cursos que hayas terminado recientemente.
+- Datos de contacto. Que nos puedan escribir y sumar redes sociales. Linkedin, Github, correo electrónico, teléfono, etc.
+- Recomendaciones. Reseñas, comentarios de personas que trabajaron con nosotros. Ayuda a crear credibilidad y confianza sobre tu expertise.
+
+3 aspectos a considerar sobre el contenido a incluir:
+
+- Busca lograr **coherencia** con tus **objetivos profesionales**. Busca resaltar aquellos trabajos que esten más alineados con tus objetivos.
+- Manten siempre tu **portfolio actualizado**. Si aprendemos nuevas tecnología, si mejoramos nuestros proyectos, etc.
+- Compartelo con la comunidad.
+
+Si el diseño no es nuestro fuerte podemos apoyarnos en plantillas. En el material completario hay varias plantillas.
+
+## Homework
+
+### ¿Qué debe cumplir mi perfil para aprobar Job Preparation?
+
+✅ **Foto de perfil**
+
+**Recomendaciones**: foto de perfil con fondo liso o avatar (revisa los ejemplos en las clases).
+
+✅ **Datos de contacto**
+
+**Recomendaciones**: no es necesario agregar datos personales como DNI/Cédula/Pasaporte o día de nacimiento.
+
+✅ **ReadMe del perfil**
+
+**Recomendaciones**: revisa el material complementario de inspiración. Anímate a contar un poco más de ti y tu perfil en el readme. Finaliza con un call to action.
+
+✅ **Repositorios públicos y destacados**
+
+**Recomendaciones**: deben aparecer los proyectos de Henry. También puedes agregar otros proyectos en los que hayas trabajado.
+
+> Recuerda que debes subir el link del perfil a tu card de la Henry Talent para que pueda ser revisado por tu career coach.
+
+## Material Complementario
+
+**Herramientas extra**
+
+Antes de seguir aprendiendo queremos invitarte a ver los siguientes recursos. ¡Estamos seguros que te ayudarán mucho en la construcción de tu perfil profesional!
+
+Github. Para crear ReadMe:
+
+ReadMe Generator. https://rahuldkjain.github.io/gh-profile-readme-generator/
+
+ReadMe Templates. https://github.com/durgeshsamariya/awesome-github-profile-readme-templates/blob/master/.gitignore
+
+Github Profilinator. https://profilinator.rishav.dev/
+
+Awesome Github Profile. https://zzetao.github.io/awesome-github-profile/
+
+**Inspiración para la creación de tu perfil:**
+
+Github en Español. https://github.com/minoveaz/github-perfil-readme-asombrosos#retro-
+
+Monica.dev. https://aboutmonica.com/
+
+Pouya Saadegui. https://github.com/saadeghi
+
+Carlos Azaustre. https://github.com/carlosazaustre
+
+**Extra: perfiles HENRY**
+
+Ejemplo 1: https://github.com/Acsoliz
+Ejemplo 2: https://github.com/Mettfan
+Ejemplo 3: https://github.com/Thdalessa
+Ejemplo 4: https://github.com/MatiFitti
+
+**Portfolio**
+
+Template de Porfolio: https://github.com/topics/portfolio-template
+
+1. **Extra: paginas para que puedas crear tu portfolio**
+
+Netlify: https://www.netlify.com/
+Vercel: https://vercel.com/jourdanmauricios-projects
+Behance: https://www.behance.net/
+Heroku: https://www.heroku.com/
+
+2. **Extra: portfolios de ejemplo**
+
+Ejemplo 1: https://mariohernandez.vercel.app/
+Ejemplo 2: https://portfolio-indol-nu.vercel.app/
+Ejemplo 3: https://chavezpablo-portfolio.vercel.app/
+Ejemplo 4: https://portfolio-kimberly-blandon.vercel.app/
