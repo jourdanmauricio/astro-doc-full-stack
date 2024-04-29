@@ -15,7 +15,7 @@ icon:
   }
 description: Personal Brand
 draft: false
-category: Backend Js Nest
+category: Job Preparation
 ---
 
 <style>
