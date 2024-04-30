@@ -78,3 +78,5 @@ category: Reference Docs HTML CSS JS
 - [Clase 2 CV](/astro-doc-full-stack/blog/details/job/clase2-cv)
 - [Clase 3 LinkedIn Profile](/astro-doc-full-stack/blog/details/job/clase3-linkedin-profile)
 - [Clase 4 GitHub & Portfolio](/astro-doc-full-stack/blog/details/job/clase4-github-&-portfolio)
+- [Clase 5 Job Houting & Networking](/astro-doc-full-stack/blog/details/job/clase5-job-huting-&-networking)
+- [Clase 6 - Interviews](/astro-doc-full-stack/blog/details/job/clase6-interviews)

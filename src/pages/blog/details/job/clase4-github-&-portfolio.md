@@ -13,9 +13,9 @@ icon:
     src: '/astro-doc-full-stack/images/icon-general.png',
     alt: 'Logo Typescript',
   }
-description: LinkedIn Profile
+description: GitHub & Portfolio
 draft: false
-category: GitHub & Portfolio
+category: Job Preparation
 ---
 
 <style>

@@ -72,15 +72,15 @@ El objetivo de este módulo es crear y gestionar nuestra marca personal, y conve
 
 Un punto clave para empezar a gestionar tu marca personal, será saber qué quieres lograr, es decir, cuál es tu objetivo. Para definir tu objetivo y qué te ayudará a conseguirlo, será necesario que tomes unos minutos para dedicarte al Auto-conocimiento.
 
-**Para gestionar la marca personal primero debemos definir nuestros objetivos.**
+<mark>**Para gestionar la marca personal primero debemos definir nuestros objetivos.**</mark>
 
 El **autoconocimiento** consiste en entender **quienes somos**, cuáles son nuestras **fortalezas** y conocer nuestras **oportunidades de mejora**.
 
 Este conocimiento nos ayudará a pensar en la **propuesta de valor**.
 
-- Fortalezas: cómo nos ven las personas que conocemos y qué transmitimos. ¿cuál es la marca personal con la que nos identifican nuestros conocidos?
+- <mark>Fortalezas</mark>: cómo nos ven las personas que conocemos y qué transmitimos. ¿cuál es la marca personal con la que nos identifican nuestros conocidos?
 
-- Oportunidades de mejora.
+- <mark>Oportunidades de mejora.</mark>
 
 Ejercicio: elije entre 5 y 10 personas de tu entorno y **pregúntales**:
 
@@ -90,7 +90,7 @@ Ejercicio: elije entre 5 y 10 personas de tu entorno y **pregúntales**:
 
 Este Feedback seguramente lo obtuvimos sin tener en cuenta la construcción de una marca personal. ahora **podemos construir una marca personal de acuerdo a lo que queremos lograr en el futuro. Es decir, ¿hacia donde queremos ir?**
 
-Para ello, perimero debemos **definir un objetivo SMART**, un objetico claro, conciso y directo.
+Para ello, primero debemos <mark>**definir un objetivo SMART**</mark>, un objetico claro, conciso y directo.
 
 - **S**: Specific (específico), ¿qué quiero lograr?
 - **M**: Measurable (medible), ¿Cuál es mi indicador de progeso?
@@ -112,7 +112,7 @@ No especifica ni tiempo ni una forma de medir los avances.
 
 El impulsor de marca te ayudará a ganar mayor impacto y visibilidad de tu marca personal. Aprende cómo hacerlo en esta clase.
 
-**El impulsor de marca es el servicio por el que nos daremos a conocer**. Este concepto debe estar presente al armar nuestro perfil de Github, Linkedin y el CV.
+<mark>**El impulsor de marca es el servicio por el que nos daremos a conocer**</mark>. Este concepto debe estar presente al armar nuestro perfil de Github, Linkedin y el CV.
 
 <mark>Tenemos que pensar la búqueda laboral como una estrategia de marketing.</mark> Tenemos que pensar que somos una marca y ofrecemos conocimiento, capacidades, soluciones como desarrolador.
 
@@ -165,7 +165,7 @@ Entender qué es lo que hacen y qué les dió resultado a las personas que se en
 
 Ahora que tienes tu objetivo SMART y tu marca personal ¿Cuál será tu público objetivo para darte a conocer? ¿Cómo te vas a dirigir? ¿En qué redes sociales se encuentran? ¿Qué valora o busca tu audiencia? En esta clase te ayudaremos a responder esas preguntas.
 
-La **audiencia o público objetivo** es un grupo de personas con características generales que nos van a brindar información para entender cómo podemos enfocar nuestrsos servicios profesionales.
+<mark>La **audiencia o público objetivo** es un grupo de personas con características generales que nos van a brindar información para entender cómo podemos enfocar nuestrsos servicios profesionales.</mark>
 
 Entender **qué piensa y cuáles son las necesidades** de nuestra audiencia nos ayudará a dirigirnos a ella de una manerá más estratégica y eficiente.
 
@@ -218,7 +218,7 @@ Además de gestionar nuestras **habilidades**, tenemos que **comunicarlas correc
 
 ### ¿Qué es el personal pitch?
 
-Pitch es una presentación, **breve** y **persuasiva** , para **vender** un producto o **promocionar** un proyecto, puede ser **flexible** y **adaptarse** a distintos objetivos, **públicos** o **situaciones**.
+<mark>Pitch es una presentación, **breve** y **persuasiva** , para **vender** un producto o **promocionar** un proyecto, puede ser **flexible** y **adaptarse** a distintos objetivos, **públicos** o **situaciones**.</mark>
 
 <mark>El **objetivo principal** de nuestro **personal pitch** es que la persona con la que estamos hablando **nos recuerde** mucho tiempo **después de la charla**.</mark>
 
@@ -255,7 +255,7 @@ Un **heroe** abandona el mundo **ordinario** para **enfrentarse** a una **divers
 
 Para nuestra historia personal podemos pensar el **mundo ordinario** como el momento previo **antes de interesarnos en IT**. ¿Cómo era ese mundo? ¿Cómo comenzamos a interesarnos en la tecnología? Luego, comentamos las **adversidades** que encontramos y finalmente, **cómo llegamos a ser quienes somo hoy**, con todos nuestrtos conocimientos y habilidades.
 
-Debemos **practicar** la elaboriación de nuestro **personal pitch**. Podemos practicar frente a un espejo para analizar nuestro lenguaje corporal y expresiones al momento de transmitirlo.
+<mark>Debemos **practicar** la elaboriación de nuestro **personal pitch**. Podemos practicar frente a un espejo para analizar nuestro lenguaje corporal y expresiones al momento de transmitirlo.</mark>
 
 **Gestionar** la marca personal requiere **preparación** , **práctica** y **aprender** por pruba y error. Cuanto más practiquemos mejor preparados estaremos para una entrevista.
 
@@ -267,7 +267,7 @@ Para generar oportunidades debemos hacernos visibles. Entender cuáles son las p
 
 Probablemente quien realice una búsqueda no nos conozca, por eso es importante que nos encuentren a través de las palabras clave.
 
-Las **Keywords** definen nuestras principales **áreas de trabajo** y bien utilizadas nos harán **visible** para atraer a quieren buscan **talento IT**.
+<mark>Las **Keywords** definen nuestras principales **áreas de trabajo** y bien utilizadas nos harán **visible** para atraer a quieren buscan **talento IT**.</mark>
 
 Las **Keywords** interfieren directamente en nuestra marca personal porque hablan de nuestras actividades y conocimientos específicos del sector.
 

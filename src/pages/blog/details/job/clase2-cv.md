@@ -36,13 +36,13 @@ category: Job Preparation
 
 En esta clase aprenderás qué es y por qué te debe interesar construir tu perfil profesional, utilizando herramientas claves como el CV y tu perfil de LinkedIn.
 
-El **perfil profesional** es el conjunto de habilidades, conocimientos y competencias que tiene una persona y le permite postularse a una posición en el mercado laboral.
+<mark>El **perfil profesional** es el conjunto de habilidades, conocimientos y competencias que tiene una persona y le permite postularse a una posición en el mercado laboral.</mark>
 
 Los recursos más utilizados para **comunicar tu perfil** profesional son el **CV** y el perfil de **LinkeIn**
 
 **Los recruiters tardan 6 segundos en realizar el primer filtro de tu perfil**
 
-El **objetivo** de contruir el CV y el perfil de Linkedin es que ayuden como herramientas de venta de tu perfil profesional. Deben generar impacto y una buena primera impresión para que el recruiter quiera seguir produndizando en nuestro y que nos llame a una primera entrevista.
+<mark>El **objetivo** de contruir el CV y el perfil de Linkedin es que ayuden como herramientas de venta de tu perfil profesional. Deben generar impacto y una buena primera impresión para que el recruiter quiera seguir produndizando en nuestro y que nos llame a una primera entrevista.</mark>
 
 **No hay segundas oportunidades paradar una buena primera impresión**
 
@@ -63,7 +63,7 @@ El headline es el primer acercamiento con tu audiencia, es clave que lo utilices
 
 ### Headline
 
-El **headline** es una breve descripción que aparece debajo de tu nombre **y comunica rápidamente lo que haces**.
+<mark>El **headline** es una breve descripción que aparece debajo de tu nombre **y comunica rápidamente lo que haces**.</mark>
 
 Puede estar formado por una frase, un servicio, solución que brindas o palabras claves que describan tu perfil.
 
@@ -73,7 +73,7 @@ Para el CV se realiza de la forma más simple posible de manera que se entienda 
 
 Otra sección que nos acerca a la audiencia es el **about o resumen profesional**, que también es conocida como acerca de o perfil.
 
-Busca contar brevemente tu background, motivaciones y valor agregado.
+<mark>Busca contar brevemente tu background, motivaciones y valor agregado.</mark>
 
 Este apartado se encuentra tanto en el CV como en Linkedin, la diferencia es que en nuestro CV es más específico y conciso, con un máximo de 7 líneas.
 
@@ -90,13 +90,13 @@ Full Stack Developer con formación como diseñador web. Experiencia trabajando 
 
 Lideré la creación de un E-commerce oar el diseño y compra de remeras estampadas con un imcremento del 35% de las ventas mensuales del negocio.
 
-Con pensamiento creativo, resolución de problemas, trabajo en equipo, comunicación y utonomía.
+Con pensamiento creativo, resolución de problemas, trabajo en equipo, comunicación y autonomía.
 
 ### Datos de contacto
 
 Solo se agregan datos con los que nos puedan ubicar. No se agregan datos personales como fecha de nacimiento, edad, sexo o dirección completa. Esta información se solicitará cuando avances dentro del proceso de selección.
 
-Los datos a agregar son: **Correo electrónico, Linkedin, Github, Portfolio, ubicación: Ciudad, País**
+<mark>Los datos a agregar son: **Correo electrónico, Linkedin, Github, Portfolio, ubicación: Ciudad, País**</mark>
 
 Enlaza las redes para dar mayor movilidad a tu CV y mayor visibilidad a tus proyectos.
 
@@ -112,11 +112,10 @@ Quienes hacen recruiting están en constante búsqueda de perfiles y con frecuen
 
 Es por eso que es importante incluir en tu perfil una sección en la que hables de tus competencias.
 
-Podemos diferencias las compentencias en:
+**Podemos diferenciar las compentencias en**:
 
-- **Tech skills**: habilidades técnicas
-
-- **Soft skills**: habilidades blandas
+- <mark>**Tech skills**</mark>: habilidades técnicas
+- <mark>**Soft skills**</mark>: habilidades blandas
 
 ### Habilidades técnicas
 
@@ -147,7 +146,7 @@ Lo más importante para las empresas es entender cuáles son nuestras habilidade
 ¿Sabías que también puedes agregar tu experiencia anterior a tecnología?
 Así es, aprovéchala y has que sea parte de tu propuesta de valor. En esta clase aprenderás cómo detallar tu experiencia, educación e información adicional.
 
-Todas las personas tenemos experiencias, la idea de esta sección del CV es que le demos protagonismo a las que se encuentran más alineadas con tus objetivos.
+<mark>Todas las personas tenemos experiencias, la idea de esta sección del CV es que le demos protagonismo a las que se encuentran más alineadas con tus objetivos.</mark>
 
 Cuando hablamos de experiencia no solo nos referimos a experiencias laborales o en relación de dependencia, sino también incluye experiencias académicas, proyectos, prácticas, experiencias profesionales independientes o voluntariados.
 
@@ -183,7 +182,7 @@ Podemos dividir este apartado en dos secciones:
 - <mark>Agrega tu educación</mark>
   - Carreras de grado, terciarios, los estudios en Henry. Puede que hayas iniciado una carrera profesional y no la hayas culminado, también la puedes incluir. Recuerda los semestres y años completados.
   - Puedes detallar: título obtenido o a obtener, institución o Universidad | Fecha de inicio y fin
-  - Ejemplo: Full Stack Developer - SiyHenry Bootcamp - Feb 2022 - Actualidad
+  - Ejemplo: Full Stack Developer - SoyHenry Bootcamp - Feb 2022 - Actualidad
   - También podemos generar una subsección complementaria o cursos. Cursos cortos, workshops, seminarios de los que has participado. Cursos de tecnología, lenguajes de programación, metodologías ágiles. Puedes incluirlos anque no poseas una certificación. **Lo importante serán las habilidades adquiridas**.
 
 ¿Has dado clases particulares? ¿Participaste en grupos académicos? ¿Voluntariados? ¿Tocas algún instrumento musical o destacas en alguna actividad? Todo esto se puede vincular a la marca personal y lo que te hace único. Esta información puede ser valiosa para tu perfil.
