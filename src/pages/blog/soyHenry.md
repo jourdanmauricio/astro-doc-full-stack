@@ -80,3 +80,8 @@ category: Reference Docs HTML CSS JS
 - [Clase 4 GitHub & Portfolio](/astro-doc-full-stack/blog/details/job/clase4-github-&-portfolio)
 - [Clase 5 Job Houting & Networking](/astro-doc-full-stack/blog/details/job/clase5-job-huting-&-networking)
 - [Clase 6 - Interviews](/astro-doc-full-stack/blog/details/job/clase6-interviews)
+
+### Módulo 6 (Proyecto Final) - Proyecto COCO+
+
+- Requerimientos
+- [Gestión de usuarios](/astro-doc-full-stack/blog/details/pf/gestion-usuarios)
