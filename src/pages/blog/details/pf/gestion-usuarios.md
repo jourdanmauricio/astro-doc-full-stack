@@ -178,11 +178,6 @@ En el momento en que el superadmin acepta una solicitud de empresa, utilizando l
   - company_id
   - user_id
 
-## Pendientes
-
-- Cambios de estados en las distintas entidades
-- Información adicional como cuenta bancaria del coworking donde realizar los pagos por parte de Coco+ por los servicios utilizados (mencionado en la reunión del 03/05)
-
 ### Primer acceso de usuarios (login)
 
 Dentro de la entidad **users** dejamos el campo <mark>**activation_date**</mark> para gestionar el cambio de contraseña en el primer inicio de sesión.
@@ -194,3 +189,8 @@ Desde el front, cuando el usuario realce el primer inicio de sesión se verifica
 <img style="max-width: 400px; margin: 1rem auto; display: block;" src="/astro-doc-full-stack/images/henry/pf/change-password.webp" alt="Cambio de contraseña">
 
 Al realizar el cambio de contraseña se completará el campo con la fecha actual. De esta manera, en posteriores inicios de sesión accederá directamnte a su dashboard.
+
+## Pendientes
+
+- Cambios de estados en las distintas entidades
+- Información adicional como cuenta bancaria del coworking donde realizar los pagos por parte de Coco+ por los servicios utilizados (mencionado en la reunión del 03/05)
