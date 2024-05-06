@@ -70,6 +70,7 @@ La landing page también posee la opción signin para usuarios que ya se encuent
   - contact phone
   - contact email
   - contact identification (DNI)
+  - contact role (cargo dentro de la empresa)
   - coworking name
   - coworking address
   - coworking email
@@ -98,7 +99,33 @@ La landing page también posee la opción signin para usuarios que ya se encuent
 - POST requests/coworking
 - POST requests/company
 
-Podemos generar dos entidades **_requests_coworking_** y **_requests_company_** <mark>(o solo una agregando un campo type para diferenciar el origen de la solicitud)</mark>. Además contarán con un campo status (pending, close), request_date y observación.
+- Entidad requests
+
+| Campo                  | Descrición                        | Null | Observación    |
+| ---------------------- | --------------------------------- | ---- | -------------- |
+| name                   |                                   |      |                |
+| lastnane               |                                   |      |                |
+| phone                  |                                   |      |                |
+| email                  |                                   |      |                |
+| identification         | número de documento               |      |                |
+| role                   | cargo dentro de la empresa        |      |                |
+| company_name           | nombre de la compañía o coworking |      |                |
+| company_email          | email de la compañía o coworking  |      |                |
+| company_phone          | phone de la compañía o coworking  |      |                |
+| quantity_beneficiaries | Cant empleados con el beneficio   | null | solo empresa   |
+| business_sector        |                                   | null | solo empresa   |
+| size                   | Cant de empleados                 | null | solo empresa   |
+| address                |                                   | null | solo coworking |
+| website                |                                   | null | solo coworking |
+| open                   | Horario de apertura               | null | solo coworking |
+| close                  | Horario de cierre                 | null | solo coworking |
+| capacity               | Cantidad de boxes                 | null | solo coworking |
+| message                |                                   | null |                |
+| status                 | pending / close                   |      |                |
+| observation            | Nota que puede agregar Superadmin |      |                |
+| type                   | company / coworking               |      |                |
+
+El campo type se completará de acuerdo al origen de la solicitud, no llegará desde el front, además contará con un campo status (pending, close), request_date y observación.
 
 El campo status se utilizará para reflejar si el superadmin ya proceso la novedad (close) y si aún se encuentra en contacto (pending)
 
