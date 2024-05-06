@@ -61,45 +61,12 @@ La landing page también posee la opción signin para usuarios que ya se encuent
 
 ![Landing Page](/astro-doc-full-stack/images/henry/pf/landing.webp)
 
-### Formularios de contacto
-
-- Coworking
-
-  - contact name
-  - contact lastnane
-  - contact phone
-  - contact email
-  - contact identification (DNI)
-  - contact role (cargo dentro de la empresa)
-  - coworking name
-  - coworking address
-  - coworking email
-  - coworking phone
-  - coworking web
-  - coworking open (horario de apertura)
-  - coworking close (horario de cierre)
-  - coworking spaces
-  - Message
-
-- Company
-  - contact name
-  - contact lastnane
-  - contact phone
-  - contact email
-  - contact identification (DNI)
-  - contact role (cargo dentro de la empresa)
-  - company name
-  - company quantity_beneficiaries (cantidad aproximada de empleados con el beneficio)
-  - company business_sector
-  - company size (1-50, 50-100, ...) (tamaño de la empresa)
-  - Message
-
 ### endpoints y entidades para solicitudes
 
 - POST requests/coworking
 - POST requests/company
 
-- Entidad requests
+### Entidad requests
 
 | Campo                  | Descrición                        | Null | Observación    |
 | ---------------------- | --------------------------------- | ---- | -------------- |
@@ -125,9 +92,9 @@ La landing page también posee la opción signin para usuarios que ya se encuent
 | observation            | Nota que puede agregar Superadmin |      |                |
 | type                   | company / coworking               |      |                |
 
-El campo type se completará de acuerdo al origen de la solicitud, no llegará desde el front, además contará con un campo status (pending, close), request_date y observación.
+El campo type se completará de acuerdo al origen de la solicitud, no llegará desde el front. Además contará con un campo status (pending, close), request_date y observación.
 
-El campo status se utilizará para reflejar si el superadmin ya proceso la novedad (close) y si aún se encuentra en contacto (pending)
+El campo status se utilizará para reflejar si el superadmin ya proceso la novedad (close) y si aún se encuentra en contacto (pending) y podrá agregar una observación.
 
 ## Incorporación de Coworkings y empresas
 
