@@ -68,8 +68,9 @@ La landing page también posee la opción signin para usuarios que ya se encuent
 
 ### Entidad requests
 
-| Campo                  | Descrición                        | Null | Observación    |
+| Campo                  | Descripción                       | Null | Observación    |
 | ---------------------- | --------------------------------- | ---- | -------------- |
+| id                     | UUID autigenerado                 |      |                |
 | name                   |                                   |      |                |
 | lastnane               |                                   |      |                |
 | phone                  |                                   |      |                |
@@ -121,8 +122,9 @@ En el momento en que el superadmin acepta una solicitud de coworking, utilizando
 
 ### Entidad users
 
-| Campo           | Descrición                                                     | Null | Observación |
+| Campo           | Descripción                                                    | Null | Observación |
 | --------------- | -------------------------------------------------------------- | ---- | ----------- |
+| id              | UUID autigenerado                                              |      |             |
 | name            |                                                                |      |             |
 | lastnane        |                                                                |      |             |
 | phone           |                                                                |      |             |
@@ -132,22 +134,24 @@ En el momento en que el superadmin acepta una solicitud de coworking, utilizando
 | recovery_token  | Token temporal (forgot pass)                                   |      |             |
 | activation_date | Fecha de pimer cambio de pass                                  | null |             |
 | role            | superadmin / adminCompany / adminCompany /coworking / employee |      |             |
+| status          | active / inactive / blocked                                    |      |             |
 
 ### Entidad coworkings
 
-| Campo     | Descrición                      | Null | Observación |
-| --------- | ------------------------------- | ---- | ----------- |
-| name      | nombre del coworking            |      |             |
-| phone     | teléfono del coworking          |      |             |
-| email     | email del coworking             |      |             |
-| address   | Dirección, abrir en mas campos? |      |             |
-| open      | horario de apertura             |      |             |
-| close     | horario de cierre               |      |             |
-| lat       | latitud para google maps        |      |             |
-| long      | longitud para google maps       |      |             |
-| capacity  | cantidad de boxes               |      |             |
-| status    | pending, active, inactive       |      |             |
-| thumbnail | Imagen principal                |      |             |
+| Campo     | Descripción                     | Null  | Observación |
+| --------- | ------------------------------- | ----- | ----------- |
+| id        | UUID autigenerado               |       |             |
+| name      | nombre del coworking            |       |             |
+| phone     | teléfono del coworking          |       |             |
+| email     | email del coworking             |       |             |
+| address   | Dirección, abrir en mas campos? |       |             |
+| open      | horario de apertura             |       |             |
+| close     | horario de cierre               |       |             |
+| lat       | latitud para google maps        | null? |             |
+| long      | longitud para google maps       | null? |             |
+| capacity  | cantidad de boxes               |       |             |
+| status    | pending, active, inactive       |       |             |
+| thumbnail | Imagen principal                | null  |             |
 
 El estado pendiente (coworkings) se debe a que debe completar los datos del coworking (thumbnail, amenities, imágenes, etc) antes de pasar a active.
 
@@ -163,18 +167,20 @@ El estado de Active a Block y viceversa solo lo podrá realizar el superadmin.
 
 Más adelante veremos la configuración del coworking y sus relaciones (amenities, images, etc)
 
-### Empresas
+### Entidad companies
 
 En el momento en que el superadmin acepta una solicitud de empresa, utilizando la información de la solicitud, se creará un <mark>**usuario con role adminCompany**</mark>, se insertará un registro en la entidad **employee** y se insertará el registro en la entidad **company**.
 
-- Entidad companies
-
-  - id (UUID autogenerado)
-  - name
-  - quantity_beneficiaries
-  - business_sector
-  - size
-  - status
+| Campo                  | Descripción                     | Null | Observación |
+| ---------------------- | ------------------------------- | ---- | ----------- |
+| id                     | UUID autigenerado               |      |             |
+| name                   |                                 |      |             |
+| email                  | email de la compañía            |      |             |
+| phone                  | phone de la compañía            |      |             |
+| quantity_beneficiaries | Cant empleados con el beneficio |      |             |
+| business_sector        |                                 |      |             |
+| size                   | Cant de empleados               |      |             |
+| status                 | active / inactive               |      |             |
 
 - Entidad employee
   - id (UUID autogenerado)
