@@ -130,6 +130,7 @@ En el momento en que el superadmin acepta una solicitud de coworking, utilizando
 | phone           |                                                                |      |             |
 | email           |                                                                |      |             |
 | identification  | número de documento                                            |      |             |
+| position        | cargo que ocupa dentro de la empresa                           |      |             |
 | password        | realizamos hash del pass                                       |      |             |
 | recovery_token  | Token temporal (forgot pass)                                   |      |             |
 | activation_date | Fecha de pimer cambio de pass                                  | null |             |
@@ -182,14 +183,15 @@ En el momento en que el superadmin acepta una solicitud de empresa, utilizando l
 | size                   | Cant de empleados               |      |             |
 | status                 | active / inactive               |      |             |
 
-- Entidad employee
-  - id (UUID autogenerado)
-  - position (cargo)
-  - passes (cantida de pases asignada mensualmente)
-  - available_passes (cantidad de pases disponibles)
-  - status (active, block, inactive)
-  - company_id
-  - user_id
+### Entidad employees
+
+| Campo            | Descripción                             | Null | Observación |
+| ---------------- | --------------------------------------- | ---- | ----------- |
+| id               | UUID autigenerado                       |      |             |
+| passes           | cantidad de pases asignada mensualmente |      |             |
+| available_passes | cantidad de pases disponibles           |      |             |
+| company_id       |                                         |      |             |
+| user_id          |                                         |      |             |
 
 ### Primer acceso de usuarios (login)
 
