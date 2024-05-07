@@ -85,3 +85,4 @@ category: Reference Docs HTML CSS JS
 
 - Requerimientos
 - [Gestión de usuarios](/astro-doc-full-stack/blog/details/pf/gestion-usuarios)
+- [Creación de Coworkings y Compañías](/astro-doc-full-stack/blog/details/pf/creacion-coworkings-companies)
