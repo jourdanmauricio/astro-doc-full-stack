@@ -63,8 +63,8 @@ La landing page también posee la opción signin para usuarios que ya se encuent
 
 ### endpoints y entidades para solicitudes
 
-- POST requests/coworking
-- POST requests/company
+- POST /requests/coworking
+- POST /requests/company
 
 ### Entidad requests
 
@@ -100,9 +100,17 @@ El campo status se utilizará para reflejar si el superadmin ya proceso la noved
 
 El **dashboard del superadmin** tendrá las opciones para trabajar sobre las solicitudes.
 
+### enpoint
+
+- GET /requests **Protegido (solo superadmin)**
+
 ![Dashboard Superadmin](/astro-doc-full-stack/images/henry/pf/dashboard-superadmin-1.webp)
 
 ### Coworkings
+
+### enpoint
+
+- PUT /requests/:id **Protegido (solo superadmin)**
 
 En el momento en que el superadmin acepta una solicitud de coworking, utilizando la información de la solicitud, se creará un <mark>**usuario con role adminCoworking**</mark> y se insertará un registro en la entidad Coworkings con <mark>status pending</mark>.
 
@@ -110,6 +118,36 @@ En el momento en que el superadmin acepta una solicitud de coworking, utilizando
 - Creamos el coworking (status pending)
 - Establecemos la relación entre las entidades user y coworking.
 - Enviamos el email al adminCoworking informando que puede iniciar sesión en la App con las credenciales (password generada aleatorimente).
+
+### Entidad users
+
+| Campo           | Descrición                                                     | Null | Observación |
+| --------------- | -------------------------------------------------------------- | ---- | ----------- |
+| name            |                                                                |      |             |
+| lastnane        |                                                                |      |             |
+| phone           |                                                                |      |             |
+| email           |                                                                |      |             |
+| identification  | número de documento                                            |      |             |
+| password        | realizamos hash del pass                                       |      |             |
+| recovery_token  | Token temporal (forgot pass)                                   |      |             |
+| activation_date | Fecha de pimer cambio de pass                                  | null |             |
+| role            | superadmin / adminCompany / adminCompany /coworking / employee |      |             |
+
+### Entidad coworkings
+
+| Campo     | Descrición                      | Null | Observación |
+| --------- | ------------------------------- | ---- | ----------- |
+| name      | nombre del coworking            |      |             |
+| phone     | teléfono del coworking          |      |             |
+| email     | email del coworking             |      |             |
+| address   | Dirección, abrir en mas campos? |      |             |
+| open      | horario de apertura             |      |             |
+| close     | horario de cierre               |      |             |
+| lat       | latitud para google maps        |      |             |
+| long      | longitud para google maps       |      |             |
+| capacity  | cantidad de boxes               |      |             |
+| status    | pending, active, inactive       |      |             |
+| thumbnail | Imagen principal                |      |             |
 
 El estado pendiente (coworkings) se debe a que debe completar los datos del coworking (thumbnail, amenities, imágenes, etc) antes de pasar a active.
 
@@ -120,33 +158,8 @@ El estado pendiente (coworkings) se debe a que debe completar los datos del cowo
   - Inactive -> baja del coworking
 
 El estado de Active a Block y viceversa solo lo podrá realizar el superadmin.
+
 <mark>**De pendiente a activo requiere aprobación del superadmin?**</mark>
-
-- Entidad coworkings
-
-  - id (UUID autogenerado)
-  - name
-  - email
-  - phone
-  - spaces
-  - open
-  - close
-  - address
-  - <mark>lat</mark> **(cómo se calcula?)**
-  - <mark>long</mark> **(cómo se calcula?)**
-  - thumbnail
-  - status
-
-- Entidad users
-  - id (UUID autogenerado)
-  - name
-  - lastname
-  - identification
-  - email
-  - password
-  - activation_date
-  - recovery_token
-  - role
 
 Más adelante veremos la configuración del coworking y sus relaciones (amenities, images, etc)
 
