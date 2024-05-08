@@ -205,6 +205,162 @@ Desde el front, cuando el usuario realce el primer inicio de sesión se verifica
 
 Al realizar el cambio de contraseña se completará el campo con la fecha actual. De esta manera, en posteriores inicios de sesión accederá directamnte a su dashboard.
 
+## Validaciones
+
+### Coworking:
+
+```bash
+Name:
+Min 3 - Max 50 caracteres
+string
+Que no incluya caracteres especiales
+Requerido
+
+Lastname:
+Min 3 - Max 50 caracteres
+string
+Que no incluya caracteres especiales
+Requerido
+
+Phone:
+string
+implementar librería https://intl-tel-input.com/
+requerido
+
+Email:
+Requerido
+Que sea un email (que cumpla con la estructura)
+string
+
+Identification
+Max 15 caracteres
+obligatorio
+string
+
+Position:
+obligatorio
+Min 3 - Max 50 caracteres
+string
+
+Company Name:
+string
+Obligatorio
+Min 3 - Max 50 caracteres
+
+Company Email:
+Obligatorio
+Que sea un email (que cumpla con la estructura)
+string
+
+Company Phone:
+string
+implementar librería https://intl-tel-input.com/
+Obligatorio
+
+Address:
+String
+Obligatorio
+Min 5 - Max 255 caracteres
+
+AGREGAR
+ -> Pais (String, obligatorio, max 50 caracteres)
+ -> Ciudad (String, obligatorio, max 50 caracteres)
+
+Website:
+String
+Que cumpla con la estructura de un website
+
+Open / Close
+Implementar el array de horas cada 30 minutos
+string
+obligatorio
+
+Capacity:
+Validar numero negativos
+Que sea un numero
+Obligatorio
+
+Mensaje:
+String
+Opcional
+Max 255
+```
+
+### EMPRESA
+
+```bash
+Name:
+Min 3 - Max 50 caracteres
+string
+Que no incluya caracteres especiales
+Requerido
+
+Lastname:
+Min 3 - Max 50 caracteres
+string
+Que no incluya caracteres especiales
+Requerido
+
+Phone:
+string
+implementar librería https://intl-tel-input.com/
+requerido
+
+Email:
+Requerido
+Que sea un email (que cumpla con la estructura)
+string
+
+Identification
+Max 15 caracteres
+obligatorio
+string
+
+Position:
+obligatorio
+Min 3 - Max 50 caracteres
+string
+
+Company Name:
+string
+Obligatorio
+Min 3 - Max 50 caracteres
+
+Company Email:
+Obligatorio
+Que sea un email (que cumpla con la estructura)
+string
+
+Company Phone:
+string
+implementar librería https://intl-tel-input.com/
+Obligatorio
+
+AGREGAR
+ -> Pais (String, obligatorio, max 50 caracteres)
+ -> Ciudad (String, obligatorio, max 50 caracteres)
+
+Cantidad de beneficiarios aproximado:
+Validar numero negativos
+Que sea un numero
+Obligatorio
+
+Bussiness Sector:
+String
+Obligatorio
+Max 255 caracteres
+
+Size:
+Validar numero negativos
+Que sea un numero
+Obligatorio
+
+Mensaje:
+String
+Opcional
+Max 255
+```
+
 ## Pendientes
 
 - Cambios de estados en las distintas entidades
