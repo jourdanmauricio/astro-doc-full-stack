@@ -15,6 +15,45 @@ draft: false
 category: Java
 ---
 
+<style>
+  h1 { color: #713f12; }
+  h2 { color: #2563eb; }
+  h3 { color: #a855f7; }
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  pre {
+    padding: 10px;
+  }
+    table {
+    border-collapse: collapse; /* Elimina el espacio entre las celdas */
+    width: 100%; /* Ancho de la tabla */
+    margin: 0 auto; /* Centrar la tabla */
+    text-align: center;
+  }
+
+  th, td {
+    border: 1px solid #ddd; /* Borde de las celdas */
+    padding: 8px; /* Relleno de las celdas */
+    /* text-align: left;  */
+  }
+
+  th {
+    background-color: #f2f2f2; /* Color de fondo del encabezado */
+    font-weight: bold; /* Peso de la fuente del encabezado */
+  }
+
+  tr:nth-child(even) {
+    background-color: #f9f9f9; /* Color de fondo de las filas pares */
+  }  
+</style>
+
+## Introducción
+
+<details>
+
 **Paradigma** Teoría que suministra la base y modelo para resolver problemas. La Orientación a Objetos como tal es un paradigma, ya que nos ayuda a resolver problemas para plasmarlos en código.
 
 **Orientación a Objetos** Se compone de cuatro elementos:
@@ -43,7 +82,11 @@ La Orientación a Objetos tiene mucho que ver con **UML (Unified Modeling Lengua
 - Estados
 - Implementación
 
+</details>
+
 ## ¿Qué es un Objeto?
+
+<details>
 
 Un **objeto** es cualquier cosa que tenga **propiedades** y **comportamientos**. Existen dos tipos de objetos:
 
@@ -55,7 +98,11 @@ Las **propiedades** son clave para identificar objetos. También pueden llamarse
 
 Los **comportamientos** serán todas las operaciones/acciones que el objeto pueda hacer. Suelen ser verbos o sustantivo y verbo. Por ejemplo: login, logout, makeReport.
 
+</details>
+
 ## Abstracción: ¿Qué es una Clase?
+
+<details>
 
 Una vez se hayan identificado los objetos claves del problema se necesita algo que permita crear muchos objetos con diferentes valores en sus propiedades. Para esto existen las clases.
 
@@ -73,7 +120,12 @@ El nombre de cada clase debe ser único.
 
 El nombre de la clase es Person, name es un atributo y walk es un comportamiento de la clase.
 
+</details>
+
+
 ## Modularidad
+
+<details>
 
 La Modularidad en Java se divide en dos niveles, en este curso se abarca el primer nivel, el más básico. El segundo nivel es mucho más avanzado para programas más grandes y complejos.
 
@@ -97,7 +149,11 @@ Las clases van a ser un elemento clave para manejar Modularidad:
 
 **Modularidad** Divide el programa en diferentes partes o módulos/clases. Separar las clases en archivos
 
+</details>
+
 ## Creando nuestra primera Clase
+
+<details>
 
 ```java
 // Main
@@ -129,13 +185,18 @@ public class Doctor {
 }
 ```
 
+</details>
+
+
 ## Método constructor
 
-Si el método constructor no se encuentra declarado explícitamente como en el ejemplo anterior, Java nos proporciona uno. Por este motivo, funcionó la línea <pre>Doctor myDoctor = new Doctor();</pre>.
+<details>
+
+Si el método constructor no se encuentra declarado explícitamente como en el ejemplo anterior, Java nos proporciona uno. Por este motivo, funcionó la línea <pre>Doctor myDoctor = new Doctor();</pre>
 
 **new Doctor()** invoca al método constructor.
 
-**El método constructor**
+<mark>**El método constructor**</mark>
 
 - Crea nuevas **instancias** de una clase.
 - Tiene el **mismo nombre** que la clase que inicializa.
@@ -181,7 +242,12 @@ public class Main {
 }
 ```
 
+</details>
+
+
 ## Static: Variables y Métodos Estáticos
+
+<details>
 
 En el ejemplo anterior utilizamos el operador new para crear un objeto y luego acceder a su propiedad name.
 
@@ -195,7 +261,7 @@ Math.PI();
 
 Pero en ese caso no instanciamos un objeto. Dentro de la clase se encuentran definidos como **static** lo que nos permite utilizarlos sin crear un objeto.
 
-**Miembros y métodos static**
+<mark>**Miembros y métodos static**</mark>
 
 - Se puede usar en toda la clase.
 - Está definido por la palabra reservada **static**.
@@ -235,7 +301,12 @@ public class Main {
 }
 ```
 
+</details>
+
+
 ## Creando elementos estáticos
+
+<details>
 
 Dentro de la clase doctor, el identificador debería ser autoincremental. Para ello la debemos declarar como static. Si no es estatic no podríamos realizar el autoincremento, ya que al colocar static el valor prevalace más allá de las instancias de los objetos.
 
@@ -362,9 +433,14 @@ public class UIMenu {
 }
 ```
 
+</details>
+
+
 ## Final: Variables Constantes
 
-Para declarar una constante utilizamos la palabra reservada **final**. Si la variable es global irá acompañada de static.
+<details>
+
+Para declarar una constante utilizamos la palabra reservada <mark>**final**</mark>. Si la variable es global irá acompañada de static.
 
 - static hace el scope de la variable global
 - **final** la define como constante. No se puede reasignar. Final solo se utiliza en constantes.
@@ -458,7 +534,11 @@ public class UIMenu {
 }
 ```
 
+</details>
+
 ## Sobrecarga de métodos y constructores
+
+<details>
 
 A veces necesitamos que dos o más métodos **tengan el mismo nombre pero con diferentes argumentos.** Pueden variar en cantidad, tipo o puede variar el valor de retorno del método.
 
@@ -529,7 +609,11 @@ public class Main {
 }
 ```
 
+</details>
+
 ## ¡Reto!
+
+<details>
 
 Ahora estás listo para resolver tu primer reto que en realidad es muy sencillo de hacer.
 
@@ -568,7 +652,12 @@ public class Patient {
 }
 ```
 
+</details>
+
+
 ## Encapsulamiento: Modificadores de acceso
+
+<details>
 
 ```java
 public class Main {
@@ -684,7 +773,11 @@ public class Patient {
 }
 ```
 
+</details>
+
 ## Getters y Setters
+
+<details>
 
 **Leer/Escribir** específicamente los valores de las varaibles miembro.
 
@@ -814,7 +907,12 @@ public class Main {
 }
 ```
 
+</details>
+
+
 ## Variable vs. Objeto
+
+<details>
 
 Las **Variables** son entidades elementales muy sencillas, pueden ser números, caracteres, booleanos, entre otras. Los **Objetos** son entidades complejas que pueden estar formadas por la agrupación de diferentes variables y métodos.
 
@@ -877,7 +975,12 @@ Las clases wrapper son clases utilitarias que "envuelven" a los primitivos, esto
 
 Lo clase String no envuelve a ningún primitivo. Son colecciones INMUTABLES de caracteres. Se suele confundir con wrapper por que para crear instancias no se requiere usar la palabra reservada new, pero esto es por comodidad. No por que sea wrapper.
 
+</details>
+
+
 ## Variable vs. Objeto: Un vistazo a la memoria
+
+<details>
 
 **Un objeto es una referencia a un espacio en memoria**. Cuando creamos objetos, Java los guarda en la memoria y nos devuelve coordenadas con las que podremos acceder a la información que almacenamos.
 
@@ -937,7 +1040,12 @@ public class Main {
 }
 ```
 
+</details>
+
+
 ## Clases Anidadas
+
+<details>
 
 Una clase puede "vivir" dentro de otra clase. La razón de ser de la clase interior depende totalmente de la clase exterior.
 
@@ -1126,7 +1234,12 @@ public class Main {
 
 Marterial Complentario: https://www.youtube.com/watch?v=zCygavxhnZE
 
+</details>
+
+
 ## Clases Internas y Locales a un método
+
+<details>
 
 **Clases Internas**
 
@@ -1185,7 +1298,11 @@ public class Main {
 
 Este tipo de Clases también consumen más espacio en memoria. Lo recomendable en estos casos es usar Clases estáticas anidadas para hacer un mejor uso de la memoria.
 
+</details>
+
 ## Enumerations
+
+<details>
 
 Los **enumerations** son tipos de datos muy especiales porque es el único en su tipo que sirve para declarar una **colección de constantes**, al ser así estaremos obligados a escribirlos con mayúsculas.
 
@@ -1262,7 +1379,11 @@ System.out.println(Day.MONDAY.getSpanish()); // Lunes
 - https://www.youtube.com/watch?v=HMOcwq5yXfs
 - https://www.youtube.com/watch?v=F8HSRnFGhYM
 
+</details>
+
 ## ¿Qué es la Herencia? Don't repeat Yourself
+
+<details>
 
 En Programación Orientada a Objetos, **el principio DRY ( Don't Repeat Yourself - No te repitas)**, también conocido como "Una vez y solo una", es una filosofía que consiste en la definición de procesos promoviendo la reducción de la duplicación de código en programación.
 
@@ -1276,7 +1397,11 @@ Por tanto, todo elemento de información nunca debe duplicarse, porque increment
 - Las piezas nunca deben duplicarse
 - Incrementa la dificultad en los cambios y evolución
 
+</details>
+
 ## Super y This
+
+<details>
 
 En la demo podemos ver que entre la clase Doctor y Patient se **repiten** los atributos name, email, address y phoneNumber. Estos atributos son los que tendrá las **Superclase Usuario** y que luego heredará a la las otras Subclases.
 
@@ -1509,7 +1634,11 @@ public class Main {
 }
 ```
 
+</details>
+
 ## Polimorfismo: Sobreescritura de Métodos
+
+<details>
 
 En Java, **todas las clases que creemos heredan de la clase Object**. De esta clase es de donde vienen los métodos que tienen las clases que no fueron creados por nosotros, como equals, hashCode, toString, etc.
 
@@ -1553,39 +1682,12 @@ public string toString() {
 }
 ```
 
+</details>
+
+
 ## Polimorfismo: Sobreescribiendo el método toString
 
-<style>
-  h1 { color: #713f12; }
-  h2 { color: #2563eb; }
-  h3 { color: #a855f7; }
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  pre {
-    padding: 10px;
-  }
-    table {
-    border-collapse: collapse; /* Elimina el espacio entre las celdas */
-    width: 100%; /* Ancho de la tabla */
-    margin: 0 auto; /* Centrar la tabla */
-    text-align: center;
-  }
+<details>
 
-  th, td {
-    border: 1px solid #ddd; /* Borde de las celdas */
-    padding: 8px; /* Relleno de las celdas */
-    /* text-align: left;  */
-  }
+</details>
 
-  th {
-    background-color: #f2f2f2; /* Color de fondo del encabezado */
-    font-weight: bold; /* Peso de la fuente del encabezado */
-  }
-
-  tr:nth-child(even) {
-    background-color: #f9f9f9; /* Color de fondo de las filas pares */
-  }  
-</style>

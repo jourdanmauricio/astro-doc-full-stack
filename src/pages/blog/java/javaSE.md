@@ -14,8 +14,44 @@ description: Java Standar Edition
 draft: false
 category: Java
 ---
+<style>
+  h1 { color: #713f12; }
+  h2 { color: #2563eb; }
+  h3 { color: #a855f7; }
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  pre {
+    padding: 10px;
+  }
+    table {
+    border-collapse: collapse; /* Elimina el espacio entre las celdas */
+    width: 100%; /* Ancho de la tabla */
+    margin: 0 auto; /* Centrar la tabla */
+    text-align: center;
+  }
+
+  th, td {
+    border: 1px solid #ddd; /* Borde de las celdas */
+    padding: 8px; /* Relleno de las celdas */
+    /* text-align: left;  */
+  }
+
+  th {
+    background-color: #f2f2f2; /* Color de fondo del encabezado */
+    font-weight: bold; /* Peso de la fuente del encabezado */
+  }
+
+  tr:nth-child(even) {
+    background-color: #f9f9f9; /* Color de fondo de las filas pares */
+  }  
+</style>
 
 ## ¿Que es Java?
+
+<details>
 
 **Java** es un lenguaje de programación que nos ayuda a desarrollar aplicaciones para distintos dispositivos.
 
@@ -31,7 +67,12 @@ category: Java
   - WORA = write once run anywhere.
 - OpenJDK: es la version open-source de Java SE.
 
+</details>
+
+
 ## Versiones de Java y SDK
+
+<details>
 
 El JDK (Kit de desarrollo de Java) Se compone de tres partes:
 
@@ -41,7 +82,11 @@ El JDK (Kit de desarrollo de Java) Se compone de tres partes:
 
 - **API de desarrollo**: Una base de código lista para ayudarnos a desarrollar.
 
+</details>
+
 ## Las herramientas más usadas de Java
+
+<details>
 
 - Utilizaremos las versiones Java 8 (Muchas empresas poseen implementaciones) y Java 11.
 - Utilizaremos Open JDK
@@ -62,7 +107,11 @@ Algunos IDES son:
 - IntelliJ IDEA
 - ECLIPSE y su versión para desarrollar en spring que es spring tool suite
 
+</details>
+
 ## Creando un entorno de desarrollo en Java en Linux
+
+<details>
 
 ```bash
 sudo apt-get update
@@ -94,12 +143,20 @@ sudo update-alternatives --config java
 
 Solo como confirmación vuelve a revisar la versión para verificar que se haya cambiado.
 
+</details>
+
 ## Escribe tu primer Hola Mundo en Java
+
+<details>
 
 Abrimos el editor IntelliJ IDEA y creamos un nuevo proyecto llamado HolaMundo.
 Dentro de la carpeta src, botón derecho, new Java Class y creamos la clase HolaMundo.
 
+</details>
+
 ## Atajos:
+
+<details>
 
 - main -> genera la estrutura de la función main
 - sout -> System.out.println();
@@ -115,7 +172,12 @@ public class HolaMundo {
 // Hola Mundo!!
 ```
 
+</details>
+
+
 ## Etapas de la programación en Java
+
+<details>
 
 <mark>Java es compilado (javac) e interpretado (JVM)</mark>
 
@@ -130,7 +192,11 @@ A diferencia de lenguajes que solo son interpretados como Javascript o PHP, Java
 
 Java agrega una capa de seguridad ya que no expone el código fuente. Los que se expone es el ByteCode, aunque no es totalmente incorruptible, se puede realizar ingieniería inversa para obtener el código fuente.
 
+</details>
+
 ## La JShell de Java
+
+<details>
 
 Sabías que Java tiene una herramienta interactiva en dónde puedes ir probando segmentos de código en vez de realizar todo el proceso de creación de un programa en Java. Escribir, compilar y correr.
 
@@ -171,7 +237,11 @@ Para salir de la consola jshell
 /ex
 ```
 
+</details>
+
 ## Variables en Java
+
+<details>
 
 **Variables**: Un espacio de memoria al que le asignamos un contenido. Puede ser numérico, texto o un dato complejo. A ese espacio en memoria le daremos un nombre, el nombre de la variable.
 
@@ -203,7 +273,11 @@ public class Variables {
 }
 ```
 
+</details>
+
 ## Actualizando variables
+
+<details>
 
 ```java
 public class UpdatingVariables {
@@ -230,7 +304,11 @@ public class UpdatingVariables {
 }
 ```
 
+</details>
+
 ## Convención de Nombres en Java
+
+<details>
 
 - Los nombres de las variables deben ser únicos.
 - Se definen por convención.
@@ -259,7 +337,11 @@ public class NamingJava {
 }
 ```
 
+</details>
+
 ## Técnica de Naming: Camel Case
+
+<details>
 
 Es la convención de nombres más utilizada en Java y esta es la técnica mejor conocida como camello o Camel Case en inglés.
 
@@ -280,7 +362,11 @@ Para el caso de Lower Camel Case vamos a utilizar la primera letra con minúscul
 
 También incluso nombres de métodos, aquí también va a ser aplicado lower camel case. ( nombres de variables, métodos y clases es lower camel case).
 
+</details>
+
 ## Tipos de datos numéricos
+
+<details>
 
 En Java, se pueden utilizar los siguientes tipos de datos numéricos para números enteros
 
@@ -368,7 +454,11 @@ public class DataTypes {
 }
 ```
 
+</details>
+
 ## Tipos de datos char y boolean
+
+<details>
 
 - **char**: Ocupa 2 bytes y solo puede almacenar 1 dígito, debemos usar comillas simples en vez de comillas dobles.
 
@@ -398,7 +488,11 @@ public class DataTypes {
 }
 ```
 
+</details>
+
 ## Operadores de Asignación, Incremento y Decremento
+
+<details>
 
 ### Operadores de asignación
 
@@ -441,7 +535,11 @@ public class IncrementDecrement {
 }
 ```
 
+</details>
+
 ## Operaciones matemáticas
+
+<details>
 
 ```java
 public class MathematicOperations {
@@ -490,7 +588,11 @@ public class MathematicOperations {
 }
 ```
 
+</details>
+
 ## Cast en variables: Estimación y Exactitud
+
+<details>
 
 - **Cast** casteo o casting de variable.
 - En la programación hay situaciones donde se necesita **cambiar el tipo de dato**.
@@ -540,7 +642,11 @@ public class Casting {
 }
 ```
 
+</details>
+
 ## Archivos .JAR
+
+<details>
 
 - Los **archivos JAR ** es la abreviatura de Java ARchive.
 - Son la extensión de nuestros archivos ejecutables de java, esto es lo que básicamente nuestra máquina virtual se va a encargar de leer.
@@ -562,7 +668,11 @@ Para generar un archivo .jar debemos ir al menu File / Project Structure / Artif
 
 Luego vamos a Build / Build Artifacts... / Build
 
+</details>
+
 ## Sentencia if
+
+<details>
 
 - Condicionales: son la manera en la que una maquina toma decisiones a la hora de ejecutar el código.
 - Funciona de modo “falso” o “verdadero”.
@@ -592,7 +702,11 @@ public class IfState {
 }
 ```
 
+</details>
+
 ## Alcance de las variables y Sentencia ELSE
+
+<details>
 
 **Alcance** El alcance permite delimitar el uso de la variable en un determinado bloque de código. Las variables deben ser declaradas antes de utilizarse.
 
@@ -630,7 +744,11 @@ public class ifStatement {
 }
 ```
 
+</details>
+
 ## Operadores Lógicos y Expresiones booleanas
+
+<details>
 
 Los condicionales en Java no se limitan solo a variables booleanas; también pueden evaluar el resultado de **operaciones booleanas**.
 
@@ -684,7 +802,11 @@ Los **operadores lógicos** permiten realizar comparaciones complejas y tomar de
 | <=       | Menor o igual que | a <= b  |
 | >=       | Mayor o igual que | a > b   |
 
+</details>
+
 ## Operadores de equidad
+
+<details>
 
 | Operador | Nombre      | Ejemplo |
 | -------- | ----------- | ------- |
@@ -724,7 +846,11 @@ public class LogicOperations {
 }
 ```
 
+</details>
+
 ## Sentencia Switch
+
+<details>
 
 - Switch: similar al if para la toma de desiciones pero es más condensado y permite incluir más opciones. Evaluaremos un dato.
 - Case: incluyen los distintos valores o posibilidades que puede resultar de evaluar la variable o expresión del switch.
@@ -776,7 +902,11 @@ public class Switch {
 }
 ```
 
+</details>
+
 ## ¿Para qué sirven las funciones?
+
+<details>
 
 Las **funciones** nos ayudan a ejecutar código y dependiendo de las opciones que le enviamos, puede transformar, generar y retornar un resultado.
 
@@ -806,7 +936,11 @@ int c = suma(5, 7);
 - Suma: nombre de la función
 - a y b: parámetros de tipo int
 
+</details>
+
 ## Implementa Funciones en Java
+
+<details>
 
 ```java
 public class Funciones {
@@ -860,7 +994,11 @@ public class Funciones {
 
 **static** nos permite el acceso a metodos, variables de clase sin necesidad de intanciar un objeto de la clase en cuestión.
 
+</details>
+
 ## Java Docs
+
+<details>
 
 **Javadoc** es una utilidad de Oracle para la generación de documentación de APIs en formato HTML a partir de código fuente Java. Javadoc es el estándar de la industria para documentar clases y métodos de Java. La mayoría de los IDEs los generan automáticamente.
 
@@ -885,7 +1023,11 @@ Un comentario JAVADOC está compuesto de una definición seguida de un bloque de
 
 ```
 
+</details>
+
 ## Javadoc en funciones
+
+<details>
 
 Los editores nos pueden brindar información sobre las funciones. En IntelliJ Idea debemos activar esta funcionalidad: Settings / Editor / General / Code Completion / Show the documentation popup
 
@@ -928,7 +1070,11 @@ public class CurrencyConverter {
 
 ![Tags Javadoc](/astro-doc-full-stack/images/java/Tags-javadoc.webp)
 
+</details>
+
 ## Bucle do While
+
+<details>
 
 Control de flujo - Bucle: Una linea de codigo se va estar repitiendo tantas veces como nuestra condición indique.
 
@@ -997,7 +1143,11 @@ public class DoWhileLoop {
 }
 ```
 
+</details>
+
 ## Operador Ternario y Bucle While
+
+<details>
 
 ```java
 public class WhileLoop {
@@ -1026,7 +1176,11 @@ public class WhileLoop {
 }
 ```
 
+</details>
+
 ## Bucle For
+
+<details>
 
 El bucle for es útil cuando tienes una cantidad conocida de iteraciones. Por ejemplo, si quieres imprimir los números del 1 al 10, puedes usar un bucle for:
 
@@ -1071,7 +1225,11 @@ public class ForLoop {
 }
 ```
 
+</details>
+
 ## Break, Continue y Return
+
+<details>
 
 Antes de pasar a uno de nuestros temas más importantes del curso es importante que sepas todas las opciones que tienes para detener ciclos y así seguir controlando el flujo de tus programas.
 
@@ -1105,7 +1263,11 @@ switch (colorModeSelected){
 
 Aunque en algunos lenguajes esta sentencia sirve como un tipo goto, dónde se rompe el flujo del programa la mejor forma de usarlo en Java es en Funciones, cuando lo usamos aquí siempre viene acompañado de un valor, el cuál indica el dato que se estará devolviendo en la función.
 
+</details>
+
 ## Arrays
+
+<details>
 
 Las variables que vimos hasta el momento solo nos permiten almacenar un dato. Pero, podemos generar una variable que almacene una colección de datos y manejarlos como una variable.
 
@@ -1128,7 +1290,11 @@ nombreVariable = new TipoDato[capacidad];
 
 ```
 
+</details>
+
 ## Declarando Arreglos
+
+<details>
 
 ```java
 public class Array {
@@ -1154,7 +1320,11 @@ public class Array {
 }
 ```
 
+</details>
+
 ## Indices y búsqueda de elementos en Arrays
+
+<details>
 
 **Indice**: es la manera de indentificar una posició dl arreglo.
 
@@ -1215,7 +1385,11 @@ public class Arrays {
 }
 ```
 
+</details>
+
 ## Ciclos For anidados
+
+<details>
 
 ```java
 public class Arrays {
@@ -1307,37 +1481,4 @@ public class Arrays {
 }
 ```
 
-<style>
-  h1 { color: #713f12; }
-  h2 { color: #2563eb; }
-  h3 { color: #a855f7; }
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  pre {
-    padding: 10px;
-  }
-    table {
-    border-collapse: collapse; /* Elimina el espacio entre las celdas */
-    width: 100%; /* Ancho de la tabla */
-    margin: 0 auto; /* Centrar la tabla */
-    text-align: center;
-  }
-
-  th, td {
-    border: 1px solid #ddd; /* Borde de las celdas */
-    padding: 8px; /* Relleno de las celdas */
-    /* text-align: left;  */
-  }
-
-  th {
-    background-color: #f2f2f2; /* Color de fondo del encabezado */
-    font-weight: bold; /* Peso de la fuente del encabezado */
-  }
-
-  tr:nth-child(even) {
-    background-color: #f9f9f9; /* Color de fondo de las filas pares */
-  }  
-</style>
+</details>
