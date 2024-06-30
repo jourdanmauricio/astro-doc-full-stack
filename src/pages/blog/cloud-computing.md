@@ -16,6 +16,9 @@ category: cloud
 # Computación en la nube
 
 - [Introducción a AWS](/astro-doc-full-stack/blog/cloud-computing/intro-aws)
+- [Cómputo, Almacenamiento y Bases de Datos](/astro-doc-full-stack/blog/cloud-computing/intro-computo)
+- [Redes, Gobernanza y Machine Learning](/astro-doc-full-stack/blog/cloud-computing/intro-redes)
+- [Big Data en AWS](/astro-doc-full-stack/blog/cloud-computing/big-data)
 
 <style>
   h1 { color: #713f12; }
@@ -35,3 +38,4 @@ category: cloud
     padding: 10px;
   }
 </style>
+
