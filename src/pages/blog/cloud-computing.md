@@ -19,6 +19,7 @@ category: cloud
 - [Cómputo, Almacenamiento y Bases de Datos](/astro-doc-full-stack/blog/cloud-computing/intro-computo)
 - [Redes, Gobernanza y Machine Learning](/astro-doc-full-stack/blog/cloud-computing/intro-redes)
 - [IAM - Roles y Seguridad](/astro-doc-full-stack/blog/cloud-computing/iam-roles-seguridad)
+- [Cómputo con EC2](/astro-doc-full-stack/blog/cloud-computing/computo-ec2)
 
 - [Big Data en AWS](/astro-doc-full-stack/blog/cloud-computing/big-data)
 
