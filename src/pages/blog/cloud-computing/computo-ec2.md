@@ -212,15 +212,12 @@ Uno de los protocolos más usados para conectarnos a nuestras instancias de mane
 
 Cuando las llaves hacen match me puedo conectar al servidor desde mi computadora personal de manera remota
 
-**OS**
-
-El servicio de AWS se llama Instance Connect
-
 **Problemas comunes**
-- Tiempos de espera de conexión (importante hace la configuración correcta de los grupos de seguridad)
-- Pueden haber problemas con firewalls que tengamos configurados en nuestra red
-- Hay conexión rechazada (depende de la instancia, puede crearse de nuevo y volver a asignar el grupo de seguridad)
-- Permiso denegado (clave pública, gssapi-keyx, gassapi-with-mic) de los problemas más comunes debido a conexión con diferente llave a la adjuntada en la creación
+
+- Tiempos de espera de conexión (importante -> hacer la configuración correcta de los grupos de seguridad).
+- Pueden haber problemas con firewalls que tengamos configurados en nuestra red.
+- Hay conexión rechazada (depende de la instancia, puede crearse de nuevo y volver a asignar el grupo de seguridad).
+- Permiso denegado (clave pública, gssapi-keyx, gassapi-with-mic) de los problemas más comunes debido a conexión con diferente llave a la adjuntada en la creación.
 
 **Características de SSH**
 
@@ -233,7 +230,7 @@ El servicio de AWS se llama Instance Connect
 
 **Componentes de SSH**
 
-- Cliente SSH: La aplicación que se ejecuta en el equipo del usuario que quiere conectarse a otro equipo de forma segura. Ejemplos de clientes SSH incluyen ssh en sistemas Unix/Linux y programas como PuTTY en Windows.
+- Cliente SSH: La aplicación que se ejecuta en el equipo del usuario que quiere conectarse a otro equipo de forma segura. Ejemplos de clientes SSH incluyen ssh en sistemas Unix/Linux y programas como PuTTY en Windows. También existe un feature de AWS llamado **Instance Connect** que podemos utilizar en cualquier SO porque funciona sobre el navegador. 
 - Servidor SSH: El software que se ejecuta en la máquina remota y escucha las conexiones entrantes del cliente SSH. OpenSSH es uno de los servidores SSH más comunes.
 
 **Cómo Funciona SSH**
@@ -243,5 +240,140 @@ El servicio de AWS se llama Instance Connect
 - Intercambio de Claves: Se establece una conexión segura a través de un intercambio de claves. Ambas partes generan una clave compartida que se utilizará para encriptar la sesión.
 - Autenticación del Cliente: El cliente se autentica en el servidor SSH utilizando métodos de autenticación como contraseñas o claves públicas.
 - Inicio de Sesión: Una vez autenticado, el cliente puede ejecutar comandos de forma remota en el servidor.
+
+## Lab: Cómo usar ssh en mac/linux
+
+Primero que nada, verificamos la configuración del grupo de seguridad. Dentro de la consola, seleccionamos la instancia ydentro de la solapa Security tendremos el grupo de seguridad. Lo seleccionamos y verificamos que en las Inbound Rules tengamos configurado el puerto 22 (SSH).
+
+- Se debe activar el puerto 22 desde Security Group En la pestaña Inbound Rules. 
+- Se crea tanto para IPv4 e IPv6. 
+- Importante dejar una IP fija que permita solo conectar desde esta, con el fin de generar seguridad y restringir accesos desde cualquier parte del mundo.
+
+Para ver las formas de conexión que tenemos seleccionamos la instancia y vamos a connect. Disponemos de 4 solapas (EC2 Instace Connect, Session Manager, SSH Client, EC2 Serial Console). Dentro de SSH Client nos indica cuál es el comando que debemos ejecutar en la terminal para conectanos. 
+
+Otro punto importante es cambiarle los permisos a nuestra llave que guardamos previamente al crear la instancia, para que pueda hacer la configuración interna, tecleamos el siguiente comando:
+
+```sh
+# Le damos permisos a la llave que guarmdamos al crear la instancia
+chmod 0400 “key name”
+
+# Nos conectamos a la instancia
+ssh -i "&lt;llave .pem&gt;"  "&lt;IP a la que nos conectaremos&gt;"
+
+whoami
+```
+
+Una vez estemos dentro de la instancia remota, tecleamos whoami para ver con qué usuario estamos conectados.
+
+## Lab: Cómo usar ssh utilizando windows
+
+## Lab: Cómo usar ssh utilizando power shell
+
+## Lab: EC2 Instance Connect
+
+EC2 Instance Connect facilita el acceso seguro a tus instancias EC2 sin necesidad de gestionar manualmente archivos de claves privadas. Este método es especialmente útil para simplificar la gestión de acceso a instancias y mejorar la seguridad.
+
+https://www.youtube.com/watch?v=6MUpuoffbTg&t=477s
+
+## Lab: EC2 Instance Roles
+
+Dentro de la terminal de AWS o la que usemos, tenemos que tener instalado AWS.Cli
+
+Con AWS iam list-user podemos ver los usuarios que estan dentro de la cuenta
+
+Las credenciales no deben estar dentro de las instancias
+
+Debe existir un rol para listar los usuarios y hacer ciertas acciones dentro de EC2
+
+En las instancias debo adjuntar los roles
+
+Es importante saber que dentro de las instancias puedo realizar acciones sin necesitar alguna llave de seguridad, por esto es importante tener bien definidos los roles
+
+## Lab: Limpieza de recursos
+
+## Opciones de compra de instancias
+
+**Modelo de precios**
+
+**Instancias bajo demanda**: 
+- Pago por uso (facturación por segundos) 
+- Costos más altos. 
+- Flexibilidad para apagar en cualquier momento. 
+- Recomendado para cargar interrumpidas, no se sabe como se comportara.
+
+**Instancias reservadas** 
+- Se puede reservar entre 1 a 3 años. 
+- Descuentos de hasta 72% 
+- Recomandadas para uso estable como DB. 
+- tienen 2 modelos: 
+  - Convertible; 
+  - Se puede cambiar el tipo de instancia cuando lo necesitemos, hasta 45% descuento. - Programadas: - Lanzamiento programado (ejm: black friday)
+
+**Instancias Spot** 
+- no recomendable para ambientes de producción
+
+**Host Dedicados** 
+- Servidor fisico, capacidad de instancia s2. 
+- Se puede traer sus propias licencias, instalarlo en el host. 
+- se puede reservar hasta 3 años.
+
+**Instancias dedicadas:** 
+- Se ejecutaran en HW dedicado 
+- Se puede compartir el HW para compartirlo con otras instancias dentro de la cuenta.
+
+> curso/ juego del propio amazon donde eres un cloud practitioner y debes solucionar problemas con servicios de AWS, la verdad es muy bueno y sirve para practicar todo lo visto en los cursos de esta ruta. https://explore.skillbuilder.aws/learn/course/external/view/elearning/11458/aws-cloud-quest-cloud-practitioner?acq=sec&sec=syq
+
+## Modelo de responsabilidad compartida para EC2
+
+Responsabilidad compartida
+
+**Amazon**
+- Infraestructura (seguridad de red global).
+- Aislamiento en hosts físicos.
+- Validación de cumplimiento.
+- Reemplazo de hardware defectuoso
+
+**Clientes**
+- Reglas de grupos de seguridad.
+- Parches y actualizaciones del sistema operativo.
+- Software y utilidades instalados en la instancia EC2.
+- Funciones de IAM asignadas a la administración de acceso de usuarios de EC2 e IAM.
+- Seguridad de datos en su instancia.
+
+**Responsabilidades de AWS**
+
+AWS se encarga de proteger la infraestructura que ejecuta todos los servicios ofrecidos en la nube de AWS. Esto incluye
+
+- Hardware: AWS se asegura de que el hardware físico utilizado para las instancias EC2 esté seguro y funcione correctamente. Esto incluye servidores, almacenamiento, redes y otras partes de la infraestructura física.
+- Software: AWS gestiona y mantiene el software que controla y opera la infraestructura de la nube, incluyendo la capa de virtualización, el sistema operativo host y los hipervisores.
+- Instalaciones de centros de datos: AWS asegura que los centros de datos estén protegidos contra intrusiones físicas, desastres naturales y otros eventos de seguridad. Esto incluye control de acceso físico, vigilancia y medidas de redundancia y recuperación ante desastres.
+- Redes: AWS garantiza la seguridad de sus redes globales, protegiendo contra ataques DDoS y otras amenazas a nivel de red.
+- Gestión de operaciones: AWS es responsable de la operación y mantenimiento continuo de la infraestructura, incluyendo parches de seguridad, actualizaciones y mantenimiento de hardware.
+
+**Responsabilidades del Cliente**
+
+Como cliente, eres responsable de la seguridad de todo lo que implementas y ejecutas en la nube de AWS. Esto incluye:
+
+- Configuración de instancias EC2: Eres responsable de configurar y gestionar las instancias EC2, incluyendo la instalación de software y aplicaciones necesarias.
+- Seguridad del sistema operativo invitado: Debes asegurar el sistema operativo que se ejecuta en tus instancias EC2. Esto incluye:
+- Aplicación de parches y actualizaciones de seguridad.
+- Configuración y mantenimiento de firewalls y otros controles de seguridad.
+- Gestión de aplicaciones: Eres responsable de la seguridad de las aplicaciones que implementas en EC2. Esto incluye prácticas de desarrollo seguro, parches de aplicaciones y gestión de configuraciones.
+- Gestión de datos: Eres responsable de la seguridad de los datos almacenados en instancias EC2 y otros servicios de AWS. Esto incluye:
+  - Cifrado de datos en reposo y en tránsito.
+  - Gestión de copias de seguridad y recuperación.
+  - Control de acceso a los datos.
+- Control de acceso y gestión de identidades: Debes gestionar el acceso a tus recursos en AWS utilizando IAM (Identity and Access Management). Esto incluye:
+  - Creación y gestión de usuarios, roles y políticas IAM.
+  - Implementación de autenticación multifactor (MFA).
+  - Control de acceso basado en roles (RBAC).
+- Seguridad de la red: Debes configurar y gestionar la seguridad de la red de tus instancias EC2. Esto incluye:
+  - Configuración de grupos de seguridad y listas de control de acceso (ACL) de red.
+  - Configuración de VPN y VPC para segmentación y protección de la red.
+- Monitoreo y registro: Debes monitorear y registrar la actividad en tus instancias EC2 para detectar y responder a incidentes de seguridad. Esto incluye:
+  - Configuración de Amazon CloudWatch para monitoreo de rendimiento y alertas.
+  - Uso de AWS CloudTrail para auditoría y registro de acciones de API.
+
+
 
 
