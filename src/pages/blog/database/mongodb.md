@@ -1,13 +1,21 @@
 ---
-layout: '../../layouts/BlogPostLayout.astro'
+layout: '../../../layouts/SubBlogPostLayout.astro'
 title: Conociendo Mongodb
 date: 2024-02-12
 author: Mauricio Jourdán
 image:
-  { src: '/astro-doc-full-stack/images/mongo-1200_600.png', alt: Logo mongodb' }
+  {
+    src: '/astro-doc-full-stack/images/database/mongo/back.png', 
+    alt: Logo mongodb'
+  }
+icon:
+  {
+    src: '/astro-doc-full-stack/images/database/mongo/icon.png',
+    alt: 'Logo Angular',
+  }
 description: Introducción a Mondodb.
 draft: false
-category: Bases de datos Mongodb
+category: Bases de datos
 ---
 
 ## ¿Qué es Mongo DB?
@@ -615,21 +623,20 @@ db.products.deleteMany({});
 ```
 
 <style>
-  body {
-    font-size: 18px;
-    padding: 0 10px;
-  }
-  pre {
-    font-size: 14px;
-  }
-  h1 { color: #2563eb; }
-  h2 { color: orange; }
+  h1 { color: #713f12; }
+  h2 { color: #2563eb; }
   h3 { color: #a855f7; }
   img {
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
-
-
+  img[alt="Nest Inyección de dependencias."] {
+  max-width:  400px;
+  margin: 0 auto;
+  display: block;
+  }
+  pre {
+    padding: 10px;
+  }
 </style>
