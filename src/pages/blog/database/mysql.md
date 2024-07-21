@@ -1094,3 +1094,880 @@ SELECT name, email, YEAR(NOW()) - YEAR(birthdate) AS edad, gender FROM clients W
 
 ## Comando JOIN
 
+El corazón de una bases de datos relacional son las relaciones entre tablas.
+
+```sql
+SELECT count(*) FROM authors;
++----------+
+| count(*) |
++----------+
+|      132 |
++----------+
+-- 1 row in set (0.00 sec)
+
+SELECT * FROM authors WHERE author_id > 0 AND author_id<= 5;
++-----------+--------------------+-------------+
+| author_id | name               | nationality |
++-----------+--------------------+-------------+
+|         1 | Sam Altman         | USA         |
+|         2 | Freddy Vega        | COL         |
+|         3 | Arthur Conan Doyle | GBR         |
+|         4 | Chuck Palahniuk    | USA         |
+|         5 | Juan Rulfo         | MEX         |
++-----------+--------------------+-------------+
+-- 5 rows in set (0.00 sec)
+
+SELECT * FROM books WHERE author_id BETWEEN 1 and 5; 
++---------+-----------+---------------------------------------+------+----------+-----------+-------+----------+--------+-----------------------------------------------+
+| book_id | author_id | title                                 | year | language | cover_url | price | sellable | copies | description                                   |
++---------+-----------+---------------------------------------+------+----------+-----------+-------+----------+--------+-----------------------------------------------+
+|       1 |         1 | The Startup Playbook                  | 2013 | en       | NULL      | 10.00 |        1 |      5 | Advice from the experts                       |
+|       2 |         1 | The Startup Playbook                  | 2014 | es       | NULL      | 10.00 |        1 |      5 | Consejo de los expertos, traducido por Platzi |
+|       3 |         3 | Estudio en escarlata                  | 1887 | es       | NULL      |  5.00 |        1 |     10 | La primera novela de Sherlock Holmes          |
+|      12 |         5 | El llano en llamas                    | 1953 | es       | NULL      | 10.00 |        0 |      1 | Cuentos mexicanos                             |
+|      41 |         3 | The - Vol I Complete Sherlock Holmes  | 1900 | en       | NULL      |  NULL |        1 |      4 | NULL                                          |
+|      42 |         3 | The - Vol II Complete Sherlock Holmes | 1900 | en       | NULL      |  NULL |        1 |      4 | NULL                                          |
++---------+-----------+---------------------------------------+------+----------+-----------+-------+----------+--------+-----------------------------------------------+
+-- 6 rows in set (0.00 sec)
+
+SELECT b.book_id, b.title, a.name, a.author_id 
+FROM authors AS a 
+JOIN books AS b ON a.author_id = b.author_id 
+WHERE a.author_id between 1 AND 30; 
++---------+-------------------------------------------------+---------------------+-----------+
+| book_id | title                                           | name                | author_id |
++---------+-------------------------------------------------+---------------------+-----------+
+|       1 | The Startup Playbook                            | Sam Altman          |         1 |
+|       2 | The Startup Playbook                            | Sam Altman          |         1 |
+|       3 | Estudio en escarlata                            | Arthur Conan Doyle  |         3 |
+|       4 | Wallander: Asesinos sin rostro                  | Henning Mankel      |         6 |
+|       5 | Wallander: Los perros de Riga                   | Henning Mankel      |         6 |
+|       6 | Wallander: La leona blanca                      | Henning Mankel      |         6 |
+|       7 | Wallander: El hombre sonriente                  | Henning Mankel      |         6 |
+|       8 | Wallander: La falsa pista                       | Henning Mankel      |         6 |
+|       9 | Wallander: La quinta mujer                      | Henning Mankel      |         6 |
+|      10 | Wallander: Pisando los talones                  | Henning Mankel      |         6 |
+|      11 | Wallander: Cortafuegos                          | Henning Mankel      |         6 |
+|      12 | El llano en llamas                              | Juan Rulfo          |         5 |
+|      13 | Fundamentals of Wavelets                        | Jaideva Goswami     |         7 |
+|      14 | Data Smart                                      | John Foreman        |         8 |
+|      15 | God Created the Integers                        | Stephen Hawking     |         9 |
+|      16 | Superfreakonomics                               | Stephen Dubner      |        10 |
+|      17 | Orientalism                                     | Edward Said         |        11 |
+|      18 | The Nature of Statistical Learning Theory       | Vladimir Vapnik     |        12 |
+|      19 | Integration of the Indian States                | V P Menon           |        13 |
+|      20 | The Drunkards Walk                              | Leonard Mlodinow    |        14 |
+|      21 | Image Processing & Mathematical Morphology      | Frank Shih          |        15 |
+|      22 | How to Think Like Sherlock Holmes               | Maria Konnikova     |        16 |
+|      23 | Data Scientists at Work                         | Sebastian Gutierrez |        17 |
+|      24 | Slaughterhouse Five                             | Kurt Vonnegut       |        18 |
+|      25 | Birth of a Theorem                              | Cedric Villani      |        19 |
+|      26 | Structure & Interpretation of Computer Programs | Gerald Sussman      |        20 |
+|      27 | The Age of Wrath                                | Abraham Eraly       |        21 |
+|      28 | The Trial                                       | Frank Kafka         |        22 |
+|      29 | Statistical Decision Theory                     | John Pratt          |        23 |
+|      30 | Data Mining Handbook                            | Robert Nisbet       |        24 |
+|      31 | The New Machiavelli                             | H. G. Wells         |        25 |
+|      32 | Physics & Philosophy                            | Werner Heisenberg   |        26 |
+|      33 | Making Software                                 | Andy Oram           |        27 |
+|      34 | Vol I Analysis                                  | Terence Tao         |        28 |
+|      35 | Machine Learning for Hackers                    | Drew Conway         |        29 |
+|      36 | The Signal and the Noise                        | Nate Silver         |        30 |
+|      41 | The - Vol I Complete Sherlock Holmes            | Arthur Conan Doyle  |         3 |
+|      42 | The - Vol II Complete Sherlock Holmes           | Arthur Conan Doyle  |         3 |
+|      55 | Freakonomics                                    | Stephen Dubner      |        10 |
+|     103 | The Theory of Everything                        | Stephen Hawking     |         9 |
+|     153 | Statistical Learning Theory                     | Vladimir Vapnik     |        12 |
+|     194 | Structure and Randomness                        | Terence Tao         |        28 |
++---------+-------------------------------------------------+---------------------+-----------+
+-- 42 rows in set (0.00 sec)
+
+/* Como vemos falta el author_id 4 porque está trayendo la información de books y de allí la de authors, 
+pero no hay ningún libro del author 4. */
+
+/* La palabra reservada ON Ayuda al JOIN relacionar y condicionar las búsquedas de un SELECT-JOIN. */
+/* Se puede utilizar varios JOIN en una misma sentencia e incluso uno de los JOIN puede utilizar como tabla pivote que este en un JOIN anterior a esta. */
+
+SELECT * FROM transactions 
+WHERE type IN ('sell','lend');
++----------------+---------+-----------+------+---------------------+---------------------+----------+
+| transaction_id | book_id | client_id | type | created_at          | modified_at         | finished |
++----------------+---------+-----------+------+---------------------+---------------------+----------+
+|              1 |      12 |        34 | sell | 2024-07-20 14:14:26 | 2024-07-20 14:14:26 |        1 |
+|              2 |      54 |        87 | lend | 2024-07-20 14:14:26 | 2024-07-20 14:14:26 |        0 |
+|              3 |       3 |        14 | sell | 2024-07-20 14:14:26 | 2024-07-20 14:14:26 |        1 |
+|              4 |       1 |        54 | sell | 2024-07-20 14:14:26 | 2024-07-20 14:14:26 |        1 |
+|              5 |      12 |        81 | lend | 2024-07-20 14:14:26 | 2024-07-20 14:14:26 |        1 |
+|              6 |      12 |        81 | sell | 2024-07-20 14:14:26 | 2024-07-20 14:14:26 |        1 |
++----------------+---------+-----------+------+---------------------+---------------------+----------+
+-- 6 rows in set (0.00 sec)
+
+SELECT c.name, b.title, t.type
+FROM transactions AS t
+JOIN books AS b 
+  ON t.book_id = b.book_id
+JOIN clients AS c
+  ON t.client_id = c.client_id;
++-----------------------+----------------------------------+--------+
+| name                  | title                            | type   |
++-----------------------+----------------------------------+--------+
+| Maria Teresa Castillo | El llano en llamas               | sell   |
+| Luis Saez             | Tales of Mystery and Imagination | lend   |
+| Jose Maria Bermudez   | Estudio en escarlata             | sell   |
+| Rafael Galvez         | The Startup Playbook             | sell   |
+| Antonia Giron         | El llano en llamas               | lend   |
+| Antonia Giron         | El llano en llamas               | sell   |
+| Maria Carmen Ponce    | Wallander: Pisando los talones   | return |
++-----------------------+----------------------------------+--------+
+-- 7 rows in set (0.00 sec)
+
+SELECT c.name, b.title, t.type
+FROM transactions AS t
+JOIN books AS b 
+  ON t.book_id = b.book_id
+JOIN clients AS c
+  ON t.client_id = c.client_id
+WHERE c.gender = 'F'
+AND   t.type = 'sell';
++-----------------------+--------------------+------+
+| name                  | title              | type |
++-----------------------+--------------------+------+
+| Maria Teresa Castillo | El llano en llamas | sell |
+| Antonia Giron         | El llano en llamas | sell |
++-----------------------+--------------------+------+
+-- 2 rows in set (0.00 sec)
+
+SELECT c.name, b.title, t.type, a.name AS author
+FROM transactions AS t
+JOIN books AS b 
+  ON t.book_id = b.book_id
+JOIN clients AS c
+  ON t.client_id = c.client_id
+JOIN authors AS a
+  ON a.author_id = b.author_id
+WHERE c.gender = 'F'
+AND   t.type = 'sell';
++-----------------------+--------------------+------+------------+
+| name                  | title              | type | author     |
++-----------------------+--------------------+------+------------+
+| Maria Teresa Castillo | El llano en llamas | sell | Juan Rulfo |
+| Antonia Giron         | El llano en llamas | sell | Juan Rulfo |
++-----------------------+--------------------+------+------------+
+-- 2 rows in set (0.00 sec)
+
+SELECT c.name AS client, b.title AS book, t.type AS operation, a.name AS author
+FROM transactions AS t
+JOIN books AS b 
+  ON t.book_id   = b.book_id
+JOIN clients AS c
+  ON t.client_id = c.client_id
+JOIN authors AS a
+  ON a.author_id = b.author_id
+WHERE c.gender = 'M'
+AND   t.type   IN ('sell', 'lend');
++---------------------+----------------------------------+-----------+--------------------+
+| client              | book                             | operation | author             |
++---------------------+----------------------------------+-----------+--------------------+
+| Luis Saez           | Tales of Mystery and Imagination | lend      | Edgar Allen Poe    |
+| Jose Maria Bermudez | Estudio en escarlata             | sell      | Arthur Conan Doyle |
+| Rafael Galvez       | The Startup Playbook             | sell      | Sam Altman         |
++---------------------+----------------------------------+-----------+--------------------+
+-- 3 rows in set (0.00 sec)
+```
+
+## Left JOIN
+
+El Inner Join es el Join por defecto. Por otro lado, existe el join implícito y el explícito. Los siguientes dos querys son exactamente igual.
+
+```sql
+SELECT b.title, a.name
+FROM authors AS a, books AS b
+WHERE a.author_id = b.author_id
+LIMIT 10;
++--------------------------------+--------------------+
+| title                          | name               |
++--------------------------------+--------------------+
+| The Startup Playbook           | Sam Altman         |
+| The Startup Playbook           | Sam Altman         |
+| Estudio en escarlata           | Arthur Conan Doyle |
+| Wallander: Asesinos sin rostro | Henning Mankel     |
+| Wallander: Los perros de Riga  | Henning Mankel     |
+| Wallander: La leona blanca     | Henning Mankel     |
+| Wallander: El hombre sonriente | Henning Mankel     |
+| Wallander: La falsa pista      | Henning Mankel     |
+| Wallander: La quinta mujer     | Henning Mankel     |
+| Wallander: Pisando los talones | Henning Mankel     |
++--------------------------------+--------------------+
+-- 10 rows in set (0.00 sec)
+
+SELECT b.title, a.name
+FROM books AS b
+JOIN authors AS a
+  ON a.author_id = b.author_id
+LIMIT 10;
++--------------------------------+--------------------+
+| title                          | name               |
++--------------------------------+--------------------+
+| The Startup Playbook           | Sam Altman         |
+| The Startup Playbook           | Sam Altman         |
+| Estudio en escarlata           | Arthur Conan Doyle |
+| Wallander: Asesinos sin rostro | Henning Mankel     |
+| Wallander: Los perros de Riga  | Henning Mankel     |
+| Wallander: La leona blanca     | Henning Mankel     |
+| Wallander: El hombre sonriente | Henning Mankel     |
+| Wallander: La falsa pista      | Henning Mankel     |
+| Wallander: La quinta mujer     | Henning Mankel     |
+| Wallander: Pisando los talones | Henning Mankel     |
++--------------------------------+--------------------+
+-- 10 rows in set (0.00 sec)
+```
+Mysql continúa dando soporte a la primera forma pero algunos motores lo marcan como obsoleto.
+
+Generalmente utilizamos el inner join y el left join, ya que el right join se puede escribir como un left join al inverso. Teniendo claro inner join y left join podremos resolver la mayoría de las consultas.
+
+**Order by**: Organiza los resultados, asc para ascendente y dsc para descendente.
+
+```sql
+SELECT a.author_id, a.name, a.nationality, b.title
+FROM authors AS a
+JOIN books AS b
+  ON a.author_id = b.author_id
+WHERE a.author_id BETWEEN 1 AND 5
+ORDER BY a.name DESC;
+-- ORDER BY a.name ASC
++-----------+--------------------+-------------+---------------------------------------+
+| author_id | name               | nationality | title                                 |
++-----------+--------------------+-------------+---------------------------------------+
+|         1 | Sam Altman         | USA         | The Startup Playbook                  |
+|         1 | Sam Altman         | USA         | The Startup Playbook                  |
+|         5 | Juan Rulfo         | MEX         | El llano en llamas                    |
+|         3 | Arthur Conan Doyle | GBR         | Estudio en escarlata                  |
+|         3 | Arthur Conan Doyle | GBR         | The - Vol I Complete Sherlock Holmes  |
+|         3 | Arthur Conan Doyle | GBR         | The - Vol II Complete Sherlock Holmes |
++-----------+--------------------+-------------+---------------------------------------+
+-- 6 rows in set (0.00 sec)
+
+```
+
+El author_id 4 existe en la tabla authors pero no existe en la tabla books, por ese motivo no se muestra en los resultados de la consulta anterior. ¿Cómo hacemos para listarlo aunque no posea un libro?
+
+<mark>Utilizando **left join** retornará la tabla pivote (que es authors) y la cruzará con todos los registros de la tabla books. De esta manera, todos los authors serán seleccionados, y si no tienen books, los campos relacionados a la tabla boobks se completarán con nulos.</mark>
+
+```sql
+SELECT a.author_id, a.name, a.nationality, b.title
+FROM authors AS a
+LEFT JOIN books AS b
+  ON a.author_id = b.author_id
+WHERE a.author_id BETWEEN 1 AND 5
+ORDER BY a.name DESC;
++-----------+--------------------+-------------+---------------------------------------+
+| author_id | name               | nationality | title                                 |
++-----------+--------------------+-------------+---------------------------------------+
+|         1 | Sam Altman         | USA         | The Startup Playbook                  |
+|         1 | Sam Altman         | USA         | The Startup Playbook                  |
+|         5 | Juan Rulfo         | MEX         | El llano en llamas                    |
+|         2 | Freddy Vega        | COL         | NULL                                  |
+|         4 | Chuck Palahniuk    | USA         | NULL                                  |
+|         3 | Arthur Conan Doyle | GBR         | The - Vol II Complete Sherlock Holmes |
+|         3 | Arthur Conan Doyle | GBR         | The - Vol I Complete Sherlock Holmes  |
+|         3 | Arthur Conan Doyle | GBR         | Estudio en escarlata                  |
++-----------+--------------------+-------------+---------------------------------------+
+-- 8 rows in set (0.00 sec)
+```
+Ahora, en el resultado obtenemos los authors 2 y 4 que no poseen libros.
+
+**Funciones de columnas**. Ejemplos:
+
+- **count()**: queremos saber el author y cuántos libros tiene. No el detalle del libro, solo la cantidad. Para utilizar el count veremos las funciones agrupadas. 
+
+El **GROUP BY** nos permite seleccionar los campos únicos que deseamos no se repitan. 
+
+```sql
+SELECT a.author_id, a.name, a.nationality, COUNT(b.book_id)
+FROM authors AS a
+LEFT JOIN books AS b
+  ON a.author_id = b.author_id
+WHERE a.author_id BETWEEN 1 AND 5
+GROUP BY a.author_id
+ORDER BY a.name DESC;
+| author_id | name               | nationality | COUNT(b.book_id) |
++-----------+--------------------+-------------+------------------+
+|         1 | Sam Altman         | USA         |                2 |
+|         5 | Juan Rulfo         | MEX         |                1 |
+|         2 | Freddy Vega        | COL         |                0 |
+|         4 | Chuck Palahniuk    | USA         |                0 |
+|         3 | Arthur Conan Doyle | GBR         |                3 |
++-----------+--------------------+-------------+------------------+
+-- 5 rows in set (0.00 sec)
+```
+En este caso, si utilizamos INNER JOIN no visualizaremos los casos donde la cantidad es 0.
+
+**Es importante saber indentificar cuando debemos listar la información faltante, la que no existe**
+
+## Tipos de JOIN
+
+En la clase anterior estuvimos hablando de dos tipos de joins que podemos usar cuando estemos trabajando con consultas a nuestras bases de datos.
+
+Existen diferentes formas en las que se pueden unir las tablas en nuestras consultas y de acuerdo con esta unión se va a mostrar información, y es importante siempre tener clara esta relación. En esta clase te voy a mostrar gráficamente 7 diferentes tipos de uniones que puedes realizar.
+
+Usar correctamente estas uniones puede reducir el tiempo de ejecución de tus consultas y mejorar el rendimiento de tus aplicaciones.
+
+Como yo lo veo cuando hacemos uniones en las consultas para seleccionar información, estamos trabajando con tablas, estas tablas podemos verlas como conjuntos de información, de forma que podemos asimilar los joins entre tablas como uniones e intersecciones entre conjuntos.
+
+Supongamos que contamos con dos conjuntos, el conjunto A y el conjunto B, o, la tabla A y la tabla B. Sobre estos conjuntos veamos cuál es el resultado si aplicamos diferentes tipos de join.
+
+1. **Inner Join**
+
+Esta es la forma mas fácil de seleccionar información de diferentes tablas, es tal vez la que mas usas a diario en tu trabajo con bases de datos. Esta union retorna todas las filas de la tabla A que coinciden en la tabla B. Es decir aquellas que están en la tabla A Y en la tabla B, si lo vemos en conjuntos la intersección entre la tabla A y la B.
+
+![Inner join](/astro-doc-full-stack/images/database/mysql/inner-join.webp)
+
+Esto lo podemos implementar de esta forma cuando estemos escribiendo las consultas:
+
+```sql
+SELECT <columna_1> , <columna_2>,  <columna_3> ... <columna_n> 
+FROM Tabla_A A
+INNER JOIN Tabla_B B
+ON A.pk = B.pk
+```
+
+2. **Left Join**
+
+Esta consulta retorna todas las filas que están en la tabla A y ademas si hay coincidencias de filas en la tabla B también va a traer esas filas.
+
+![Left join](/astro-doc-full-stack/images/database/mysql/left-join.webp)
+
+Esto lo podemos implementar de esta forma cuando estemos escribiendo las consultas:
+
+```sql
+SELECT <columna_1> , <columna_2>,  <columna_3> ... <columna_n> 
+FROM Tabla_A A
+LEFT JOIN Tabla_B B
+ON A.pk = B.pk
+```
+
+3. **Right Join**
+
+Esta consulta retorna todas las filas de la tabla B y ademas si hay filas en la tabla A que coinciden también va a traer estas filas de la tabla A.
+
+![Right join](/astro-doc-full-stack/images/database/mysql/right-join.webp)
+
+Esto lo podemos implementar de esta forma cuando estemos escribiendo las consultas:
+
+```sql
+SELECT <columna_1> , <columna_2>,  <columna_3> ... <columna_n>
+FROM Tabla_A A
+RIGHT JOIN Tabla_B B
+ON A.pk = B.pk
+```
+
+4. **Outer Join**
+
+Este join retorna TODAS las filas de las dos tablas. Hace la union entre las filas que coinciden entre la tabla A y la tabla B.
+
+![Outer join](/astro-doc-full-stack/images/database/mysql/outer-join.webp)
+
+Esto lo podemos implementar de esta forma cuando estemos escribiendo las consultas:
+
+```sql
+SELECT <columna_1> , <columna_2>,  <columna_3> ... <columna_n>
+FROM Tabla_A A
+FULL OUTER JOIN Tabla_B B
+ON A.pk = B.pk
+```
+
+5. **Left excluding join**
+
+Esta consulta retorna todas las filas de la tabla de la izquierda, es decir la tabla A que no tienen ninguna coincidencia con la tabla de la derecha, es decir la tabla B.
+
+![Left excluding join](/astro-doc-full-stack/images/database/mysql/left-excluding-join.webp)
+
+Esto lo podemos implementar de esta forma cuando estemos escribiendo las consultas:
+
+```sql
+SELECT <columna_1> , <columna_2>,  <columna_3> ... <columna_n>
+FROM Tabla_A A
+LEFT JOIN Tabla_B B
+ON A.pk = B.pk
+WHERE B.pk IS NULL
+```
+
+## 6. Right Excluding join
+
+Esta consulta retorna todas las filas de la tabla de la derecha, es decir la tabla B que no tienen coincidencias en la tabla de la izquierda, es decir la tabla A.
+
+![Right excluding join](/astro-doc-full-stack/images/database/mysql/right-excluding-join.webp)
+
+Esto lo podemos implementar de esta forma cuando estemos escribiendo las consultas:
+
+```sql
+SELECT <columna_1> , <columna_2>,  <columna_3> ... <columna_n>
+FROM Tabla_A A
+RIGHT JOIN Tabla_B B
+ON A.pk = B.pk
+WHERE A.pk IS NULL
+```
+
+7. Outer excluding join
+
+Esta consulta retorna todas las filas de la tabla de la izquierda, tabla A, y todas las filas de la tabla de la derecha, tabla B que no coinciden.
+
+![Outer excluding join](/astro-doc-full-stack/images/database/mysql/outer-excluding-join.webp)
+
+Esto lo podemos implementar de esta forma cuando estemos escribiendo las consultas:
+
+
+```sql
+SELECT <select_list>
+FROM Table_A A
+FULL OUTER JOIN Table_B B
+ON A.Key = B.Key
+WHERE A.Key IS NULL OR B.Key IS NULL
+```
+
+**FULL OUTER JOIN**, esta sintaxis no es soportada por MySQL y arroja el Error 1046. Para obtener un "FULL OUTER JOIN", se pueden unir un "LEFT JOIN" y un "RIGHT JOIN" usando la palabra clave "UNION". 
+
+Por ejemplo, la siguiente consulta muestra los autores sin libros (LEFT JOIN) y los libros sin autores (RIGHT JOIN), obteniendo los mismos resultados que un "FULL OUTER JOIN":
+
+```sql
+SELECT *
+FROM authors as a
+LEFT JOIN books as b 
+	ON a.author_id = b.author_id
+WHERE b.author_id IS NULL
+UNION
+SELECT *
+FROM authors as a
+RIGHT JOIN books as b 
+	ON a.author_id = b.author_id
+WHERE a.author_id IS NULL;
+```
+
+## 5 casos de negocio
+
+**Veremos las siguientes funciones**:
+
+- AVG: promedio
+- STDEV: desviación estándar
+- MAX: dato máximo
+- MIN: dato mínimo
+- CONCAT: juntar dos o más cadenas de caracteres
+- TO_DAYS: Recibe como parámetro un datestamp o timestamp de fecha a secas, el formato de la fecha es yyyy-mm-dd
+
+```sql
+-- 1. ¿Qué nacionalidades hay?
+/* Mediante la clausula DISTINCT trae solo los elementos distintos */
+SELECT DISTINCT nationality 
+FROM authors
+ORDER BY 1;
++-------------+
+| nationality |
++-------------+
+| NULL        |
+| AUS         |
+| AUT         |
+| COL         |
+| DEU         |
+| ENG         |
+| ESP         |
+| FRA         |
+| GBR         |
+| IND         |
+| JAP         |
+| MEX         |
+| RUS         |
+| SWE         |
+| USA         |
++-------------+
+-- 15 rows in set (0.01 sec)
+
+-- 2. ¿Cuántos escritores hay de cada nacionalidad?
+/* 
+IS NOT NULL para traer solo los valores diferentes de nulo
+NOT IN para traer valores que no sean los declarados (RUS y AUT) 
+*/
+SELECT nationality, COUNT(author_id) AS q_authors
+FROM authors
+WHERE nationality IS NOT NULL
+AND   nationality NOT IN ('RUS','AUT')
+GROUP BY nationality
+ORDER BY q_authors DESC, nationality ASC;
++-------------+-----------+
+| nationality | q_authors |
++-------------+-----------+
+| USA         |        27 |
+| ENG         |        10 |
+| IND         |         6 |
+| FRA         |         3 |
+| SWE         |         2 |
+| AUS         |         1 |
+| COL         |         1 |
+| DEU         |         1 |
+| ESP         |         1 |
+| GBR         |         1 |
+| JAP         |         1 |
+| MEX         |         1 |
++-------------+-----------+
+-- 12 rows in set (0.00 sec)
+
+---¿Cuantos libros hay de cada nacionalidad?
+
+SELECT a.nationality, COUNT(b.book_id) AS qty_book
+FROM books AS b
+JOIN authors AS a
+ON b.author_id = a.author_id
+GROUP BY a.nationality;
++-------------+----------+
+| nationality | qty_book |
++-------------+----------+
+| USA         |       36 |
+| GBR         |        3 |
+| SWE         |       11 |
+| MEX         |        1 |
+| RUS         |        9 |
+| IND         |        8 |
+| JAP         |        1 |
+| ESP         |        1 |
+| FRA         |        3 |
+| AUT         |        4 |
+| ENG         |       16 |
+| DEU         |        1 |
+| NULL        |      100 |
+| AUS         |        2 |
++-------------+----------+
+-- 14 rows in set (0.00 sec)
+
+---¿Cual es el promedio/desviacion standard del precio de los libros?
+
+SELECT AVG(price) AS avg_price, STDDEV(price) AS stddev_price FROM books;
++-----------+--------------------+
+| avg_price | stddev_price       |
++-----------+--------------------+
+| 12.916667 | 3.2004773949452536 |
++-----------+--------------------+
+-- 1 row in set (0.00 sec)
+
+-- ¿Cuál es el promedio/desviación standard del precio de libros por nacionalidad?
+-- Agrupar por la columna pivot
+SELECT a.nationality,
+  COUNT(b.book_id) AS libros,  
+  AVG(b.price) AS promedio, 
+  STDDEV(b.price) AS std 
+FROM books AS b
+JOIN authors AS a
+  ON a.author_id = b.author_id
+GROUP BY a.nationality
+ORDER BY libros DESC;
+
+
+---¿Cual es el precio maximo/minimo de un libro?
+
+SELECT MAX(price) AS max_price, MIN(price) AS min_price FROM books;
++-----------+-----------+
+| max_price | min_price |
++-----------+-----------+
+|     15.00 |      5.00 |
++-----------+-----------+
+-- 1 row in set (0.00 sec)
+
+-- 6. ¿Cuál es el precio máximo/mínimo de un libro?
+SELECT nationality, MAX(price), MIN(price)
+FROM books AS b
+JOIN authors AS a
+  ON a.author_id = b.author_id
+GROUP BY nationality;
+
+---¿Cual es el precio maximo/minimo de un libro?
+
+SELECT c.name, t.type, b.title, a.name, a.nationality
+FROM transactions AS t
+LEFT JOIN clients AS c
+  ON c.client_id = t.client_id
+LEFT JOIN books AS b
+  ON b.book_id = t.book_id
+LEFT JOIN authors AS a
+  ON b.author_id = a.author_id;
++-----------------------+--------+----------------------------------+--------------------+-------------+
+| name                  | type   | title                            | name               | nationality |
++-----------------------+--------+----------------------------------+--------------------+-------------+
+| Maria Teresa Castillo | sell   | El llano en llamas               | Juan Rulfo         | MEX         |
+| Luis Saez             | lend   | Tales of Mystery and Imagination | Edgar Allen Poe    | USA         |
+| Jose Maria Bermudez   | sell   | Estudio en escarlata             | Arthur Conan Doyle | GBR         |
+| Rafael Galvez         | sell   | The Startup Playbook             | Sam Altman         | USA         |
+| Antonia Giron         | lend   | El llano en llamas               | Juan Rulfo         | MEX         |
+| Antonia Giron         | sell   | El llano en llamas               | Juan Rulfo         | MEX         |
+| Maria Carmen Ponce    | return | Wallander: Pisando los talones   | Henning Mankel     | SWE         |
++-----------------------+--------+----------------------------------+--------------------+-------------+
+-- 7 rows in set (0.00 sec)
+
+-- ¿cómo quedaría el reporte de préstamos?
+-- CONCAT: para concatenar en cadenas de texto.
+-- TO_DAYS: recibe un timestamp ó un datetime
+SELECT c.name, t.type, b.title, 
+  CONCAT(a.name, "(", a.nationality, ")") AS autor,
+  TO_DAYS(NOW()) - TO_DAYS(t.created_at) AS dias
+FROM transactions AS t
+LEFT JOIN clients AS c
+  ON c.client_id = t.client_id
+LEFT JOIN books AS b
+  ON b.book_id = t.book_id
+LEFT JOIN authors AS a
+  ON b.author_id = a.author_id;
++-----------------------+--------+----------------------------------+-------------------------+------+
+| name                  | type   | title                            | autor                   | dias |
++-----------------------+--------+----------------------------------+-------------------------+------+
+| Maria Teresa Castillo | sell   | El llano en llamas               | Juan Rulfo(MEX)         |    1 |
+| Luis Saez             | lend   | Tales of Mystery and Imagination | Edgar Allen Poe(USA)    |    1 |
+| Jose Maria Bermudez   | sell   | Estudio en escarlata             | Arthur Conan Doyle(GBR) |    1 |
+| Rafael Galvez         | sell   | The Startup Playbook             | Sam Altman(USA)         |    1 |
+| Antonia Giron         | lend   | El llano en llamas               | Juan Rulfo(MEX)         |    1 |
+| Antonia Giron         | sell   | El llano en llamas               | Juan Rulfo(MEX)         |    1 |
+| Maria Carmen Ponce    | return | Wallander: Pisando los talones   | Henning Mankel(SWE)     |    1 |
++-----------------------+--------+----------------------------------+-------------------------+------+
+-- 7 rows in set (0.00 sec)
+```
+
+## Comandos UPDATE Y DELETE
+
+- Los datos no deberían borrarse, siempre y cuando se respete el acuerdo con el usuario final.
+- SIEMPRE usar WHERE con comandos UPDATE.
+- Al hacer UPDATE o DELETE usar LIMIT para limitar el impacto del comando si algo saliese mal.
+
+- DELETE: elimina información.
+- UPDATE: actualiza información en una tabla.
+- TRUNCATE: elimina el contenido de una tabla por completo.
+
+```sql
+DELETE FROM authors WHERE author_id = 161 LIMIT 1;
+
+SELECT client_id, name FROM clients WHERE active <> 1;
+
+UPDATE clients SET active = 0 WHERE client_id = 80 LIMIT 1;
+
+UPDATE clients
+SET 
+    email = 'javier@gmail.com'
+WHERE
+    client_id = 7
+LIMIT 1;
+
+--Desactivar clientes con ID especifica y apellido lopez
+
+UPDATE clients
+SET 
+    active = 0
+WHERE
+    client_id IN (1,6,8,27)
+    OR name like '%Lopez%';
+
+-- Buscar con ID y Lopez
+SELECT client_id, name
+FROM clients
+WHERE
+    client_id IN (1,6,8,27)
+    OR name like '%Lopez%';
+```
+
+## Super Querys
+
+Podemos colocar en el SELECT condicionales que usualmente utilizamos en el WHERE. La idea es realizar una matriz donde las columnas dependan de los años y las filas de las nacionalidades.
+
+Cuando realizamos un count el motor suma 1 a medida que pasa por las filas. La misma situación podemos lograrla realizando un SUM(1).
+
+
+```sql
+SELECT COUNT(book_id), SUM(1)
+FROM books;
++----------------+--------+
+| COUNT(book_id) | SUM(1) |
++----------------+--------+
+|            197 |    197 |
++----------------+--------+
+-- 1 row in set (0.00 sec)
+```
+
+Podemos utilizar el SUM de forma inteligente. En Mysql podemos utilizar un if. La sentencia es: SUM(IF(condicion, 1 (valor por si), 0 (valor por no)))
+
+```sql
+SELECT SUM(price) 
+FROM books
+WHERE sellable = 1;
++------------+
+| SUM(price) |
++------------+
+|     145.00 |
++------------+
+-- 1 row in set (0.00 sec)
+
+SELECT SUM(price * copies) 
+FROM books
+WHERE sellable = 1;
++---------------------+
+| SUM(price * copies) |
++---------------------+
+|              510.00 |
++---------------------+
+-- 1 row in set (0.00 sec)
+```
+
+```sql
+-- SUM(), para sumar cada valor(1) en una tupla
+SELECT 
+  COUNT(book_id), 
+  SUM(IF(year < 1950, 1, 0)) AS `<1950`,
+  SUM(IF(year >= 1950 AND year < 1990, 1, 0)) AS `<1990`,
+  SUM(IF(year >= 1990 AND year < 2000, 1, 0)) AS `<2000`,
+  SUM(IF(year >= 2000, 1, 0)) AS `<hoy`
+FROM books;
++----------------+-------+-------+-------+------+
+| COUNT(book_id) | <1950 | <1990 | <2000 | <hoy |
++----------------+-------+-------+-------+------+
+|            197 |   186 |     1 |     8 |    2 |
++----------------+-------+-------+-------+------+
+-- 1 row in set (0.00 sec)
+
+-- Agrupar el query anterior y mostrar su nacionalidad
+SELECT 
+  nationality,
+  COUNT(book_id), 
+  SUM(IF(year < 1950, 1, 0)) AS `<1950`,
+  SUM(IF(year >= 1950 AND year < 1990, 1, 0)) AS `<1990`,
+  SUM(IF(year >= 1990 AND year < 2000, 1, 0)) AS `<2000`,
+  SUM(IF(year >= 2000, 1, 0)) AS `<hoy`
+FROM books AS b
+JOIN authors AS a
+  ON a.author_id = b.author_id
+WHERE a.nationality IS NOT NULL
+GROUP BY nationality;
+| nationality | COUNT(book_id) | <1950 | <1990 | <2000 | <hoy |
++-------------+----------------+-------+-------+-------+------+
+| USA         |             36 |    34 |     0 |     0 |    2 |
+| GBR         |              3 |     3 |     0 |     0 |    0 |
+| SWE         |             11 |     3 |     0 |     8 |    0 |
+| MEX         |              1 |     0 |     1 |     0 |    0 |
+| RUS         |              9 |     9 |     0 |     0 |    0 |
+| IND         |              8 |     8 |     0 |     0 |    0 |
+| JAP         |              1 |     1 |     0 |     0 |    0 |
+| ESP         |              1 |     1 |     0 |     0 |    0 |
+| FRA         |              3 |     3 |     0 |     0 |    0 |
+| AUT         |              4 |     4 |     0 |     0 |    0 |
+| ENG         |             16 |    16 |     0 |     0 |    0 |
+| DEU         |              1 |     1 |     0 |     0 |    0 |
+| AUS         |              2 |     2 |     0 |     0 |    0 |
++-------------+----------------+-------+-------+-------+------+
+-- 13 rows in set (0.00 sec)
+```
+
+## Comando mysqldump
+
+Supongamos que deseamos agregar un campo a una de las tablas. Para ello utilizamos la sentencia ALTER. Pero esta sentencia mal empleada puede hacer que perdamos datos. 
+
+Agregamos el año de nacimiento al author.
+
+```sql
+DESC authors;
++-------------+--------------+------+-----+---------+----------------+
+| Field       | Type         | Null | Key | Default | Extra          |
++-------------+--------------+------+-----+---------+----------------+
+| author_id   | int unsigned | NO   | PRI | NULL    | auto_increment |
+| name        | varchar(100) | NO   | UNI | NULL    |                |
+| nationality | varchar(100) | YES  |     | NULL    |                |
++-------------+--------------+------+-----+---------+----------------+
+-- 3 rows in set (0.00 sec)
+
+ALTER TABLE authors ADD COLUMN birthyear INTEGER DEFAULT 1930 AFTER name;
+-- Query OK, 0 rows affected (0.02 sec)
+-- Records: 0  Duplicates: 0  Warnings: 0
+
+DESC authors;
++-------------+--------------+------+-----+---------+----------------+
+| Field       | Type         | Null | Key | Default | Extra          |
++-------------+--------------+------+-----+---------+----------------+
+| author_id   | int unsigned | NO   | PRI | NULL    | auto_increment |
+| name        | varchar(100) | NO   | UNI | NULL    |                |
+| birthyear   | int          | YES  |     | 1930    |                |
+| nationality | varchar(100) | YES  |     | NULL    |                |
++-------------+--------------+------+-----+---------+----------------+
+-- 4 rows in set (0.00 sec)
+
+ALTER TABLE authors MODIFY COLUMN birthyear year default 1920;
+-- Query OK, 132 rows affected (0.07 sec)
+-- Records: 132  Duplicates: 0  Warnings: 0
+
+DESC authors;
++-------------+--------------+------+-----+---------+----------------+
+| Field       | Type         | Null | Key | Default | Extra          |
++-------------+--------------+------+-----+---------+----------------+
+| author_id   | int unsigned | NO   | PRI | NULL    | auto_increment |
+| name        | varchar(100) | NO   | UNI | NULL    |                |
+| birthyear   | year         | YES  |     | 1920    |                |
+| nationality | varchar(100) | YES  |     | NULL    |                |
++-------------+--------------+------+-----+---------+----------------+
+-- 4 rows in set (0.01 sec)
+
+ALTER TABLE authors DROP COLUMN birthyear;
+--Query OK, 0 rows affected (0.02 sec)
+--Records: 0  Duplicates: 0  Warnings: 0
+
+DESC authors;
++-------------+--------------+------+-----+---------+----------------+
+| Field       | Type         | Null | Key | Default | Extra          |
++-------------+--------------+------+-----+---------+----------------+
+| author_id   | int unsigned | NO   | PRI | NULL    | auto_increment |
+| name        | varchar(100) | NO   | UNI | NULL    |                |
+| nationality | varchar(100) | YES  |     | NULL    |                |
++-------------+--------------+------+-----+---------+----------------+
+-- 3 rows in set (0.00 sec)
+```
+
+```sql
+SHOW TABLES;
++---------------------+
+| Tables_in_operation |
++---------------------+
+| authors             |
+| books               |
+| clients             |
+| transactions        |
++---------------------+
+-- 4 rows in set (0.00 sec)
+
+SHOW TABLES LIKE '%i%';
++---------------------------+
+| Tables_in_operation (%i%) |
++---------------------------+
+| clients                   |
+| transactions              |
++---------------------------+
+-- 2 rows in set (0.00 sec)
+```
+
+Mysqldump nos permite realiza rmuchas tareas pero nos enfocaremos en dos.
+
+- Crear un archivo de texto con los datos de la base de datos (esquema y datos). 
+- Crear un archivo de texto solo con el esquema de la base de datos.
+
+**"El esquema se versiona, los datos se respaldan"**
+
+Así como versionamos el código, también podemos versionar el esquema. Ejemplo en Github.
+
+```sql
+-- Respaldamos esquema y datos
+-- Respaldo local
+mysqldump -u root -p operation > database_operation.sql
+
+-- Versionamos el esquema
+mysqldump -u root -p -d operation > schema.sql
+```
+
+https://dev.mysql.com/doc/refman/8.0/en/mysqldump.html
+https://www.w3resource.com/mysql/mysql-backup-and-restore.php
+
+
+Exportar una consulta SQL a CSV desde terminal En este caso se asume que quieres los campos separados por tabulación para que luego puedas tratarlo en un Excel o similar. Tenemos que utilizar dos parámetros básicos: -e: Indicando que la consulta SQL va entre comillas -B: para indicar que los campos van separados por tabs Finalmente com…
+
+mysql -u root -p MYDATABASE -e "select * from products" -B > fichero33.csv
+
+o en consola podemos utilizar \T:
+
+select * from products \T resultadoooooooo.sql;
