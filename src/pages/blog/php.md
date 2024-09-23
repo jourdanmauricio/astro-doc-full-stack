@@ -17,3 +17,5 @@ category: PHP
 
 - [Fundamentos](/astro-doc-full-stack/blog/php/fundamentals)
 - [Arreglos, Funciones y Estructuras de Control](/astro-doc-full-stack/blog/php/arreglos-funciones-estructuras-de-control)
+- [Integración con HTML](/astro-doc-full-stack/blog/php/integracion-html)
+- [Composer](/astro-doc-full-stack/blog/php/composer)
