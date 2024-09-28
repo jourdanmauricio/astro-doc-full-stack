@@ -19,3 +19,4 @@ category: PHP
 - [Arreglos, Funciones y Estructuras de Control](/astro-doc-full-stack/blog/php/arreglos-funciones-estructuras-de-control)
 - [Integración con HTML](/astro-doc-full-stack/blog/php/integracion-html)
 - [Composer](/astro-doc-full-stack/blog/php/composer)
+- [Manejo de Datos en PHP](/astro-doc-full-stack/blog/php/datos-en-php)
