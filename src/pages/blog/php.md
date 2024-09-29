@@ -20,3 +20,4 @@ category: PHP
 - [Integración con HTML](/astro-doc-full-stack/blog/php/integracion-html)
 - [Composer](/astro-doc-full-stack/blog/php/composer)
 - [Manejo de Datos en PHP](/astro-doc-full-stack/blog/php/datos-en-php)
+- [POO en PHP](/astro-doc-full-stack/blog/php/poo)
