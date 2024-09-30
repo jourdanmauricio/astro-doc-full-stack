@@ -21,3 +21,4 @@ category: PHP
 - [Composer](/astro-doc-full-stack/blog/php/composer)
 - [Manejo de Datos en PHP](/astro-doc-full-stack/blog/php/datos-en-php)
 - [POO en PHP](/astro-doc-full-stack/blog/php/poo)
+- [Entornos Virtuales y Funciones Avanzadas](/astro-doc-full-stack/blog/php/entornos-virtuales)
