@@ -22,3 +22,5 @@ category: PHP
 - [Manejo de Datos en PHP](/astro-doc-full-stack/blog/php/datos-en-php)
 - [POO en PHP](/astro-doc-full-stack/blog/php/poo)
 - [Entornos Virtuales y Funciones Avanzadas](/astro-doc-full-stack/blog/php/entornos-virtuales)
+- [Cookies, Sesiones y Modularización](/astro-doc-full-stack/blog/php/cookies-sesiones)
+- [Bases de Datos con PHP](/astro-doc-full-stack/blog/php/bases-de-datos)
