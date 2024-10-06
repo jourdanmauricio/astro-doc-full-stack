@@ -66,6 +66,6 @@ Tenemos 2 tipos de bases de datos
 
 <details>
 
-
+Hola
 
 </details>
