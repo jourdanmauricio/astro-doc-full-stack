@@ -24,3 +24,5 @@ category: PHP
 - [Entornos Virtuales y Funciones Avanzadas](/astro-doc-full-stack/blog/php/entornos-virtuales)
 - [Cookies, Sesiones y Modularización](/astro-doc-full-stack/blog/php/cookies-sesiones)
 - [Bases de Datos con PHP](/astro-doc-full-stack/blog/php/bases-de-datos)
+- [Bases de Datos con PHP](/astro-doc-full-stack/blog/php/bases-de-datos)
+- [Introducción a Frameworks de PHP](/astro-doc-full-stack/blog/php/intro-frameworks)
