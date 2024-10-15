@@ -26,3 +26,4 @@ category: PHP
 - [Bases de Datos con PHP](/astro-doc-full-stack/blog/php/bases-de-datos)
 - [Bases de Datos con PHP](/astro-doc-full-stack/blog/php/bases-de-datos)
 - [Introducción a Frameworks de PHP](/astro-doc-full-stack/blog/php/intro-frameworks)
+- [Desarrollo Web con PHP y Yii2](/astro-doc-full-stack/blog/php/yii2)
