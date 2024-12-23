@@ -1,21 +1,21 @@
 ---
 layout: '../../layouts/BlogPostLayout.astro'
-title: Angular
+title: Redux
 date: 2024-02-12
 author: Mauricio Jourdán
 image:
   {
-    src: '/astro-doc-full-stack/images/angular/back.png',
-    alt: 'Angular',
+    src: '/astro-doc-full-stack/images/redux/back.png',
+    alt: 'Redux',
   }
-description: Angular
+description: Redux
 draft: false
 category: Front
 ---
 
-# Computación en la nube
+# Redux
 
-- [Angular 17](/astro-doc-full-stack/blog/angular/angular-17)
+- [Redux](/astro-doc-full-stack/blog/redux/redux) 
 
 
 <style>
