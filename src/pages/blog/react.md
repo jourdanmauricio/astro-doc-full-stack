@@ -1,21 +1,23 @@
 ---
 layout: '../../layouts/BlogPostLayout.astro'
-title: Redux
+title: React
 date: 2024-02-12
 author: Mauricio Jourdán
 image:
   {
     src: '/astro-doc-full-stack/images/redux/back.png',
-    alt: 'Redux',
+    alt: 'React',
   }
-description: Redux
+description: React
 draft: false
 category: Front
 ---
 
-# Redux
+# React
 
-- [Redux](/astro-doc-full-stack/blog/redux/redux) 
+- [Introducción a React](/astro-doc-full-stack/blog/react/introduccion-a-react)
+- [Gestion del estado](/astro-doc-full-stack/blog/react/gestion-del-estado)
+- [Redux](/astro-doc-full-stack/blog/react/redux) 
 
 
 <style>

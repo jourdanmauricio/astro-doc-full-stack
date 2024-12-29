@@ -15,7 +15,7 @@ icon:
   }
 description: Redux
 draft: false
-category: Redux
+category: front
 ---
 
 <style>
