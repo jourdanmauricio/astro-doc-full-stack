@@ -5,7 +5,7 @@ date: 2024-02-12
 author: Mauricio Jourdán
 image:
   {
-    src: '/astro-doc-full-stack/images/redux/back.png',
+    src: '/astro-doc-full-stack/images/react/back.jpg',
     alt: 'React',
   }
 description: React
@@ -16,6 +16,7 @@ category: Front
 # React
 
 - [Introducción a React](/astro-doc-full-stack/blog/react/introduccion-a-react)
+- [React + TypeScript](/astro-doc-full-stack/blog/react/react-typescritp)
 - [Gestion del estado](/astro-doc-full-stack/blog/react/gestion-del-estado)
 - [Redux](/astro-doc-full-stack/blog/react/redux) 
 

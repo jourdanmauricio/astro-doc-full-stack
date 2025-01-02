@@ -5,12 +5,12 @@ date: 2024-02-12
 author: Mauricio Jourdán
 image:
   {
-    src: '/astro-doc-full-stack/images/redux/back.png',
+    src: '/astro-doc-full-stack/images/react/back.jpg',
     alt: 'Introducción a React',
   }
 icon:
   {
-    src: '/astro-doc-full-stack/images/redux/icon.png',
+    src: '/astro-doc-full-stack/images/react/icon.png',
     alt: 'Logo React',
   }
 description: Introducción a React
@@ -1537,5 +1537,3 @@ export { NotFoundPage };
 ```
 
 </details>
-
-## React Query

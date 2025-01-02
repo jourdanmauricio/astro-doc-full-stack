@@ -5,12 +5,12 @@ date: 2024-02-12
 author: Mauricio Jourdán
 image:
   {
-    src: '/astro-doc-full-stack/images/redux/back.png',
+    src: '/astro-doc-full-stack/images/react/back.jpg',
     alt: 'Gestión del estado',
   }
 icon:
   {
-    src: '/astro-doc-full-stack/images/redux/icon.png',
+    src: '/astro-doc-full-stack/images/react/icon.png',
     alt: 'Logo react',
   }
 description: Gestión del estado

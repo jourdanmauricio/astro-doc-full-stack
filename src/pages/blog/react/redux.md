@@ -5,12 +5,12 @@ date: 2024-02-12
 author: Mauricio Jourdán
 image:
   {
-    src: '/astro-doc-full-stack/images/redux/back.png',
+    src: '/astro-doc-full-stack/images/react/redux/back.png',
     alt: 'Redux',
   }
 icon:
   {
-    src: '/astro-doc-full-stack/images/redux/icon.png',
+    src: '/astro-doc-full-stack/images/react/redux/icon.png',
     alt: 'Logo Redux',
   }
 description: Redux
@@ -98,7 +98,7 @@ DOC: https://es.redux.js.org/
 5. El store contiene al state
 6. volvemos al paso 1
 
-<img style='width:600px; heigth: 600px; margin: 0 auto; display: block ' src="/astro-doc-full-stack/images/redux/ciclo-de-vida.webp" alt="Redux">
+<img style='width:600px; heigth: 600px; margin: 0 auto; display: block ' src="/astro-doc-full-stack/images/react/redux/ciclo-de-vida.webp" alt="Redux">
 
 - El estado describe la condición actual de la aplicación, este estado “vive” dentro del store.
 - La vista o UI se renderiza basada en este estado y cuando un evento (como un click) pasa el estado se actualiza basado en lo que pasó. No se actualiza directamente, es “disparado” hacía el reducer que es el encargado de saber como se actualizará el estado. Luego de que el cambio pasa y el estado se actualiza la UI se re-renderiza basada en el estado.
@@ -535,7 +535,7 @@ createRoot(document.getElementById('root')).render(
 
 Al ejecutar la aplicación, en el navegador podremos ver la extensión de Redux DevTools. Podremos ver el estado de la aplicación, las acciones que se están disparando y el payload de las acciones. realizando click sobre la extensión accdemos a la herramienta.
 
-<img style='width:600px; heigth: 600px; margin: 0 auto; display: block ' src="/astro-doc-full-stack/images/redux/redux-devtools.png" alt="Redux">
+<img style='width:600px; heigth: 600px; margin: 0 auto; display: block ' src="/astro-doc-full-stack/images/react/redux/redux-devtools.png" alt="Redux">
 
 Otra forma de acceder a la devTools es a través de la consola del navegador. En el inspector tendremos una nueva pestaña llamada Redux. 
 
