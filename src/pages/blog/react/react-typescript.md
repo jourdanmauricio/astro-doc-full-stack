@@ -60,6 +60,7 @@ category: front
 - Utilizaremos la página https://randomfox.ca/ para obtener imágenes de zorros aleatorias.
 - APi: https://randomfox.ca/images/100.jpg
 
+Repositorio: https://github.com/jourdanmauricio/react-typescript-lazy-loading
 
 
 <details>
@@ -828,6 +829,5 @@ interface Window {
 ```
 
 Al definir una interface con el mismo nombre que un objeto que ya existe, typescript lo va a extender, y le va a agregar la propiedad plausible, la cual podemos tipar según lo que nos indique la librería que debería recibir.
-
 
 </details>
