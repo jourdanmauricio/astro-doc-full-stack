@@ -19,6 +19,9 @@ category: Front
 - [React + TypeScript](/astro-doc-full-stack/blog/react/react-typescript)
 - [Gestion del estado](/astro-doc-full-stack/blog/react/gestion-del-estado)
 - [Redux](/astro-doc-full-stack/blog/react/redux) 
+- [Ejemplo fetching da detos](/astro-doc-full-stack/blog/react/ejemplo-fetching-datos)
+- [Tanstack Query](/astro-doc-full-stack/blog/react/tanstack-query)
+- [SWR - Obtención de datos](/astro-doc-full-stack/blog/react/swr)
 - [React testing Library](/astro-doc-full-stack/blog/react/react-testing-library) 
 
 
