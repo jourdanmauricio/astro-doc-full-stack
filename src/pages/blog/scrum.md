@@ -1,19 +1,19 @@
 ---
 layout: '../../layouts/BlogPostLayout.astro'
-title: Scrum
+title: Metodologías ágiles
 date: 2024-02-12
 author: Mauricio Jourdán
 image:
   {
-    src: '/astro-doc-full-stack/images/scrum/back.png',
+    src: '/astro-doc-full-stack/images/scrum/back.webp',
     alt: 'Scrum',
   }
-description: Scrum
+description: Metodologías ágiles
 draft: false
-category: Scrum
+category: Metodologías ágiles
 ---
 
-# Computación en la nube
+# Metodologías ágiles
 
 - [Scrum](/astro-doc-full-stack/blog/scrum/scrum)
 - [Historias de usuarios](/astro-doc-full-stack/blog/scrum/hu)

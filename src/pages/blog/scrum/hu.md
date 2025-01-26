@@ -5,7 +5,7 @@ date: 2024-02-12
 author: Mauricio Jourdán
 image:
   {
-    src: '/astro-doc-full-stack/images/scrum/back.png',
+    src: '/astro-doc-full-stack/images/scrum/back.webp',
     alt: 'Historias de Usuario',
   }
 icon:

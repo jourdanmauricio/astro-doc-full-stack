@@ -23,7 +23,7 @@ category: Front
 - [Tanstack Query](/astro-doc-full-stack/blog/react/tanstack-query)
 - [SWR - Obtención de datos](/astro-doc-full-stack/blog/react/swr)
 - [React testing Library](/astro-doc-full-stack/blog/react/react-testing-library) 
-
+- [Next Js Avanzado](/astro-doc-full-stack/blog/react/next-js-avanzado)
 
 <style>
   h1 { color: #713f12; }
